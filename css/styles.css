@@ -142,8 +142,16 @@ button {
 
 .logo-icon {
     display: block;
-    height: 35px;
+    height: 80px;
     width: auto;
+    transition: transform 0.1s ease-out; /* Suavidad en la rotación 3D */
+    transform-style: preserve-3d;
+}
+
+.hero-logo-container {
+    display: block; /* o inline-block/flex según necesidad */
+    margin-bottom: 30px;
+    perspective: 1000px; /* Base del efecto 3D */
 }
 
 /* 5. LAYOUT: NAVEGACIÓN
