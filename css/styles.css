@@ -1,0 +1,364 @@
+/* ==========================================================================
+   PUNTOZERO - STYLESHEET
+   Descripción: Diseño formal, minimalista y estrictamente monocromático.
+   Arquitectura: Variables, Reset, Utilidades, Componentes y Layout.
+   ========================================================================== */
+
+/* 1. CUSTOM PROPERTIES (VARIABLES)
+   Permiten escalar el diseño de manera mantenible
+   ========================================================================== */
+   :root {
+    /* Paleta - Estrictamente Monocromática */
+    --color-black: #0a0a0a;
+    --color-white: #ffffff;
+    --color-gray-dark: #333333;
+    --color-gray-light: #e6e6e6;
+    
+    /* Tipografía - Inter (Formal, geométrica, legible en pantallas) */
+    --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Sistema de espaciado escalable */
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+    --space-xxl: 8rem;
+
+    /* Configuración de Layout */
+    --max-width: 1200px;
+    --header-height: 90px;
+
+    /* Transiciones para interacciones suaves */
+    --transition-fast: 0.2s ease-in-out;
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. RESET & BASE
+   Crea una base consistente en todos los navegadores
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    line-height: 1.6;
+    /* Suavizado formal de tipografía */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+/* 3. UTILIDADES CENTRALES
+   Para no duplicar código en el layout
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+/* Esconde visualmente elementos, manteniéndolos legibles para Screen Readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* 4. COMPONENTES
+   Elementos modulares de UI (Component Driven Design)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) 2.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--color-black);
+}
+
+.btn-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-black);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-gray-light);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+/* 5. LAYOUT: NAVEGACIÓN
+   ========================================================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: rgba(255, 255, 255, 0.95); /* Efecto semi-transparente minmalista */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-gray-light);
+    z-index: 1000;
+    transition: transform var(--transition-smooth);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-list {
+    display: flex;
+    gap: var(--space-lg);
+}
+
+.nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    padding: var(--space-sm) 0;
+}
+
+/* Micro-interacción: Underline dinámico al hacer hover */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-black);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-smooth);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Icono Navigator (Burger) para versión móvil */
+.menu-toggle {
+    display: none;
+    width: 24px;
+    height: 24px;
+    position: relative;
+}
+
+.hamburger, 
+.hamburger::before, 
+.hamburger::after {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-black);
+    position: absolute;
+    transition: transform var(--transition-fast);
+}
+
+.hamburger {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger::before {
+    content: '';
+    top: -6px;
+}
+
+.hamburger::after {
+    content: '';
+    top: 6px;
+}
+
+/* 6. LAYOUT: HERO SECTION
+   ========================================================================== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--header-height);
+}
+
+.hero-container {
+    max-width: 900px;
+    margin: 0;
+}
+
+.hero-title {
+    /* Responsive typography usando clamp() para rendimiento máximo */
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-gray-dark);
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-md);
+}
+
+/* 7. LAYOUT: FOOTER
+   ========================================================================== */
+.footer {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-lg);
+    align-items: end;
+}
+
+.footer-brand .logo {
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.footer-desc {
+    color: var(--color-gray-light);
+    font-size: 0.875rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: var(--space-lg);
+    font-size: 0.875rem;
+}
+
+.footer-links a {
+    color: var(--color-gray-light);
+    transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--color-white);
+}
+
+.footer-copyright {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--color-gray-dark);
+    padding-top: var(--space-lg);
+    margin-top: var(--space-lg);
+    font-size: 0.75rem;
+    color: var(--color-gray-dark);
+    text-align: center;
+}
+
+/* 8. RESPONSIVE (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-list {
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-lg) 0;
+        gap: var(--space-md);
+        border-bottom: 1px solid var(--color-gray-light);
+        
+        /* Oculto por defecto en mobile */
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: all var(--transition-fast);
+    }
+
+    .nav-list.is-active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .footer-links {
+        justify-content: center;
+    }
+}
