@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
             
-            // C├ílculo de la rotaci├│n (-20 a 20 grados m├íximo)
-            const rotateX = -((mouseY - centerY) / centerY) * 20; 
-            const rotateY = ((mouseX - centerX) / centerX) * 20;
+            // Cálculo de la rotación (-10 a 10 grados máximo)
+            const rotateX = -((mouseY - centerY) / centerY) * 10; 
+            const rotateY = ((mouseX - centerX) / centerX) * 10;
             
             // Aplicar transformaci├│n 3D
             logo3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;

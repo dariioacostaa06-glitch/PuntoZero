@@ -134,24 +134,27 @@ button {
 .logo {
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-black);
     letter-spacing: -0.05em;
     text-transform: uppercase;
 }
 
-.logo-icon {
-    display: block;
-    height: 80px;
-    width: auto;
-    transition: transform 0.1s ease-out; /* Suavidad en la rotación 3D */
-    transform-style: preserve-3d;
+.hero-visual-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; /* Base del efecto 3D */
 }
 
-.hero-logo-container {
-    display: block; /* o inline-block/flex según necesidad */
-    margin-bottom: 30px;
-    perspective: 1000px; /* Base del efecto 3D */
+.hero-visual-img {
+    display: block;
+    height: 350px;
+    width: auto;
+    transition: transform 0.15s ease-out; /* Suavidad y fluidez en la rotación 3D */
+    transform-style: preserve-3d;
 }
 
 /* 5. LAYOUT: NAVEGACIÓN
@@ -253,8 +256,16 @@ button {
 }
 
 .hero-container {
-    max-width: 900px;
-    margin: 0;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+}
+
+.hero-content {
+    flex: 1;
 }
 
 .hero-title {
@@ -358,6 +369,25 @@ button {
         opacity: 1;
         transform: translateY(0);
         pointer-events: auto;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        padding-top: var(--space-xl);
+    }
+    
+    .hero-visual-container {
+        width: 100%;
+        order: -1;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .hero-content {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .hero-actions {
