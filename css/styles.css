@@ -132,10 +132,18 @@ button {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.05em;
     text-transform: uppercase;
+}
+
+.logo-icon {
+    display: block;
+    height: 35px;
+    width: auto;
 }
 
 /* 5. LAYOUT: NAVEGACIÓN
