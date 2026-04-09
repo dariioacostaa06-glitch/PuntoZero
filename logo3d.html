@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title>PuntoZero 3D Logo</title>
     <style>
-        /* Reseteo básico y fondo oscuro para la Zona Roja */
+        /* Reseteo básico y fondo blanco */
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #111111;
-            /* Fondo oscuro formal */
+            background-color: #ffffff;
+            /* Fondo claro formal */
         }
 
         canvas {
@@ -37,9 +37,9 @@
         // 2. CREACIÓN DEL LOGOTIPO PUNTOZERO (Geometría programática)
         const logoGroup = new THREE.Group();
 
-        // Material: Blanco, muy reflectante (metálico) y liso
+        // Material: Negro, muy reflectante (metálico) y liso
         const logoMaterial = new THREE.MeshStandardMaterial({
-            color: 0xffffff,
+            color: 0x111111,
             metalness: 0.8,
             roughness: 0.15
         });
