@@ -264,13 +264,13 @@ button {
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 18rem;
+    min-width: 45rem; /* Amplio para Mega Menu */
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-light);
     border-radius: 4px;
-    padding: var(--space-sm) 0;
+    padding: var(--space-md);
     margin-top: calc(var(--space-sm) / 2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     z-index: 1050;
 
     /* Animación Inicial */
@@ -286,22 +286,68 @@ button {
     transform: translateY(0);
 }
 
-.dropdown-list li {
-    list-style: none;
+.mega-menu-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    list-style: none; /* Eliminar viñetas */
 }
 
-.dropdown-list a {
-    display: block;
-    padding: var(--space-sm) var(--space-lg);
-    font-size: 0.875rem;
-    color: var(--color-black);
-    font-weight: 500;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
+.mega-menu-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+    cursor: pointer;
 }
 
-.dropdown-list a:hover {
+.mega-menu-card:hover {
+    transform: translateY(-4px);
     background-color: var(--color-black);
     color: var(--color-white);
+    border-color: var(--color-black);
+}
+
+.mega-menu-card:hover h3, 
+.mega-menu-card:hover p {
+    color: var(--color-white); /* Inversión en hover */
+}
+
+.mega-menu-visual {
+    width: 100%;
+    height: 120px; /* Altura predeterminada del lienzo 3D */
+    background-color: #f7f7f7;
+    position: relative;
+    overflow: hidden;
+}
+
+.mega-menu-visual canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mega-menu-content {
+    padding: var(--space-sm);
+}
+
+.mega-menu-content h3 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--color-black);
+    transition: color var(--transition-fast);
+}
+
+.mega-menu-content p {
+    font-size: 0.75rem;
+    color: var(--color-gray-dark);
+    margin: 0;
+    line-height: 1.4;
+    transition: color var(--transition-fast);
 }
 
 /* 6. LAYOUT: HERO SECTION
@@ -444,15 +490,16 @@ button {
     }
     
     #dropdown-servicios.activo {
-        max-height: 500px;
-        padding: var(--space-sm) 0;
+        max-height: 800px; /* Suficiente para apilar tarjetas 3D */
+        padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
         visibility: visible;
         opacity: 1;
         transform: translateY(0);
     }
     
-    .dropdown-list a {
-        padding-left: var(--space-md);
+    .mega-menu-list {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
     }
 
     .nav-list.is-active {
