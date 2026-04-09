@@ -147,6 +147,8 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #111111;
+    perspective: 1000px;
 }
 
 #interactive-logo {
