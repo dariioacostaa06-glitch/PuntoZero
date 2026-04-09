@@ -253,6 +253,57 @@ button {
     top: 6px;
 }
 
+/* 5.1 DROPDOWN SERVICIOS */
+.dropdown-parent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#dropdown-servicios {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 18rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    border-radius: 4px;
+    padding: var(--space-sm) 0;
+    margin-top: calc(var(--space-sm) / 2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 1050;
+
+    /* Animación Inicial */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+#dropdown-servicios.activo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-list li {
+    list-style: none;
+}
+
+.dropdown-list a {
+    display: block;
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 0.875rem;
+    color: var(--color-black);
+    font-weight: 500;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-list a:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
 /* 6. LAYOUT: HERO SECTION
    ========================================================================== */
 .hero {
@@ -371,6 +422,37 @@ button {
         transform: translateY(-10px);
         pointer-events: none;
         transition: all var(--transition-fast);
+    }
+
+    /* DROPDOWN EN MÓVIL */
+    #dropdown-servicios {
+        position: static;
+        width: 100%;
+        min-width: 100%;
+        box-shadow: none;
+        border: none;
+        border-left: 2px solid var(--color-black);
+        border-radius: 0;
+        margin-top: var(--space-sm);
+        padding: 0;
+        
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    
+    #dropdown-servicios.activo {
+        max-height: 500px;
+        padding: var(--space-sm) 0;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .dropdown-list a {
+        padding-left: var(--space-md);
     }
 
     .nav-list.is-active {

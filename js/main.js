@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- Men├║ Mobile Toggle ----
+    // ---- Menú Mobile Toggle ----
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
 
@@ -8,6 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
             menuToggle.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('is-active');
+        });
+    }
+
+    // ---- Dropdown Servicios ----
+    const btnServicios = document.getElementById('btn-servicios');
+    const dropdownServicios = document.getElementById('dropdown-servicios');
+
+    if (btnServicios && dropdownServicios) {
+        // Toggle dropdown en clic al botón
+        btnServicios.addEventListener('click', (e) => {
+            e.preventDefault(); // Evitamos scroll abrupto temporal al abrir menú
+            dropdownServicios.classList.toggle('activo');
+        });
+
+        // Click exterior para cerrar el dropdown interactivamente
+        document.addEventListener('click', (e) => {
+            if (!btnServicios.contains(e.target) && !dropdownServicios.contains(e.target)) {
+                dropdownServicios.classList.remove('activo');
+            }
         });
     }
     
