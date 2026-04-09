@@ -142,6 +142,19 @@ button {
     text-transform: uppercase;
 }
 
+.header-logo-icon {
+    height: 24px;
+    width: auto;
+    margin-right: 10px;
+    filter: invert(1); /* Invertido a oscuro porque el header es blanco */
+}
+
+.footer-logo-icon {
+    height: 24px;
+    width: auto;
+    margin-right: 10px;
+}
+
 .hero-visual {
     width: 50%;
     display: flex;
@@ -299,7 +312,8 @@ button {
 }
 
 .footer-brand .logo {
-    display: block;
+    display: flex; /* Mantiene la alineación flex del logo base */
+    color: var(--color-white); /* Corrige legibilidad en el fondo negro */
     margin-bottom: var(--space-sm);
 }
 
