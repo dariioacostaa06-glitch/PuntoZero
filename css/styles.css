@@ -143,14 +143,14 @@ button {
 }
 
 .header-logo-icon {
-    height: 18px;
+    height: 21px;
     width: auto;
     margin-right: 10px;
     filter: invert(1); /* Invertido a oscuro porque el header es blanco */
 }
 
 .footer-logo-icon {
-    height: 18px;
+    height: 21px;
     width: auto;
     margin-right: 10px;
 }
