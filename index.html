@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="PuntoZero - Estudio de Ingeniería de Software formal, minimalista y de alto rendimiento.">
+    <meta name="description"
+        content="PuntoZero - Estudio de Ingeniería de Software formal, minimalista y de alto rendimiento.">
     <title>PuntoZero | Software Engineering Studio</title>
-    
+
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <!-- Preconexión para fuentes (opcional si se usan fuentes externas como Google Fonts) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <!-- HEADER & NAVIGATION -->
     <!-- Semántica: La etiqueta <header> agrupa el logotipo y la navegación principal -->
     <header class="header" id="main-header">
         <div class="container header-container">
             <a href="/" class="logo">PuntoZero</a>
-            
+
             <nav class="nav" aria-label="Navegación principal">
                 <!-- Botón de menú para dispositivos móviles con atributos ARIA para accesibilidad -->
                 <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle">
                     <span class="sr-only">Abrir menú</span>
                     <span class="hamburger" aria-hidden="true"></span>
                 </button>
-                
+
                 <ul class="nav-list" id="nav-menu">
                     <li class="nav-item"><a href="#services" class="nav-link">Servicios</a></li>
                     <li class="nav-item"><a href="#methodology" class="nav-link">Metodología</a></li>
@@ -40,27 +43,29 @@
     <!-- MAIN CONTENT -->
     <!-- Semántica: <main> contiene el contenido principal, único por documento -->
     <main>
-        
+
         <!-- HERO SECTION -->
         <!-- Impacto inicial: Tipografía grande, mensaje directo, llamadas a la acción claras -->
         <section class="hero" id="hero">
             <div class="container hero-container">
                 <div class="hero-content">
                     <h1 class="hero-title">Ingeniería<br>en su estado<br>más puro.</h1>
-                    <p class="hero-subtitle">Desarrollamos soluciones de software robustas, escalables y eficientes. La perfección técnica es nuestra norma de diseño.</p>
+                    <p class="hero-subtitle">Desarrollamos soluciones de software robustas, escalables y eficientes. La
+                        perfección técnica es nuestra norma de diseño.</p>
                     <div class="hero-actions">
                         <a href="#contact" class="btn btn-primary">Iniciar Proyecto</a>
                         <a href="#services" class="btn btn-secondary">Descubrir Más</a>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <iframe src="logo3d.html" title="PuntoZero 3D Logo" style="width: 100%; height: 500px; border: none; overflow: hidden; background-color: transparent;"></iframe>
+                    <iframe src="logo3d.html" title="PuntoZero 3D Logo"
+                        style="width: 100%; height: 500px; border: none; overflow: hidden; background-color: transparent;"></iframe>
                 </div>
             </div>
         </section>
-        
+
         <!-- Aquí se pueden incluir secciones adicionales mediante componentes modulares -->
-        
+
     </main>
 
     <!-- FOOTER -->
@@ -85,4 +90,5 @@
     <!-- Scripts ubicados al final para no bloquear el renderizado -->
     <script src="js/main.js"></script>
 </body>
+
 </html>
