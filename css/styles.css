@@ -263,7 +263,7 @@ button {
 #dropdown-servicios {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%; /* Punto de giro en el centro del li padre */
     min-width: 45rem; /* Amplio para Mega Menu */
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-light);
@@ -273,17 +273,17 @@ button {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     z-index: 1050;
 
-    /* Animación Inicial */
+    /* Centrado visual exacto y Animación Inicial */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
+    transform: translateX(-50%) translateY(-10px); /* El translate X acomoda la caja 50% de sí misma */
     transition: all 0.3s ease;
 }
 
 #dropdown-servicios.activo {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 .mega-menu-list {
