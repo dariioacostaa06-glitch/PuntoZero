@@ -148,12 +148,6 @@ button {
     justify-content: center;
     align-items: center;
     background-color: #111111;
-    perspective: 1000px;
-}
-
-#interactive-logo {
-    transition: transform 0.15s ease-out;
-    transform-style: preserve-3d;
 }
 
 

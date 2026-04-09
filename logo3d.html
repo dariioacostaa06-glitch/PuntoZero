@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PuntoZero 3D Logo</title>
+    <style>
+        /* Reseteo básico y fondo oscuro para la Zona Roja */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #111111;
+            /* Fondo oscuro formal */
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // 1. CONFIGURACIÓN DE LA ESCENA
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 12; // Distancia de la cámara
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 2. CREACIÓN DEL LOGOTIPO PUNTOZERO (Geometría programática)
+        const logoGroup = new THREE.Group();
+
+        // Material: Blanco, muy reflectante (metálico) y liso
+        const logoMaterial = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            metalness: 0.8,
+            roughness: 0.15
+        });
+
+        // Parte A: El anillo principal (La 'O' ornamentada simplificada)
+        // (Radio, grosor del tubo, segmentos radiales, segmentos tubulares)
+        const ringGeometry = new THREE.TorusGeometry(2.5, 0.4, 32, 100);
+        const ring = new THREE.Mesh(ringGeometry, logoMaterial);
+        logoGroup.add(ring);
+
+        // Parte B: El eje diagonal
+        const shaftGeometry = new THREE.CylinderGeometry(0.25, 0.25, 8, 32);
+        const shaft = new THREE.Mesh(shaftGeometry, logoMaterial);
+        shaft.rotation.z = -Math.PI / 4; // Rotación de 45 grados
+        logoGroup.add(shaft);
+
+        // Parte C: La punta de flecha plana/gruesa superior derecha
+        const arrowHeadGeometry = new THREE.ConeGeometry(0.8, 1.5, 32);
+        const arrowHead = new THREE.Mesh(arrowHeadGeometry, logoMaterial);
+        // Posicionamos la flecha al final del eje (matemáticas de triángulos)
+        arrowHead.position.set(2.8, 2.8, 0);
+        arrowHead.rotation.z = -Math.PI / 4;
+        logoGroup.add(arrowHead);
+
+        // Parte D: El anillo base inferior izquierdo
+        const baseRingGeometry = new THREE.TorusGeometry(0.5, 0.25, 32, 50);
+        const baseRing = new THREE.Mesh(baseRingGeometry, logoMaterial);
+        baseRing.position.set(-2.8, -2.8, 0);
+        logoGroup.add(baseRing);
+
+        scene.add(logoGroup);
+
+        // 3. ILUMINACIÓN (Crucial para el efecto 3D)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Luz general
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 5, 5); // Luz desde arriba a la derecha
+        scene.add(directionalLight);
+
+        // 4. INTERACTIVIDAD CON EL RATÓN
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            // Normalizamos las coordenadas del ratón de -1 a 1
+            mouseX = (event.clientX - windowHalfX) / windowHalfX;
+            mouseY = (event.clientY - windowHalfY) / windowHalfY;
+        });
+
+        // 5. RESPONSIVIDAD (Si se cambia el tamaño de la ventana)
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // 6. BUCLE DE ANIMACIÓN
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Limitamos la rotación (ej. a 0.5 radianes que son unos 28 grados)
+            targetX = mouseX * 0.5;
+            targetY = mouseY * 0.5;
+
+            // Interpolación lineal (lerp) para un movimiento suave y "líquido"
+            logoGroup.rotation.y += (targetX - logoGroup.rotation.y) * 0.05;
+            logoGroup.rotation.x += (targetY - logoGroup.rotation.x) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        // Iniciamos la animación
+        animate();
+    </script>
+</body>
+
+</html>
