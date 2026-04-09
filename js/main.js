@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ---- Efecto 3D Interactivo del Logo ----
     const heroSection = document.getElementById('hero');
-    const logo3D = document.getElementById('logo-3d');
+    const logo3D = document.getElementById('interactive-logo');
     
     if (heroSection && logo3D) {
         heroSection.addEventListener('mousemove', (e) => {
@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const rotateX = -((mouseY - centerY) / centerY) * 10; 
             const rotateY = ((mouseX - centerX) / centerX) * 10;
             
-            // Aplicar transformaci├│n 3D
-            logo3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            // Aplicar transformaci├│n 3D con perspectiva
+            logo3D.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
         
         // Reset al salir el rat├│n
         heroSection.addEventListener('mouseleave', () => {
-            logo3D.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            logo3D.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
         });
     }
 

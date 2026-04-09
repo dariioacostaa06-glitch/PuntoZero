@@ -134,28 +134,26 @@ button {
 .logo {
     display: flex;
     align-items: center;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 24px;
-    font-weight: 700;
-    color: var(--color-black);
+    font-weight: 800;
+    color: #000000;
     letter-spacing: -0.05em;
     text-transform: uppercase;
 }
 
-.hero-visual-container {
+.hero-visual {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px; /* Base del efecto 3D */
 }
 
-.hero-visual-img {
-    display: block;
-    height: 350px;
-    width: auto;
-    transition: transform 0.15s ease-out; /* Suavidad y fluidez en la rotación 3D */
+#interactive-logo {
+    transition: transform 0.15s ease-out;
     transform-style: preserve-3d;
 }
+
 
 /* 5. LAYOUT: NAVEGACIÓN
    ========================================================================== */
@@ -265,7 +263,7 @@ button {
 }
 
 .hero-content {
-    flex: 1;
+    width: 50%;
 }
 
 .hero-title {
@@ -377,7 +375,7 @@ button {
         padding-top: var(--space-xl);
     }
     
-    .hero-visual-container {
+    .hero-visual {
         width: 100%;
         order: -1;
         margin-bottom: var(--space-lg);
