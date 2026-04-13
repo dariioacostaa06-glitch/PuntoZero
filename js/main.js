@@ -1,3 +1,42 @@
+/* =========================================================================
+   BOTTOM SHEET LÓGICA (Para versión Móvil)
+   ========================================================================= */
+const serviceData = {
+    ecommerce: {
+        title: "Modelado Web E-commerce",
+        desc: "Diseño UI/UX para tiendas y servicios online. Creamos catálogos de venta optimizados para conversión, integración de pasarelas de pago fluidas y paneles de gestión de inventario totalmente automatizados."
+    },
+    desarrollo: {
+        title: "Desarrollo Web Completo",
+        desc: "Construcción integral de páginas web a medida. Desarrollamos desde aplicaciones complejas Single-Page (SPA) hasta corporativas usando arquitecturas sólidas orientadas al máximo rendimiento y latencia cero."
+    },
+    prototipado: {
+        title: "Prototipado 3D Físico",
+        desc: "Creación de modelos físicos y prototipos ingenieriles. Materializamos tus ideas usando manufactura aditiva (Impresión 3D de alta precisión), validación volumétrica y pruebas de resistencia mecánica y ensamblado."
+    }
+};
+
+window.openBottomSheet = function(serviceKey) {
+    const sheet = document.getElementById('bottom-sheet');
+    const title = document.getElementById('sheet-title');
+    const desc = document.getElementById('sheet-desc');
+    
+    if (serviceData[serviceKey] && sheet) {
+        title.textContent = serviceData[serviceKey].title;
+        desc.textContent = serviceData[serviceKey].desc;
+        sheet.classList.add('active');
+        document.body.style.overflow = 'hidden'; // evitamos scroll de fondo
+    }
+};
+
+window.closeBottomSheet = function() {
+    const sheet = document.getElementById('bottom-sheet');
+    if (sheet) {
+        sheet.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // Año en el footer de Desktop

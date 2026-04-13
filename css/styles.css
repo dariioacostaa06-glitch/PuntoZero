@@ -155,6 +155,79 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     margin-bottom: 2px;
 }
 
+/* Bottom Sheet Modal */
+.bottom-sheet {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.bottom-sheet.active {
+    pointer-events: auto;
+}
+
+.sheet-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bottom-sheet.active .sheet-overlay {
+    opacity: 1;
+}
+
+.sheet-content {
+    position: relative;
+    background-color: var(--color-white);
+    width: 100%;
+    padding: var(--space-lg);
+    border-radius: 24px 24px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.bottom-sheet.active .sheet-content {
+    transform: translateY(0);
+}
+
+.sheet-drag-handle {
+    width: 40px;
+    height: 4px;
+    background-color: var(--color-gray-light);
+    border-radius: 2px;
+    margin: 0 auto var(--space-sm);
+}
+
+.sheet-content h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-black);
+}
+
+.sheet-content p {
+    font-size: 1rem;
+    color: var(--color-gray-dark);
+}
+
+.sheet-btn {
+    margin-top: var(--space-sm);
+    background-color: var(--color-gray-light);
+    color: var(--color-black);
+}
+
+.sheet-btn:active {
+    background-color: #d0d0d0;
+}
+
 
 /* 3. ESTILOS DESKTOP SHOWCASE ( >= 1024px ) */
 @media (min-width: 1024px) {
