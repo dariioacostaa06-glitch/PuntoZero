@@ -37,6 +37,32 @@ window.closeBottomSheet = function() {
     }
 };
 
+window.showView = function(viewId) {
+    // 1. Ocultar todas las vistas
+    const views = document.querySelectorAll('.app-view');
+    views.forEach(view => view.classList.remove('active-view'));
+    
+    // 2. Mostrar la solicitada
+    const targetView = document.getElementById(viewId);
+    if (targetView) {
+        targetView.classList.add('active-view');
+    }
+    
+    // 3. Sincronizar Bottom Navigation
+    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    
+    let navId = '';
+    if(viewId === 'view-home') navId = 'nav-home';
+    if(viewId === 'view-services') navId = 'nav-services';
+    if(viewId === 'view-contact') navId = 'nav-contact';
+    
+    if(navId) {
+        const activeNav = document.getElementById(navId);
+        if(activeNav) activeNav.classList.add('active');
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // Año en el footer de Desktop
