@@ -498,7 +498,8 @@ button {
     }
     
     .mega-menu-list {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: var(--space-sm);
     }
 
@@ -531,14 +532,29 @@ button {
         flex-direction: column;
     }
     
+    /* Tipografía Mobile-First */
+    h1, .hero-title {
+        font-size: 2.25rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    p, .hero-subtitle {
+        font-size: 1rem;
+    }
+    
     .btn {
         width: 100%;
     }
     
     .footer-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         text-align: center;
         align-items: center;
+        gap: var(--space-md);
     }
     
     .footer-links {
