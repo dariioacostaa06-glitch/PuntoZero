@@ -1,563 +1,277 @@
 /* ==========================================================================
-   PUNTOZERO - STYLESHEET
-   Descripción: Diseño formal, minimalista y estrictamente monocromático.
-   Arquitectura: Variables, Reset, Utilidades, Componentes y Layout.
+   PUNTOZERO - STYLESHEET EXTREME RESPONSIVE
+   Descripción: Diseño formal, minimalista segmentado entre Móvil (App) y Desktop (Showcase).
    ========================================================================== */
 
-/* 1. CUSTOM PROPERTIES (VARIABLES)
-   Permiten escalar el diseño de manera mantenible
-   ========================================================================== */
-   :root {
-    /* Paleta - Estrictamente Monocromática */
+/* 1. CUSTOM PROPERTIES & RESET */
+:root {
     --color-black: #0a0a0a;
     --color-white: #ffffff;
     --color-gray-dark: #333333;
     --color-gray-light: #e6e6e6;
     
-    /* Tipografía - Inter (Formal, geométrica, legible en pantallas) */
     --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
     
-    /* Sistema de espaciado escalable */
     --space-sm: 0.5rem;
     --space-md: 1rem;
     --space-lg: 2rem;
     --space-xl: 4rem;
-    --space-xxl: 8rem;
-
-    /* Configuración de Layout */
-    --max-width: 1200px;
-    --header-height: 90px;
-
-    /* Transiciones para interacciones suaves */
+    
     --transition-fast: 0.2s ease-in-out;
-    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 2. RESET & BASE
-   Crea una base consistente en todos los navegadores
-   ========================================================================== */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
+    margin: 0;
     font-family: var(--font-primary);
     background-color: var(--color-white);
     color: var(--color-black);
     line-height: 1.6;
-    /* Suavizado formal de tipografía */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; }
 
-a {
-    color: inherit;
-    text-decoration: none;
+/* 2. ESTRUCTURA DOBLE VISTA (Mobile-First Default) */
+#desktop-showcase {
+    display: none;
 }
 
-ul {
-    list-style: none;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font: inherit;
-    color: inherit;
-}
-
-/* 3. UTILIDADES CENTRALES
-   Para no duplicar código en el layout
-   ========================================================================== */
-.container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-}
-
-/* Esconde visualmente elementos, manteniéndolos legibles para Screen Readers */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-/* 4. COMPONENTES
-   Elementos modulares de UI (Component Driven Design)
-   ========================================================================== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-md) 2.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    transition: all var(--transition-fast);
-    border: 1px solid var(--color-black);
-}
-
-.btn-primary {
-    background-color: var(--color-black);
-    color: var(--color-white);
-}
-
-.btn-primary:hover {
+#mobile-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Para no tapar contenido con el bottom-nav */
     background-color: var(--color-white);
-    color: var(--color-black);
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--color-black);
-}
-
-.btn-secondary:hover {
-    background-color: var(--color-gray-light);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: #000000;
-    letter-spacing: -0.05em;
-    text-transform: uppercase;
-}
-
-.header-logo-icon {
-    height: 21px;
-    width: auto;
-    margin-right: 10px;
-    filter: invert(1); /* Invertido a oscuro porque el header es blanco */
-}
-
-.footer-logo-icon {
-    height: 21px;
-    width: auto;
-    margin-right: 10px;
-}
-
-.hero-visual {
-    width: 50%;
+/* --- ESTILOS VÍA MÓVIL (#mobile-app) --- */
+.mobile-header {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-gray-light);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
-}
-
-
-/* 5. LAYOUT: NAVEGACIÓN
-   ========================================================================== */
-.header {
-    position: fixed;
+    background-color: var(--color-white);
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    background-color: rgba(255, 255, 255, 0.95); /* Efecto semi-transparente minmalista */
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-gray-light);
-    z-index: 1000;
-    transition: transform var(--transition-smooth);
+    z-index: 100;
 }
 
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
+.mobile-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: var(--color-black);
 }
 
-.nav-list {
+.mobile-content {
+    flex: 1;
+    padding: var(--space-lg);
     display: flex;
+    flex-direction: column;
     gap: var(--space-lg);
 }
 
-.nav-link {
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    position: relative;
-    padding: var(--space-sm) 0;
+.mobile-hero h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.04em;
 }
 
-/* Micro-interacción: Underline dinámico al hacer hover */
-.nav-link::after {
-    content: '';
-    position: absolute;
+.mobile-hero p {
+    font-size: 1.125rem;
+    color: var(--color-gray-dark);
+}
+
+.mobile-services {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+}
+
+/* App Buttons Masivos (Dactilares) */
+.app-btn {
+    width: 100%;
+    min-height: 64px; /* Dedos: min 48px, usamos 64px para dar sensación premium */
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-size: 1.125rem;
+    font-weight: 600;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.app-btn:active {
+    transform: scale(0.98);
+    background-color: var(--color-gray-dark);
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 1px;
-    background-color: var(--color-black);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform var(--transition-smooth);
+    height: 70px;
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-gray-light);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.03);
 }
 
-.nav-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Icono Navigator (Burger) para versión móvil */
-.menu-toggle {
-    display: none;
-    width: 24px;
-    height: 24px;
-    position: relative;
-}
-
-.hamburger, 
-.hamburger::before, 
-.hamburger::after {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-black);
-    position: absolute;
-    transition: transform var(--transition-fast);
-}
-
-.hamburger {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.hamburger::before {
-    content: '';
-    top: -6px;
-}
-
-.hamburger::after {
-    content: '';
-    top: 6px;
-}
-
-/* 5.1 DROPDOWN SERVICIOS */
-.dropdown-parent {
-    position: relative;
+.nav-item {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-gray-dark);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: color var(--transition-fast);
 }
 
-#dropdown-servicios {
-    position: absolute;
-    top: 100%;
-    left: 50%; /* Punto de giro en el centro del li padre */
-    min-width: 45rem; /* Amplio para Mega Menu */
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-light);
-    border-radius: 4px;
-    padding: var(--space-md);
-    margin-top: calc(var(--space-sm) / 2);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    z-index: 1050;
-
-    /* Centrado visual exacto y Animación Inicial */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-50%) translateY(-10px); /* El translate X acomoda la caja 50% de sí misma */
-    transition: all 0.3s ease;
-}
-
-#dropdown-servicios.activo {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-
-.mega-menu-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-    list-style: none; /* Eliminar viñetas */
-}
-
-.mega-menu-card {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-light);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform var(--transition-fast), background-color var(--transition-fast);
-    cursor: pointer;
-}
-
-.mega-menu-card:hover {
-    transform: translateY(-4px);
-    background-color: var(--color-black);
-    color: var(--color-white);
-    border-color: var(--color-black);
-}
-
-.mega-menu-card:hover h3, 
-.mega-menu-card:hover p {
-    color: var(--color-white); /* Inversión en hover */
-}
-
-.mega-menu-visual {
-    width: 100%;
-    height: 120px; /* Altura predeterminada del lienzo 3D */
-    background-color: #f7f7f7;
-    position: relative;
-    overflow: hidden;
-}
-
-.mega-menu-visual canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.mega-menu-content {
-    padding: var(--space-sm);
-}
-
-.mega-menu-content h3 {
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+.nav-item.active, .nav-item:hover {
     color: var(--color-black);
-    transition: color var(--transition-fast);
 }
 
-.mega-menu-content p {
-    font-size: 0.75rem;
-    color: var(--color-gray-dark);
-    margin: 0;
-    line-height: 1.4;
-    transition: color var(--transition-fast);
+.nav-item svg {
+    margin-bottom: 2px;
 }
 
-/* 6. LAYOUT: HERO SECTION
-   ========================================================================== */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: var(--header-height);
-}
 
-.hero-container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-xl);
-}
-
-.hero-content {
-    width: 50%;
-}
-
-.hero-title {
-    /* Responsive typography usando clamp() para rendimiento máximo */
-    font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin-bottom: var(--space-lg);
-}
-
-.hero-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--color-gray-dark);
-    max-width: 600px;
-    margin-bottom: var(--space-xl);
-}
-
-.hero-actions {
-    display: flex;
-    gap: var(--space-md);
-}
-
-/* 7. LAYOUT: FOOTER
-   ========================================================================== */
-.footer {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    padding: var(--space-xl) 0 var(--space-lg);
-}
-
-.footer-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-lg);
-    align-items: end;
-}
-
-.footer-brand .logo {
-    display: flex; /* Mantiene la alineación flex del logo base */
-    color: var(--color-white); /* Corrige legibilidad en el fondo negro */
-    margin-bottom: var(--space-sm);
-}
-
-.footer-desc {
-    color: var(--color-gray-light);
-    font-size: 0.875rem;
-}
-
-.footer-links {
-    display: flex;
-    gap: var(--space-lg);
-    font-size: 0.875rem;
-}
-
-.footer-links a {
-    color: var(--color-gray-light);
-    transition: color var(--transition-fast);
-}
-
-.footer-links a:hover {
-    color: var(--color-white);
-}
-
-.footer-copyright {
-    grid-column: 1 / -1;
-    border-top: 1px solid var(--color-gray-dark);
-    padding-top: var(--space-lg);
-    margin-top: var(--space-lg);
-    font-size: 0.75rem;
-    color: var(--color-gray-dark);
-    text-align: center;
-}
-
-/* 8. RESPONSIVE (MEDIA QUERIES)
-   ========================================================================== */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+/* 3. ESTILOS DESKTOP SHOWCASE ( >= 1024px ) */
+@media (min-width: 1024px) {
+    #mobile-app {
+        display: none !important;
     }
 
-    .nav-list {
-        position: absolute;
-        top: var(--header-height);
-        left: 0;
+    #desktop-showcase {
+        display: flex;
+        height: 100vh;
         width: 100%;
-        background-color: var(--color-white);
-        flex-direction: column;
-        align-items: center;
-        padding: var(--space-lg) 0;
-        gap: var(--space-md);
-        border-bottom: 1px solid var(--color-gray-light);
-        
-        /* Oculto por defecto en mobile */
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-        transition: all var(--transition-fast);
-    }
-
-    /* DROPDOWN EN MÓVIL */
-    #dropdown-servicios {
-        position: static;
-        width: 100%;
-        min-width: 100%;
-        box-shadow: none;
-        border: none;
-        border-left: 2px solid var(--color-black);
-        border-radius: 0;
-        margin-top: var(--space-sm);
-        padding: 0;
-        
-        max-height: 0;
         overflow: hidden;
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(-10px);
     }
-    
-    #dropdown-servicios.activo {
-        max-height: 800px; /* Suficiente para apilar tarjetas 3D */
-        padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .mega-menu-list {
+
+    /* Layout Asimétrico */
+    .desktop-left {
+        width: 45%;
+        height: 100%;
+        background-color: var(--color-white);
         display: flex;
         flex-direction: column;
-        gap: var(--space-sm);
+        justify-content: space-between;
+        padding: var(--space-xl) 5%;
+        border-right: 1px solid var(--color-gray-light);
+        z-index: 10;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.03);
     }
 
-    .nav-list.is-active {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+    .desktop-right {
+        width: 55%;
+        height: 100%;
+        background-color: #ffffff; /* Canvas transparente/blanco se fundirá aquí */
+        position: relative;
     }
 
-    .hero-container {
-        flex-direction: column;
-        text-align: center;
-        padding-top: var(--space-xl);
-    }
-    
-    .hero-visual {
+    #canvas-container {
         width: 100%;
-        order: -1;
-        margin-bottom: var(--space-lg);
-    }
-    
-    .hero-content {
-        order: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
-    .hero-actions {
-        flex-direction: column;
+    /* Cabecera Izquierda */
+    .desktop-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
-    
-    /* Tipografía Mobile-First */
-    h1, .hero-title {
-        font-size: 2.25rem;
-    }
-    
-    h2 {
+
+    .desktop-logo-text {
         font-size: 1.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.05em;
     }
-    
-    p, .hero-subtitle {
-        font-size: 1rem;
-    }
-    
-    .btn {
-        width: 100%;
-    }
-    
-    .footer-container {
+
+    /* Textos Impactantes */
+    .desktop-content {
         display: flex;
         flex-direction: column;
-        text-align: center;
-        align-items: center;
-        gap: var(--space-md);
+        gap: var(--space-lg);
+    }
+
+    .desktop-title {
+        font-size: 5rem;
+        font-weight: 800;
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+    }
+
+    .desktop-subtitle {
+        font-size: 1.25rem;
+        color: var(--color-gray-dark);
+        max-width: 90%;
+        line-height: 1.6;
+    }
+
+    /* Menú Lateral Premium */
+    .desktop-menu {
+        margin-top: var(--space-lg);
+    }
+
+    .desktop-menu ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .desktop-link {
+        font-size: 1.125rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        position: relative;
+        padding-bottom: 4px;
+        display: inline-block;
     }
     
-    .footer-links {
-        justify-content: center;
+    .desktop-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 100%; height: 2px;
+        background-color: var(--color-black);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+    }
+
+    .desktop-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    .desktop-footer {
+        font-size: 0.875rem;
+        color: var(--color-gray-dark);
     }
 }

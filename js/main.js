@@ -1,139 +1,122 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- Menú Mobile Toggle ----
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', !isExpanded);
-            navMenu.classList.toggle('is-active');
-        });
-    }
-
-    // ---- Dropdown Servicios ----
-    const btnServicios = document.getElementById('btn-servicios');
-    const dropdownServicios = document.getElementById('dropdown-servicios');
-
-    if (btnServicios && dropdownServicios) {
-        // Toggle dropdown en clic al botón
-        btnServicios.addEventListener('click', (e) => {
-            e.preventDefault(); // Evitamos scroll abrupto temporal al abrir menú
-            dropdownServicios.classList.toggle('activo');
-        });
-
-        // Click exterior para cerrar el dropdown interactivamente
-        document.addEventListener('click', (e) => {
-            if (!btnServicios.contains(e.target) && !dropdownServicios.contains(e.target)) {
-                dropdownServicios.classList.remove('activo');
-            }
-        });
-        
-        // --- INICIALIZACIÓN MEGA MENÚ THREE.JS ---
-        if (typeof THREE !== 'undefined') {
-            const scenes = [];
-            
-            function initCardScene(containerId, setupGeometries) {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                
-                const scene = new THREE.Scene();
-                // Fondo claro acorde a .mega-menu-visual (#f7f7f7)
-                scene.background = new THREE.Color(0xf7f7f7);
-                
-                const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-                camera.position.z = 5;
-                
-                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                container.appendChild(renderer.domElement);
-                
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-                scene.add(ambientLight);
-                
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-                directionalLight.position.set(2, 5, 3);
-                scene.add(directionalLight);
-                
-                const objects = setupGeometries(scene);
-                
-                scenes.push({ scene, camera, renderer, objects, container });
-            }
-            
-            const matDark = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.2, metalness: 0.8 });
-            const matGray = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.4, metalness: 0.5 });
-            
-            // Visual 1: Web Modeling (Composición geométrica básica)
-            initCardScene('canvas-serv-1', (scene) => {
-                const group = new THREE.Group();
-                const box1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 0.2), matDark);
-                box1.position.set(0, 0.8, 0);
-                const box2 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1, 0.2), matGray);
-                box2.position.set(-0.4, 0, 0);
-                const box3 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1, 0.2), matGray);
-                box3.position.set(0.4, 0, 0);
-                group.add(box1, box2, box3);
-                scene.add(group);
-                return group;
-            });
-            
-            // Visual 2: Web Development (Estructura en capas/nodos)
-            initCardScene('canvas-serv-2', (scene) => {
-                const group = new THREE.Group();
-                const ring1 = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.1, 16, 50), matDark);
-                ring1.rotation.x = Math.PI / 2;
-                const ring2 = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.1, 16, 50), matGray);
-                ring2.rotation.x = Math.PI / 2;
-                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.2, 32, 32), matDark);
-                group.add(ring1, ring2, sphere);
-                scene.add(group);
-                return group;
-            });
-            
-            // Visual 3: 3D Printing (Objeto modelado en base circular)
-            initCardScene('canvas-serv-3', (scene) => {
-                const group = new THREE.Group();
-                const base = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 0.1, 32), matGray);
-                base.position.y = -0.5;
-                const core = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), matDark);
-                core.position.y = 0;
-                group.add(base, core);
-                scene.add(group);
-                return group;
-            });
-            
-            // Animación continua y controlada
-            function animateMenu() {
-                requestAnimationFrame(animateMenu);
-                scenes.forEach(({ scene, camera, renderer, objects }) => {
-                    if (objects) {
-                        objects.rotation.y += 0.01;
-                        objects.rotation.x += 0.005;
-                    }
-                    renderer.render(scene, camera);
-                });
-            }
-            animateMenu();
-            
-            // Reflow responsable de WebGL containers
-            window.addEventListener('resize', () => {
-                scenes.forEach(({ camera, renderer, container }) => {
-                    const width = container.clientWidth;
-                    const height = container.clientHeight;
-                    if (width > 0 && height > 0) {
-                        camera.aspect = width / height;
-                        camera.updateProjectionMatrix();
-                        renderer.setSize(width, height);
-                    }
-                });
-            });
-        }
-    }
     
-    // ---- A├▒o actual din├ímico para el Footer ----
+    // Año en el footer de Desktop
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
         currentYearSpan.textContent = new Date().getFullYear();
     }
+
+    /* =========================================================================
+       INICIALIZACIÓN CONDICIONAL (Responsividad Extrema)
+       Aseguramos ahorro de recursos en móviles. El 3D no arrancará debajo de 1024px.
+       ========================================================================= */
+    if (window.innerWidth >= 1024) {
+        initDesktop3DScene();
+    }
 });
+
+function initDesktop3DScene() {
+    if (typeof THREE === 'undefined') return;
+
+    const container = document.getElementById('canvas-container');
+    if (!container) return;
+
+    // 1. ESCENA Y CAMARA
+    const scene = new THREE.Scene();
+    
+    // El aspect ratio coincide directamente con las dimensiones del contenedor right
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.z = 12;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // 2. CREACIÓN DEL LOGOTIPO (Importado de logo3d.html)
+    const logoGroup = new THREE.Group();
+    const logoMaterial = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        metalness: 0.8,
+        roughness: 0.15
+    });
+
+    // Anillo
+    const ringGeometry = new THREE.TorusGeometry(2.5, 0.4, 32, 100);
+    const ring = new THREE.Mesh(ringGeometry, logoMaterial);
+    logoGroup.add(ring);
+
+    // Eje diagonal
+    const shaftGeometry = new THREE.CylinderGeometry(0.25, 0.25, 8, 32);
+    const shaft = new THREE.Mesh(shaftGeometry, logoMaterial);
+    shaft.rotation.z = -Math.PI / 4;
+    logoGroup.add(shaft);
+
+    // Flecha
+    const arrowHeadGeometry = new THREE.ConeGeometry(0.8, 1.5, 32);
+    const arrowHead = new THREE.Mesh(arrowHeadGeometry, logoMaterial);
+    arrowHead.position.set(2.8, 2.8, 0);
+    arrowHead.rotation.z = -Math.PI / 4;
+    logoGroup.add(arrowHead);
+
+    // Anillo Base
+    const baseRingGeometry = new THREE.TorusGeometry(0.5, 0.25, 32, 50);
+    const baseRing = new THREE.Mesh(baseRingGeometry, logoMaterial);
+    baseRing.position.set(-2.8, -2.8, 0);
+    logoGroup.add(baseRing);
+
+    scene.add(logoGroup);
+
+    // 3. ILUMINACIÓN
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
+    scene.add(directionalLight);
+
+    // 4. INTERACTIVIDAD MOUSE
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    let windowHalfX = window.innerWidth / 2;
+    let windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (event) => {
+        // Obtenemos coordenadas para la inercia (calculada como -1 a 1 para viewport)
+        mouseX = (event.clientX - windowHalfX) / windowHalfX;
+        mouseY = (event.clientY - windowHalfY) / windowHalfY;
+    });
+
+    // 5. RESPONSIVE RESIZE
+    window.addEventListener('resize', () => {
+        if (container.clientWidth > 0 && container.clientHeight > 0) {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+    });
+
+    // 6. LOOP ANIMACIÓN
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Multiplicador de fuerza
+        targetX = mouseX * 0.5;
+        targetY = mouseY * 0.5;
+
+        // Smooth Lerp (Rotación sutil y líquida)
+        logoGroup.rotation.y += (targetX - logoGroup.rotation.y) * 0.05;
+        logoGroup.rotation.x += (targetY - logoGroup.rotation.x) * 0.05;
+
+        renderer.render(scene, camera);
+    }
+    
+    // Iniciar
+    animate();
+}
