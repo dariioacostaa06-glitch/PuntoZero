@@ -40,17 +40,15 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     display: none;
 }
 
+/* --- ESTILOS VÍA MÓVIL PANTALLA COMPLETA (#mobile-app) --- */
 #mobile-app {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 80px; /* Para no tapar contenido con el bottom-nav */
+    height: 100vh;
     background-color: var(--color-white);
+    overflow: hidden;
 }
 
-/* --- ESTILOS VÍA MÓVIL (#mobile-app) --- */
 .mobile-header {
     padding: var(--space-md) var(--space-lg);
     border-bottom: 1px solid var(--color-gray-light);
@@ -58,9 +56,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     justify-content: center;
     align-items: center;
     background-color: var(--color-white);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    flex-shrink: 0; /* El header no debe encogerse */
 }
 
 .mobile-logo {
@@ -71,248 +67,35 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     color: var(--color-black);
 }
 
-/* SPA Vistas / Arquitectura */
-#app-content {
-    flex: 1;
-    position: relative;
-    overflow-x: hidden;
-    padding: var(--space-lg);
-}
-
-.app-view {
-    display: none;
-    animation: fadeInView 0.3s ease forwards;
-}
-
-.active-view {
-    display: block !important;
-}
-
-@keyframes fadeInView {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.view-title {
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: var(--space-lg);
-}
-
-.view-actions {
+.mobile-services-grid {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-    margin-top: var(--space-lg);
-}
-
-.services-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-.service-card {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-light);
-    border-radius: 16px;
-    padding: var(--space-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.card-icon {
-    font-size: 2rem;
-}
-
-.small-btn {
-    min-height: 48px;
-    font-size: 1rem;
-    border-radius: 12px;
-}
-
-/* Formularios Vía Móvil */
-.mobile-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-group label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-gray-dark);
-}
-
-.form-group input {
-    padding: var(--space-md);
-    border: 1px solid var(--color-gray-light);
-    border-radius: 12px;
-    font-size: 1rem;
-    font-family: inherit;
-    outline: none;
-    transition: border-color var(--transition-fast);
-}
-
-.form-group input:focus {
-    border-color: var(--color-black);
-}
-
-.mobile-hero h2 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: var(--space-sm);
-    letter-spacing: -0.04em;
-}
-
-.mobile-hero p {
-    font-size: 1.125rem;
-    color: var(--color-gray-dark);
-}
-
-.mobile-services {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    margin-top: var(--space-sm);
-}
-
-/* App Buttons Masivos (Dactilares) */
-.app-btn {
     width: 100%;
-    min-height: 64px; /* Dedos: min 48px, usamos 64px para dar sensación premium */
-    background-color: var(--color-black);
-    color: var(--color-white);
-    font-size: 1.125rem;
-    font-weight: 600;
-    border-radius: 16px;
+}
+
+.split-btn {
+    flex: 1; /* Ocupan exactamente 1/3 del espacio sobrante */
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform var(--transition-fast), background-color var(--transition-fast);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-}
-
-.app-btn:active {
-    transform: scale(0.98);
-    background-color: var(--color-gray-dark);
-}
-
-/* Bottom Navigation Bar */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background-color: var(--color-white);
-    border-top: 1px solid var(--color-gray-light);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.03);
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    color: var(--color-gray-dark);
-    font-size: 0.75rem;
-    font-weight: 500;
-    transition: color var(--transition-fast);
-}
-
-.nav-item.active, .nav-item:hover {
-    color: var(--color-black);
-}
-
-.nav-item svg {
-    margin-bottom: 2px;
-}
-
-/* Bottom Sheet Modal */
-.bottom-sheet {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 2000;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.bottom-sheet.active {
-    pointer-events: auto;
-}
-
-.sheet-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.bottom-sheet.active .sheet-overlay {
-    opacity: 1;
-}
-
-.sheet-content {
-    position: relative;
-    background-color: var(--color-white);
-    width: 100%;
-    padding: var(--space-lg);
-    border-radius: 24px 24px 0 0;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-.bottom-sheet.active .sheet-content {
-    transform: translateY(0);
-}
-
-.sheet-drag-handle {
-    width: 40px;
-    height: 4px;
-    background-color: var(--color-gray-light);
-    border-radius: 2px;
-    margin: 0 auto var(--space-sm);
-}
-
-.sheet-content h3 {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-bottom: 2px solid var(--color-gray-dark); /* Borde separador sutil */
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.split-btn:last-child {
+    border-bottom: none;
+}
+
+.split-btn:hover, .split-btn:active {
+    background-color: var(--color-white);
     color: var(--color-black);
-}
-
-.sheet-content p {
-    font-size: 1rem;
-    color: var(--color-gray-dark);
-}
-
-.sheet-btn {
-    margin-top: var(--space-sm);
-    background-color: var(--color-gray-light);
-    color: var(--color-black);
-}
-
-.sheet-btn:active {
-    background-color: #d0d0d0;
 }
 
 
