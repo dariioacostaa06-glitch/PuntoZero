@@ -19,6 +19,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/* =========================================================================
+   ROUTER MÓVIL (SPA)
+   ========================================================================= */
+function navigate(targetId) {
+    // 1. Quitar .active-view de todas las vistas
+    const views = document.querySelectorAll('.view');
+    views.forEach(view => {
+        view.classList.remove('active-view');
+    });
+
+    // 2. Añadir .active-view a la vista objetivo
+    const targetView = document.getElementById(targetId);
+    if (targetView) {
+        targetView.classList.add('active-view');
+    }
+
+    // 3. Hacer scroll hacia arriba
+    window.scrollTo(0, 0);
+    const appContent = document.getElementById('app-content');
+    if (appContent) {
+        appContent.scrollTop = 0;
+    }
+}
+
+// Alias para soportar el nombre de función 'Maps' si se utiliza en alguna parte
+function Maps(targetId) {
+    navigate(targetId);
+}
+
 function initDesktop3DScene() {
     if (typeof THREE === 'undefined') return;
 

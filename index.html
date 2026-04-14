@@ -26,10 +26,60 @@
             <h1 class="mobile-logo">PuntoZero</h1>
         </header>
 
-        <div class="mobile-services-grid">
-            <button class="split-btn">Desarrollo Web</button>
-            <button class="split-btn">Impresión 3D</button>
-            <button class="split-btn">Cartas Digitales para Bares</button>
+        <div id="app-content">
+            <!-- Vista de Inicio -->
+            <section id="view-home" class="view active-view">
+                <div class="cards-grid">
+                    <article class="service-card" onclick="navigate('view-cartas')">
+                        <span class="icon-label">📱</span>
+                        <h3>Cartas Digitales</h3>
+                        <p>UX nativa y carga Zero-Latency para hostelería.</p>
+                    </article>
+
+                    <article class="service-card" onclick="navigate('view-web')">
+                        <span class="icon-label">💻</span>
+                        <h3>Desarrollo Web</h3>
+                        <p>Arquitectura digital, e-commerce y desarrollo full-stack a medida.</p>
+                    </article>
+
+                    <article class="service-card" onclick="navigate('view-3d')">
+                        <span class="icon-label">🖨️</span>
+                        <h3>Impresión 3D</h3>
+                        <p>Ingeniería física, prototipado rápido y merchandising.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Vistas Internas -->
+            <section id="view-cartas" class="view">
+                <div class="view-header">
+                    <button class="back-btn" onclick="navigate('view-home')">← Volver</button>
+                    <h2>Cartas Web Hostelería</h2>
+                </div>
+                <div class="view-body">
+                    <p>Implementamos cartas digitales con un diseño UX similar a una App nativa. Carga Zero-Latency mediante escaneo QR y gestión integral de productos.</p>
+                </div>
+            </section>
+
+            <section id="view-web" class="view">
+                <div class="view-header">
+                    <button class="back-btn" onclick="navigate('view-home')">← Volver</button>
+                    <h2>Arquitectura Digital</h2>
+                </div>
+                <div class="view-body">
+                    <p>Desarrollamos soluciones integrales de e-commerce y desarrollo full-stack a medida para llevar tu negocio a la siguiente generación web.</p>
+                </div>
+            </section>
+
+            <section id="view-3d" class="view">
+                <div class="view-header">
+                    <button class="back-btn" onclick="navigate('view-home')">← Volver</button>
+                    <h2>Ingeniería Física y 3D</h2>
+                </div>
+                <div class="view-body">
+                    <p>Proporcionamos servicios avanzados de prototipado rápido, modelado de precisión y merchandising corporativo usando la última tecnología en impresión 3D.</p>
+                </div>
+            </section>
         </div>
     </main>
 
