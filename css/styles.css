@@ -45,7 +45,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: var(--color-white);
+    background-color: #ffffff;
     overflow: hidden;
 }
 
@@ -103,24 +103,20 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 }
 
 .service-card {
-    background-color: var(--color-white);
+    background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid #eeeeee;
 }
 
 .service-card:active {
     transform: scale(0.98);
 }
 
-.service-card .icon-label {
-    display: inline-block;
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-}
+
 
 .service-card h3 {
     margin-bottom: 0.5rem;
@@ -166,6 +162,26 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     cursor: pointer;
     padding: 0.5rem 0;
     margin-bottom: 0.5rem;
+}
+
+/* Botones de Ejemplo */
+.example-btn {
+    display: block;
+    width: 100%;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.example-btn:hover, .example-btn:active {
+    background-color: #000000;
+    transform: scale(0.98);
 }
 
 
