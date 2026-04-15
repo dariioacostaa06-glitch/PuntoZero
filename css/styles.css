@@ -50,38 +50,25 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 }
 
 .mobile-header {
-    height: 120px;
-    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-gray-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--color-white);
+    flex-shrink: 0; /* El header no debe encogerse */
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: #000000;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-.header-3d-bg {
-    width: 100%;
-    height: 100%;
-    background-image: url('../pz_mobile_header.png');
-    background-size: cover;
-    background-position: center;
-    /* CSS subtle animation to simulate 3D life */
-    animation: live3DHeader 15s infinite alternate ease-in-out;
-}
-
-/* Subtle animation: pan and pulse brightness */
-@keyframes live3DHeader {
-    0% {
-        transform: scale(1.02) translate(0, 0);
-        filter: brightness(0.9) contrast(1.1);
-    }
-    100% {
-        transform: scale(1.1) translate(-2%, 2%);
-        filter: brightness(1.2) contrast(1.2) saturate(1.2);
-    }
+.mobile-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: var(--color-black);
 }
 
 /* SPA App Content (Resto de la pantalla) */
