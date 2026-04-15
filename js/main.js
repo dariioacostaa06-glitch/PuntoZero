@@ -3,7 +3,7 @@
    ========================================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Año en el footer de Desktop
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
@@ -49,7 +49,7 @@ function handleRouting() {
     } else {
         // Fallback de seguridad si el ID no existe
         const homeView = document.getElementById('view-home');
-        if(homeView) homeView.classList.add('active-view');
+        if (homeView) homeView.classList.add('active-view');
     }
 }
 
@@ -67,7 +67,7 @@ function initDesktop3DScene() {
 
     // 1. ESCENA Y CAMARA
     const scene = new THREE.Scene();
-    
+
     // El aspect ratio coincide directamente con las dimensiones del contenedor right
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 12;
@@ -139,7 +139,7 @@ function initDesktop3DScene() {
         if (container.clientWidth > 0 && container.clientHeight > 0) {
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
-            
+
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(container.clientWidth, container.clientHeight);
@@ -160,7 +160,28 @@ function initDesktop3DScene() {
 
         renderer.render(scene, camera);
     }
-    
+
     // Iniciar
     animate();
+}
+
+/* =========================================================================
+   CONTACTO DIRECTO (WhatsApp API)
+   ========================================================================= */
+function enviarWhatsApp(elemento) {
+    // 1. Definir el número de teléfono (Formato internacional sin el +)
+    const telefono = "34643605384"; // Reemplazar con el número real de PuntoZero
+
+    // 2. Extraer el nombre del plan del botón que se ha pulsado
+    const plan = elemento.getAttribute('data-plan');
+
+    // 3. Crear el mensaje personalizado
+    const mensaje = `¡Hola PuntoZero! Vengo de vuestra web y estoy interesado en solicitar un presupuesto para: *${plan}*. ¿Podemos hablar?`;
+
+    // 4. Codificar el texto para que la URL sea válida (espacios, tildes, etc.)
+    const textoCodificado = encodeURIComponent(mensaje);
+
+    // 5. Construir la URL de WhatsApp y abrirla en una pestaña nueva
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
+    window.open(urlWhatsApp, '_blank');
 }
