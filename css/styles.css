@@ -102,27 +102,38 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     }
 }
 
+@keyframes fadeUpItem {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.active-view .hero-intro h2 { animation: fadeUpItem 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
+.active-view .hero-intro p { animation: fadeUpItem 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+.active-view .cards-grid { animation: fadeUpItem 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; opacity: 0; }
+
 /* Mobile Hero Intro */
 .hero-intro {
-    padding: 2.5rem 8% 1.5rem 8%;
+    padding: 4rem 8% 3rem 8%;
     text-align: left;
     box-sizing: border-box;
     max-width: 600px;
     margin: 0 auto;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
 }
 
 .hero-intro h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 800;
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.03em;
     color: #111111;
 }
 
 .hero-intro p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #555555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666666;
 }
 
 /* Tarjetas (Cards Grid) */
@@ -140,10 +151,10 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     background-color: #f8f9fa;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #eeeeee;
+    border: 1px solid rgba(0,0,0,0.03);
 }
 
 .service-card:active {
@@ -246,10 +257,10 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     flex: 0 0 85%;
     max-width: 320px;
     background-color: #f8f9fa;
-    border: 1px solid #eeeeee;
+    border: 1px solid rgba(0,0,0,0.03);
     border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     position: relative;
 }
 
@@ -317,12 +328,18 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.btn-contratar:hover, .btn-contratar:active {
+.btn-contratar:hover {
     background-color: #000000;
-    transform: scale(0.98);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.btn-contratar:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 
