@@ -185,6 +185,107 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     transform: scale(0.98);
 }
 
+/* ---------- PLANES DE PRECIOS (CARRUSEL VERTICAL) ---------- */
+.pricing-section-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.pricing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 65vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    padding-bottom: 2rem;
+}
+
+.pricing-card {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    background-color: #f8f9fa;
+    border: 1px solid #eeeeee;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.pricing-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.pricing-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--color-black);
+}
+
+.pricing-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.pricing-features li {
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e6e6e6;
+    display: flex;
+    align-items: center;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features li::before {
+    content: "✓";
+    font-weight: bold;
+    margin-right: 8px;
+    color: var(--color-black);
+}
+
+.pricing-card.advanced {
+    border: 2px solid #333333;
+}
+
+.pricing-card .badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.btn-contratar {
+    display: block;
+    width: 100%;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-contratar:hover, .btn-contratar:active {
+    background-color: #000000;
+    transform: scale(0.98);
+}
+
 
 /* 3. ESTILOS DESKTOP SHOWCASE ( >= 1024px ) */
 @media (min-width: 1024px) {
