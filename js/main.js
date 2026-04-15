@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =========================================================================
-   ROUTER MÓVIL (SPA)
+   ROUTER MÓVIL (SPA) Y HISTORY API
    ========================================================================= */
-function navigate(targetId) {
+function navigate(targetId, addToHistory = true) {
     // 1. Quitar .active-view de todas las vistas
     const views = document.querySelectorAll('.view');
     views.forEach(view => {
@@ -41,12 +41,29 @@ function navigate(targetId) {
     if (appContent) {
         appContent.scrollTop = 0;
     }
+
+    // 4. Mantenimiento del History API
+    if (addToHistory) {
+        history.pushState({ view: targetId }, '', '#' + targetId);
+    }
 }
 
 // Alias para soportar el nombre de función 'Maps' si se utiliza en alguna parte
-function Maps(targetId) {
-    navigate(targetId);
+function Maps(targetId, addToHistory = true) {
+    navigate(targetId, addToHistory);
 }
+
+// Escuchar al botón 'Atrás' del sistema o navegador nativo
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.view) {
+        navigate(event.state.view, false);
+    } else {
+        navigate('view-home', false);
+    }
+});
+
+// Inicializar el punto de partida en el historial al cargar
+history.replaceState({ view: 'view-home' }, '', '#view-home');
 
 function initDesktop3DScene() {
     if (typeof THREE === 'undefined') return;
