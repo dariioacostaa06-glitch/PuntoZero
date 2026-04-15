@@ -231,9 +231,9 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    opacity: 0.15;
-    background-size: 50%;
-    background-position: right 10% center;
+    opacity: 0.25;
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
     transition: opacity 0.3s ease;
@@ -248,7 +248,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 }
 
 .example-btn:hover::before {
-    opacity: 0.25;
+    opacity: 0.35;
 }
 
 .example-btn:hover, .example-btn:active {
