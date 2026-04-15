@@ -34,22 +34,22 @@
             <!-- Vista de Inicio -->
             <section id="view-home" class="view active-view">
                 <div class="cards-grid">
-                    <article class="service-card" onclick="navigate('view-cartas')">
+                    <article class="service-card" onclick="Maps('view-cartas')">
                         <h3>Cartas Digitales</h3>
                         <p>UX nativa y carga Zero-Latency para hostelería.</p>
                     </article>
 
-                    <article class="service-card" onclick="navigate('view-web')">
+                    <article class="service-card" onclick="Maps('view-web')">
                         <h3>Desarrollo Web</h3>
                         <p>Arquitectura digital, e-commerce y desarrollo full-stack a medida.</p>
                     </article>
 
-                    <article class="service-card" onclick="navigate('view-3d')">
+                    <article class="service-card" onclick="Maps('view-3d')">
                         <h3>Impresión 3D</h3>
                         <p>Ingeniería física, prototipado rápido y merchandising.</p>
                     </article>
 
-                    <article class="service-card" onclick="navigate('view-arch3d')">
+                    <article class="service-card" onclick="Maps('view-arch3d')">
                         <h3>Maquetar casas en 3d</h3>
                         <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
                     </article>
@@ -59,7 +59,7 @@
             <!-- Vistas Internas -->
             <section id="view-cartas" class="view">
                 <div class="view-header">
-                    <button class="back-btn" onclick="history.back()">← Volver</button>
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
                     <h2>Cartas Web Hostelería</h2>
                 </div>
                 <div class="view-body">
@@ -113,7 +113,7 @@
 
             <section id="view-web" class="view">
                 <div class="view-header">
-                    <button class="back-btn" onclick="history.back()">← Volver</button>
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
                     <h2>Arquitectura Digital</h2>
                 </div>
                 <div class="view-body">
@@ -163,7 +163,7 @@
 
             <section id="view-3d" class="view">
                 <div class="view-header">
-                    <button class="back-btn" onclick="history.back()">← Volver</button>
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
                     <h2>Ingeniería Física y 3D</h2>
                 </div>
                 <div class="view-body">
@@ -213,7 +213,7 @@
 
             <section id="view-arch3d" class="view">
                 <div class="view-header">
-                    <button class="back-btn" onclick="history.back()">← Volver</button>
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
                     <h2>Maquetar casas en 3d</h2>
                 </div>
                 <div class="view-body">

@@ -20,50 +20,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =========================================================================
-   ROUTER MÓVIL (SPA) Y HISTORY API
+   ROUTER MÓVIL (HASH ROUTING NATIVO)
    ========================================================================= */
-function navigate(targetId, addToHistory = true) {
-    // 1. Quitar .active-view de todas las vistas
-    const views = document.querySelectorAll('.view');
-    views.forEach(view => {
+function navigate(targetId) {
+    window.location.hash = targetId;
+}
+
+// Alias para soportar el nombre de función 'Maps'
+function Maps(targetId) {
+    navigate(targetId);
+}
+
+// Escuchar los cambios en el hash
+function handleRouting() {
+    // Obtener el hash sin el '#' (si está vacío, por defecto es 'view-home')
+    const hash = window.location.hash.substring(1) || 'view-home';
+
+    // Ocultar todas las vistas
+    document.querySelectorAll('.view').forEach(view => {
         view.classList.remove('active-view');
     });
 
-    // 2. Añadir .active-view a la vista objetivo
-    const targetView = document.getElementById(targetId);
+    // Mostrar la vista objetivo
+    const targetView = document.getElementById(hash);
     if (targetView) {
         targetView.classList.add('active-view');
-    }
-
-    // 3. Hacer scroll hacia arriba
-    window.scrollTo(0, 0);
-    const appContent = document.getElementById('app-content');
-    if (appContent) {
-        appContent.scrollTop = 0;
-    }
-
-    // 4. Mantenimiento del History API
-    if (addToHistory) {
-        history.pushState({ view: targetId }, '', '#' + targetId);
-    }
-}
-
-// Alias para soportar el nombre de función 'Maps' si se utiliza en alguna parte
-function Maps(targetId, addToHistory = true) {
-    navigate(targetId, addToHistory);
-}
-
-// Escuchar al botón 'Atrás' del sistema o navegador nativo
-window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.view) {
-        navigate(event.state.view, false);
+        window.scrollTo(0, 0); // Subir arriba al cambiar de vista
     } else {
-        navigate('view-home', false);
+        // Fallback de seguridad si el ID no existe
+        const homeView = document.getElementById('view-home');
+        if(homeView) homeView.classList.add('active-view');
     }
-});
+}
 
-// Inicializar el punto de partida en el historial al cargar
-history.replaceState({ view: 'view-home' }, '', '#view-home');
+// Escuchar cuando el usuario pulsa botones (UI o Hardware)
+window.addEventListener('hashchange', handleRouting);
+
+// Ejecutar al cargar la página por primera vez
+window.addEventListener('DOMContentLoaded', handleRouting);
 
 function initDesktop3DScene() {
     if (typeof THREE === 'undefined') return;

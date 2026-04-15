@@ -152,7 +152,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     line-height: 1.6;
 }
 
-.back-btn {
+.btn-volver {
     display: inline-flex;
     align-items: center;
     background: transparent;
