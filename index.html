@@ -164,51 +164,39 @@
             </section>
 
             <section id="view-3d" class="view">
-                <div class="view-header">
-                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
-                    <h2>Ingeniería Física y 3D</h2>
+                <div class="view-header" style="position: absolute; top:0; left:0; right:0; z-index: 10; background: transparent; padding-top: 1rem;">
+                    <button onclick="window.history.back()" class="btn-volver" style="color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 12px; border-radius: 20px;">← Volver</button>
                 </div>
-                <div class="view-body">
-                    <p>Contamos con un <strong>Laboratorio Dual de Impresión 3D</strong> que emplea tecnologías FDM y
-                        resina de alta resolución. Este laboratorio nos permite ofrecer servicios de ingeniería física,
-                        prototipado rápido para validación de piezas, modelado CAD de precisión e incluso creación de
-                        merchandising técnico exclusivo para empresas.</p>
+                
+                <div class="service-hero">
+                    <img src="impresion_3d_hero.png" alt="Laboratorio Dual de Impresión 3D" class="service-hero-img">
+                    <div class="service-hero-content">
+                        <h2>Laboratorio Dual de Impresión 3D</h2>
+                    </div>
+                </div>
 
-                    <h3 class="pricing-section-title">Servicios de Laboratorio Dual</h3>
-                    <div class="pricing-container">
-                        <article class="pricing-card">
-                            <h4>Prototipado Rápido</h4>
-                            <p class="pricing-price">Consultar</p>
-                            <ul class="pricing-features">
-                                <li>Validación de volúmenes</li>
-                                <li>Materiales estándar</li>
-                                <li>Tiempos de entrega optimizados</li>
-                            </ul>
-                            <button class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="Prototipado Rápido - Laboratorio Dual">Solicitar Presupuesto</button>
-                        </article>
+                <div class="view-body" style="padding-top: 0.5rem;">
+                    <p>Contamos con un <strong>Laboratorio Dual de Impresión 3D</strong> que emplea tecnologías FDM y resina de alta resolución. Este laboratorio nos permite ofrecer servicios de ingeniería física, prototipado rápido para validación de piezas, modelado CAD de precisión e incluso creación de merchandising técnico exclusivo para empresas.</p>
 
-                        <article class="pricing-card advanced">
-                            <span class="badge">Físico-Digital</span>
-                            <h4>Placas QR en 3D</h4>
-                            <p class="pricing-price">Consultar</p>
-                            <ul class="pricing-features">
-                                <li>Códigos QR extruidos funcionales</li>
-                                <li>Materiales premium</li>
-                                <li>Ideal para mesas de hostelería</li>
-                            </ul>
-                            <button class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="Placas QR en 3D - Laboratorio Dual">Solicitar Presupuesto</button>
-                        </article>
+                    <div class="service-showcase">
+                        <div class="showcase-panel">
+                            <span class="showcase-icon">⚙️</span>
+                            <p>Llaveros Corporativos Personalizados y a medida.</p>
+                        </div>
+                        <div class="showcase-panel">
+                            <span class="showcase-icon">📛</span>
+                            <p>Logotipos y Señalética 3D Corporativa.</p>
+                        </div>
+                        <div class="showcase-panel">
+                            <span class="showcase-icon">🏛️</span>
+                            <p>Prototipos, Modelos y Figuras de Precisión.</p>
+                        </div>
+                    </div>
 
-                        <article class="pricing-card">
-                            <h4>Merchandising</h4>
-                            <p class="pricing-price">Consultar</p>
-                            <ul class="pricing-features">
-                                <li>Llaveros y trofeos texturizados</li>
-                                <li>Identificadores corporativos</li>
-                                <li>Producción de tiradas medias</li>
-                            </ul>
-                            <button class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="Merchandising - Laboratorio Dual">Solicitar Presupuesto</button>
-                        </article>
+                    <div class="pricing-explanation-block">
+                        <h3>PRESUPUESTO FLEXIBLE Y VARIABLE</h3>
+                        <p>El precio final de cada proyecto se calcula de forma personalizada basándose en factores técnicos clave, incluyendo el volumen de impresión, número de unidades, horas de máquina estimadas, y los colores y materiales seleccionados.</p>
+                        <button class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="Cotización Impresión 3D">Solicitar Presupuesto</button>
                     </div>
                 </div>
             </section>
