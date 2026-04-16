@@ -267,8 +267,14 @@ function enviarWhatsApp(elemento) {
     // 4. Codificar el texto para que la URL sea válida (espacios, tildes, etc.)
     const textoCodificado = encodeURIComponent(mensaje);
 
-    // 5. Construir la URL de WhatsApp y abrirla en una pestaña nueva
+    // 5. Construir la URL de WhatsApp (En móvil/PWA a veces window.open es bloqueado, usamos location.href)
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
-    window.open(urlWhatsApp, '_blank');
+    
+    // Si es móvil redirigimos directo para evitar bloqueos de popup, si es escritorio usamos open
+    if (window.innerWidth < 1024) {
+        window.location.href = urlWhatsApp;
+    } else {
+        window.open(urlWhatsApp, '_blank');
+    }
 }
 
