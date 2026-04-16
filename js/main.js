@@ -149,10 +149,11 @@ function initDesktop3DScene() {
     // 2. CARGADOR DE MODELOS GLTF/GLB
     let logoModel = null;
     
-    // Almacenamos la rotación base deseada para inclinarlo y que no sea plano
-    const baseRotX = 0.4;
-    const baseRotY = -0.4; 
-    const baseRotZ = -0.2;
+    // 2. CARGADOR DE MODELOS GLTF/GLB
+    let logoModel = null;
+    
+    // Almacenamos la rotación base deseada para "levantar" el modelo del eje X
+    const baseRotX = -Math.PI / 2;
 
     if (typeof THREE.GLTFLoader !== 'undefined') {
         const loader = new THREE.GLTFLoader();
@@ -160,21 +161,19 @@ function initDesktop3DScene() {
         loader.load('Logo_PuntoZero.GLB', function (gltf) {
             logoModel = gltf.scene;
             
-            // Centrado perfecto de la geometría sea cual sea su pivot original
+            // Asegurar que el pivote sea el centro geométrico del objeto
             const box = new THREE.Box3().setFromObject(logoModel);
             const center = box.getCenter(new THREE.Vector3());
-            logoModel.position.x -= center.x;
-            logoModel.position.y -= center.y;
-            logoModel.position.z -= center.z;
+            logoModel.position.sub(center);
             
-            // Escalar el objeto brutalmente para que quede de fondo masivo tras las letras
+            // Escalar para que sea gigante tras las letras
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 14 / maxDim; // Elevado a 14 para hacerlo inmenso ("en grande")
+            const scale = 14 / maxDim; // Masivo
             logoModel.scale.set(scale, scale, scale);
 
-            // Inyectamos rotación inicial atractiva (lo inclinamos)
-            logoModel.rotation.set(baseRotX, baseRotY, baseRotZ);
+            // Aplicar la rotación para levantarlo (compensar exportación)
+            logoModel.rotation.x = baseRotX;
 
             scene.add(logoModel);
         });
@@ -185,7 +184,7 @@ function initDesktop3DScene() {
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    directionalLight.position.set(5, 5, 10); // Ligeramente más frontal para resaltar texturas
+    directionalLight.position.set(5, 5, 10); 
     scene.add(directionalLight);
     
     // Luz de relleno rebotada
@@ -193,7 +192,7 @@ function initDesktop3DScene() {
     fillLight.position.set(-5, 0, -5);
     scene.add(fillLight);
 
-    // Luz trasera tipo "Rim light" azulada u oscura para darle contorno espacial
+    // Luz trasera tipo "Rim light" azulada u oscura
     const rimLight = new THREE.DirectionalLight(0x4488ff, 2);
     rimLight.position.set(0, 5, -10);
     scene.add(rimLight);
@@ -201,8 +200,6 @@ function initDesktop3DScene() {
     // 4. INTERACTIVIDAD DE RATÓN
     let mouseX = 0;
     let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
 
     let windowHalfX = window.innerWidth / 2;
     let windowHalfY = window.innerHeight / 2;
@@ -225,21 +222,26 @@ function initDesktop3DScene() {
         }
     });
 
+    let targetX = 0;
+    let targetY = 0;
+
     // 6. LOOP ANIMACIÓN
     function animate() {
         requestAnimationFrame(animate);
 
-        // Fuerza del giro reactivo al seguir el ratón (se suma al giro base)
-        targetX = baseRotY + (mouseX * 0.8);
-        targetY = baseRotX + (mouseY * 0.8);
+        // Fuerza del giro reactivo al seguir el ratón (inercia pura, sin base sumada al objetivo)
+        targetX = mouseX * 0.8;
+        targetY = mouseY * 0.8;
 
         if (logoModel) {
-            // El modelo va girando muy poco a poco en el eje Z de forma constante para que no parezca apagado
-            logoModel.rotation.z += 0.001; 
-
-            // Lerp de suavizado para rotación principal con el ratón
+            // El modelo base está levantado en el eje X (-90 grados). 
+            // Aplicamos interpolación (Lerp) de la rotación para un seguimiento extremadamente suave
+            // EJE Y: Rotación izquierda-derecha sobre su nueva vertical
             logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.05;
-            logoModel.rotation.x += (targetY - logoModel.rotation.x) * 0.05;
+            
+            // EJE X: Rotación arriba-abajo sumada a su base permanente de -90 grados (-Math.PI/2)
+            const targetRotationX = baseRotX + targetY;
+            logoModel.rotation.x += (targetRotationX - logoModel.rotation.x) * 0.05;
         }
 
         renderer.render(scene, camera);
