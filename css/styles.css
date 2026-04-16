@@ -526,32 +526,3 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 .pricing-explanation-block .btn-contratar:hover {
     background-color: #e6e6e6;
 }
-.desktop-nav { display: none; }
-
-@media (min-width: 1024px) {
-    /* Convertir el header en una barra horizontal */
-    header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 1.5rem 5%; position: relative; }
-
-    /* Mostrar la navegación */
-    .desktop-nav { display: block; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; align-items: center; }
-    .nav-links a { color: #ffffff; text-decoration: none; font-weight: 500; transition: color 0.2s; font-size: 1rem; }
-    .nav-links a:hover { color: #aaaaaa; }
-
-    /* El menú desplegable (Dropdown) */
-    .has-dropdown { position: relative; padding: 1rem 0; }
-    .mega-dropdown { 
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); 
-      background: #1a1a1a; border: 1px solid #333; border-radius: 12px; 
-      min-width: 220px; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;
-      opacity: 0; visibility: hidden; transition: all 0.2s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100;
-    }
-
-    /* Animación Hover del Dropdown */
-    .has-dropdown:hover .mega-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-
-    /* Elementos internos del desplegable */
-    .drop-item { display: block; padding: 0.8rem 1rem; border-radius: 8px; }
-    .drop-item:hover { background: #2a2a2a; color: #ffffff !important; }
-}
-
