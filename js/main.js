@@ -254,3 +254,21 @@ function enviarWhatsApp(elemento) {
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
     window.open(urlWhatsApp, '_blank');
 }
+
+// --- ESCRITORIO: Efecto Parallax 3D en Hero ---
+if (window.innerWidth >= 1024) {
+    document.addEventListener('mousemove', (e) => {
+        const logo = document.getElementById('hero-3d-logo');
+        if (!logo) return;
+
+        // Calcular posición respecto al centro de la ventana
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25; // Rango de ~ -20 a 20 grados
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+        // Limitar la rotación entre -15 y 15 grados
+        const clampedX = Math.max(-15, Math.min(15, yAxis)); // Invertimos ejes para rotación natural
+        const clampedY = Math.max(-15, Math.min(15, -xAxis)); 
+
+        logo.style.transform = `perspective(1000px) rotateX(${clampedX}deg) rotateY(${clampedY}deg)`;
+    });
+}

@@ -526,3 +526,121 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 .pricing-explanation-block .btn-contratar:hover {
     background-color: #e6e6e6;
 }
+
+/* =========================================================================
+   VISTA DE ESCRITORIO DEFINITIVA (>= 1024px)
+   ========================================================================= */
+#desktop-app { 
+  display: none; 
+  background-color: #0a0a0a; 
+  color: #ffffff; 
+  min-height: 100vh; 
+  overflow-x: hidden; 
+}
+
+@media (min-width: 1024px) {
+  .view { display: none !important; } /* Oculta el móvil */
+  #mobile-app { display: none !important; }
+  
+  #desktop-app { display: block; } /* Muestra el PC */
+  
+  /* Navegación Premium */
+  .desk-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 5%;
+  }
+  .desk-logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.05em;
+  }
+  .desk-nav nav {
+      display: flex;
+      gap: 2rem;
+  }
+  .desk-nav nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+  }
+  .desk-nav nav a:hover {
+      color: #cccccc;
+  }
+
+  /* Hero Interactivo 3D */
+  .desk-hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      overflow: hidden;
+  }
+
+  #hero-3d-logo {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease-out;
+      /* Generar volumen en el PNG usando múltiples drop-shadows */
+      filter: drop-shadow(0px 5px 0px #1a1a1a) 
+              drop-shadow(0px 10px 10px rgba(0,0,0,0.8))
+              drop-shadow(0px 20px 20px rgba(0,0,0,0.5));
+  }
+
+  .hero-gear-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+  }
+
+  .hero-title {
+      position: relative;
+      z-index: 10;
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: -0.03em;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      pointer-events: none; /* Dejar que el ratón interactúe con el fondo */
+  }
+
+  /* Grid de Servicios */
+  .desk-services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      padding: 5rem 10%;
+  }
+
+  .desk-service-card {
+      background: #111111;
+      border: 1px solid #333333;
+      border-radius: 16px;
+      padding: 3rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .desk-service-card:hover {
+      transform: translateY(-10px);
+      border-color: #555555;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+  }
+
+  .desk-service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+  }
+
+  .desk-service-card p {
+      color: #999999;
+      line-height: 1.6;
+  }
+}
