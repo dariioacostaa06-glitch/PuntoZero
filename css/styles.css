@@ -526,148 +526,32 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 .pricing-explanation-block .btn-contratar:hover {
     background-color: #e6e6e6;
 }
+.desktop-nav { display: none; }
 
-/* 3. ESTILOS DESKTOP SHOWCASE ( >= 1024px ) */
 @media (min-width: 1024px) {
-    #mobile-app {
-        display: none !important;
-    }
-    
-    .view { 
-        display: none !important; 
-    } 
+    /* Convertir el header en una barra horizontal */
+    header { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 1.5rem 5%; position: relative; }
 
-    #desktop-showcase { 
-        display: block; 
-        background-color: #111111; 
-        color: white; 
-        min-height: 100vh; 
-        width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
+    /* Mostrar la navegación */
+    .desktop-nav { display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; align-items: center; }
+    .nav-links a { color: #ffffff; text-decoration: none; font-weight: 500; transition: color 0.2s; font-size: 1rem; }
+    .nav-links a:hover { color: #aaaaaa; }
 
-    /* Layout Asimétrico */
-    .desktop-left {
-        width: 45%;
-        height: 100%;
-        background-color: var(--color-white);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: var(--space-xl) 5%;
-        border-right: 1px solid var(--color-gray-light);
-        z-index: 10;
-        box-shadow: 10px 0 30px rgba(0,0,0,0.03);
+    /* El menú desplegable (Dropdown) */
+    .has-dropdown { position: relative; padding: 1rem 0; }
+    .mega-dropdown { 
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); 
+      background: #1a1a1a; border: 1px solid #333; border-radius: 12px; 
+      min-width: 220px; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+      opacity: 0; visibility: hidden; transition: all 0.2s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100;
     }
 
-    .desktop-right {
-        width: 55%;
-        height: 100%;
-        background-color: #ffffff; /* Canvas transparente/blanco se fundirá aquí */
-        position: relative;
-    }
+    /* Animación Hover del Dropdown */
+    .has-dropdown:hover .mega-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
-    #canvas-container {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    /* Cabecera Izquierda */
-    .desktop-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .desktop-logo-text {
-        font-size: 1.75rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: -0.05em;
-    }
-
-    /* Textos Impactantes */
-    .desktop-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-lg);
-    }
-
-    .desktop-title {
-        font-size: 5rem;
-        font-weight: 800;
-        line-height: 0.95;
-        letter-spacing: -0.04em;
-    }
-
-    .desktop-subtitle {
-        font-size: 1.25rem;
-        color: var(--color-gray-dark);
-        max-width: 90%;
-        line-height: 1.6;
-    }
-
-    /* Menú Lateral Premium */
-    .desktop-menu {
-        margin-top: var(--space-lg);
-    }
-
-    .desktop-menu ul {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .desktop-link {
-        font-size: 1.125rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        position: relative;
-        padding-bottom: 4px;
-        display: inline-block;
-    }
-    
-    .desktop-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0;
-        width: 100%; height: 2px;
-        background-color: var(--color-black);
-        transform: scaleX(0);
-        transform-origin: right;
-        transition: transform 0.3s ease;
-    }
-
-    .desktop-link:hover::after {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-
-    .desktop-footer {
-        font-size: 0.875rem;
-        color: var(--color-gray-dark);
-    }
-
-    #desk-servicios, #desk-metodologia, #desk-contacto { 
-        max-width: 1200px; 
-        margin: 0 auto; 
-        padding: 6rem 5%; 
-    }
-
-    #desk-servicios .grid-container { 
-        display: grid; 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 2.5rem; 
-        margin-top: 3rem; 
-    }
-
-    #desk-metodologia { 
-        background-color: #1a1a1a; 
-    }
+    /* Elementos internos del desplegable */
+    .drop-item { display: block; padding: 0.8rem 1rem; border-radius: 8px; }
+    .drop-item:hover { background: #2a2a2a; color: #ffffff !important; }
 }
 
