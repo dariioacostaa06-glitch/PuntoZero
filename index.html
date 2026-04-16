@@ -8,8 +8,9 @@
         content="PuntoZero - Estudio de Ingeniería de Software formal, minimalista y de alto rendimiento.">
     <title>PuntoZero | Software Engineering Studio</title>
 
-    <!-- Librería Three.js -->
+    <!-- Librería Three.js y GLTFLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="css/styles.css">
@@ -237,9 +238,8 @@
         </header>
 
         <section class="desk-hero">
-            <div id="hero-3d-logo">
-                <img src="logo-pz-gear.png" alt="PuntoZero 3D Gear" class="hero-gear-img">
-            </div>
+            <!-- Contenedor WebGL para el GLB, expandido e indexado como canvas fondo o contenido 3D -->
+            <div id="hero-3d-logo"></div>
             <h1 class="hero-title">Ingeniería Digital,<br>Rigor Técnico,<br>Cero Latencia.</h1>
         </section>
 

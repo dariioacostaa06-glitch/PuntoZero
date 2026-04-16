@@ -129,66 +129,62 @@ window.addEventListener('hashchange', handleRouting);
 window.addEventListener('DOMContentLoaded', handleRouting);
 
 function initDesktop3DScene() {
+    // Si no está bajado Three.js o el contenedor no se encuentra, abandonamos.
     if (typeof THREE === 'undefined') return;
 
-    const container = document.getElementById('canvas-container');
+    const container = document.getElementById('hero-3d-logo');
     if (!container) return;
 
-    // 1. ESCENA Y CAMARA
+    // 1. ESCENA Y CÁMARA
     const scene = new THREE.Scene();
 
-    // El aspect ratio coincide directamente con las dimensiones del contenedor right
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.z = 12;
+    camera.position.z = 10;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // 2. CREACIÓN DEL LOGOTIPO (Geometría Base)
-    const logoGroup = new THREE.Group();
-    const logoMaterial = new THREE.MeshStandardMaterial({
-        color: 0x111111,
-        metalness: 0.8,
-        roughness: 0.15
-    });
+    // 2. CARGADOR DE MODELOS GLTF/GLB
+    let logoModel = null;
+    if (typeof THREE.GLTFLoader !== 'undefined') {
+        const loader = new THREE.GLTFLoader();
+        
+        loader.load('Logo_PuntoZero.GLB', function (gltf) {
+            logoModel = gltf.scene;
+            
+            // Centrado perfecto de la geometría sea cual sea su pivot original
+            const box = new THREE.Box3().setFromObject(logoModel);
+            const center = box.getCenter(new THREE.Vector3());
+            logoModel.position.x += (logoModel.position.x - center.x);
+            logoModel.position.y += (logoModel.position.y - center.y);
+            logoModel.position.z += (logoModel.position.z - center.z);
+            
+            // Escalar el objeto para que quepa cómodamente en el viewport
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 4 / maxDim; // 4 es un multiplicador visual aproximado al rango de la cámara (.z = 10)
+            logoModel.scale.set(scale, scale, scale);
 
-    // Anillo
-    const ringGeometry = new THREE.TorusGeometry(2.5, 0.4, 32, 100);
-    const ring = new THREE.Mesh(ringGeometry, logoMaterial);
-    logoGroup.add(ring);
+            scene.add(logoModel);
+        });
+    }
 
-    // Eje diagonal
-    const shaftGeometry = new THREE.CylinderGeometry(0.25, 0.25, 8, 32);
-    const shaft = new THREE.Mesh(shaftGeometry, logoMaterial);
-    shaft.rotation.z = -Math.PI / 4;
-    logoGroup.add(shaft);
-
-    // Flecha
-    const arrowHeadGeometry = new THREE.ConeGeometry(0.8, 1.5, 32);
-    const arrowHead = new THREE.Mesh(arrowHeadGeometry, logoMaterial);
-    arrowHead.position.set(2.8, 2.8, 0);
-    arrowHead.rotation.z = -Math.PI / 4;
-    logoGroup.add(arrowHead);
-
-    // Anillo Base
-    const baseRingGeometry = new THREE.TorusGeometry(0.5, 0.25, 32, 50);
-    const baseRing = new THREE.Mesh(baseRingGeometry, logoMaterial);
-    baseRing.position.set(-2.8, -2.8, 0);
-    logoGroup.add(baseRing);
-
-    scene.add(logoGroup);
-
-    // 3. ILUMINACIÓN
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // 3. ILUMINACIÓN DINÁMICA
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
+    
+    // Luz de relleno rebotada
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    fillLight.position.set(-5, 0, -5);
+    scene.add(fillLight);
 
-    // 4. INTERACTIVIDAD MOUSE
+    // 4. INTERACTIVIDAD DE RATÓN
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -198,12 +194,12 @@ function initDesktop3DScene() {
     let windowHalfY = window.innerHeight / 2;
 
     document.addEventListener('mousemove', (event) => {
-        // Obtenemos coordenadas para la inercia (calculada como -1 a 1 para viewport)
+        // Rango de -1 a 1 basado en la pantalla completa (Parallax)
         mouseX = (event.clientX - windowHalfX) / windowHalfX;
         mouseY = (event.clientY - windowHalfY) / windowHalfY;
     });
 
-    // 5. RESPONSIVE RESIZE
+    // 5. RESPONSIVE (Reproyectar WebGL si la ventana cambia de tamaño)
     window.addEventListener('resize', () => {
         if (container.clientWidth > 0 && container.clientHeight > 0) {
             windowHalfX = window.innerWidth / 2;
@@ -219,18 +215,20 @@ function initDesktop3DScene() {
     function animate() {
         requestAnimationFrame(animate);
 
-        // Multiplicador de fuerza
-        targetX = mouseX * 0.5;
-        targetY = mouseY * 0.5;
+        // Fuerza del giro al seguir el ratón (1 = más giro)
+        targetX = mouseX * 0.8;
+        targetY = mouseY * 0.8;
 
-        // Smooth Lerp (Rotación sutil y líquida)
-        logoGroup.rotation.y += (targetX - logoGroup.rotation.y) * 0.05;
-        logoGroup.rotation.x += (targetY - logoGroup.rotation.x) * 0.05;
+        if (logoModel) {
+            // Lerp de suavizado para rotación súper orgánica (+ inercia)
+            logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.05;
+            logoModel.rotation.x += (targetY - logoModel.rotation.x) * 0.05;
+        }
 
         renderer.render(scene, camera);
     }
 
-    // Iniciar
+    // Encender motores
     animate();
 }
 
@@ -255,20 +253,3 @@ function enviarWhatsApp(elemento) {
     window.open(urlWhatsApp, '_blank');
 }
 
-// --- ESCRITORIO: Efecto Parallax 3D en Hero ---
-if (window.innerWidth >= 1024) {
-    document.addEventListener('mousemove', (e) => {
-        const logo = document.getElementById('hero-3d-logo');
-        if (!logo) return;
-
-        // Calcular posición respecto al centro de la ventana
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25; // Rango de ~ -20 a 20 grados
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-
-        // Limitar la rotación entre -15 y 15 grados
-        const clampedX = Math.max(-15, Math.min(15, yAxis)); // Invertimos ejes para rotación natural
-        const clampedY = Math.max(-15, Math.min(15, -xAxis)); 
-
-        logo.style.transform = `perspective(1000px) rotateX(${clampedX}deg) rotateY(${clampedY}deg)`;
-    });
-}
