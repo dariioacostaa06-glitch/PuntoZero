@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             modalDesc.textContent = data.desc;
             modalBtnWA.setAttribute('data-plan', data.planName);
-            
+
             modalBackdrop.classList.add('is-open');
         }
     }
@@ -129,88 +129,81 @@ window.addEventListener('hashchange', handleRouting);
 window.addEventListener('DOMContentLoaded', handleRouting);
 
 function initDesktop3DScene() {
-    // Si no está bajado Three.js o el contenedor no se encuentra, abandonamos.
     if (typeof THREE === 'undefined') return;
 
-    const container = document.getElementById('hero-3d-logo');
+    const container = document.getElementById('canvas-container');
     if (!container) return;
 
-    // 1. ESCENA Y CÁMARA
+    // 1. ESCENA Y CAMARA
     const scene = new THREE.Scene();
 
+    // El aspect ratio coincide directamente con las dimensiones del contenedor right
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.z = 10;
+    camera.position.z = 12;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // 2. CARGADOR DE MODELOS GLTF/GLB
-    let logoModel = null;
-    
-    // 2. CARGADOR DE MODELOS GLTF/GLB
-    let logoModel = null;
-    
-    // Almacenamos la rotación base deseada para "levantar" el modelo del eje X
-    const baseRotX = -Math.PI / 2;
+    // 2. CREACIÓN DEL LOGOTIPO (Geometría Base)
+    const logoGroup = new THREE.Group();
+    const logoMaterial = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        metalness: 0.8,
+        roughness: 0.15
+    });
 
-    if (typeof THREE.GLTFLoader !== 'undefined') {
-        const loader = new THREE.GLTFLoader();
-        
-        loader.load('Logo_PuntoZero.GLB', function (gltf) {
-            logoModel = gltf.scene;
-            
-            // Asegurar que el pivote sea el centro geométrico del objeto
-            const box = new THREE.Box3().setFromObject(logoModel);
-            const center = box.getCenter(new THREE.Vector3());
-            logoModel.position.sub(center);
-            
-            // Escalar para que sea gigante tras las letras
-            const size = box.getSize(new THREE.Vector3());
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 14 / maxDim; // Masivo
-            logoModel.scale.set(scale, scale, scale);
+    // Anillo
+    const ringGeometry = new THREE.TorusGeometry(2.5, 0.4, 32, 100);
+    const ring = new THREE.Mesh(ringGeometry, logoMaterial);
+    logoGroup.add(ring);
 
-            // Aplicar la rotación para levantarlo (compensar exportación)
-            logoModel.rotation.x = baseRotX;
+    // Eje diagonal
+    const shaftGeometry = new THREE.CylinderGeometry(0.25, 0.25, 8, 32);
+    const shaft = new THREE.Mesh(shaftGeometry, logoMaterial);
+    shaft.rotation.z = -Math.PI / 4;
+    logoGroup.add(shaft);
 
-            scene.add(logoModel);
-        });
-    }
+    // Flecha
+    const arrowHeadGeometry = new THREE.ConeGeometry(0.8, 1.5, 32);
+    const arrowHead = new THREE.Mesh(arrowHeadGeometry, logoMaterial);
+    arrowHead.position.set(2.8, 2.8, 0);
+    arrowHead.rotation.z = -Math.PI / 4;
+    logoGroup.add(arrowHead);
 
-    // 3. ILUMINACIÓN DINÁMICA
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    // Anillo Base
+    const baseRingGeometry = new THREE.TorusGeometry(0.5, 0.25, 32, 50);
+    const baseRing = new THREE.Mesh(baseRingGeometry, logoMaterial);
+    baseRing.position.set(-2.8, -2.8, 0);
+    logoGroup.add(baseRing);
+
+    scene.add(logoGroup);
+
+    // 3. ILUMINACIÓN
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    directionalLight.position.set(5, 5, 10); 
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
-    
-    // Luz de relleno rebotada
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    fillLight.position.set(-5, 0, -5);
-    scene.add(fillLight);
 
-    // Luz trasera tipo "Rim light" azulada u oscura
-    const rimLight = new THREE.DirectionalLight(0x4488ff, 2);
-    rimLight.position.set(0, 5, -10);
-    scene.add(rimLight);
-
-    // 4. INTERACTIVIDAD DE RATÓN
+    // 4. INTERACTIVIDAD MOUSE
     let mouseX = 0;
     let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
 
     let windowHalfX = window.innerWidth / 2;
     let windowHalfY = window.innerHeight / 2;
 
     document.addEventListener('mousemove', (event) => {
-        // Rango de -1 a 1 basado en la pantalla completa (Parallax)
+        // Obtenemos coordenadas para la inercia (calculada como -1 a 1 para viewport)
         mouseX = (event.clientX - windowHalfX) / windowHalfX;
         mouseY = (event.clientY - windowHalfY) / windowHalfY;
     });
 
-    // 5. RESPONSIVE (Reproyectar WebGL si la ventana cambia de tamaño)
+    // 5. RESPONSIVE RESIZE
     window.addEventListener('resize', () => {
         if (container.clientWidth > 0 && container.clientHeight > 0) {
             windowHalfX = window.innerWidth / 2;
@@ -222,32 +215,22 @@ function initDesktop3DScene() {
         }
     });
 
-    let targetX = 0;
-    let targetY = 0;
-
     // 6. LOOP ANIMACIÓN
     function animate() {
         requestAnimationFrame(animate);
 
-        // Fuerza del giro reactivo al seguir el ratón (inercia pura, sin base sumada al objetivo)
-        targetX = mouseX * 0.8;
-        targetY = mouseY * 0.8;
+        // Multiplicador de fuerza
+        targetX = mouseX * 0.5;
+        targetY = mouseY * 0.5;
 
-        if (logoModel) {
-            // El modelo base está levantado en el eje X (-90 grados). 
-            // Aplicamos interpolación (Lerp) de la rotación para un seguimiento extremadamente suave
-            // EJE Y: Rotación izquierda-derecha sobre su nueva vertical
-            logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.05;
-            
-            // EJE X: Rotación arriba-abajo sumada a su base permanente de -90 grados (-Math.PI/2)
-            const targetRotationX = baseRotX + targetY;
-            logoModel.rotation.x += (targetRotationX - logoModel.rotation.x) * 0.05;
-        }
+        // Smooth Lerp (Rotación sutil y líquida)
+        logoGroup.rotation.y += (targetX - logoGroup.rotation.y) * 0.05;
+        logoGroup.rotation.x += (targetY - logoGroup.rotation.x) * 0.05;
 
         renderer.render(scene, camera);
     }
 
-    // Encender motores
+    // Iniciar
     animate();
 }
 
@@ -267,14 +250,7 @@ function enviarWhatsApp(elemento) {
     // 4. Codificar el texto para que la URL sea válida (espacios, tildes, etc.)
     const textoCodificado = encodeURIComponent(mensaje);
 
-    // 5. Construir la URL de WhatsApp (En móvil/PWA a veces window.open es bloqueado, usamos location.href)
+    // 5. Construir la URL de WhatsApp y abrirla en una pestaña nueva
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
-    
-    // Si es móvil redirigimos directo para evitar bloqueos de popup, si es escritorio usamos open
-    if (window.innerWidth < 1024) {
-        window.location.href = urlWhatsApp;
-    } else {
-        window.open(urlWhatsApp, '_blank');
-    }
+    window.open(urlWhatsApp, '_blank');
 }
-

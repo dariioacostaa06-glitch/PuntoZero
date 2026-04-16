@@ -8,9 +8,8 @@
         content="PuntoZero - Estudio de Ingeniería de Software formal, minimalista y de alto rendimiento.">
     <title>PuntoZero | Software Engineering Studio</title>
 
-    <!-- Librería Three.js y GLTFLoader -->
+    <!-- Librería Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="css/styles.css">
@@ -72,9 +71,9 @@
                     <p>Implementamos cartas digitales con un diseño UX similar a una App nativa. Carga Zero-Latency
                         mediante escaneo QR y gestión integral de productos.</p>
                     <div class="example-links">
-                        <a href="https://xzeta4.github.io/Bar-Glade/" class="example-btn btn-glade">Ver
+                        <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="example-btn btn-glade">Ver
                             Ejemplo: Bar Glade (Coctelería)</a>
-                        <a href="http://cartacafebarvictoria.es/" class="example-btn btn-victoria">Ver
+                        <a href="http://cartacafebarvictoria.es/" target="_blank" class="example-btn btn-victoria">Ver
                             Ejemplo: Café Bar Victoria (Tradicional)</a>
                     </div>
 
@@ -195,7 +194,8 @@
                         merchandising técnico exclusivo para empresas.</p>
 
                     <div class="services-modal-container">
-                        <button class="service-modal-btn" data-service="llaveros">Merchandaising y llaveros personalizados</button>
+                        <button class="service-modal-btn" data-service="llaveros">Merchandaising y llaveros
+                            personalizados</button>
                         <button class="service-modal-btn" data-service="qrs">QRs de todo tipo</button>
                         <button class="service-modal-btn" data-service="otro">Cualquier otro diseño</button>
                     </div>
@@ -225,49 +225,49 @@
         </div>
     </main>
 
-    <!-- VISTA ESCRITORIO DEFINITIVA -->
-    <div id="desktop-app">
-        <header class="desk-nav">
-            <div class="desk-logo">PUNTOZERO</div>
-            <nav>
-                <a href="#">Inicio</a>
-                <a href="#">Servicios</a>
-                <a href="#">Metodología</a>
-                <a href="#">Contacto</a>
-            </nav>
-        </header>
+    <!-- VISTA ESCRITORIO (Escaparate Tecnológico) -->
+    <main id="desktop-showcase">
+        <div class="desktop-left">
+            <header class="desktop-header">
+                <img src="logo_PuntoZero_blanco.png" alt="Icono" class="desktop-logo-icon"
+                    style="height:21px; width:auto; filter: invert(1);">
+                <span class="desktop-logo-text">PuntoZero.</span>
+            </header>
 
-        <section class="desk-hero">
-            <!-- Contenedor WebGL para el GLB, expandido e indexado como canvas fondo o contenido 3D -->
-            <div id="hero-3d-logo"></div>
-            <h1 class="hero-title">Ingeniería Digital,<br>Rigor Técnico,<br>Cero Latencia.</h1>
-        </section>
+            <div class="desktop-content">
+                <h1 class="desktop-title">Ingeniería<br>en su estado<br>más puro.</h1>
+                <p class="desktop-subtitle">Desarrollamos soluciones de software robustas, escalables y eficientes. La
+                    perfección técnica es nuestra norma de diseño.</p>
 
-        <section class="desk-services">
-            <div class="desk-service-card">
-                <h3>Cartas Digitales</h3>
-                <p>UX nativa y carga Zero-Latency para hostelería.</p>
+                <nav class="desktop-menu">
+                    <ul>
+                        <li><a href="#servicios" class="desktop-link">Servicios</a></li>
+                        <li><a href="#metodologia" class="desktop-link">Metodología</a></li>
+                        <li><a href="#contacto" class="desktop-link">Contacto</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="desk-service-card">
-                <h3>Desarrollo Web Full-Stack</h3>
-                <p>Arquitectura digital, e-commerce y desarrollo a medida.</p>
-            </div>
-            <div class="desk-service-card">
-                <h3>Laboratorio Dual 3D</h3>
-                <p>Ingeniería física, prototipado rápido y merchandising.</p>
-            </div>
-        </section>
-    </div>
 
+            <footer class="desktop-footer">
+                <p>&copy; <span id="current-year"></span> PuntoZero. Todos los derechos reservados.</p>
+            </footer>
+        </div>
 
+        <div class="desktop-right">
+            <!-- Enorme preparado para alojar el logo 3D -->
+            <div id="canvas-container"></div>
+        </div>
+    </main>
 
     <!-- Modal Contenedor -->
     <div id="service-modal-backdrop" class="modal-backdrop">
         <div id="service-modal" class="modal-content">
             <button id="modal-close" class="modal-close-btn">&times;</button>
-            <img id="modal-img" src="" alt="Ilustración conceptual" style="display:none; width:100%; border-radius:8px; margin-bottom:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+            <img id="modal-img" src="" alt="Ilustración conceptual"
+                style="display:none; width:100%; border-radius:8px; margin-bottom:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
             <p id="modal-desc" style="font-size: 0.95rem; color:#333; margin-bottom:1.5rem; line-height:1.5;"></p>
-            <button id="modal-wa" class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="">Solicitar presupuesto</button>
+            <button id="modal-wa" class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="">Solicitar
+                presupuesto</button>
         </div>
     </div>
 
