@@ -10,26 +10,74 @@ document.addEventListener('DOMContentLoaded', () => {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- ACCORDION LOGIC ---
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    // --- MODAL LOGIC ---
+    const modalBackdrop = document.getElementById('service-modal-backdrop');
+    const modalImg = document.getElementById('modal-img');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalBtnWA = document.getElementById('modal-wa');
+    const modalClose = document.getElementById('modal-close');
+    const modalBtns = document.querySelectorAll('.service-modal-btn');
 
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            // Seleccionamos el contenido que pertenece a este botón
-            const content = header.nextElementSibling;
-            const isActive = content.classList.contains('active');
+    // Mapeo dinámico de datos conceptuales
+    const modalData = {
+        'llaveros': {
+            img: 'ejemplo_impresion.png',
+            desc: 'Llaveros y merchandising técnico exclusivo para empresas.',
+            planName: 'Merchandaising y llaveros personalizados'
+        },
+        'qrs': {
+            img: 'ejemplo_qr_3d.jpg',
+            desc: 'Códigos QR extruidos funcionales para señalética y control.',
+            planName: 'QRs de todo tipo'
+        },
+        'otro': {
+            img: null,
+            desc: 'Modelado CAD de precisión y creación de piezas técnicas a medida.',
+            planName: 'Cualquier otro diseño'
+        }
+    };
 
-            // Primero cerramos todos los acordeones para mantenerlo limpio
-            document.querySelectorAll('.accordion-content').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Si no estaba activo, lo abrimos
-            if (!isActive) {
-                content.classList.add('active');
+    function openModal(serviceKey) {
+        if (!modalBackdrop) return;
+        const data = modalData[serviceKey];
+        if (data) {
+            if (data.img) {
+                modalImg.src = data.img;
+                modalImg.style.display = 'block';
+            } else {
+                modalImg.style.display = 'none'; // Sin ilustración fotorrealista
             }
+            modalDesc.textContent = data.desc;
+            modalBtnWA.setAttribute('data-plan', data.planName);
+            
+            modalBackdrop.classList.add('is-open');
+        }
+    }
+
+    function closeModal() {
+        if (modalBackdrop) {
+            modalBackdrop.classList.remove('is-open');
+        }
+    }
+
+    modalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const serviceKey = btn.getAttribute('data-service');
+            openModal(serviceKey);
         });
     });
+
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', (e) => {
+            if (e.target === modalBackdrop) {
+                closeModal();
+            }
+        });
+    }
 
     /* =========================================================================
        INICIALIZACIÓN CONDICIONAL (Responsividad Extrema)

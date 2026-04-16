@@ -193,27 +193,10 @@
                         prototipado rápido para validación de piezas, modelado CAD de precisión e incluso creación de
                         merchandising técnico exclusivo para empresas.</p>
 
-                    <div class="services-accordion">
-                        <article class="accordion-item">
-                            <button class="accordion-header">Merchandaising y llaveros personalizados <span class="icon">+</span></button>
-                            <div class="accordion-content">
-                                <img src="ejemplo_impresion.png" alt="Llaveros 3D" class="accordion-img">
-                            </div>
-                        </article>
-                        
-                        <article class="accordion-item">
-                            <button class="accordion-header">QRs de todo tipo <span class="icon">+</span></button>
-                            <div class="accordion-content">
-                                <img src="ejemplo_qr_3d.jpg" alt="Códigos QR 3D" class="accordion-img">
-                            </div>
-                        </article>
-                        
-                        <article class="accordion-item">
-                            <button class="accordion-header">Cualquier otro diseño <span class="icon">+</span></button>
-                            <div class="accordion-content">
-                                <p class="accordion-text">Dinos qué necesitas y nuestro equipo de ingeniería física lo modelará e imprimirá desde cero.</p>
-                            </div>
-                        </article>
+                    <div class="services-modal-container">
+                        <button class="service-modal-btn" data-service="llaveros">Merchandaising y llaveros personalizados</button>
+                        <button class="service-modal-btn" data-service="qrs">QRs de todo tipo</button>
+                        <button class="service-modal-btn" data-service="otro">Cualquier otro diseño</button>
                     </div>
 
                     <div class="pricing-explanation-block">
@@ -274,6 +257,16 @@
             <div id="canvas-container"></div>
         </div>
     </main>
+
+    <!-- Modal Contenedor -->
+    <div id="service-modal-backdrop" class="modal-backdrop">
+        <div id="service-modal" class="modal-content">
+            <button id="modal-close" class="modal-close-btn">&times;</button>
+            <img id="modal-img" src="" alt="Ilustración conceptual" style="display:none; width:100%; border-radius:8px; margin-bottom:1rem; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+            <p id="modal-desc" style="font-size: 0.95rem; color:#333; margin-bottom:1.5rem; line-height:1.5;"></p>
+            <button id="modal-wa" class="btn-contratar" onclick="enviarWhatsApp(this)" data-plan="">Solicitar presupuesto</button>
+        </div>
+    </div>
 
     <!-- Script principal con la lógica condicional -->
     <script src="js/main.js"></script>
