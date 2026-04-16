@@ -154,12 +154,12 @@ function initDesktop3DScene() {
         const loader = new THREE.GLTFLoader();
         loader.load('Logo_PuntoZero.GLB', function (gltf) {
             logoModel = gltf.scene;
-            
+
             // Centrado de pivote estricto
             const box = new THREE.Box3().setFromObject(logoModel);
             const center = box.getCenter(new THREE.Vector3());
             logoModel.position.sub(center);
-            
+
             // Escala Masiva/Colosal (Ajustado agresivo)
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
@@ -170,7 +170,7 @@ function initDesktop3DScene() {
             logoModel.rotation.x = baseRotX;
 
             // Material oscuro metálico
-            logoModel.traverse(function(child) {
+            logoModel.traverse(function (child) {
                 if (child.isMesh) {
                     child.material = new THREE.MeshStandardMaterial({
                         color: 0x111111,
@@ -225,34 +225,12 @@ function initDesktop3DScene() {
         }
     });
 
-    // 5.b. RESPUESTA SCROLL CINEMÁTICO
-    const heroTitleBlock = document.querySelector('.hero-text-overlay');
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        const vh = window.innerHeight;
-        
-        // El factor llega a 1 cuando bajamos un viewport completo
-        const scrollFactor = Math.min(1, scrollY / (vh * 0.8));
-        
-        // Desvanece el canvas sutilmente para que no entorpezca la lectura abajo
-        container.style.opacity = 1 - (scrollFactor * 0.85); // Nunca llega a 0 puro para dejar textura
-        
-        // Ocultar rápidamente el texto principal del hero
-        if (heroTitleBlock) {
-            heroTitleBlock.style.opacity = 1 - (scrollY / (vh * 0.4));
-            heroTitleBlock.style.transform = `translateY(${scrollY * 0.5}px)`; // Parallax rápido
-        }
-
-        // Alejar ligeramente la cámara al bajar
-        camera.position.z = 12 + (scrollFactor * 10);
-    });
-
     // 6. LOOP ANIMACIÓN
     function animate() {
         requestAnimationFrame(animate);
 
         // Limitamos rotación inercial al 15 grados (~0.26 radianes)
-        const rotLimit = 0.26; 
+        const rotLimit = 0.26;
         targetX = Math.max(-rotLimit, Math.min(rotLimit, mouseX * rotLimit));
         targetY = Math.max(-rotLimit, Math.min(rotLimit, mouseY * rotLimit));
 
@@ -262,7 +240,7 @@ function initDesktop3DScene() {
 
             // Lerp Ultra Inercial (giro pesado y colosal)
             logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.02;
-            
+
             // Aplicado al X con el desfase de baseRotX
             const targetRotationX = baseRotX + targetY;
             logoModel.rotation.x += (targetRotationX - logoModel.rotation.x) * 0.02;
@@ -284,7 +262,7 @@ function enviarWhatsApp(elemento) {
     const mensaje = `¡Hola PuntoZero! Vengo de vuestra web y estoy interesado en solicitar un presupuesto para: *${plan}*. ¿Podemos hablar?`;
     const textoCodificado = encodeURIComponent(mensaje);
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
-    
+
     if (window.innerWidth < 1024) {
         window.location.href = urlWhatsApp; // Evitar cuelgue PWA Apple/Android
     } else {
