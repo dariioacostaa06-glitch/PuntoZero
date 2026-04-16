@@ -532,12 +532,19 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     #mobile-app {
         display: none !important;
     }
+    
+    .view { 
+        display: none !important; 
+    } 
 
-    #desktop-showcase {
-        display: flex;
-        height: 100vh;
+    #desktop-showcase { 
+        display: block; 
+        background-color: #111111; 
+        color: white; 
+        min-height: 100vh; 
         width: 100%;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     /* Layout Asimétrico */
@@ -645,24 +652,22 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
         font-size: 0.875rem;
         color: var(--color-gray-dark);
     }
+
+    #desk-servicios, #desk-metodologia, #desk-contacto { 
+        max-width: 1200px; 
+        margin: 0 auto; 
+        padding: 6rem 5%; 
+    }
+
+    #desk-servicios .grid-container { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 2.5rem; 
+        margin-top: 3rem; 
+    }
+
+    #desk-metodologia { 
+        background-color: #1a1a1a; 
+    }
 }
 
-@media (min-width: 1024px) {
-    /* Cabecera y Hero (#view-home) */
-    header { max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
-    .hero-intro { max-width: 900px; margin: 0 auto; padding: 6rem 0 4rem 0; text-align: center; }
-    .hero-intro h2 { font-size: 3.5rem; line-height: 1.1; }
-    .hero-intro p { font-size: 1.3rem; }
-
-    /* Cuadrícula de Servicios (Página Principal) */
-    .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1000px; margin: 0 auto; padding: 0 5% 5rem 5%; }
-    .service-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
-
-    /* Carruseles de Precios (.pricing-container en Vistas Interiores) */
-    .pricing-container { flex-direction: row; justify-content: center; overflow: visible; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
-    .pricing-card { flex: 0 0 30%; max-width: 350px; scroll-snap-align: none; }
-    .pricing-card:nth-child(2) { transform: scale(1.05); }
-
-    /* Modal del Laboratorio 3D (#view-3d) */
-    .modal-content { max-width: 800px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; text-align: left; padding: 3rem; }
-}
