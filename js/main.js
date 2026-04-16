@@ -148,6 +148,12 @@ function initDesktop3DScene() {
 
     // 2. CARGADOR DE MODELOS GLTF/GLB
     let logoModel = null;
+    
+    // Almacenamos la rotación base deseada para inclinarlo y que no sea plano
+    const baseRotX = 0.4;
+    const baseRotY = -0.4; 
+    const baseRotZ = -0.2;
+
     if (typeof THREE.GLTFLoader !== 'undefined') {
         const loader = new THREE.GLTFLoader();
         
@@ -157,15 +163,18 @@ function initDesktop3DScene() {
             // Centrado perfecto de la geometría sea cual sea su pivot original
             const box = new THREE.Box3().setFromObject(logoModel);
             const center = box.getCenter(new THREE.Vector3());
-            logoModel.position.x += (logoModel.position.x - center.x);
-            logoModel.position.y += (logoModel.position.y - center.y);
-            logoModel.position.z += (logoModel.position.z - center.z);
+            logoModel.position.x -= center.x;
+            logoModel.position.y -= center.y;
+            logoModel.position.z -= center.z;
             
-            // Escalar el objeto para que quepa cómodamente en el viewport
+            // Escalar el objeto brutalmente para que quede de fondo masivo tras las letras
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 4 / maxDim; // 4 es un multiplicador visual aproximado al rango de la cámara (.z = 10)
+            const scale = 14 / maxDim; // Elevado a 14 para hacerlo inmenso ("en grande")
             logoModel.scale.set(scale, scale, scale);
+
+            // Inyectamos rotación inicial atractiva (lo inclinamos)
+            logoModel.rotation.set(baseRotX, baseRotY, baseRotZ);
 
             scene.add(logoModel);
         });
@@ -176,13 +185,18 @@ function initDesktop3DScene() {
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    directionalLight.position.set(5, 5, 5);
+    directionalLight.position.set(5, 5, 10); // Ligeramente más frontal para resaltar texturas
     scene.add(directionalLight);
     
     // Luz de relleno rebotada
     const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
     fillLight.position.set(-5, 0, -5);
     scene.add(fillLight);
+
+    // Luz trasera tipo "Rim light" azulada u oscura para darle contorno espacial
+    const rimLight = new THREE.DirectionalLight(0x4488ff, 2);
+    rimLight.position.set(0, 5, -10);
+    scene.add(rimLight);
 
     // 4. INTERACTIVIDAD DE RATÓN
     let mouseX = 0;
@@ -215,12 +229,15 @@ function initDesktop3DScene() {
     function animate() {
         requestAnimationFrame(animate);
 
-        // Fuerza del giro al seguir el ratón (1 = más giro)
-        targetX = mouseX * 0.8;
-        targetY = mouseY * 0.8;
+        // Fuerza del giro reactivo al seguir el ratón (se suma al giro base)
+        targetX = baseRotY + (mouseX * 0.8);
+        targetY = baseRotX + (mouseY * 0.8);
 
         if (logoModel) {
-            // Lerp de suavizado para rotación súper orgánica (+ inercia)
+            // El modelo va girando muy poco a poco en el eje Z de forma constante para que no parezca apagado
+            logoModel.rotation.z += 0.001; 
+
+            // Lerp de suavizado para rotación principal con el ratón
             logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.05;
             logoModel.rotation.x += (targetY - logoModel.rotation.x) * 0.05;
         }
