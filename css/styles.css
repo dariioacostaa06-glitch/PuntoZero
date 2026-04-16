@@ -25,11 +25,13 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body {
     margin: 0;
     font-family: var(--font-primary);
-    background-color: var(--color-white);
+    background-color: #111111;
     color: var(--color-black);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100dvh;
+    overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
@@ -44,9 +46,8 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 #mobile-app {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100dvh;
     background-color: #ffffff;
-    overflow: hidden;
 }
 
 .mobile-header {
@@ -74,9 +75,9 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 /* SPA App Content (Resto de la pantalla) */
 #app-content {
     flex-grow: 1;
-    overflow-y: auto;
     position: relative;
     background-color: #fafafa;
+    min-height: 100dvh;
 }
 
 /* Manejo de Vistas */
@@ -84,6 +85,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     display: none;
     will-change: transform, opacity; /* Prepara la GPU del móvil */
     padding-bottom: 2rem;
+    min-height: 100dvh;
 }
 
 .active-view {
