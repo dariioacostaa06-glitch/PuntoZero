@@ -146,49 +146,59 @@ function initDesktop3DScene() {
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // 2. CREACIÓN DEL LOGOTIPO (Geometría Base)
-    const logoGroup = new THREE.Group();
-    const logoMaterial = new THREE.MeshStandardMaterial({
-        color: 0x111111,
-        metalness: 0.8,
-        roughness: 0.15
-    });
+    // 2. CARGADOR Y GEOMETRÍA COLOSAL (GLTF)
+    let logoModel = null;
+    const baseRotX = -Math.PI / 2; // Corrección de Eje
 
-    // Anillo
-    const ringGeometry = new THREE.TorusGeometry(2.5, 0.4, 32, 100);
-    const ring = new THREE.Mesh(ringGeometry, logoMaterial);
-    logoGroup.add(ring);
+    if (typeof THREE.GLTFLoader !== 'undefined') {
+        const loader = new THREE.GLTFLoader();
+        loader.load('Logo_PuntoZero.GLB', function (gltf) {
+            logoModel = gltf.scene;
+            
+            // Centrado de pivote estricto
+            const box = new THREE.Box3().setFromObject(logoModel);
+            const center = box.getCenter(new THREE.Vector3());
+            logoModel.position.sub(center);
+            
+            // Escala Masiva/Colosal (Ajustado agresivo)
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 16 / maxDim; // Muy inmersivo de fondo
+            logoModel.scale.set(scale, scale, scale);
 
-    // Eje diagonal
-    const shaftGeometry = new THREE.CylinderGeometry(0.25, 0.25, 8, 32);
-    const shaft = new THREE.Mesh(shaftGeometry, logoMaterial);
-    shaft.rotation.z = -Math.PI / 4;
-    logoGroup.add(shaft);
+            // Orientación nativa vertical (frente cámara)
+            logoModel.rotation.x = baseRotX;
 
-    // Flecha
-    const arrowHeadGeometry = new THREE.ConeGeometry(0.8, 1.5, 32);
-    const arrowHead = new THREE.Mesh(arrowHeadGeometry, logoMaterial);
-    arrowHead.position.set(2.8, 2.8, 0);
-    arrowHead.rotation.z = -Math.PI / 4;
-    logoGroup.add(arrowHead);
+            // Material oscuro metálico
+            logoModel.traverse(function(child) {
+                if (child.isMesh) {
+                    child.material = new THREE.MeshStandardMaterial({
+                        color: 0x111111,
+                        metalness: 0.8,
+                        roughness: 0.15
+                    });
+                }
+            });
 
-    // Anillo Base
-    const baseRingGeometry = new THREE.TorusGeometry(0.5, 0.25, 32, 50);
-    const baseRing = new THREE.Mesh(baseRingGeometry, logoMaterial);
-    baseRing.position.set(-2.8, -2.8, 0);
-    logoGroup.add(baseRing);
+            scene.add(logoModel);
+        });
+    }
 
-    scene.add(logoGroup);
-
-    // 3. ILUMINACIÓN
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // 3. ILUMINACIÓN TEATRAL
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
+    // Luz Frontal blanca (resalta bordes)
+    const frontLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    frontLight.position.set(0, 0, 10);
+    scene.add(frontLight);
 
-    // 4. INTERACTIVIDAD MOUSE
+    // Luz lateral azul suave (Rim light dramático)
+    const blueLight = new THREE.PointLight(0x4488ff, 3, 50);
+    blueLight.position.set(-8, 5, 2);
+    scene.add(blueLight);
+
+    // 4. INTERACTIVIDAD MOUSE INERCIAL
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -198,7 +208,7 @@ function initDesktop3DScene() {
     let windowHalfY = window.innerHeight / 2;
 
     document.addEventListener('mousemove', (event) => {
-        // Obtenemos coordenadas para la inercia (calculada como -1 a 1 para viewport)
+        // Obtenemos coordenadas para inercia (-1 a 1)
         mouseX = (event.clientX - windowHalfX) / windowHalfX;
         mouseY = (event.clientY - windowHalfY) / windowHalfY;
     });
@@ -219,13 +229,22 @@ function initDesktop3DScene() {
     function animate() {
         requestAnimationFrame(animate);
 
-        // Multiplicador de fuerza
-        targetX = mouseX * 0.5;
-        targetY = mouseY * 0.5;
+        // Limitamos rotación inercial al 15 grados (~0.26 radianes)
+        const rotLimit = 0.26; 
+        targetX = Math.max(-rotLimit, Math.min(rotLimit, mouseX * rotLimit));
+        targetY = Math.max(-rotLimit, Math.min(rotLimit, mouseY * rotLimit));
 
-        // Smooth Lerp (Rotación sutil y líquida)
-        logoGroup.rotation.y += (targetX - logoGroup.rotation.y) * 0.05;
-        logoGroup.rotation.x += (targetY - logoGroup.rotation.x) * 0.05;
+        if (logoModel) {
+            // Rotación constante mínima para vida cuando el ratón para
+            logoModel.rotation.z += 0.001;
+
+            // Lerp Ultra Inercial (giro pesado y colosal)
+            logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.02;
+            
+            // Aplicado al X con el desfase de baseRotX
+            const targetRotationX = baseRotX + targetY;
+            logoModel.rotation.x += (targetRotationX - logoModel.rotation.x) * 0.02;
+        }
 
         renderer.render(scene, camera);
     }
@@ -238,19 +257,15 @@ function initDesktop3DScene() {
    CONTACTO DIRECTO (WhatsApp API)
    ========================================================================= */
 function enviarWhatsApp(elemento) {
-    // 1. Definir el número de teléfono (Formato internacional sin el +)
-    const telefono = "34643605384"; // Reemplazar con el número real de PuntoZero
-
-    // 2. Extraer el nombre del plan del botón que se ha pulsado
+    const telefono = "34643605384";
     const plan = elemento.getAttribute('data-plan');
-
-    // 3. Crear el mensaje personalizado
     const mensaje = `¡Hola PuntoZero! Vengo de vuestra web y estoy interesado en solicitar un presupuesto para: *${plan}*. ¿Podemos hablar?`;
-
-    // 4. Codificar el texto para que la URL sea válida (espacios, tildes, etc.)
     const textoCodificado = encodeURIComponent(mensaje);
-
-    // 5. Construir la URL de WhatsApp y abrirla en una pestaña nueva
     const urlWhatsApp = `https://api.whatsapp.com/send?phone=${telefono}&text=${textoCodificado}`;
-    window.open(urlWhatsApp, '_blank');
+    
+    if (window.innerWidth < 1024) {
+        window.location.href = urlWhatsApp; // Evitar cuelgue PWA Apple/Android
+    } else {
+        window.open(urlWhatsApp, '_blank');
+    }
 }

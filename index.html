@@ -8,8 +8,9 @@
         content="PuntoZero - Estudio de Ingeniería de Software formal, minimalista y de alto rendimiento.">
     <title>PuntoZero | Software Engineering Studio</title>
 
-    <!-- Librería Three.js -->
+    <!-- Librería Three.js y GLTFLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="css/styles.css">
@@ -225,39 +226,28 @@
         </div>
     </main>
 
-    <!-- VISTA ESCRITORIO (Escaparate Tecnológico) -->
-    <main id="desktop-showcase">
-        <div class="desktop-left">
-            <header class="desktop-header">
-                <img src="logo_PuntoZero_blanco.png" alt="Icono" class="desktop-logo-icon"
-                    style="height:21px; width:auto; filter: invert(1);">
-                <span class="desktop-logo-text">PuntoZero.</span>
-            </header>
+    <!-- VISTA ESCRITORIO (Definitiva Colosal) -->
+    <div id="desktop-app">
+        <!-- Contenedor WebGL inmersivo al fondo -->
+        <div id="canvas-container"></div>
 
-            <div class="desktop-content">
-                <h1 class="desktop-title">Ingeniería<br>en su estado<br>más puro.</h1>
-                <p class="desktop-subtitle">Desarrollamos soluciones de software robustas, escalables y eficientes. La
-                    perfección técnica es nuestra norma de diseño.</p>
+        <header class="desk-nav">
+            <div class="desk-logo">PUNTOZERO</div>
+            <nav class="desk-menu">
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#metodologia">Metodología</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </header>
 
-                <nav class="desktop-menu">
-                    <ul>
-                        <li><a href="#servicios" class="desktop-link">Servicios</a></li>
-                        <li><a href="#metodologia" class="desktop-link">Metodología</a></li>
-                        <li><a href="#contacto" class="desktop-link">Contacto</a></li>
-                    </ul>
-                </nav>
+        <section class="desk-hero">
+            <div class="hero-text-overlay">
+                <h1 class="desk-main-title">Ingeniería Digital para el Negocio de Siempre.</h1>
+                <p class="desk-main-subtitle">Asumimos la complejidad técnica para entregarte infraestructuras rápidas, seguras y sin adornos. Diseñadas en Córdoba para escalar tu negocio.</p>
             </div>
-
-            <footer class="desktop-footer">
-                <p>&copy; <span id="current-year"></span> PuntoZero. Todos los derechos reservados.</p>
-            </footer>
-        </div>
-
-        <div class="desktop-right">
-            <!-- Enorme preparado para alojar el logo 3D -->
-            <div id="canvas-container"></div>
-        </div>
-    </main>
+        </section>
+    </div>
 
     <!-- Modal Contenedor -->
     <div id="service-modal-backdrop" class="modal-backdrop">
