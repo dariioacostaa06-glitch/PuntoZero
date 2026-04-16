@@ -403,60 +403,66 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
     letter-spacing: -0.02em;
 }
 
-/* Service Showcase */
-.service-showcase {
+/* Services Accordion */
+.services-accordion {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin: 1.5rem 0;
-}
-
-.showcase-panel {
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    border: 1px solid rgba(0,0,0,0.05);
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03), 0 2px 4px -1px rgba(0,0,0,0.02);
     gap: 1rem;
+    margin: 1.5rem 0 2rem 0;
 }
 
-.showcase-icon {
-    font-size: 1.5rem;
+.accordion-item {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: #f8f9fa;
-    border-radius: 50%;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-    flex-shrink: 0;
+    flex-direction: column;
 }
 
-.showcase-panel p {
-    font-size: 0.95rem !important;
-    font-weight: 600;
-    color: #333333 !important;
-    margin: 0;
-    line-height: 1.3;
-}
-
-/* Service Gallery */
-.service-gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-}
-
-.service-gallery img {
+.accordion-header {
     width: 100%;
+    text-align: left;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
     border-radius: 12px;
-    object-fit: cover;
-    aspect-ratio: 1/1;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-black);
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+    background-color: #fafafa;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.accordion-content.active {
+    max-height: 500px;
+    opacity: 1;
+    padding: 1rem 0;
+}
+
+.accordion-img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: block;
+}
+
+.accordion-text {
+    font-size: 0.95rem;
+    color: var(--color-gray-dark);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0 0.5rem;
 }
 
 /* Pricing Explanation Block */

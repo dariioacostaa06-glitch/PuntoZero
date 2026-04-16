@@ -10,6 +10,27 @@ document.addEventListener('DOMContentLoaded', () => {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
+    // --- ACCORDION LOGIC ---
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            // Seleccionamos el contenido que pertenece a este botón
+            const content = header.nextElementSibling;
+            const isActive = content.classList.contains('active');
+
+            // Primero cerramos todos los acordeones para mantenerlo limpio
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Si no estaba activo, lo abrimos
+            if (!isActive) {
+                content.classList.add('active');
+            }
+        });
+    });
+
     /* =========================================================================
        INICIALIZACIÓN CONDICIONAL (Responsividad Extrema)
        Aseguramos ahorro de recursos en móviles. El 3D no arrancará debajo de 1024px.
