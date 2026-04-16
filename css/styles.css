@@ -615,6 +615,7 @@ button {
     .desk-menu {
         display: flex;
         gap: 2.5rem;
+        align-items: center;
     }
 
     .desk-menu a {
@@ -627,6 +628,69 @@ button {
 
     .desk-menu a:hover {
         color: #ffffff;
+    }
+
+    /* Sistema Dropdown Desktop */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 2rem; /* Crea puente interactivo invisible */
+        margin-bottom: -2rem;
+    }
+
+    .dropdown-trigger {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .dropdown-trigger .arrow {
+        font-size: 0.7rem;
+        transition: transform 0.3s ease;
+    }
+
+    /* Caja emergente del Dropdown */
+    .dropdown-content {
+        position: absolute;
+        top: calc(100% - 1.2rem); 
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background-color: rgba(17, 17, 17, 0.85); /* Glass oscuro */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        min-width: 260px;
+        border: 1px solid rgba(255, 255, 255, 0.08); /* Borde sutil Premium */
+        border-radius: 12px;
+        padding: 0.5rem 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        z-index: 100;
+    }
+
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(15px); /* Animación fluida hacia abajo */
+    }
+
+    .dropdown:hover .dropdown-trigger .arrow {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-content a {
+        display: block;
+        padding: 0.8rem 1.5rem;
+        color: #cccccc;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-content a:hover {
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding-left: 1.8rem; /* Micro-interacción indentada */
     }
 
     /* Canvas WebGL al Fondo */
