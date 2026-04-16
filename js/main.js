@@ -225,6 +225,28 @@ function initDesktop3DScene() {
         }
     });
 
+    // 5.b. RESPUESTA SCROLL CINEMÁTICO
+    const heroTitleBlock = document.querySelector('.hero-text-overlay');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+        
+        // El factor llega a 1 cuando bajamos un viewport completo
+        const scrollFactor = Math.min(1, scrollY / (vh * 0.8));
+        
+        // Desvanece el canvas sutilmente para que no entorpezca la lectura abajo
+        container.style.opacity = 1 - (scrollFactor * 0.85); // Nunca llega a 0 puro para dejar textura
+        
+        // Ocultar rápidamente el texto principal del hero
+        if (heroTitleBlock) {
+            heroTitleBlock.style.opacity = 1 - (scrollY / (vh * 0.4));
+            heroTitleBlock.style.transform = `translateY(${scrollY * 0.5}px)`; // Parallax rápido
+        }
+
+        // Alejar ligeramente la cámara al bajar
+        camera.position.z = 12 + (scrollFactor * 10);
+    });
+
     // 6. LOOP ANIMACIÓN
     function animate() {
         requestAnimationFrame(animate);

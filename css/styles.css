@@ -586,11 +586,12 @@ button {
     #desktop-app {
         display: flex;
         flex-direction: column;
-        height: 100vh;
+        min-height: 100vh;
         width: 100vw;
         background-color: #000000;
         color: #ffffff;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
         position: relative;
     }
 
@@ -695,17 +696,17 @@ button {
 
     /* Canvas WebGL al Fondo */
     #canvas-container {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         z-index: 0;
     }
 
     /* Hero Central con Texto Overlay */
     .desk-hero {
-        flex-grow: 1;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -738,5 +739,277 @@ button {
         max-width: 700px;
         margin: 0 auto;
         pointer-events: none;
+    }
+
+    /* -------------------------------------------------------------
+       VISTAS SPLIT-SCREEN (SERVICIOS DESKTOP)
+       ------------------------------------------------------------- */
+    .desk-service-split {
+        display: flex;
+        min-height: 100vh;
+        width: 100vw;
+        background-color: #000000;
+        z-index: 10;
+        position: relative;
+    }
+
+    .desk-service-split.reverse {
+        flex-direction: row-reverse;
+    }
+
+    /* Sector Textual Izquierdo (o Derecho en reverse) */
+    .split-left {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5rem 6%;
+        border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .desk-service-split.reverse .split-left {
+        border-right: none;
+        border-left: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .split-content {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .desk-badge {
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #4488ff;
+        margin-bottom: 1.5rem;
+        padding: 0.3rem 0;
+        border-bottom: 2px solid #4488ff;
+    }
+
+    .split-content h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+        color: #ffffff;
+    }
+
+    .split-content p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #888888;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Botón Premium Ancho */
+    .btn-desk-premium {
+        display: inline-block;
+        width: 100%;
+        padding: 1.2rem 2rem;
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.2);
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-desk-premium:hover {
+        background-color: #ffffff;
+        color: #000000;
+        transform: translateY(-2px);
+    }
+
+    .budget-block {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Grids y Listas de los Servicios */
+    .desk-plans-grid, .desk-services-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .desk-plan, .ds-item {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .desk-plan:hover, .ds-item:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .desk-plan.highlight {
+        background-color: rgba(68, 136, 255, 0.08);
+        border-color: rgba(68, 136, 255, 0.3);
+    }
+
+    .desk-plan h4, .ds-item h4 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+    }
+
+    .desk-plan p, .ds-item p {
+        font-size: 1rem;
+        margin-bottom: 0;
+        color: #999999;
+    }
+
+    .desk-tech-list {
+        list-style: none;
+        margin-bottom: 3rem;
+    }
+    
+    .desk-tech-list li {
+        font-size: 1.15rem;
+        color: #cccccc;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .tech-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #4488ff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #4488ff;
+    }
+
+    .desk-quote {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: #aaaaaa;
+        border-left: 4px solid #4488ff;
+        padding-left: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    /* Sector Visual Derecho (o Izquierdo en reverse) */
+    .split-right {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .desk-visual-mockup {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Estéticas Visuales Específicas */
+    .mockup-iphone img {
+        width: 300px;
+        height: 600px;
+        object-fit: cover;
+        border-radius: 40px;
+        border: 8px solid #222;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .mockup-overlay {
+        margin-top: 1.5rem;
+        color: #666;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* Estilo Tron/Neon para Desarrollo Web */
+    .style-neon {
+        background: radial-gradient(circle at center, rgba(0,20,40,1) 0%, rgba(0,0,0,1) 100%);
+    }
+
+    .code-grid {
+        font-family: 'Courier New', monospace;
+        color: #4488ff;
+        text-shadow: 0 0 10px rgba(68,136,255,0.4);
+        font-size: 1.2rem;
+        line-height: 2;
+        align-items: flex-start;
+        padding-left: 10%;
+    }
+
+    .neon-line.indented { margin-left: 2rem; }
+    .neon-line.double-indented { margin-left: 4rem; color: #ffffff; }
+
+    /* Estética Laboratorio para 3D */
+    .lab-aesthetic {
+        background-color: #050505;
+        background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    .center-graphic {
+        position: relative;
+    }
+
+    .graphic-circle {
+        width: 300px;
+        height: 300px;
+        border: 2px dashed rgba(255,255,255,0.1);
+        border-radius: 50%;
+        animation: spin 20s linear infinite;
+        position: relative;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .specs-list {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        color: #888;
+        font-family: monospace;
+        font-size: 0.9rem;
+    }
+
+    /* Estética Grid / CAD para Maquetación */
+    .grid-aesthetic {
+        background-color: #111;
+        background-image: 
+            radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .arch-render img {
+        width: 80%;
+        max-width: 600px;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        filter: grayscale(80%) contrast(120%);
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 20px 20px 0 rgba(255,255,255,0.05);
     }
 }
