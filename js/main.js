@@ -21,9 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapeo dinámico de datos conceptuales
     const modalData = {
         'llaveros': {
-            img: 'ejemplo_impresion.png',
+            img: 'llaveros_3d.png',
             desc: 'Llaveros y merchandising técnico exclusivo para empresas.',
             planName: 'Merchandaising y llaveros personalizados'
+        },
+        'figuras': {
+            img: 'Gato_3d.png',
+            desc: 'Figuras decorativas y coleccionismo con acabados de alta calidad.',
+            planName: 'Figuras y Coleccionables'
         },
         'qrs': {
             img: 'ejemplo_qr_3d.jpg',
