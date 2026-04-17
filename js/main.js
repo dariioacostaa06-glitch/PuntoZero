@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             planName: 'QRs de todo tipo'
         },
         'otro': {
-            img: null,
+            img: 'ejemplo_impresion.png',
             desc: 'Modelado CAD de precisión y creación de piezas técnicas a medida.',
             planName: 'Cualquier otro diseño'
         }
