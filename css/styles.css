@@ -61,7 +61,7 @@ button {
 }
 
 /* 2. ESTRUCTURA DOBLE VISTA (Mobile-First Default) */
-#desktop-showcase {
+#desktop-app {
     display: none;
 }
 
