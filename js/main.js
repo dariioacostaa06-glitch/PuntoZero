@@ -133,6 +133,22 @@ window.addEventListener('hashchange', handleRouting);
 // Ejecutar al cargar la página por primera vez
 window.addEventListener('DOMContentLoaded', handleRouting);
 
+/* =========================================================================
+   ROUTER ESCRITORIO
+   ========================================================================= */
+function NavDesk(viewId) {
+    // Ocultar todas las vistas de escritorio
+    document.querySelectorAll('.desk-view').forEach(view => {
+        view.classList.remove('active-desk-view');
+    });
+
+    // Mostrar la vista solicitada
+    const targetView = document.getElementById(viewId);
+    if (targetView) {
+        targetView.classList.add('active-desk-view');
+    }
+}
+
 function initDesktop3DScene() {
     if (typeof THREE === 'undefined') return;
 

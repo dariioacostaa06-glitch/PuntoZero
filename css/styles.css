@@ -709,16 +709,98 @@ button {
         z-index: 0;
     }
 
+    /* Navegación Desktop Views */
+    .desk-view {
+        display: none;
+    }
+
+    .active-desk-view {
+        display: flex !important;
+    }
+
     /* Hero Central con Texto Overlay */
     .desk-hero {
         flex-grow: 1;
-        display: flex;
+        /* display: flex;  -- se maneja con .active-desk-view */
         align-items: center;
         justify-content: center;
         position: relative;
         z-index: 10;
         pointer-events: none;
         /* Permite que los eventos de ratón pasen al 3D */
+    }
+
+    /* --- VISTA SERVICIOS DESKTOP --- */
+    #desk-services-view {
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+        padding: 2rem 5%;
+    }
+
+    .desk-services-container {
+        max-width: 1000px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-volver-desk {
+        display: inline-flex;
+        align-items: center;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0.5rem 0;
+        margin-bottom: 2rem;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        align-self: flex-start;
+    }
+
+    .btn-volver-desk:hover {
+        opacity: 0.8;
+        transform: translateX(-5px);
+    }
+
+    .desk-services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .desk-service-card {
+        background-color: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 3rem;
+        border-radius: 16px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    .desk-service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .desk-service-card h3 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #ffffff;
+    }
+
+    .desk-service-card p {
+        color: #cccccc;
+        line-height: 1.6;
+        font-size: 1.05rem;
     }
 
     .hero-text-overlay {
