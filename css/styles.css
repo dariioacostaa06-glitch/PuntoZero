@@ -836,6 +836,8 @@ button {
         left: 0;
         width: 100%;
         height: 100%;
+        overflow-y: auto; /* Permite scroll vertical natural si el contenido es muy alto */
+        overflow-x: hidden; /* Bloquea cualquier scroll horizontal indeseado */
     }
 
     #desktop-app .view-header h2 {
@@ -858,9 +860,21 @@ button {
         color: #ffffff;
     }
 
+    #desktop-app .pricing-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas del mismo tamaño */
+        gap: 2rem; /* Espacio respirable entre tarjetas */
+        overflow: visible; /* Elimina cualquier barra de scroll */
+        padding-bottom: 0;
+        justify-content: center;
+    }
+
     #desktop-app .pricing-card {
         background-color: #111111;
         border: 1px solid rgba(255, 255, 255, 0.1);
+        min-width: auto; /* Anula el min-width del móvil que forzaba el carrusel */
+        width: 100%;
+        height: 100%; /* Para que todas midan lo mismo de alto */
     }
 
     #desktop-app .pricing-card h4 {
