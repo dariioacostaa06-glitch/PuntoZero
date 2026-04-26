@@ -249,7 +249,7 @@
                 </div>
 
                 <a href="#metodologia">Metodología</a>
-                <a href="#contacto">Contacto</a>
+                <a href="#" onclick="NavDesk('desk-view-contacto'); return false;">Contacto</a>
             </nav>
         </header>
 
@@ -452,6 +452,21 @@
                     <p>Ofrecemos un servicio especializado de <strong>Maquetación 3D de viviendas</strong>. Creamos
                         visualizaciones arquitectónicas inmersivas y fotorrealistas que permiten explorar los espacios y
                         distribuciones antes de su construcción o reforma.</p>
+                </div>
+            </div>
+        </section>
+        <section id="desk-view-contacto" class="desk-view">
+            <div class="desk-contacto-container">
+                <button onclick="NavDesk('desk-home-view')" class="btn-volver-contacto">← Volver al inicio</button>
+                <div class="contacto-grid-50">
+                    <div class="contacto-left">
+                        <h2>El primer paso hacia la Ingeniería de Alto Rendimiento empieza con una conversación.</h2>
+                        <p>No dejes que la complejidad técnica te detenga. Cuéntame tu idea y busquemos juntos el PuntoZero de tu proyecto. Anímate a escribirme.</p>
+                    </div>
+                    <div class="contacto-right">
+                        <button class="btn-contacto-desk btn-wa-desk" onclick="enviarWhatsApp(this)" data-plan="Contacto General desde Web">Abrir Canal Directo (WhatsApp)</button>
+                        <a href="https://www.instagram.com/puntozero_sl" target="_blank" class="btn-contacto-desk btn-ig-desk">Sigue el Laboratorio (@puntozero_sl)</a>
+                    </div>
                 </div>
             </div>
         </section>

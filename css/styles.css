@@ -982,3 +982,111 @@ button {
         height: auto !important;
     }
 }
+
+/* =========================================
+   VISTA DE CONTACTO (ESCRITORIO)
+   ========================================= */
+@media (min-width: 1024px) {
+    .desk-contacto-container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 5rem 5% 4rem 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        position: relative;
+    }
+
+    .btn-volver-contacto {
+        position: absolute;
+        top: 2rem;
+        left: 5%;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-volver-contacto:hover {
+        opacity: 0.8;
+        transform: translateX(-5px);
+    }
+
+    .contacto-grid-50 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    .contacto-left h2 {
+        font-family: 'Inter', sans-serif;
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.1;
+        margin-bottom: 2rem;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .contacto-left p {
+        font-size: 1.25rem;
+        color: #cccccc;
+        line-height: 1.6;
+        max-width: 90%;
+    }
+
+    .contacto-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .btn-contacto-desk {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 1.5rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .btn-wa-desk {
+        background-color: #25D366;
+        color: #ffffff;
+        border: 1px solid rgba(37, 211, 102, 0.5);
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.2);
+    }
+
+    .btn-wa-desk:hover {
+        background-color: #1ebe57;
+        box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        transform: translateY(-3px);
+    }
+
+    .btn-ig-desk {
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-ig-desk:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+    }
+}
