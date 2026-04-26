@@ -860,21 +860,9 @@ button {
         color: #ffffff;
     }
 
-    #desktop-app .pricing-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columnas del mismo tamaño */
-        gap: 2rem; /* Espacio respirable entre tarjetas */
-        overflow: visible; /* Elimina cualquier barra de scroll */
-        padding-bottom: 0;
-        justify-content: center;
-    }
-
     #desktop-app .pricing-card {
         background-color: #111111;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        min-width: auto; /* Anula el min-width del móvil que forzaba el carrusel */
-        width: 100%;
-        height: 100%; /* Para que todas midan lo mismo de alto */
     }
 
     #desktop-app .pricing-card h4 {
@@ -949,5 +937,35 @@ button {
         max-width: 700px;
         margin: 0 auto;
         pointer-events: none;
+    }
+}
+
+/* =========================================
+   RESETEO ABSOLUTO DEL CARRUSEL EN ESCRITORIO
+   ========================================= */
+@media (min-width: 1024px) {
+    /* Matar scroll del padre por si acaso */
+    #desktop-app .view-body {
+        overflow-x: hidden !important;
+    }
+
+    /* Forzar Cuadrícula y anular herencia móvil */
+    #desktop-app .pricing-container {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 2rem !important;
+        overflow: hidden !important; /* Muerte a la barra */
+        white-space: normal !important; /* Evita que el texto fuerce una sola línea */
+        padding-bottom: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Ajustar las tarjetas para que no empujen el contenedor */
+    #desktop-app .pricing-card {
+        min-width: 0 !important; /* Crucial: anula el min-width del carrusel móvil */
+        width: 100% !important;
+        flex: none !important; /* Mata cualquier flex-grow/shrink heredado */
+        margin: 0 !important; 
+        height: auto !important;
     }
 }
