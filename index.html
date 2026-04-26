@@ -72,7 +72,7 @@
                     <p>Implementamos cartas digitales con un diseño UX similar a una App nativa. Carga Zero-Latency
                         mediante escaneo QR y gestión integral de productos.</p>
                     <div class="example-links">
-                        <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="example-btn btn-glade">Ver
+                        <a href="https://bar-glade.netlify.app/" target="_blank" class="example-btn btn-glade">Ver
                             Ejemplo: Bar Glade (Coctelería)</a>
                         <a href="http://cartacafebarvictoria.es/" target="_blank" class="example-btn btn-victoria">Ver
                             Ejemplo: Café Bar Victoria (Tradicional)</a>
@@ -238,12 +238,13 @@
                 <a href="#" onclick="NavDesk('desk-home-view'); return false;">Inicio</a>
 
                 <div class="dropdown">
-                    <a href="#" onclick="NavDesk('desk-services-view'); return false;" class="dropdown-trigger">Servicios <span class="arrow">▼</span></a>
+                    <a href="#" onclick="NavDesk('desk-services-view'); return false;"
+                        class="dropdown-trigger">Servicios <span class="arrow">▼</span></a>
                     <div class="dropdown-content">
-                        <a href="#servicios-cartas">Cartas Digitales</a>
-                        <a href="#servicios-web">Desarrollo Web</a>
-                        <a href="#servicios-3d">Impresión 3D</a>
-                        <a href="#servicios-arch3d">Maquetar casas en 3d</a>
+                        <a href="#" onclick="NavDesk('desk-view-cartas'); return false;">Cartas Digitales</a>
+                        <a href="#" onclick="NavDesk('desk-view-web'); return false;">Desarrollo Web</a>
+                        <a href="#" onclick="NavDesk('desk-view-3d'); return false;">Impresión 3D</a>
+                        <a href="#" onclick="NavDesk('desk-view-arch3d'); return false;">Maquetar casas en 3d</a>
                     </div>
                 </div>
 
@@ -264,22 +265,193 @@
             <div class="desk-services-container">
                 <button onclick="NavDesk('desk-home-view')" class="btn-volver-desk">← Volver al inicio</button>
                 <div class="desk-services-grid">
-                    <article class="desk-service-card">
+                    <article class="desk-service-card" onclick="NavDesk('desk-view-cartas')">
                         <h3>Cartas Digitales</h3>
                         <p>UX nativa y carga Zero-Latency para hostelería.</p>
                     </article>
-                    <article class="desk-service-card">
+                    <article class="desk-service-card" onclick="NavDesk('desk-view-web')">
                         <h3>Desarrollo Web</h3>
                         <p>Arquitectura digital, e-commerce y desarrollo full-stack a medida.</p>
                     </article>
-                    <article class="desk-service-card">
+                    <article class="desk-service-card" onclick="NavDesk('desk-view-3d')">
                         <h3>Impresión 3D</h3>
                         <p>Ingeniería física, prototipado rápido y merchandising.</p>
                     </article>
-                    <article class="desk-service-card">
+                    <article class="desk-service-card" onclick="NavDesk('desk-view-arch3d')">
                         <h3>Maquetar casas en 3d</h3>
                         <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nuevas vistas de detalle de escritorio -->
+        <section id="desk-view-cartas" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
+                    <h2>Cartas Web Hostelería</h2>
+                </div>
+                <div class="view-body">
+                    <p>Implementamos cartas digitales con un diseño UX similar a una App nativa. Carga Zero-Latency
+                        mediante escaneo QR y gestión integral de productos.</p>
+                    <div class="example-links">
+                        <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="example-btn btn-glade">Ver
+                            Ejemplo: Bar Glade (Coctelería)</a>
+                        <a href="http://cartacafebarvictoria.es/" target="_blank" class="example-btn btn-victoria">Ver
+                            Ejemplo: Café Bar Victoria (Tradicional)</a>
+                    </div>
+
+                    <h3 class="pricing-section-title">Planes de Ingeniería Gastronómica</h3>
+                    <div class="pricing-container">
+                        <article class="pricing-card">
+                            <h4>Despliegue Estático</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Alojamiento en dominio propio</li>
+                                <li>Tu mandas las fotografias</li>
+                                <li>Código QR Físico Básico</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Plan Básico - Cartas Digitales">Solicitar Presupuesto</button>
+                        </article>
+
+                        <article class="pricing-card advanced">
+                            <span class="badge">Más Popular</span>
+                            <h4>Gestión Dinámica</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Todo lo del plan Básico</li>
+                                <li>Gestión semanal de la carta</li>
+                                <li>Soporte técnico prioritario</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Plan Avanzado - Cartas Digitales">Solicitar Presupuesto</button>
+                        </article>
+
+                        <article class="pricing-card">
+                            <h4>Ecosistema Total</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Integración Multidioma</li>
+                                <li>Tomamos las fotgrafías</li>
+                                <li>Placas QR en impresión 3D premium</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Ecosistema Total - Cartas Digitales">Solicitar Presupuesto</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="desk-view-web" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
+                    <h2>Arquitectura Digital</h2>
+                </div>
+                <div class="view-body">
+                    <p>En PuntoZero abordamos el <strong>Desarrollo Full-Stack</strong> creando arquitecturas digitales
+                        robustas y escalables. Aplicamos metodologías ágiles e Ingeniería de Software avanzada para
+                        desarrollar plataformas a medida, sistemas e-commerce de alto rendimiento y ecosistemas
+                        digitales orientados a maximizar los resultados de tu negocio.</p>
+
+                    <h3 class="pricing-section-title">Planes de Arquitectura Digital</h3>
+                    <div class="pricing-container">
+                        <article class="pricing-card">
+                            <h4>Escaparate Digital</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Landing Page corporativa</li>
+                                <li>Optimización Zero-Latency</li>
+                                <li>Diseño Responsive Extremo</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Escaparate Digital - Arquitectura Digital">Solicitar Presupuesto</button>
+                        </article>
+
+                        <article class="pricing-card advanced">
+                            <span class="badge">E-commerce</span>
+                            <h4>Tienda Online</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Todo lo anterior</li>
+                                <li>Embudos de pago optimizados</li>
+                                <li>Panel de gestión de stock</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Tienda Online - Arquitectura Digital">Solicitar Presupuesto</button>
+                        </article>
+
+                        <article class="pricing-card">
+                            <h4>Plataforma a Medida</h4>
+                            <p class="pricing-price">Consultar</p>
+                            <ul class="pricing-features">
+                                <li>Sistemas de reservas/gestión</li>
+                                <li>Integración de APIs complejas</li>
+                                <li>Renderizado 3D en tiempo real</li>
+                            </ul>
+                            <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                                data-plan="Plataforma a Medida - Arquitectura Digital">Solicitar Presupuesto</button>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="desk-view-3d" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header"
+                    style="position: absolute; top:0; left:0; right:0; z-index: 10; background: transparent; padding-top: 1rem;">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver"
+                        style="color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 12px; border-radius: 20px;">←
+                        Volver al inicio</button>
+                </div>
+
+                <div class="service-hero">
+                    <img src="baner_3D.webp" alt="Laboratorio Dual de Impresión 3D" class="service-hero-img">
+                    <div class="service-hero-content">
+                        <h2>Laboratorio Dual de Impresión 3D</h2>
+                    </div>
+                </div>
+
+                <div class="view-body" style="padding-top: 0.5rem;">
+                    <p>Contamos con un <strong>Laboratorio Dual de Impresión 3D</strong> que emplea tecnologías FDM y
+                        resina de alta resolución. Este laboratorio nos permite ofrecer servicios de ingeniería física,
+                        prototipado rápido para validación de piezas, modelado CAD de precisión e incluso creación de
+                        merchandising técnico exclusivo para empresas.</p>
+
+                    <div class="services-modal-container">
+                        <button class="service-modal-btn" data-service="llaveros">Merchandaising y llaveros
+                            personalizados</button>
+                        <button class="service-modal-btn" data-service="figuras">Figuras y Coleccionables</button>
+                        <button class="service-modal-btn" data-service="qrs">QRs de todo tipo</button>
+                        <button class="service-modal-btn" data-service="otro">Cualquier otro diseño</button>
+                    </div>
+
+                    <div class="pricing-explanation-block">
+                        <h3>PRESUPUESTO FLEXIBLE Y VARIABLE</h3>
+                        <p>El precio final de cada proyecto se calcula de forma personalizada basándose en factores
+                            técnicos clave, incluyendo el volumen de impresión, número de unidades, horas de máquina
+                            estimadas, y los colores y materiales seleccionados.</p>
+                        <button class="btn-contratar" onclick="enviarWhatsApp(this)"
+                            data-plan="Cotización Impresión 3D">Solicitar Presupuesto</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="desk-view-arch3d" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
+                    <h2>Maquetar casas en 3d</h2>
+                </div>
+                <div class="view-body">
+                    <p>Ofrecemos un servicio especializado de <strong>Maquetación 3D de viviendas</strong>. Creamos
+                        visualizaciones arquitectónicas inmersivas y fotorrealistas que permiten explorar los espacios y
+                        distribuciones antes de su construcción o reforma.</p>
                 </div>
             </div>
         </section>

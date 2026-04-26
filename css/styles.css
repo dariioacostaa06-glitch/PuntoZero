@@ -803,6 +803,113 @@ button {
         font-size: 1.05rem;
     }
 
+    /* Contenedor central de las vistas individuales */
+    .desk-detail-container {
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 5rem 5% 4rem 5%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .desk-detail-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .desk-detail-container::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+
+    /* Adaptación de colores para las vistas en escritorio (Dark Mode implícito) */
+    #desktop-app .desk-view {
+        background-color: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #desktop-app .view-header h2 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #desktop-app .view-body p {
+        color: #cccccc;
+        font-size: 1.1rem;
+    }
+
+    #desktop-app .btn-volver {
+        color: #ffffff;
+        font-size: 1.1rem;
+    }
+
+    #desktop-app .pricing-section-title {
+        color: #ffffff;
+    }
+
+    #desktop-app .pricing-card {
+        background-color: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #desktop-app .pricing-card h4 {
+        color: #ffffff;
+    }
+
+    #desktop-app .pricing-price {
+        color: #ffffff;
+    }
+
+    #desktop-app .pricing-features li {
+        color: #cccccc;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #desktop-app .pricing-features li::before {
+        color: #ffffff;
+    }
+
+    #desktop-app .pricing-card.advanced {
+        border: 2px solid #555555;
+    }
+
+    #desktop-app .pricing-explanation-block {
+        background-color: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #desktop-app .pricing-explanation-block h3 {
+        color: #ffffff;
+    }
+
+    #desktop-app .service-modal-btn {
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+    }
+
+    #desktop-app .service-modal-btn:hover {
+        background: #222222;
+    }
+
+    /* Ocultar hero intro desk-view */
+    #desk-home-view.desk-view {
+        background-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
     .hero-text-overlay {
         text-align: center;
         max-width: 900px;
