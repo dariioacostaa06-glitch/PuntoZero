@@ -949,15 +949,28 @@ button {
         overflow-x: hidden !important;
     }
 
+    /* 1. DESTRUCCIÓN VISUAL DE LA BARRA */
+    #desktop-app .pricing-container::-webkit-scrollbar {
+        display: none !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+
     /* Forzar Cuadrícula y anular herencia móvil */
     #desktop-app .pricing-container {
+        -ms-overflow-style: none !important;  /* IE y Edge */
+        scrollbar-width: none !important;  /* Firefox */
+        overflow: visible !important; /* Anula el contenedor de scroll */
+        white-space: normal !important; /* Evita que el texto fuerce una sola línea */
+        
+        /* 2. RESTRICCIÓN DE ANCHO PARA QUE NO SE SALGA DE LA PANTALLA */
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 2rem !important;
-        overflow: hidden !important; /* Muerte a la barra */
-        white-space: normal !important; /* Evita que el texto fuerce una sola línea */
-        padding-bottom: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding-bottom: 0 !important;
     }
 
     /* Ajustar las tarjetas para que no empujen el contenedor */
