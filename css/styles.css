@@ -296,6 +296,14 @@ button {
     background-image: url('../logo_victoria.png');
 }
 
+.btn-bocateria::before {
+    background-image: url('../logo_BocateriaSur.png');
+}
+
+.btn-dh::before {
+    background-image: url('../Logo_DH.png');
+}
+
 .example-btn:hover::before {
     opacity: 0.35;
 }
