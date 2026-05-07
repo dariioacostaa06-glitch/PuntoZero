@@ -70,18 +70,21 @@ button {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #ffffff;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
     overflow: hidden;
 }
 
 .mobile-header {
     padding: var(--space-md) var(--space-lg);
-    border-bottom: 1px solid var(--color-gray-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    background-color: var(--color-white);
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     flex-shrink: 0;
     /* El header no debe encogerse */
     position: sticky;
@@ -89,12 +92,111 @@ button {
     z-index: 100;
 }
 
+.mobile-header img.mobile-logo-icon {
+    filter: none !important;
+}
+
 .mobile-logo {
     font-size: 1.5rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.05em;
-    color: var(--color-black);
+    color: #ffffff;
+}
+
+/* --- MENU MOVIL --- */
+.mobile-header {
+    justify-content: space-between;
+}
+
+.mobile-menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-menu-overlay a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.close-menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* --- LANDING PAGE MOVIL --- */
+.landing-bg {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: url('../logo_PuntoZero.jpg') no-repeat center;
+    background-size: 150%; 
+    filter: blur(40px) brightness(0.3);
+    z-index: -1;
+}
+
+.landing-tagline {
+    font-size: 0.95rem;
+    color: #cccccc;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-cta-landing {
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 20px 40px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-cta-landing:active {
+    transform: scale(0.95);
+    background-color: #e6e6e6;
 }
 
 /* SPA App Content (Resto de la pantalla) */
@@ -102,7 +204,7 @@ button {
     flex-grow: 1;
     overflow-y: auto;
     position: relative;
-    background-color: #fafafa;
+    background-color: #0a0a0a;
 }
 
 /* Manejo de Vistas */
@@ -160,26 +262,27 @@ button {
 /* Mobile Hero Intro */
 .hero-intro {
     padding: 4rem 8% 3rem 8%;
-    text-align: left;
+    text-align: center;
     box-sizing: border-box;
     max-width: 600px;
     margin: 0 auto;
-    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    background: radial-gradient(circle at 50% -20%, rgba(40, 40, 40, 0.8) 0%, transparent 60%);
 }
 
 .hero-intro h2 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.2rem;
     letter-spacing: -0.03em;
-    color: #111111;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .hero-intro p {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #666666;
+    color: #bbbbbb;
 }
 
 /* Tarjetas (Cards Grid) */
@@ -194,17 +297,18 @@ button {
 }
 
 .service-card {
-    background-color: #f8f9fa;
+    background-color: #111111;
     padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .service-card:active {
     transform: scale(0.98);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 
@@ -213,11 +317,12 @@ button {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
     font-weight: 700;
+    color: #ffffff;
 }
 
 .service-card p {
     font-size: 0.95rem;
-    color: var(--color-gray-dark);
+    color: #cccccc;
     line-height: 1.5;
 }
 
@@ -230,29 +335,32 @@ button {
     font-size: 1.5rem;
     font-weight: 700;
     margin-top: 0.5rem;
+    color: #ffffff;
 }
 
 .view-body {
     padding: 0 1rem 1.5rem;
+    color: #e0e0e0;
 }
 
 .view-body p {
     font-size: 1rem;
-    color: var(--color-gray-dark);
+    color: #bbbbbb;
     line-height: 1.6;
 }
 
 .btn-volver {
     display: inline-flex;
     align-items: center;
-    background: transparent;
+    background: rgba(255,255,255,0.1);
     border: none;
-    color: var(--color-black);
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    padding: 0.5rem 0;
+    padding: 8px 16px;
     margin-bottom: 0.5rem;
+    border-radius: 20px;
 }
 
 /* Botones de Ejemplo */
@@ -341,24 +449,25 @@ button {
     scroll-snap-align: center;
     flex: 0 0 85%;
     max-width: 320px;
-    background-color: #f8f9fa;
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    background-color: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     position: relative;
 }
 
 .pricing-card h4 {
     font-size: 1.25rem;
     margin-bottom: 0.25rem;
+    color: #ffffff;
 }
 
 .pricing-price {
     font-size: 1.5rem;
     font-weight: 800;
     margin-bottom: 1rem;
-    color: var(--color-black);
+    color: #ffffff;
 }
 
 .pricing-features {
@@ -370,9 +479,10 @@ button {
 .pricing-features li {
     padding: 0.5rem 0;
     font-size: 0.95rem;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
+    color: #bbbbbb;
 }
 
 .pricing-features li:last-child {
@@ -383,19 +493,20 @@ button {
     content: "✓";
     font-weight: bold;
     margin-right: 8px;
-    color: var(--color-black);
+    color: #ffffff;
 }
 
 .pricing-card.advanced {
-    border: 2px solid #333333;
+    border: 1px solid #333333;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
 .pricing-card .badge {
     position: absolute;
     top: -12px;
     right: 20px;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     font-size: 0.75rem;
     font-weight: 700;
     padding: 4px 12px;
@@ -406,23 +517,24 @@ button {
 .btn-contratar {
     display: block;
     width: 100%;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     text-align: center;
     padding: 1rem;
     border-radius: 8px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     transition: all 0.2s ease;
 }
 
 .btn-contratar:hover {
-    background-color: #000000;
+    background-color: #f0f0f0;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-contratar:active {
+    background-color: #e6e6e6;
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }

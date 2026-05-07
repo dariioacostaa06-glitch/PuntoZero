@@ -26,14 +26,34 @@
     <!-- VISTA MÓVIL (App Nativa) -->
     <main id="mobile-app">
         <header class="mobile-header">
-            <img src="logo_PuntoZero.jpg" alt="Icono" class="mobile-logo-icon"
-                style="height:21px; width:auto; filter: invert(1);">
-            <h1 class="mobile-logo">PuntoZero</h1>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="logo_PuntoZero.jpg" alt="Icono" class="mobile-logo-icon"
+                    style="height:21px; width:auto; filter: invert(1);">
+                <h1 class="mobile-logo">PuntoZero</h1>
+            </div>
+            <button class="mobile-menu-btn" onclick="document.getElementById('mobile-menu').classList.toggle('is-open')">
+                <span style="font-size: 1.5rem; color: #ffffff;">⋮</span>
+            </button>
+            <nav id="mobile-menu" class="mobile-menu-overlay">
+                <button class="close-menu-btn" onclick="document.getElementById('mobile-menu').classList.remove('is-open')">&times;</button>
+                <a href="#" onclick="Maps('view-landing'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Inicio</a>
+                <a href="#" onclick="Maps('view-services-list'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Nuestros Servicios</a>
+                <a href="#" onclick="Maps('view-contacto-mobile'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Contáctanos</a>
+            </nav>
         </header>
 
         <div id="app-content">
-            <!-- Vista de Inicio -->
-            <section id="view-home" class="view active-view">
+            <!-- Vista Landing Nueva -->
+            <section id="view-landing" class="view active-view" style="height: 100%; position: relative;">
+                <div class="landing-bg"></div>
+                <div class="landing-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 2rem;">
+                    <p class="landing-tagline">Asesoría digital de bajo coste, resultados de última calidad.</p>
+                    <button onclick="Maps('view-services-list')" class="btn-cta-landing">ACTUALICEMOS MI EMPRESA</button>
+                </div>
+            </section>
+
+            <!-- Vista de Servicios -->
+            <section id="view-services-list" class="view">
                 <div class="hero-intro">
                     <h2>Ingeniería Digital para el Negocio de Siempre.</h2>
                     <p>Asumimos la complejidad técnica para entregarte infraestructuras rápidas, seguras y sin adornos.
@@ -228,6 +248,20 @@
                     <p>Ofrecemos un servicio especializado de <strong>Maquetación 3D de viviendas</strong>. Creamos
                         visualizaciones arquitectónicas inmersivas y fotorrealistas que permiten explorar los espacios y
                         distribuciones antes de su construcción o reforma.</p>
+                </div>
+            </section>
+
+            <section id="view-contacto-mobile" class="view">
+                <div class="view-header">
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
+                    <h2>Contáctanos</h2>
+                </div>
+                <div class="view-body">
+                    <p style="margin-bottom: 2rem;">No dejes que la complejidad técnica te detenga. Cuéntame tu idea y busquemos juntos el PuntoZero de tu proyecto. Anímate a escribirme.</p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <button class="btn-contratar" style="background-color: #25D366; color: #fff; border: none; font-weight: 800;" onclick="enviarWhatsApp(this)" data-plan="Contacto General desde Móvil">Abrir Canal Directo (WhatsApp)</button>
+                        <a href="https://www.instagram.com/puntozero_sl" target="_blank" class="btn-contratar" style="background-color: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; padding: 1rem; display: block;">Sigue el Laboratorio (@puntozero_sl)</a>
+                    </div>
                 </div>
             </section>
         </div>

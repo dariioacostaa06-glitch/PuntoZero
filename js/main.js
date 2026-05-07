@@ -107,8 +107,8 @@ function Maps(targetId) {
 
 // Escuchar los cambios en el hash
 function handleRouting() {
-    // Obtener el hash sin el '#' (si está vacío, por defecto es 'view-home')
-    const hash = window.location.hash.substring(1) || 'view-home';
+    // Obtener el hash sin el '#' (si está vacío, por defecto es 'view-landing')
+    const hash = window.location.hash.substring(1) || 'view-landing';
 
     // Ocultar todas las vistas
     document.querySelectorAll('.view').forEach(view => {
@@ -122,7 +122,7 @@ function handleRouting() {
         window.scrollTo(0, 0); // Subir arriba al cambiar de vista
     } else {
         // Fallback de seguridad si el ID no existe
-        const homeView = document.getElementById('view-home');
+        const homeView = document.getElementById('view-landing');
         if (homeView) homeView.classList.add('active-view');
     }
 }
