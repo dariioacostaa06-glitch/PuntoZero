@@ -119,12 +119,14 @@ function handleRouting() {
     const targetView = document.getElementById(hash);
     if (targetView) {
         targetView.classList.add('active-view');
-        window.scrollTo(0, 0); // Subir arriba al cambiar de vista
     } else {
         // Fallback de seguridad si el ID no existe
         const homeView = document.getElementById('view-landing');
         if (homeView) homeView.classList.add('active-view');
     }
+    
+    // Reset de scroll al inicio de la nueva sección
+    window.scrollTo(0, 0);
 }
 
 // Escuchar cuando el usuario pulsa botones (UI o Hardware)
