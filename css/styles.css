@@ -740,6 +740,63 @@ button {
     background-color: #e6e6e6;
 }
 
+/* SOBRE NOSOTROS - TEAM SECTION */
+.team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    gap: 0.6rem;
+    transition: border-color 0.3s ease;
+}
+
+.team-member:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.avatar-anon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
+}
+
+.avatar-anon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.team-member h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.team-member p {
+    font-size: 0.88rem !important;
+    color: #888888 !important;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 340px;
+}
+
 /* 3. ESTILOS DESKTOP SHOWCASE ( >= 1024px ) */
 @media (min-width: 1024px) {
     #mobile-app {
@@ -1066,6 +1123,32 @@ button {
 
     #desktop-app .service-modal-btn:hover {
         background: #222222;
+    }
+
+    /* Team grid desktop */
+    #desktop-app .team-grid {
+        flex-direction: row;
+        gap: 2rem;
+        max-width: 760px;
+    }
+
+    #desktop-app .team-member {
+        flex: 1;
+        padding: 2.5rem 2rem;
+    }
+
+    #desktop-app .avatar-anon {
+        width: 100px;
+        height: 100px;
+    }
+
+    #desktop-app .team-member h4 {
+        font-size: 1.1rem;
+    }
+
+    #desktop-app .team-member p {
+        font-size: 0.95rem !important;
+        max-width: 100%;
     }
 
     /* Ocultar hero intro desk-view */

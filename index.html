@@ -37,8 +37,9 @@
             <nav id="mobile-menu" class="mobile-menu-overlay">
                 <button class="close-menu-btn" onclick="document.getElementById('mobile-menu').classList.remove('is-open')">&times;</button>
                 <a href="#" onclick="Maps('view-landing'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Inicio</a>
-                <a href="#" onclick="Maps('view-services-list'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Nuestros Servicios</a>
-                <a href="#" onclick="Maps('view-contacto-mobile'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Contáctanos</a>
+                <a href="#" onclick="Maps('view-services-list'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Servicios</a>
+                <a href="#" onclick="Maps('view-sobre'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Sobre Nosotros</a>
+                <a href="#" onclick="Maps('view-contacto-mobile'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Contacto</a>
             </nav>
         </header>
 
@@ -86,7 +87,7 @@
                     </article>
 
                     <article class="service-card" onclick="Maps('view-arch3d')">
-                        <h3>Maquetar casas en 3d</h3>
+                        <h3>Maquetación Arquitectónica 3D</h3>
                         <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
                     </article>
                 </div>
@@ -261,6 +262,32 @@
                 </div>
             </section>
 
+            <section id="view-sobre" class="view">
+                <div class="view-header">
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
+                    <h2>Sobre Nosotros</h2>
+                </div>
+                <div class="view-body">
+                    <p>Somos un estudio de ingeniería de software fundado en Córdoba. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria al cliente.</p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="avatar-anon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
+                            </div>
+                            <h4>Dirección & Desarrollo</h4>
+                            <p>Especialista en arquitectura digital y desarrollo full-stack. Responsable de cada línea de código que sale del estudio.</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="avatar-anon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
+                            </div>
+                            <h4>Diseño & Experiencia de Usuario</h4>
+                            <p>Convierte la complejidad técnica en interfaces elegantes e intuitivas. Garantiza que cada producto sea tan fácil de usar como potente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section id="view-contacto-mobile" class="view">
                 <div class="view-header">
                     <button onclick="window.history.back()" class="btn-volver">← Volver</button>
@@ -294,11 +321,11 @@
                         <a href="#" onclick="NavDesk('desk-view-cartas'); return false;">Cartas Digitales</a>
                         <a href="#" onclick="NavDesk('desk-view-web'); return false;">Desarrollo Web</a>
                         <a href="#" onclick="NavDesk('desk-view-3d'); return false;">Impresión 3D</a>
-                        <a href="#" onclick="NavDesk('desk-view-arch3d'); return false;">Maquetar casas en 3d</a>
+                        <a href="#" onclick="NavDesk('desk-view-arch3d'); return false;">Maquetación Arquitectónica 3D</a>
                     </div>
                 </div>
 
-                <a href="#metodologia">Metodología</a>
+                <a href="#" onclick="NavDesk('desk-view-sobre'); return false;">Sobre Nosotros</a>
                 <a href="#" onclick="NavDesk('desk-view-contacto'); return false;">Contacto</a>
             </nav>
         </header>
@@ -328,7 +355,7 @@
                         <p>Ingeniería física, prototipado rápido y merchandising.</p>
                     </article>
                     <article class="desk-service-card" onclick="NavDesk('desk-view-arch3d')">
-                        <h3>Maquetar casas en 3d</h3>
+                        <h3>Maquetación Arquitectónica 3D</h3>
                         <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
                     </article>
                 </div>
@@ -502,7 +529,7 @@
             <div class="desk-detail-container">
                 <div class="view-header">
                     <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
-                    <h2>Maquetar casas en 3d</h2>
+                    <h2>Maquetación Arquitectónica 3D</h2>
                 </div>
                 <div class="view-body">
                     <p>Ofrecemos un servicio especializado de <strong>Maquetación 3D de viviendas</strong>. Creamos
@@ -511,6 +538,34 @@
                 </div>
             </div>
         </section>
+        <section id="desk-view-sobre" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
+                    <h2>Sobre Nosotros</h2>
+                </div>
+                <div class="view-body">
+                    <p>Somos un estudio de ingeniería de software fundado en Córdoba con vocación global. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria. Cada proyecto que asumimos es tratado con la misma exigencia que aplicaríamos a infraestructura crítica.</p>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="avatar-anon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
+                            </div>
+                            <h4>Dirección & Desarrollo</h4>
+                            <p>Especialista en arquitectura digital y desarrollo full-stack. Responsable de cada línea de código que sale del estudio.</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="avatar-anon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
+                            </div>
+                            <h4>Diseño & Experiencia de Usuario</h4>
+                            <p>Convierte la complejidad técnica en interfaces elegantes e intuitivas. Garantiza que cada producto sea tan fácil de usar como potente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="desk-view-contacto" class="desk-view">
             <div class="desk-contacto-container">
                 <button onclick="NavDesk('desk-home-view')" class="btn-volver-contacto">← Volver al inicio</button>
