@@ -48,13 +48,24 @@
             <section id="view-landing" class="view active-view" style="height: 100%; position: relative; padding: 0 5%;">
                 <div class="landing-bg"></div>
                 <div class="landing-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%;">
-                    <p class="landing-tagline">Asesoría digital de bajo coste, resultados de última calidad.</p>
-                    <button onclick="Maps('view-services-list')" class="btn-cta-landing">ACTUALICEMOS MI EMPRESA</button>
-                    
+                    <h2 class="landing-headline">Tu negocio necesita algo.<br><span class="landing-grad">Lo construimos.</span></h2>
+                    <p class="landing-tagline">No trabajamos con catálogos fijos. Escuchamos tu problema y entregamos la solución exacta que necesitas.</p>
+                    <button onclick="Maps('view-contacto-mobile')" class="btn-cta-landing">CUÉNTANOS TU PROYECTO</button>
+
                     <div class="tech-pills-container">
                         <span class="tech-pill">⚡ Cero Latencia</span>
                         <span class="tech-pill">🛠️ Código a Medida</span>
                         <span class="tech-pill">📐 Rigor Técnico</span>
+                    </div>
+
+                    <div class="clients-strip">
+                        <p class="clients-label">Confían en nosotros</p>
+                        <div class="clients-logos">
+                            <img src="logo_glade.png" alt="Bar Glade"/>
+                            <img src="Logo_DH.png" alt="Dynamic Health"/>
+                            <img src="logo_victoria.png" alt="Café Bar Victoria"/>
+                            <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
+                        </div>
                     </div>
                 </div>
 
@@ -66,30 +77,52 @@
             <!-- Vista de Servicios -->
             <section id="view-services-list" class="view">
                 <div class="hero-intro">
-                    <h2>Ingeniería Digital para el Negocio de Siempre.</h2>
-                    <p>Asumimos la complejidad técnica para entregarte infraestructuras rápidas, seguras y sin adornos.
-                        Diseñadas en Córdoba para escalar tu negocio.</p>
+                    <h2>Tu problema.<br>Nuestra ingeniería.</h2>
+                    <p>No encajamos tu negocio en una plantilla. Entendemos lo que necesitas y lo construimos desde cero — rápido, limpio y sin sobreingeñería.</p>
                 </div>
-                <div class="cards-grid">
-                    <article class="service-card" onclick="Maps('view-cartas')">
-                        <h3>Cartas Digitales</h3>
-                        <p>UX nativa y carga Zero-Latency para hostelería.</p>
-                    </article>
 
-                    <article class="service-card" onclick="Maps('view-web')">
-                        <h3>Desarrollo Web</h3>
-                        <p>Arquitectura digital, e-commerce y desarrollo full-stack a medida.</p>
-                    </article>
+                <div class="adapt-section">
+                    <p class="adapt-label">Hemos construido, entre otras cosas</p>
+                    <div class="adapt-tags">
+                        <span class="adapt-tag">Cartas digitales QR</span>
+                        <span class="adapt-tag">E-commerce</span>
+                        <span class="adapt-tag">Sistemas de reservas</span>
+                        <span class="adapt-tag">Impresión 3D</span>
+                        <span class="adapt-tag">Plataformas de gestión</span>
+                        <span class="adapt-tag">Maquetación arquitectónica</span>
+                        <span class="adapt-tag">Intranets corporativas</span>
+                        <span class="adapt-tag">Integraciones de API</span>
+                        <span class="adapt-tag">Apps web a medida</span>
+                        <span class="adapt-tag adapt-tag-open">+ lo que tú necesites →</span>
+                    </div>
+                </div>
 
-                    <article class="service-card" onclick="Maps('view-3d')">
-                        <h3>Impresión 3D</h3>
-                        <p>Ingeniería física, prototipado rápido y merchandising.</p>
-                    </article>
+                <div class="adapt-section">
+                    <p class="adapt-label">Lo que ya hemos entregado</p>
+                    <div class="work-examples-grid">
+                        <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="work-example-card">
+                            <img src="logo_glade.png" alt="Bar Glade"/>
+                            <p>Carta digital coctelería</p>
+                        </a>
+                        <a href="https://dynamichealth.es/" target="_blank" class="work-example-card">
+                            <img src="Logo_DH.png" alt="Dynamic Health"/>
+                            <p>Plataforma web corporativa</p>
+                        </a>
+                        <a href="http://cartacafebarvictoria.es/" target="_blank" class="work-example-card">
+                            <img src="logo_victoria.png" alt="Café Bar Victoria"/>
+                            <p>Carta digital tradicional</p>
+                        </a>
+                        <a href="https://cartabocateriasur2.es/" target="_blank" class="work-example-card">
+                            <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
+                            <p>Carta digital hostelería</p>
+                        </a>
+                    </div>
+                </div>
 
-                    <article class="service-card" onclick="Maps('view-arch3d')">
-                        <h3>Maquetación Arquitectónica 3D</h3>
-                        <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
-                    </article>
+                <div style="padding: 0 8% 3rem;">
+                    <button onclick="Maps('view-contacto-mobile')" class="btn-cta-full">
+                        Cuéntanos tu proyecto →
+                    </button>
                 </div>
             </section>
 
@@ -268,19 +301,16 @@
                     <h2>Sobre Nosotros</h2>
                 </div>
                 <div class="view-body">
-                    <p>Somos un estudio de ingeniería de software fundado en Córdoba. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria al cliente.</p>
-                    <div class="team-grid">
+                    <div class="team-photo-wrap">
+                        <img src="equipo.webp" alt="Equipo PuntoZero" class="team-photo"/>
+                    </div>
+                    <p style="margin-top: 1.5rem;">Somos un estudio de ingeniería de software fundado en Córdoba. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria al cliente.</p>
+                    <div class="team-grid" style="margin-top: 1.5rem;">
                         <div class="team-member">
-                            <div class="avatar-anon">
-                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
-                            </div>
                             <h4>Dirección & Desarrollo</h4>
                             <p>Especialista en arquitectura digital y desarrollo full-stack. Responsable de cada línea de código que sale del estudio.</p>
                         </div>
                         <div class="team-member">
-                            <div class="avatar-anon">
-                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
-                            </div>
                             <h4>Diseño & Experiencia de Usuario</h4>
                             <p>Convierte la complejidad técnica en interfaces elegantes e intuitivas. Garantiza que cada producto sea tan fácil de usar como potente.</p>
                         </div>
@@ -294,6 +324,32 @@
                     <h2>Contáctanos</h2>
                 </div>
                 <div class="view-body">
+                    <div class="proceso-section">
+                        <p class="proceso-label">Cómo trabajamos</p>
+                        <div class="proceso-grid">
+                            <div class="proceso-step">
+                                <span class="paso-num">01</span>
+                                <div>
+                                    <h4>Cuéntanos tu idea</h4>
+                                    <p>Una llamada rápida para entender tu negocio, tus objetivos y el problema real a resolver.</p>
+                                </div>
+                            </div>
+                            <div class="proceso-step">
+                                <span class="paso-num">02</span>
+                                <div>
+                                    <h4>Demo en 48 horas</h4>
+                                    <p>Un prototipo funcional con tu marca y tus datos. Sin compromiso, sin adelantos.</p>
+                                </div>
+                            </div>
+                            <div class="proceso-step">
+                                <span class="paso-num">03</span>
+                                <div>
+                                    <h4>Desplegamos y escalamos</h4>
+                                    <p>Tu producto sale al mundo. Nos quedamos contigo para mejorarlo semana a semana.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <p style="margin-bottom: 2rem;">No dejes que la complejidad técnica te detenga. Cuéntame tu idea y busquemos juntos el PuntoZero de tu proyecto. Anímate a escribirme.</p>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <button class="btn-contratar" style="background-color: #25D366; color: #fff; border: none; font-weight: 800;" onclick="enviarWhatsApp(this)" data-plan="Contacto General desde Móvil">Abrir Canal Directo (WhatsApp)</button>
@@ -332,32 +388,69 @@
 
         <section id="desk-home-view" class="desk-view active-desk-view desk-hero">
             <div class="hero-text-overlay">
-                <h1 class="desk-main-title">Ingeniería Digital para el Negocio de Siempre.</h1>
-                <p class="desk-main-subtitle">Asumimos la complejidad técnica para entregarte infraestructuras rápidas,
-                    seguras y sin adornos. Diseñadas en Córdoba para escalar tu negocio.</p>
+                <h1 class="desk-main-title">Tu negocio necesita algo.<br><span class="desk-grad">Lo construimos.</span></h1>
+                <p class="desk-main-subtitle">No trabajamos con catálogos fijos. Escuchamos tu problema y entregamos la solución exacta que necesitas — desde Córdoba para cualquier parte del mundo.</p>
+                <div class="clients-strip clients-strip-desk">
+                    <p class="clients-label">Confían en nosotros</p>
+                    <div class="clients-logos">
+                        <img src="logo_glade.png" alt="Bar Glade"/>
+                        <img src="Logo_DH.png" alt="Dynamic Health"/>
+                        <img src="logo_victoria.png" alt="Café Bar Victoria"/>
+                        <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="desk-services-view" class="desk-view">
             <div class="desk-services-container">
                 <button onclick="NavDesk('desk-home-view')" class="btn-volver-desk">← Volver al inicio</button>
-                <div class="desk-services-grid">
-                    <article class="desk-service-card" onclick="NavDesk('desk-view-cartas')">
-                        <h3>Cartas Digitales</h3>
-                        <p>UX nativa y carga Zero-Latency para hostelería.</p>
-                    </article>
-                    <article class="desk-service-card" onclick="NavDesk('desk-view-web')">
-                        <h3>Desarrollo Web</h3>
-                        <p>Arquitectura digital, e-commerce y desarrollo full-stack a medida.</p>
-                    </article>
-                    <article class="desk-service-card" onclick="NavDesk('desk-view-3d')">
-                        <h3>Impresión 3D</h3>
-                        <p>Ingeniería física, prototipado rápido y merchandising.</p>
-                    </article>
-                    <article class="desk-service-card" onclick="NavDesk('desk-view-arch3d')">
-                        <h3>Maquetación Arquitectónica 3D</h3>
-                        <p>Visualizaciones arquitectónicas y maquetación 3D realista para proyectos inmersivos.</p>
-                    </article>
+
+                <div class="desk-adapt-hero">
+                    <h2 class="desk-adapt-title">Tu problema.<br><span class="desk-grad">Nuestra ingeniería.</span></h2>
+                    <p class="desk-adapt-sub">No encajamos tu negocio en una plantilla. Entendemos lo que necesitas y lo construimos desde cero — rápido, limpio y sin sobreingeñería innecesaria.</p>
+                </div>
+
+                <div class="desk-adapt-body">
+                    <div class="desk-adapt-left">
+                        <p class="adapt-label">Hemos construido, entre otras cosas</p>
+                        <div class="adapt-tags adapt-tags-desk">
+                            <span class="adapt-tag">Cartas digitales QR</span>
+                            <span class="adapt-tag">E-commerce</span>
+                            <span class="adapt-tag">Sistemas de reservas</span>
+                            <span class="adapt-tag">Impresión 3D</span>
+                            <span class="adapt-tag">Plataformas de gestión</span>
+                            <span class="adapt-tag">Maquetación arquitectónica 3D</span>
+                            <span class="adapt-tag">Intranets corporativas</span>
+                            <span class="adapt-tag">Integraciones de API</span>
+                            <span class="adapt-tag">Apps web a medida</span>
+                            <span class="adapt-tag adapt-tag-open">+ lo que tú necesites →</span>
+                        </div>
+                    </div>
+                    <div class="desk-adapt-right">
+                        <p class="adapt-label">Trabajos entregados</p>
+                        <div class="work-examples-grid work-examples-desk">
+                            <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="work-example-card">
+                                <img src="logo_glade.png" alt="Bar Glade"/>
+                                <p>Carta digital coctelería</p>
+                            </a>
+                            <a href="https://dynamichealth.es/" target="_blank" class="work-example-card">
+                                <img src="Logo_DH.png" alt="Dynamic Health"/>
+                                <p>Plataforma web corporativa</p>
+                            </a>
+                            <a href="http://cartacafebarvictoria.es/" target="_blank" class="work-example-card">
+                                <img src="logo_victoria.png" alt="Café Bar Victoria"/>
+                                <p>Carta digital tradicional</p>
+                            </a>
+                            <a href="https://cartabocateriasur2.es/" target="_blank" class="work-example-card">
+                                <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
+                                <p>Carta digital hostelería</p>
+                            </a>
+                        </div>
+                        <button onclick="NavDesk('desk-view-contacto')" class="btn-cta-full" style="margin-top:1.5rem;">
+                            Cuéntanos tu proyecto →
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -544,22 +637,23 @@
                     <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
                     <h2>Sobre Nosotros</h2>
                 </div>
-                <div class="view-body">
-                    <p>Somos un estudio de ingeniería de software fundado en Córdoba con vocación global. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria. Cada proyecto que asumimos es tratado con la misma exigencia que aplicaríamos a infraestructura crítica.</p>
-                    <div class="team-grid">
-                        <div class="team-member">
-                            <div class="avatar-anon">
-                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
-                            </div>
-                            <h4>Dirección & Desarrollo</h4>
-                            <p>Especialista en arquitectura digital y desarrollo full-stack. Responsable de cada línea de código que sale del estudio.</p>
+                <div class="view-body desk-sobre-body">
+                    <div class="desk-sobre-grid">
+                        <div class="desk-sobre-photo">
+                            <img src="equipo.webp" alt="Equipo PuntoZero" class="team-photo"/>
                         </div>
-                        <div class="team-member">
-                            <div class="avatar-anon">
-                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#1a1a1a" rx="50"/><circle cx="50" cy="37" r="18" fill="#3a3a3a"/><path d="M8,92 Q8,64 50,64 Q92,64 92,92 Z" fill="#3a3a3a"/></svg>
+                        <div class="desk-sobre-text">
+                            <p style="margin-bottom:2rem;">Somos un estudio de ingeniería de software fundado en Córdoba con vocación global. Aplicamos el máximo rigor técnico para entregar soluciones digitales rápidas, seguras y sin complejidad innecesaria. Cada proyecto que asumimos es tratado con la misma exigencia que aplicaríamos a infraestructura crítica.</p>
+                            <div class="team-grid">
+                                <div class="team-member">
+                                    <h4>Dirección & Desarrollo</h4>
+                                    <p>Especialista en arquitectura digital y desarrollo full-stack. Responsable de cada línea de código que sale del estudio.</p>
+                                </div>
+                                <div class="team-member">
+                                    <h4>Diseño & Experiencia de Usuario</h4>
+                                    <p>Convierte la complejidad técnica en interfaces elegantes e intuitivas. Garantiza que cada producto sea tan fácil de usar como potente.</p>
+                                </div>
                             </div>
-                            <h4>Diseño & Experiencia de Usuario</h4>
-                            <p>Convierte la complejidad técnica en interfaces elegantes e intuitivas. Garantiza que cada producto sea tan fácil de usar como potente.</p>
                         </div>
                     </div>
                 </div>
@@ -569,6 +663,32 @@
         <section id="desk-view-contacto" class="desk-view">
             <div class="desk-contacto-container">
                 <button onclick="NavDesk('desk-home-view')" class="btn-volver-contacto">← Volver al inicio</button>
+                <div class="proceso-section proceso-section-desk">
+                    <p class="proceso-label">Cómo trabajamos</p>
+                    <div class="proceso-grid proceso-grid-desk">
+                        <div class="proceso-step proceso-step-desk">
+                            <span class="paso-num">01</span>
+                            <div>
+                                <h4>Cuéntanos tu idea</h4>
+                                <p>Una llamada rápida para entender tu negocio, tus objetivos y el problema real a resolver.</p>
+                            </div>
+                        </div>
+                        <div class="proceso-step proceso-step-desk">
+                            <span class="paso-num">02</span>
+                            <div>
+                                <h4>Demo en 48 horas</h4>
+                                <p>Un prototipo funcional con tu marca y tus datos. Sin compromiso, sin adelantos.</p>
+                            </div>
+                        </div>
+                        <div class="proceso-step proceso-step-desk">
+                            <span class="paso-num">03</span>
+                            <div>
+                                <h4>Desplegamos y escalamos</h4>
+                                <p>Tu producto sale al mundo. Nos quedamos contigo para mejorarlo semana a semana.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="contacto-grid-50">
                     <div class="contacto-left">
                         <h2>El primer paso hacia la Ingeniería de Alto Rendimiento empieza con una conversación.</h2>
