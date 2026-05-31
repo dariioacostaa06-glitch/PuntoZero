@@ -1527,76 +1527,85 @@ button {
 }
 
 /* ==========================================================================
-   GRID DE EJEMPLOS DE NEGOCIOS
+   GRID DE EJEMPLOS DE NEGOCIOS — DISEÑO V2
    ========================================================================== */
 
-.ejemplos-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+.ejemplos-grid-v2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
 }
 
-.ejemplo-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.ej-card {
     background: #111111;
     border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px;
-    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.ejemplo-card:hover {
-    border-color: rgba(255,255,255,0.2);
-    background: #161616;
+.ej-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.5), 0 0 0 1px var(--ej-color, #fff) inset;
 }
 
-.ejemplo-icon {
-    font-size: 1.6rem;
-    flex-shrink: 0;
+.ej-top {
+    background: color-mix(in srgb, var(--ej-color, #ffffff) 12%, #111111);
+    border-bottom: 1px solid color-mix(in srgb, var(--ej-color, #ffffff) 20%, transparent);
+    padding: 1.4rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ej-emoji {
+    font-size: 2.2rem;
     line-height: 1;
 }
 
-.ejemplo-info {
-    flex: 1;
-}
-
-.ejemplo-info h4 {
-    font-size: 0.95rem;
+.ej-card h4 {
+    font-size: 0.9rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 0.15rem;
+    padding: 0.75rem 0.9rem 0.1rem;
+    margin: 0;
 }
 
-.ejemplo-info p {
-    font-size: 0.78rem !important;
+.ej-card p {
+    font-size: 0.72rem !important;
     color: #666666 !important;
+    padding: 0 0.9rem 0.75rem;
     margin: 0 !important;
     line-height: 1.3;
 }
 
-.ejemplo-arrow {
-    color: #444;
-    font-size: 1rem;
-    flex-shrink: 0;
-    transition: color 0.2s, transform 0.2s;
+.ej-btn {
+    display: block;
+    margin: auto 0.9rem 0.9rem;
+    padding: 7px 0;
+    background: color-mix(in srgb, var(--ej-color, #ffffff) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ej-color, #ffffff) 30%, transparent);
+    border-radius: 8px;
+    color: var(--ej-color, #ffffff);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    transition: background 0.2s ease;
 }
 
-.ejemplo-card:hover .ejemplo-arrow {
-    color: #ffffff;
-    transform: translateX(3px);
+.ej-card:hover .ej-btn {
+    background: color-mix(in srgb, var(--ej-color, #ffffff) 25%, transparent);
 }
 
-/* Desktop: 2 columnas */
+/* Desktop: 5 columnas */
 @media (min-width: 1024px) {
-    .ejemplos-grid-desk {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-        flex-direction: unset;
+    .ejemplos-grid-v2-desk {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
     }
 }
 
@@ -1604,34 +1613,28 @@ button {
    ENFOQUE ADAPTABLE: TAGS + TRABAJOS + CTA
    ========================================================================== */
 
-/* Fila de 2 botones secundarios en la landing */
-.landing-btns-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-    width: 100%;
-    margin-top: 0.75rem;
-}
-
-.btn-cta-outline {
+/* Botón secundario landing */
+.btn-cta-secondary {
     background: transparent;
-    color: #dddddd;
-    font-size: 0.88rem;
-    font-weight: 700;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    padding: 14px 12px;
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 13px 24px;
     cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-    line-height: 1.2;
+    margin-top: 0.75rem;
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.btn-cta-outline:hover,
-.btn-cta-outline:active {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(255,255,255,0.45);
+.btn-cta-secondary:hover {
     color: #ffffff;
+    border-color: rgba(255,255,255,0.35);
+}
+
+/* Card especial "Ver ejemplos" en servicios */
+.service-card-ejemplos {
+    border-color: rgba(255,255,255,0.15) !important;
 }
 
 /* Cards de servicio rediseñadas (v2) */
