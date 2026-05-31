@@ -258,9 +258,11 @@ button {
 #view-landing.active-view {
     display: flex !important;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100dvh;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
 }
 
 @keyframes appTransition {
