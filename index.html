@@ -50,7 +50,8 @@
                 <div class="landing-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%;">
                     <h2 class="landing-headline">Tu negocio necesita algo.<br><span class="landing-grad">Lo construimos.</span></h2>
                     <p class="landing-tagline">No trabajamos con catálogos fijos. Escuchamos tu problema y entregamos la solución exacta que necesitas.</p>
-                    <button onclick="Maps('view-contacto-mobile')" class="btn-cta-landing">CUÉNTANOS TU PROYECTO</button>
+                    <button onclick="Maps('view-services-list')" class="btn-cta-landing">VER LO QUE HACEMOS</button>
+                    <button onclick="Maps('view-contacto-mobile')" class="btn-cta-secondary">Contactar directo →</button>
 
                     <div class="tech-pills-container">
                         <span class="tech-pill">⚡ Cero Latencia</span>
@@ -81,42 +82,42 @@
                     <p>No encajamos tu negocio en una plantilla. Entendemos lo que necesitas y lo construimos desde cero — rápido, limpio y sin sobreingeñería.</p>
                 </div>
 
-                <div class="adapt-section">
-                    <p class="adapt-label">Hemos construido, entre otras cosas</p>
-                    <div class="adapt-tags">
-                        <span class="adapt-tag">Cartas digitales QR</span>
-                        <span class="adapt-tag">E-commerce</span>
-                        <span class="adapt-tag">Sistemas de reservas</span>
-                        <span class="adapt-tag">Impresión 3D</span>
-                        <span class="adapt-tag">Plataformas de gestión</span>
-                        <span class="adapt-tag">Maquetación arquitectónica</span>
-                        <span class="adapt-tag">Intranets corporativas</span>
-                        <span class="adapt-tag">Integraciones de API</span>
-                        <span class="adapt-tag">Apps web a medida</span>
-                        <span class="adapt-tag adapt-tag-open">+ lo que tú necesites →</span>
-                    </div>
-                </div>
+                <div class="cards-grid">
+                    <article class="service-card service-card-v2" onclick="Maps('view-cartas')">
+                        <span class="svc-icon">🍽️</span>
+                        <div>
+                            <h3>Cartas Digitales</h3>
+                            <p>Menús QR con UX nativa, carga instantánea y gestión dinámica para hostelería.</p>
+                        </div>
+                        <span class="svc-arrow">→</span>
+                    </article>
 
-                <div class="adapt-section">
-                    <p class="adapt-label">Lo que ya hemos entregado</p>
-                    <div class="work-examples-grid">
-                        <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="work-example-card">
-                            <img src="logo_glade.png" alt="Bar Glade"/>
-                            <p>Carta digital coctelería</p>
-                        </a>
-                        <a href="https://dynamichealth.es/" target="_blank" class="work-example-card">
-                            <img src="Logo_DH.png" alt="Dynamic Health"/>
-                            <p>Plataforma web corporativa</p>
-                        </a>
-                        <a href="http://cartacafebarvictoria.es/" target="_blank" class="work-example-card">
-                            <img src="logo_victoria.png" alt="Café Bar Victoria"/>
-                            <p>Carta digital tradicional</p>
-                        </a>
-                        <a href="https://cartabocateriasur2.es/" target="_blank" class="work-example-card">
-                            <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
-                            <p>Carta digital hostelería</p>
-                        </a>
-                    </div>
+                    <article class="service-card service-card-v2" onclick="Maps('view-web')">
+                        <span class="svc-icon">💻</span>
+                        <div>
+                            <h3>Arquitectura Web</h3>
+                            <p>Desde landing pages hasta plataformas full-stack, e-commerce y sistemas a medida.</p>
+                        </div>
+                        <span class="svc-arrow">→</span>
+                    </article>
+
+                    <article class="service-card service-card-v2" onclick="Maps('view-3d')">
+                        <span class="svc-icon">🖨️</span>
+                        <div>
+                            <h3>Laboratorio 3D</h3>
+                            <p>Impresión FDM y resina. Prototipado, merchandising, llaveros y QRs físicos premium.</p>
+                        </div>
+                        <span class="svc-arrow">→</span>
+                    </article>
+
+                    <article class="service-card service-card-v2" onclick="Maps('view-arch3d')">
+                        <span class="svc-icon">🏗️</span>
+                        <div>
+                            <h3>Maquetación 3D</h3>
+                            <p>Visualizaciones arquitectónicas fotorrealistas antes de construir o reformar.</p>
+                        </div>
+                        <span class="svc-arrow">→</span>
+                    </article>
                 </div>
 
                 <div style="padding: 0 8% 3rem;">
@@ -411,46 +412,36 @@
                     <p class="desk-adapt-sub">No encajamos tu negocio en una plantilla. Entendemos lo que necesitas y lo construimos desde cero — rápido, limpio y sin sobreingeñería innecesaria.</p>
                 </div>
 
-                <div class="desk-adapt-body">
-                    <div class="desk-adapt-left">
-                        <p class="adapt-label">Hemos construido, entre otras cosas</p>
-                        <div class="adapt-tags adapt-tags-desk">
-                            <span class="adapt-tag">Cartas digitales QR</span>
-                            <span class="adapt-tag">E-commerce</span>
-                            <span class="adapt-tag">Sistemas de reservas</span>
-                            <span class="adapt-tag">Impresión 3D</span>
-                            <span class="adapt-tag">Plataformas de gestión</span>
-                            <span class="adapt-tag">Maquetación arquitectónica 3D</span>
-                            <span class="adapt-tag">Intranets corporativas</span>
-                            <span class="adapt-tag">Integraciones de API</span>
-                            <span class="adapt-tag">Apps web a medida</span>
-                            <span class="adapt-tag adapt-tag-open">+ lo que tú necesites →</span>
-                        </div>
-                    </div>
-                    <div class="desk-adapt-right">
-                        <p class="adapt-label">Trabajos entregados</p>
-                        <div class="work-examples-grid work-examples-desk">
-                            <a href="https://xzeta4.github.io/Bar-Glade/" target="_blank" class="work-example-card">
-                                <img src="logo_glade.png" alt="Bar Glade"/>
-                                <p>Carta digital coctelería</p>
-                            </a>
-                            <a href="https://dynamichealth.es/" target="_blank" class="work-example-card">
-                                <img src="Logo_DH.png" alt="Dynamic Health"/>
-                                <p>Plataforma web corporativa</p>
-                            </a>
-                            <a href="http://cartacafebarvictoria.es/" target="_blank" class="work-example-card">
-                                <img src="logo_victoria.png" alt="Café Bar Victoria"/>
-                                <p>Carta digital tradicional</p>
-                            </a>
-                            <a href="https://cartabocateriasur2.es/" target="_blank" class="work-example-card">
-                                <img src="logo_BocateriaSur.png" alt="Bocatería Sur"/>
-                                <p>Carta digital hostelería</p>
-                            </a>
-                        </div>
-                        <button onclick="NavDesk('desk-view-contacto')" class="btn-cta-full" style="margin-top:1.5rem;">
-                            Cuéntanos tu proyecto →
-                        </button>
-                    </div>
+                <div class="desk-services-grid" style="margin-top:0;">
+                    <article class="desk-service-card service-card-v2-desk" onclick="NavDesk('desk-view-cartas')">
+                        <span class="svc-icon-desk">🍽️</span>
+                        <h3>Cartas Digitales</h3>
+                        <p>Menús QR con UX nativa, carga instantánea y gestión dinámica para hostelería.</p>
+                        <span class="svc-arrow-desk">Ver ejemplos y precios →</span>
+                    </article>
+                    <article class="desk-service-card service-card-v2-desk" onclick="NavDesk('desk-view-web')">
+                        <span class="svc-icon-desk">💻</span>
+                        <h3>Arquitectura Web</h3>
+                        <p>Desde landing pages hasta plataformas full-stack, e-commerce y sistemas a medida.</p>
+                        <span class="svc-arrow-desk">Ver ejemplos y precios →</span>
+                    </article>
+                    <article class="desk-service-card service-card-v2-desk" onclick="NavDesk('desk-view-3d')">
+                        <span class="svc-icon-desk">🖨️</span>
+                        <h3>Laboratorio 3D</h3>
+                        <p>Impresión FDM y resina. Prototipado, merchandising, llaveros y QRs físicos premium.</p>
+                        <span class="svc-arrow-desk">Ver ejemplos y precios →</span>
+                    </article>
+                    <article class="desk-service-card service-card-v2-desk" onclick="NavDesk('desk-view-arch3d')">
+                        <span class="svc-icon-desk">🏗️</span>
+                        <h3>Maquetación 3D</h3>
+                        <p>Visualizaciones arquitectónicas fotorrealistas antes de construir o reformar.</p>
+                        <span class="svc-arrow-desk">Ver ejemplos y precios →</span>
+                    </article>
+                </div>
+                <div style="margin-top:2rem;">
+                    <button onclick="NavDesk('desk-view-contacto')" class="btn-cta-full" style="max-width:320px;">
+                        Cuéntanos tu proyecto →
+                    </button>
                 </div>
             </div>
         </section>
