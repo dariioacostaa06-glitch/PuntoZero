@@ -38,6 +38,7 @@
                 <button class="close-menu-btn" onclick="document.getElementById('mobile-menu').classList.remove('is-open')">&times;</button>
                 <a href="#" onclick="Maps('view-landing'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Inicio</a>
                 <a href="#" onclick="Maps('view-services-list'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Servicios</a>
+                <a href="#" onclick="Maps('view-ejemplos'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Ejemplos</a>
                 <a href="#" onclick="Maps('view-sobre'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Sobre Nosotros</a>
                 <a href="#" onclick="Maps('view-contacto-mobile'); document.getElementById('mobile-menu').classList.remove('is-open'); return false;">Contacto</a>
             </nav>
@@ -51,7 +52,10 @@
                     <h2 class="landing-headline">Tu negocio necesita algo.<br><span class="landing-grad">Lo construimos.</span></h2>
                     <p class="landing-tagline">No trabajamos con catálogos fijos. Escuchamos tu problema y entregamos la solución exacta que necesitas.</p>
                     <button onclick="Maps('view-services-list')" class="btn-cta-landing">VER LO QUE HACEMOS</button>
-                    <button onclick="Maps('view-contacto-mobile')" class="btn-cta-secondary">Contactar directo →</button>
+                    <div class="landing-btns-row">
+                        <button onclick="Maps('view-contacto-mobile')" class="btn-cta-outline">💬 Contactar directo</button>
+                        <button onclick="Maps('view-ejemplos')" class="btn-cta-outline">🏪 Ver ejemplos</button>
+                    </div>
 
                     <div class="tech-pills-container">
                         <span class="tech-pill">⚡ Cero Latencia</span>
@@ -358,6 +362,104 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Vista Ejemplos de Negocios -->
+            <section id="view-ejemplos" class="view">
+                <div class="view-header">
+                    <button onclick="window.history.back()" class="btn-volver">← Volver</button>
+                    <h2>Ejemplos de Negocios</h2>
+                </div>
+                <div class="view-body">
+                    <p style="margin-bottom:1.5rem;">Demos funcionales que hemos construido para distintos tipos de negocio. Cada una resuelve un problema real del sector.</p>
+                    <div class="ejemplos-grid">
+                        <a href="https://dariioacostaa06-glitch.github.io/barberq/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">✂️</span>
+                            <div class="ejemplo-info">
+                                <h4>BarberQ</h4>
+                                <p>Barbería · Cola virtual + reservas</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/garagetrack/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🔧</span>
+                            <div class="ejemplo-info">
+                                <h4>GarageTrack</h4>
+                                <p>Taller · Tracker de reparación</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/dentaflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🦷</span>
+                            <div class="ejemplo-info">
+                                <h4>DentaFlow</h4>
+                                <p>Dental · Presupuesto + citas</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/fitsched/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">💪</span>
+                            <div class="ejemplo-info">
+                                <h4>FitSched</h4>
+                                <p>Gimnasio · Clases en tiempo real</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/tableflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🍽️</span>
+                            <div class="ejemplo-info">
+                                <h4>TableFlow</h4>
+                                <p>Restaurante · Mesas + carta digital</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/propfinder/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🏠</span>
+                            <div class="ejemplo-info">
+                                <h4>PropFinder</h4>
+                                <p>Inmobiliaria · Búsqueda + hipoteca</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/vetflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🐾</span>
+                            <div class="ejemplo-info">
+                                <h4>VetFlow</h4>
+                                <p>Veterinaria · Historial + vacunas</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/glowbook/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">💅</span>
+                            <div class="ejemplo-info">
+                                <h4>GlowBook</h4>
+                                <p>Estética · Reservas + bonos regalo</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/cleantrack/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">👔</span>
+                            <div class="ejemplo-info">
+                                <h4>CleanTrack</h4>
+                                <p>Tintorería · Tracker de prendas</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/fixnow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🚨</span>
+                            <div class="ejemplo-info">
+                                <h4>FixNow</h4>
+                                <p>Urgencias hogar · Técnico en 30 min</p>
+                            </div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                    </div>
+                    <div style="margin-top:2rem;">
+                        <button onclick="Maps('view-contacto-mobile')" class="btn-cta-full">
+                            ¿Quieres algo así para tu negocio? →
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -382,6 +484,7 @@
                     </div>
                 </div>
 
+                <a href="#" onclick="NavDesk('desk-view-ejemplos'); return false;">Ejemplos</a>
                 <a href="#" onclick="NavDesk('desk-view-sobre'); return false;">Sobre Nosotros</a>
                 <a href="#" onclick="NavDesk('desk-view-contacto'); return false;">Contacto</a>
             </nav>
@@ -688,6 +791,76 @@
                     <div class="contacto-right">
                         <button class="btn-contacto-desk btn-wa-desk" onclick="enviarWhatsApp(this)" data-plan="Contacto General desde Web">Abrir Canal Directo (WhatsApp)</button>
                         <a href="https://www.instagram.com/puntozero_sl" target="_blank" class="btn-contacto-desk btn-ig-desk">Sigue el Laboratorio (@puntozero_sl)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vista Ejemplos Desktop -->
+        <section id="desk-view-ejemplos" class="desk-view">
+            <div class="desk-detail-container">
+                <div class="view-header">
+                    <button onclick="NavDesk('desk-home-view')" class="btn-volver">← Volver al inicio</button>
+                    <h2>Ejemplos de Negocios</h2>
+                </div>
+                <div class="view-body">
+                    <p style="margin-bottom:1.5rem;">Demos funcionales para distintos tipos de negocio. Cada una resuelve un problema real del sector.</p>
+                    <div class="ejemplos-grid ejemplos-grid-desk">
+                        <a href="https://dariioacostaa06-glitch.github.io/barberq/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">✂️</span>
+                            <div class="ejemplo-info"><h4>BarberQ</h4><p>Barbería · Cola virtual + reservas</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/garagetrack/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🔧</span>
+                            <div class="ejemplo-info"><h4>GarageTrack</h4><p>Taller · Tracker de reparación</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/dentaflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🦷</span>
+                            <div class="ejemplo-info"><h4>DentaFlow</h4><p>Dental · Presupuesto + citas</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/fitsched/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">💪</span>
+                            <div class="ejemplo-info"><h4>FitSched</h4><p>Gimnasio · Clases en tiempo real</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/tableflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🍽️</span>
+                            <div class="ejemplo-info"><h4>TableFlow</h4><p>Restaurante · Mesas + carta digital</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/propfinder/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🏠</span>
+                            <div class="ejemplo-info"><h4>PropFinder</h4><p>Inmobiliaria · Búsqueda + hipoteca</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/vetflow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🐾</span>
+                            <div class="ejemplo-info"><h4>VetFlow</h4><p>Veterinaria · Historial + vacunas</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/glowbook/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">💅</span>
+                            <div class="ejemplo-info"><h4>GlowBook</h4><p>Estética · Reservas + bonos</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/cleantrack/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">👔</span>
+                            <div class="ejemplo-info"><h4>CleanTrack</h4><p>Tintorería · Tracker de prendas</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                        <a href="https://dariioacostaa06-glitch.github.io/fixnow/" target="_blank" class="ejemplo-card">
+                            <span class="ejemplo-icon">🚨</span>
+                            <div class="ejemplo-info"><h4>FixNow</h4><p>Urgencias hogar · Técnico en 30 min</p></div>
+                            <span class="ejemplo-arrow">→</span>
+                        </a>
+                    </div>
+                    <div style="margin-top:2rem;">
+                        <button onclick="NavDesk('desk-view-contacto')" class="btn-cta-full" style="max-width:360px;">
+                            ¿Quieres algo así para tu negocio? →
+                        </button>
                     </div>
                 </div>
             </div>
