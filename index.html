@@ -416,97 +416,101 @@
                 </div>
                 <div class="view-body">
                     <p style="margin-bottom:1.5rem;">Demos funcionales que hemos construido para distintos tipos de negocio. Cada una resuelve un problema real del sector.</p>
+                    <div class="ej-buscador-wrap">
+                        <input type="search" class="ej-search-input" placeholder="¿Cuál es tu negocio? Ej: peluquería, restaurante, gimnasio…" oninput="filtrarEjemplos(this)" autocomplete="off" aria-label="Buscar ejemplo por tipo de negocio">
                     <div class="ejemplos-grid-v2">
-                        <a href="https://barberq.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f59e0b">
+                        <a href="https://barberq.puntozerosl.es/" target="_blank" class="ej-card" data-kw="peluqueria peluquero corte de pelo afeitado salon de barberos barba hombre" style="--ej-color:#f59e0b">
                             <div class="ej-top"><span class="ej-emoji">✂️</span></div>
                             <p class="ej-sector">Barbería</p>
                             <h4 class="ej-nombre">BarberQ</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://garagetrack.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#3b82f6">
+                        <a href="https://garagetrack.puntozerosl.es/" target="_blank" class="ej-card" data-kw="taller mecanico coches automoviles reparacion de coches vehiculos neumaticos revision" style="--ej-color:#3b82f6">
                             <div class="ej-top"><span class="ej-emoji">🔧</span></div>
                             <p class="ej-sector">Taller mecánico</p>
                             <h4 class="ej-nombre">GarageTrack</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://dentaflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#06b6d4">
+                        <a href="https://dentaflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="dentista clinica dental odontologia dientes ortodoncia salud bucal" style="--ej-color:#06b6d4">
                             <div class="ej-top"><span class="ej-emoji">🦷</span></div>
                             <p class="ej-sector">Clínica dental</p>
                             <h4 class="ej-nombre">DentaFlow</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://fitsched.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#a855f7">
+                        <a href="https://fitsched.puntozerosl.es/" target="_blank" class="ej-card" data-kw="gimnasio gym fitness entrenamiento personal deporte pesas clases" style="--ej-color:#a855f7">
                             <div class="ej-top"><span class="ej-emoji">💪</span></div>
                             <p class="ej-sector">Gimnasio</p>
                             <h4 class="ej-nombre">FitSched</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://tableflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f97316">
+                        <a href="https://tableflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="restaurante bar cafeteria hosteleria reservas de mesas comida cocina" style="--ej-color:#f97316">
                             <div class="ej-top"><span class="ej-emoji">🍽️</span></div>
                             <p class="ej-sector">Restaurante</p>
                             <h4 class="ej-nombre">TableFlow</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://propfinder.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#10b981">
+                        <a href="https://propfinder.puntozerosl.es/" target="_blank" class="ej-card" data-kw="inmobiliaria pisos casas alquiler venta de viviendas propiedades agencia inmobiliaria" style="--ej-color:#10b981">
                             <div class="ej-top"><span class="ej-emoji">🏠</span></div>
                             <p class="ej-sector">Inmobiliaria</p>
                             <h4 class="ej-nombre">PropFinder</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://vetflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#22c55e">
+                        <a href="https://vetflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="veterinaria veterinario mascotas animales perros gatos clinica veterinaria citas" style="--ej-color:#22c55e">
                             <div class="ej-top"><span class="ej-emoji">🐾</span></div>
                             <p class="ej-sector">Veterinaria</p>
                             <h4 class="ej-nombre">VetFlow</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://glowbook.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f472b6">
+                        <a href="https://glowbook.puntozerosl.es/" target="_blank" class="ej-card" data-kw="estetica spa salon de belleza manicura masajes unas tratamientos faciales" style="--ej-color:#f472b6">
                             <div class="ej-top"><span class="ej-emoji">💅</span></div>
                             <p class="ej-sector">Estética & Spa</p>
                             <h4 class="ej-nombre">GlowBook</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://cleantrack.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#38bdf8">
+                        <a href="https://cleantrack.puntozerosl.es/" target="_blank" class="ej-card" data-kw="tintoreria lavanderia limpieza de ropa tintorerias planchado lavado en seco" style="--ej-color:#38bdf8">
                             <div class="ej-top"><span class="ej-emoji">👔</span></div>
                             <p class="ej-sector">Tintorería</p>
                             <h4 class="ej-nombre">CleanTrack</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://fixnow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#ef4444">
+                        <a href="https://fixnow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="fontanero electricista cerrajero urgencias del hogar reparaciones mantenimiento averias" style="--ej-color:#ef4444">
                             <div class="ej-top"><span class="ej-emoji">🚨</span></div>
                             <p class="ej-sector">Urgencias hogar</p>
                             <h4 class="ej-nombre">FixNow</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://techhub.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#0ea5e9">
+                        <a href="https://techhub.puntozerosl.es/" target="_blank" class="ej-card" data-kw="informatica reparacion de moviles ordenadores tecnologia soporte tecnico electronica" style="--ej-color:#0ea5e9">
                             <div class="ej-top"><span class="ej-emoji">💻</span></div>
                             <p class="ej-sector">Informática</p>
                             <h4 class="ej-nombre">TechHub</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://threadshop.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f43f5e">
+                        <a href="https://threadshop.puntozerosl.es/" target="_blank" class="ej-card" data-kw="tienda de ropa moda boutique accesorios complementos" style="--ej-color:#f43f5e">
                             <div class="ej-top"><span class="ej-emoji">👗</span></div>
                             <p class="ej-sector">Moda & Accesorios</p>
                             <h4 class="ej-nombre">ThreadShop</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://paperco.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f59e0b">
+                        <a href="https://paperco.puntozerosl.es/" target="_blank" class="ej-card" data-kw="papeleria libreria manualidades material escolar arte regalos" style="--ej-color:#f59e0b">
                             <div class="ej-top"><span class="ej-emoji">📓</span></div>
                             <p class="ej-sector">Papelería & Arte</p>
                             <h4 class="ej-nombre">PaperCo</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://boxfit.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#dc2626">
+                        <a href="https://boxfit.puntozerosl.es/" target="_blank" class="ej-card" data-kw="boxeo crossfit entrenamiento funcional artes marciales gimnasio de boxeo" style="--ej-color:#dc2626">
                             <div class="ej-top"><span class="ej-emoji">🥊</span></div>
                             <p class="ej-sector">Gimnasio funcional</p>
                             <h4 class="ej-nombre">BoxFit</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
-                        <a href="https://folio.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#8b5cf6">
+                        <a href="https://folio.puntozerosl.es/" target="_blank" class="ej-card" data-kw="portfolio diseñador freelance fotografo artista creativo agencia creativa" style="--ej-color:#8b5cf6">
                             <div class="ej-top"><span class="ej-emoji">🎨</span></div>
                             <p class="ej-sector">Portfolio digital</p>
                             <h4 class="ej-nombre">Folio</h4>
                             <span class="ej-btn">Ver demo</span>
                         </a>
+                    </div>
+                        <p class="ej-no-results" hidden>No tenemos todavía una demo para ese tipo de negocio, pero podemos crear una a tu medida. <a href="#" onclick="Maps('view-contacto-mobile'); return false;">Hablemos →</a></p>
                     </div>
                     <div style="margin-top:2rem;">
                         <button onclick="Maps('view-contacto-mobile')" class="btn-cta-full">
@@ -860,22 +864,26 @@
                 </div>
                 <div class="view-body">
                     <p style="margin-bottom:1.5rem;">Demos funcionales para distintos tipos de negocio. Cada una resuelve un problema real del sector.</p>
+                    <div class="ej-buscador-wrap">
+                        <input type="search" class="ej-search-input" placeholder="¿Cuál es tu negocio? Ej: peluquería, restaurante, gimnasio…" oninput="filtrarEjemplos(this)" autocomplete="off" aria-label="Buscar ejemplo por tipo de negocio">
                     <div class="ejemplos-grid-v2 ejemplos-grid-v2-desk">
-                        <a href="https://barberq.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f59e0b"><div class="ej-top"><span class="ej-emoji">✂️</span></div><p class="ej-sector">Barbería</p><h4 class="ej-nombre">BarberQ</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://garagetrack.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#3b82f6"><div class="ej-top"><span class="ej-emoji">🔧</span></div><p class="ej-sector">Taller mecánico</p><h4 class="ej-nombre">GarageTrack</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://dentaflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#06b6d4"><div class="ej-top"><span class="ej-emoji">🦷</span></div><p class="ej-sector">Clínica dental</p><h4 class="ej-nombre">DentaFlow</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://fitsched.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#a855f7"><div class="ej-top"><span class="ej-emoji">💪</span></div><p class="ej-sector">Gimnasio</p><h4 class="ej-nombre">FitSched</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://tableflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f97316"><div class="ej-top"><span class="ej-emoji">🍽️</span></div><p class="ej-sector">Restaurante</p><h4 class="ej-nombre">TableFlow</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://propfinder.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#10b981"><div class="ej-top"><span class="ej-emoji">🏠</span></div><p class="ej-sector">Inmobiliaria</p><h4 class="ej-nombre">PropFinder</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://vetflow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#22c55e"><div class="ej-top"><span class="ej-emoji">🐾</span></div><p class="ej-sector">Veterinaria</p><h4 class="ej-nombre">VetFlow</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://glowbook.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f472b6"><div class="ej-top"><span class="ej-emoji">💅</span></div><p class="ej-sector">Estética & Spa</p><h4 class="ej-nombre">GlowBook</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://cleantrack.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#38bdf8"><div class="ej-top"><span class="ej-emoji">👔</span></div><p class="ej-sector">Tintorería</p><h4 class="ej-nombre">CleanTrack</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://fixnow.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#ef4444"><div class="ej-top"><span class="ej-emoji">🚨</span></div><p class="ej-sector">Urgencias hogar</p><h4 class="ej-nombre">FixNow</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://techhub.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#0ea5e9"><div class="ej-top"><span class="ej-emoji">💻</span></div><p class="ej-sector">Informática</p><h4 class="ej-nombre">TechHub</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://threadshop.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f43f5e"><div class="ej-top"><span class="ej-emoji">👗</span></div><p class="ej-sector">Moda & Accesorios</p><h4 class="ej-nombre">ThreadShop</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://paperco.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#f59e0b"><div class="ej-top"><span class="ej-emoji">📓</span></div><p class="ej-sector">Papelería & Arte</p><h4 class="ej-nombre">PaperCo</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://boxfit.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#dc2626"><div class="ej-top"><span class="ej-emoji">🥊</span></div><p class="ej-sector">Gimnasio funcional</p><h4 class="ej-nombre">BoxFit</h4><span class="ej-btn">Ver demo</span></a>
-                        <a href="https://folio.puntozerosl.es/" target="_blank" class="ej-card" style="--ej-color:#8b5cf6"><div class="ej-top"><span class="ej-emoji">🎨</span></div><p class="ej-sector">Portfolio digital</p><h4 class="ej-nombre">Folio</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://barberq.puntozerosl.es/" target="_blank" class="ej-card" data-kw="peluqueria peluquero corte de pelo afeitado salon de barberos barba hombre" style="--ej-color:#f59e0b"><div class="ej-top"><span class="ej-emoji">✂️</span></div><p class="ej-sector">Barbería</p><h4 class="ej-nombre">BarberQ</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://garagetrack.puntozerosl.es/" target="_blank" class="ej-card" data-kw="taller mecanico coches automoviles reparacion de coches vehiculos neumaticos revision" style="--ej-color:#3b82f6"><div class="ej-top"><span class="ej-emoji">🔧</span></div><p class="ej-sector">Taller mecánico</p><h4 class="ej-nombre">GarageTrack</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://dentaflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="dentista clinica dental odontologia dientes ortodoncia salud bucal" style="--ej-color:#06b6d4"><div class="ej-top"><span class="ej-emoji">🦷</span></div><p class="ej-sector">Clínica dental</p><h4 class="ej-nombre">DentaFlow</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://fitsched.puntozerosl.es/" target="_blank" class="ej-card" data-kw="gimnasio gym fitness entrenamiento personal deporte pesas clases" style="--ej-color:#a855f7"><div class="ej-top"><span class="ej-emoji">💪</span></div><p class="ej-sector">Gimnasio</p><h4 class="ej-nombre">FitSched</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://tableflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="restaurante bar cafeteria hosteleria reservas de mesas comida cocina" style="--ej-color:#f97316"><div class="ej-top"><span class="ej-emoji">🍽️</span></div><p class="ej-sector">Restaurante</p><h4 class="ej-nombre">TableFlow</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://propfinder.puntozerosl.es/" target="_blank" class="ej-card" data-kw="inmobiliaria pisos casas alquiler venta de viviendas propiedades agencia inmobiliaria" style="--ej-color:#10b981"><div class="ej-top"><span class="ej-emoji">🏠</span></div><p class="ej-sector">Inmobiliaria</p><h4 class="ej-nombre">PropFinder</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://vetflow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="veterinaria veterinario mascotas animales perros gatos clinica veterinaria citas" style="--ej-color:#22c55e"><div class="ej-top"><span class="ej-emoji">🐾</span></div><p class="ej-sector">Veterinaria</p><h4 class="ej-nombre">VetFlow</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://glowbook.puntozerosl.es/" target="_blank" class="ej-card" data-kw="estetica spa salon de belleza manicura masajes unas tratamientos faciales" style="--ej-color:#f472b6"><div class="ej-top"><span class="ej-emoji">💅</span></div><p class="ej-sector">Estética & Spa</p><h4 class="ej-nombre">GlowBook</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://cleantrack.puntozerosl.es/" target="_blank" class="ej-card" data-kw="tintoreria lavanderia limpieza de ropa tintorerias planchado lavado en seco" style="--ej-color:#38bdf8"><div class="ej-top"><span class="ej-emoji">👔</span></div><p class="ej-sector">Tintorería</p><h4 class="ej-nombre">CleanTrack</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://fixnow.puntozerosl.es/" target="_blank" class="ej-card" data-kw="fontanero electricista cerrajero urgencias del hogar reparaciones mantenimiento averias" style="--ej-color:#ef4444"><div class="ej-top"><span class="ej-emoji">🚨</span></div><p class="ej-sector">Urgencias hogar</p><h4 class="ej-nombre">FixNow</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://techhub.puntozerosl.es/" target="_blank" class="ej-card" data-kw="informatica reparacion de moviles ordenadores tecnologia soporte tecnico electronica" style="--ej-color:#0ea5e9"><div class="ej-top"><span class="ej-emoji">💻</span></div><p class="ej-sector">Informática</p><h4 class="ej-nombre">TechHub</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://threadshop.puntozerosl.es/" target="_blank" class="ej-card" data-kw="tienda de ropa moda boutique accesorios complementos" style="--ej-color:#f43f5e"><div class="ej-top"><span class="ej-emoji">👗</span></div><p class="ej-sector">Moda & Accesorios</p><h4 class="ej-nombre">ThreadShop</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://paperco.puntozerosl.es/" target="_blank" class="ej-card" data-kw="papeleria libreria manualidades material escolar arte regalos" style="--ej-color:#f59e0b"><div class="ej-top"><span class="ej-emoji">📓</span></div><p class="ej-sector">Papelería & Arte</p><h4 class="ej-nombre">PaperCo</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://boxfit.puntozerosl.es/" target="_blank" class="ej-card" data-kw="boxeo crossfit entrenamiento funcional artes marciales gimnasio de boxeo" style="--ej-color:#dc2626"><div class="ej-top"><span class="ej-emoji">🥊</span></div><p class="ej-sector">Gimnasio funcional</p><h4 class="ej-nombre">BoxFit</h4><span class="ej-btn">Ver demo</span></a>
+                        <a href="https://folio.puntozerosl.es/" target="_blank" class="ej-card" data-kw="portfolio diseñador freelance fotografo artista creativo agencia creativa" style="--ej-color:#8b5cf6"><div class="ej-top"><span class="ej-emoji">🎨</span></div><p class="ej-sector">Portfolio digital</p><h4 class="ej-nombre">Folio</h4><span class="ej-btn">Ver demo</span></a>
+                    </div>
+                        <p class="ej-no-results" hidden>No tenemos todavía una demo para ese tipo de negocio, pero podemos crear una a tu medida. <a href="#" onclick="NavDesk('desk-view-contacto'); return false;">Hablemos →</a></p>
                     </div>
                     <div style="margin-top:2rem;">
                         <button onclick="NavDesk('desk-view-contacto')" class="btn-cta-full" style="max-width:360px;">

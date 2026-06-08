@@ -138,6 +138,43 @@ window.addEventListener('DOMContentLoaded', handleRouting);
 /* =========================================================================
    ROUTER ESCRITORIO
    ========================================================================= */
+/* =========================================================================
+   BUSCADOR DE EJEMPLOS POR TIPO DE NEGOCIO
+   ========================================================================= */
+function normalizarTexto(txt) {
+    return txt
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+}
+
+function filtrarEjemplos(input) {
+    const wrap = input.closest('.ej-buscador-wrap');
+    if (!wrap) return;
+
+    const palabrasQuery = normalizarTexto(input.value.trim()).split(/\s+/).filter(Boolean);
+    const grid = wrap.querySelector('.ejemplos-grid-v2');
+    const noResults = wrap.querySelector('.ej-no-results');
+    let visibles = 0;
+
+    grid.querySelectorAll('.ej-card').forEach(card => {
+        const palabrasCard = normalizarTexto([
+            card.dataset.kw || '',
+            card.querySelector('.ej-sector').textContent,
+            card.querySelector('.ej-nombre').textContent
+        ].join(' ')).split(/\s+/).filter(Boolean);
+
+        // cada palabra escrita debe ser prefijo de alguna palabra de la ficha
+        const coincide = palabrasQuery.length === 0 ||
+            palabrasQuery.every(pq => palabrasCard.some(pc => pc.startsWith(pq)));
+
+        card.style.display = coincide ? '' : 'none';
+        if (coincide) visibles++;
+    });
+
+    if (noResults) noResults.hidden = visibles > 0;
+}
+
 function NavDesk(viewId) {
     // Ocultar todas las vistas de escritorio
     document.querySelectorAll('.desk-view').forEach(view => {

@@ -1530,6 +1530,51 @@ button {
    GRID DE EJEMPLOS DE NEGOCIOS — DISEÑO V2
    ========================================================================== */
 
+.ej-buscador-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ej-search-input {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    background: #111111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ej-search-input::placeholder {
+    color: #888888;
+}
+
+.ej-search-input:focus {
+    border-color: rgba(255,255,255,0.3);
+    background: #161616;
+}
+
+.ej-no-results {
+    text-align: center;
+    color: #aaaaaa;
+    font-size: 0.85rem;
+    padding: 1.5rem 1rem;
+    background: #111111;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    line-height: 1.5;
+}
+
+.ej-no-results a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
 .ejemplos-grid-v2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1634,6 +1679,12 @@ button {
     .ejemplos-grid-v2-desk {
         grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
+    }
+
+    .ej-search-input {
+        max-width: 420px;
+        padding: 0.95rem 1.25rem;
+        font-size: 0.95rem;
     }
 
     .ej-card:hover {
