@@ -238,6 +238,7 @@ button {
 #app-content {
     flex-grow: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
     background-color: #0a0a0a;
 }
