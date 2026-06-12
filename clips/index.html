@@ -1,0 +1,3065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLIPS · Guía de estudio</title>
+<style>
+:root{
+  --bg:#0d1117;
+  --bg-card:#161b22;
+  --bg-code:#0a0e14;
+  --border:#30363d;
+  --text:#c9d1d9;
+  --text-dim:#8b949e;
+  --accent:#ffa657;
+  --accent2:#79c0ff;
+  --green:#7ee787;
+  --purple:#d2a8ff;
+  --red:#ff7b72;
+  --blue:#a5d6ff;
+  --sidebar-w:260px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+code,pre,.mono{
+  font-family:'Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+}
+a{color:var(--accent2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* ===== Topbar ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:1rem;
+  background:linear-gradient(135deg,#161b22,#0d1117);
+  border-bottom:1px solid var(--border);
+  padding:.75rem 1.25rem;
+}
+.topbar .logo{
+  font-weight:800;font-size:1.25rem;letter-spacing:.5px;
+  color:var(--accent);
+}
+.topbar .logo span{color:var(--text-dim);font-weight:400;font-size:.85rem;margin-left:.5rem;}
+#navToggle{
+  display:none;
+  margin-left:auto;
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:1rem;
+}
+
+/* ===== Layout ===== */
+.layout{display:flex;max-width:1400px;margin:0 auto;}
+.sidebar{
+  width:var(--sidebar-w);flex:none;
+  position:sticky;top:53px;align-self:flex-start;
+  height:calc(100vh - 53px);overflow-y:auto;
+  border-right:1px solid var(--border);
+  padding:1rem .75rem 2rem;
+}
+.sidebar h4{
+  text-transform:uppercase;font-size:.7rem;letter-spacing:1px;
+  color:var(--text-dim);margin:1.25rem 0 .4rem .5rem;
+}
+.sidebar a{
+  display:block;color:var(--text);padding:.35rem .6rem;border-radius:6px;
+  font-size:.9rem;
+}
+.sidebar a:hover{background:var(--bg-card);text-decoration:none;}
+.sidebar a.active{background:var(--bg-card);color:var(--accent);font-weight:600;}
+.sidebar .tnum{color:var(--text-dim);margin-right:.35rem;font-variant-numeric:tabular-nums;}
+
+main{flex:1;min-width:0;padding:1.5rem 2rem 5rem;}
+
+/* ===== Landing ===== */
+.hero{
+  padding:2rem 0 1rem;
+}
+.hero h1{font-size:2.1rem;margin:0 0 .25rem;}
+.hero p{color:var(--text-dim);max-width:700px;}
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:1rem;margin:1.5rem 0 2.5rem;
+}
+.card-link{
+  display:block;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;padding:1rem 1.1rem;color:var(--text);transition:.15s;
+}
+.card-link:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none;}
+.card-link .badge{
+  display:inline-block;background:var(--accent);color:#1a1300;font-weight:700;
+  font-size:.75rem;border-radius:5px;padding:.1rem .45rem;margin-bottom:.4rem;
+}
+.card-link h3{margin:.2rem 0 .3rem;font-size:1.02rem;}
+.card-link p{margin:0;color:var(--text-dim);font-size:.85rem;}
+
+/* ===== Sections ===== */
+section.tema{
+  border-top:1px solid var(--border);
+  padding-top:2rem;margin-top:2rem;
+}
+section.tema > h2{
+  font-size:1.6rem;margin-top:0;
+  display:flex;align-items:center;gap:.6rem;
+}
+section.tema > h2 .num{
+  background:var(--accent);color:#1a1300;font-weight:800;
+  border-radius:8px;padding:.15rem .55rem;font-size:1rem;
+}
+h3{color:var(--accent2);border-bottom:1px dashed var(--border);padding-bottom:.25rem;margin-top:2rem;}
+h4{color:var(--purple);margin-top:1.4rem;}
+
+.pdf-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--bg-card);border:1px solid var(--border);
+  padding:.3rem .7rem;border-radius:6px;font-size:.85rem;color:var(--text-dim);
+  margin-bottom:1rem;
+}
+.pdf-link:hover{color:var(--accent);border-color:var(--accent);text-decoration:none;}
+
+/* ===== Boxes ===== */
+.box{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;
+}
+.note{border-left:4px solid var(--accent2);}
+.tip{border-left:4px solid var(--green);}
+.warn{border-left:4px solid var(--red);}
+.box > strong:first-child, .box-title{
+  display:block;text-transform:uppercase;font-size:.72rem;letter-spacing:1px;
+  color:var(--text-dim);margin-bottom:.4rem;
+}
+
+/* ===== Syntax (BNF) blocks ===== */
+.syntax{
+  background:var(--bg-code);border:1px solid var(--border);border-radius:8px;
+  padding:.9rem 1.1rem;margin:.8rem 0;overflow-x:auto;
+  font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:.85rem;
+  color:var(--blue);white-space:pre;
+}
+.syntax .nt{color:var(--purple);} /* <no-terminal> */
+.syntax .op{color:var(--accent);} /* ::= | * + [] */
+
+/* ===== Code blocks ===== */
+pre.code{
+  background:var(--bg-code);border:1px solid var(--border);border-radius:8px;
+  padding:1rem 1.2rem;overflow-x:auto;font-size:.85rem;margin:1rem 0;
+}
+pre.code code{white-space:pre;}
+.tok-prompt{color:var(--green);font-weight:700;}
+.tok-comment{color:var(--text-dim);font-style:italic;}
+.tok-string{color:var(--blue);}
+.tok-var{color:var(--purple);}
+.tok-kw{color:var(--red);font-weight:600;}
+.tok-num{color:var(--accent2);}
+
+/* ===== Editor / Sandbox ===== */
+.editor-toolbar{
+  display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0;
+}
+.editor-toolbar label{color:var(--text-dim);font-size:.85rem;}
+.editor-toolbar select, .editor-toolbar button{
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  padding:.45rem .8rem;border-radius:6px;font-size:.85rem;cursor:pointer;
+  font-family:inherit;
+}
+.editor-toolbar select:hover, .editor-toolbar button:hover{border-color:var(--accent);color:var(--accent);}
+.editor-toolbar button.primary{background:var(--accent);color:#1a1300;border-color:var(--accent);font-weight:700;}
+.editor-toolbar button.primary:hover{color:#1a1300;opacity:.85;}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start;}
+.editor-pane h4{
+  margin:0 0 .5rem;color:var(--text-dim);font-size:.72rem;
+  text-transform:uppercase;letter-spacing:1px;
+}
+#editorInput{
+  width:100%;min-height:440px;resize:vertical;
+  background:var(--bg-code);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);padding:1rem 1.2rem;font-size:.85rem;line-height:1.6;
+  font-family:'Cascadia Code','Fira Code',Consolas,'Courier New',monospace;
+  tab-size:2;
+}
+#editorInput:focus{outline:none;border-color:var(--accent);}
+.editor-pane pre.code{min-height:440px;margin:0;}
+#editorCopyMsg{color:var(--green);font-size:.85rem;}
+@media (max-width:900px){.editor-grid{grid-template-columns:1fr;}}
+
+#clipsStatus{color:var(--text-dim);font-size:.8rem;margin-left:auto;}
+.clips-console{
+  max-height:320px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;
+}
+.clips-console .console-cmd{color:var(--green);font-weight:700;}
+.clips-console .console-err{color:var(--red);}
+.repl-row{align-items:center;}
+.repl-row input{
+  flex:1;min-width:200px;background:var(--bg-code);border:1px solid var(--border);
+  color:var(--text);padding:.5rem .8rem;border-radius:6px;font-size:.85rem;
+}
+.repl-row input:focus{outline:none;border-color:var(--accent);}
+.repl-row input:disabled{opacity:.5;}
+
+/* ===== Tables ===== */
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.9rem;}
+th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left;vertical-align:top;}
+th{background:var(--bg-card);color:var(--accent2);}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+td code, th code{color:var(--blue);}
+
+/* ===== Diagrams ===== */
+.diagram{
+  display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:1.2rem 0;
+}
+.diagram .node{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:8px;
+  padding:.8rem 1.1rem;text-align:center;font-size:.9rem;min-width:140px;
+}
+.diagram .node.center{border-color:var(--accent);color:var(--accent);font-weight:700;}
+.nest{
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;margin:1.2rem 0;
+}
+.nest .ring{
+  border:2px dashed var(--border);border-radius:14px;padding:1.2rem;
+  text-align:center;width:fit-content;
+}
+.nest .ring .label{font-size:.75rem;text-transform:uppercase;color:var(--text-dim);letter-spacing:1px;margin-bottom:.5rem;}
+.nest .ring strong{color:var(--accent2);}
+
+footer{
+  border-top:1px solid var(--border);padding:2rem;text-align:center;
+  color:var(--text-dim);font-size:.85rem;
+}
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:53px;height:calc(100vh - 53px);
+    background:var(--bg);z-index:40;transform:translateX(-100%);
+    transition:.2s;width:80vw;max-width:300px;
+  }
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 20px rgba(0,0,0,.5);}
+  #navToggle{display:block;}
+  main{padding:1.25rem 1.1rem 4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">CLIPS <span>· Sistemas Inteligentes — guía de estudio</span></div>
+  <button id="navToggle" aria-label="Abrir índice">☰ Índice</button>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <h4>General</h4>
+    <a href="#inicio">Inicio</a>
+
+    <h4>Temario</h4>
+    <a href="#tema1"><span class="tnum">01</span>Introducción a los SBC</a>
+    <a href="#tema2"><span class="tnum">02</span>Visión general de CLIPS</a>
+    <a href="#tema3"><span class="tnum">03</span>Hechos</a>
+    <a href="#tema4"><span class="tnum">04</span>Plantillas (deftemplate)</a>
+    <a href="#tema5"><span class="tnum">05</span>Hechos iniciales (deffacts)</a>
+    <a href="#tema6"><span class="tnum">06</span>Reglas (defrule)</a>
+    <a href="#tema7"><span class="tnum">07</span>Módulos (defmodule)</a>
+    <a href="#tema8"><span class="tnum">08</span>Funciones (deffunction)</a>
+    <a href="#tema9"><span class="tnum">09</span>Funciones genéricas</a>
+
+    <h4>Práctica</h4>
+    <a href="#relaciones">Relaciones de ejercicios</a>
+    <a href="#ejemplos">Ejemplos Tema 6 (gemas)</a>
+    <a href="#editor">✏️ Editor — practica</a>
+  </nav>
+
+  <main>
+
+  <section id="inicio" class="hero">
+    <h1>CLIPS — Sistemas Basados en el Conocimiento</h1>
+    <p>Resumen interactivo de los apuntes de <code>Desktop/CLIPS</code>: conceptos clave, sintaxis y ejemplos de código
+    de cada tema, con enlaces a los PDF originales para consultar el detalle completo y los ejercicios.</p>
+
+    <div class="cards">
+      <a class="card-link" href="#tema1"><span class="badge">Tema 1</span><h3>Introducción a los SBC</h3><p>Sistemas expertos, reglas de producción, inferencia y encadenamiento.</p></a>
+      <a class="card-link" href="#tema2"><span class="badge">Tema 2</span><h3>Visión general de CLIPS</h3><p>Qué es CLIPS, tipos de datos, variables, funciones y constructores.</p></a>
+      <a class="card-link" href="#tema3"><span class="badge">Tema 3</span><h3>Hechos</h3><p>assert, retract, modify, duplicate, reset, clear y depuración.</p></a>
+      <a class="card-link" href="#tema4"><span class="badge">Tema 4</span><h3>deftemplate</h3><p>Plantillas, slots, valores por defecto y restricciones.</p></a>
+      <a class="card-link" href="#tema5"><span class="badge">Tema 5</span><h3>deffacts</h3><p>Hechos iniciales, diferencias entre clear y reset.</p></a>
+      <a class="card-link" href="#tema6"><span class="badge">Tema 6</span><h3>defrule</h3><p>Reglas, ciclo de ejecución, elementos condicionales y salience.</p></a>
+      <a class="card-link" href="#tema7"><span class="badge">Tema 7</span><h3>defmodule</h3><p>Módulos, import/export, focus y pila de focos.</p></a>
+      <a class="card-link" href="#tema8"><span class="badge">Tema 8</span><h3>deffunction</h3><p>Funciones definidas por el usuario.</p></a>
+      <a class="card-link" href="#tema9"><span class="badge">Tema 9</span><h3>defgeneric / defmethod</h3><p>Funciones genéricas, sobrecarga y ejecución genérica.</p></a>
+      <a class="card-link" href="#relaciones"><span class="badge">Práctica</span><h3>Relaciones de ejercicios</h3><p>Relación 1 (Hechos) y Relación 2 (Reglas).</p></a>
+      <a class="card-link" href="#ejemplos"><span class="badge">Ejemplos</span><h3>Clasificación de gemas</h3><p>Dos soluciones completas comentadas (Tema 6).</p></a>
+      <a class="card-link" href="#editor"><span class="badge">Editor</span><h3>Practica con CLIPS</h3><p>Editor con resaltado de sintaxis y ejemplos para cacharrear.</p></a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 1 -->
+  <!-- ============================================================ -->
+  <section id="tema1" class="tema">
+    <h2><span class="num">01</span> Introducción a los Sistemas Expertos</h2>
+    <a class="pdf-link" href="tema01.pdf" target="_blank">📄 Ver tema01.pdf</a>
+
+    <h3>Sistemas basados en conocimiento (SBC)</h3>
+    <p>Un <strong>SBC</strong> es un programa capaz de ofrecer respuestas al mismo nivel de competencia que un
+    experto humano en un área de conocimiento determinada. Usa conocimiento especializado para resolver
+    problemas al nivel de un experto humano.</p>
+
+    <div class="box note">
+      <strong class="box-title">Sinónimos / términos afines</strong>
+      Sistema experto · Sistema basado en conocimiento · Sistema de producción · Sistema basado en reglas.
+    </div>
+
+    <div class="nest">
+      <div class="ring">
+        <div class="label">Sistemas basados en conocimiento</div>
+        <div class="ring" style="margin-top:.5rem;">
+          <div class="label">Sistemas expertos</div>
+          <div class="ring" style="margin-top:.5rem;">
+            <div class="label">Sistemas basados en reglas</div>
+            <strong>Sistemas basados en conocimiento</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Componentes de un Sistema Experto</h3>
+    <div class="diagram">
+      <div class="node">Base de datos</div>
+      <div class="node center">Motor de inferencia</div>
+      <div class="node">Interfaz de usuario</div>
+      <div class="node" style="flex-basis:100%;max-width:260px;">Base de afirmaciones</div>
+      <div class="node" style="flex-basis:100%;max-width:260px;">Base de conocimiento</div>
+    </div>
+
+    <h3>Sistemas de producción</h3>
+    <p>Las <strong>reglas de producción</strong> son uno de los mecanismos de representación del conocimiento más
+    populares: reglas del tipo <em>Si–Entonces</em>. Se utilizan para examinar un conjunto de datos y solicitar
+    nueva información hasta llegar a una conclusión.</p>
+
+    <h4>Estructura general</h4>
+    <div class="syntax">Antecedente <span class="op">→</span> Consecuente</div>
+    <ul>
+      <li><strong>Antecedente</strong>: cláusulas que deben cumplirse para que la regla pueda evaluarse o ejecutarse.</li>
+      <li><strong>Consecuente</strong>: conclusiones que se deducen de las premisas, o acciones que el sistema debe
+      realizar cuando ejecuta la regla.</li>
+    </ul>
+
+    <h4>Ejemplo de reglas de producción</h4>
+    <pre class="code"><code class="clips">; Regla en forma general
+IF cond1 AND cond2 AND ... condn
+THEN acc1 AND acc2 AND ... Accm
+
+; Ejemplo sin variables
+IF  (tiene hambre JUAN) AND
+    (tiene comida JUAN)
+THEN (come JUAN)
+
+; Ejemplo con variables
+IF  (tiene hambre $x) AND
+    (tiene comida $x)
+THEN (come $x)</code></pre>
+
+    <h3>Inferencia</h3>
+    <p><strong>Inferencia</strong>: deducción o razonamiento. Proceso por el que, a partir de un conocimiento y una
+    información, se obtiene información nueva. Una regla se ejecuta (<em>dispara</em>) cuando se cumple su
+    antecedente, es decir, todas las cláusulas que lo componen.</p>
+
+    <div class="box tip">
+      <strong class="box-title">Tipos de encadenamiento de reglas</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>Encadenamiento hacia delante</strong> (basado en datos): a partir de los hechos disponibles se
+        disparan reglas que generan nuevos hechos, hasta alcanzar una conclusión. <em>Es el modelo que sigue CLIPS.</em></li>
+        <li><strong>Encadenamiento hacia atrás</strong> (basado en objetivos): se parte de una hipótesis/objetivo y se
+        buscan los hechos o subobjetivos que la confirmarían.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 2 -->
+  <!-- ============================================================ -->
+  <section id="tema2" class="tema">
+    <h2><span class="num">02</span> Visión general de CLIPS</h2>
+    <a class="pdf-link" href="tema02.pdf" target="_blank">📄 Ver tema02.pdf</a>
+
+    <h3>¿Qué es CLIPS?</h3>
+    <p><strong>CLIPS</strong> (<em>C Language Integrated Production System</em>) es a la vez un <strong>lenguaje de
+    programación</strong> y una <strong>herramienta</strong> para el desarrollo de sistemas expertos, creada por el
+    Software Technology Branch (STB) de la <strong>NASA en 1986</strong>.</p>
+
+    <h3>Paradigmas de programación</h3>
+    <table>
+      <tr><th>Paradigma</th><th>Subtipo</th><th>Ejemplos de lenguajes</th></tr>
+      <tr><td rowspan="2">Programación imperativa</td><td>Procedimental</td><td>Basic, FORTRAN, Cobol, Pascal, C</td></tr>
+      <tr><td>Orientada a objetos</td><td>Smalltalk, C++, Java, Eiffel, Python, Ruby</td></tr>
+      <tr><td rowspan="2">Programación declarativa</td><td>Lógica</td><td>Prolog</td></tr>
+      <tr><td>Funcional</td><td>Haskell, Lisp, ML</td></tr>
+      <tr><td colspan="2"><strong>Programación basada en reglas</strong></td><td><strong>CLIPS</strong></td></tr>
+    </table>
+
+    <h3>Componentes de CLIPS</h3>
+    <ul>
+      <li>Intérprete</li>
+      <li>Interfaz interactivo</li>
+      <li>Facilidades de depuración</li>
+      <li>Shell:
+        <ul>
+          <li>Base de hechos</li>
+          <li>Base de conocimiento</li>
+          <li>Motor de inferencia</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Notación para la sintaxis (BNF)</h3>
+    <table>
+      <tr><th>Notación</th><th>Significado</th></tr>
+      <tr><td><code>cadena</code></td><td>Símbolo terminal (cadena a introducir tal cual)</td></tr>
+      <tr><td><code>&lt;cadena&gt;</code></td><td>Símbolo no terminal (a sustituir por otra cosa)</td></tr>
+      <tr><td><code>::=</code></td><td>Indica por qué puede sustituirse un no terminal</td></tr>
+      <tr><td><code>|</code></td><td>Alternativas</td></tr>
+      <tr><td><code>[&lt;cadena&gt;]</code></td><td>Cero o una repeticiones (opcionalidad)</td></tr>
+      <tr><td><code>&lt;cadena&gt;*</code></td><td>Cero o más repeticiones</td></tr>
+      <tr><td><code>&lt;cadena&gt;+</code></td><td>Una o más apariciones</td></tr>
+    </table>
+    <div class="syntax">&lt;lexema&gt; <span class="op">::=</span> &lt;símbolo&gt; <span class="op">|</span> &lt;cadena&gt;</div>
+
+    <h3>Elementos básicos de programación</h3>
+    <p>Tipos de datos · Funciones · Constructores.</p>
+
+    <h4>Tipos de datos</h4>
+    <table>
+      <tr><th>Categoría</th><th>Tipos</th></tr>
+      <tr><td>Información numérica</td><td>Entero, Número en coma flotante</td></tr>
+      <tr><td>Información simbólica</td><td>Símbolo, Cadena, Dirección externa, Dirección de hecho, Nombre de instancia, Dirección de instancia</td></tr>
+    </table>
+
+    <h4>Campo, valor, constante y variable</h4>
+    <ul>
+      <li><strong>Campo</strong> — <strong>Valor</strong>: monocampo o multicampo.</li>
+      <li><strong>Constante</strong> — <strong>Variable</strong>.</li>
+    </ul>
+
+    <h4>Ejemplos de valores</h4>
+    <pre class="code"><code class="clips">; Valores unicampo (constantes)
+Perro
+"Juan Manuel"
+5
+23.8
+
+; Valores multicampo
+(Perro "Juan Manuel" 5 23.8)
+(Perro)
+()</code></pre>
+
+    <h4>Variables</h4>
+    <table>
+      <tr><th>Sintaxis</th><th>Ámbito</th><th>Valor</th></tr>
+      <tr><td><code>?&lt;nombre&gt;</code></td><td>local</td><td>monocampo</td></tr>
+      <tr><td><code>$?&lt;nombre&gt;</code></td><td>local</td><td>multicampo</td></tr>
+      <tr><td><code>?*&lt;nombre&gt;*</code></td><td>global</td><td>mono o multicampo</td></tr>
+    </table>
+
+    <h4>Funciones</h4>
+    <ul>
+      <li><strong>Definidas por el usuario</strong> (lenguaje externo) o <strong>definidas por el sistema</strong> (CLIPS).</li>
+      <li><strong>Convencionales</strong> o <strong>genéricas</strong>.</li>
+    </ul>
+
+    <h4>Constructores principales</h4>
+    <p><code>deftemplate</code> · <code>deffacts</code> · <code>defrule</code> (y, en temas posteriores,
+    <code>deffunction</code>, <code>defgeneric</code>/<code>defmethod</code>, <code>defmodule</code>, <code>defglobal</code>).</p>
+
+    <h3>Representación de la información</h3>
+    <p>Hechos · Variables globales · Objetos.</p>
+
+    <h4>Hechos</h4>
+    <p>Órdenes principales: <code>assert</code>, <code>facts</code>, <code>retract</code>, <code>deffacts</code>.
+    Para hechos no ordenados además: <code>deftemplate</code>, <code>modify</code>, <code>duplicate</code>.</p>
+    <ul>
+      <li><strong>Hechos ordenados</strong>: <code>(leche arroz huevos)</code>, <code>(perro gato vaca)</code>, <code>(IA 2 Pedro)</code></li>
+      <li><strong>Hechos no ordenados</strong>: <code>(coche (marca Ford) (modelo focus) (color gris))</code>,
+        <code>(cliente (nombre "Juan Pérez") (tlf 957123456))</code></li>
+    </ul>
+
+    <div class="box note">
+      <strong class="box-title">Identificadores de un hecho</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>Dirección de hecho</strong> — <code>fact-0</code></li>
+        <li><strong>Índice de hecho</strong> — <code>0</code></li>
+        <li><strong>Identificador de hecho</strong> — <code>f-0</code></li>
+      </ul>
+    </div>
+
+    <h4>Hechos: comandos</h4>
+    <div class="syntax">(assert &lt;hecho&gt;+)
+(facts [&lt;inicio&gt; [&lt;final&gt; [máximo]]])
+(retract &lt;índice&gt;+ <span class="op">|</span> *)
+(modify &lt;índice&gt; &lt;nueva-casilla&gt;+)
+(duplicate &lt;índice&gt; &lt;nueva-casilla&gt;+)
+&lt;nueva-casilla&gt; <span class="op">::=</span> (&lt;nombre-casilla&gt; &lt;valor-casilla&gt;)</div>
+
+    <div class="syntax">(deftemplate &lt;nombre&gt; [&lt;comentario&gt;]
+            &lt;definición-casilla&gt;*)
+&lt;definición-casilla&gt; <span class="op">::=</span> &lt;def-casilla-simple&gt; <span class="op">|</span> &lt;def-casilla-múltiple&gt;
+&lt;def-casilla-simple&gt;   <span class="op">::=</span> (slot &lt;nombre-casilla&gt;)
+&lt;def-casilla-múltiple&gt; <span class="op">::=</span> (multislot &lt;nombre-casilla&gt;)</div>
+
+    <h4>Hechos: ejemplo</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (assert (color rojo))
+&lt;Fact-0&gt;
+CLIPS> (assert (color azul) (valor (+ 3 4)))
+&lt;Fact-2&gt;
+CLIPS> (assert (color rojo))
+FALSE
+CLIPS> (deftemplate estado (slot temperatura) (slot presion))
+CLIPS> (assert (estado (temperatura alta) (presion baja)))
+&lt;Fact-3&gt;
+CLIPS> (facts)
+f-0     (color rojo)
+f-1     (color azul)
+f-2     (valor 7)
+f-3     (estado (temperatura alta) (presion baja))
+For a total of 4 facts.</code></pre>
+
+    <div class="box tip">
+      <strong class="box-title">Hechos: ejercicio 1</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Muestra los hechos con índice &ge; 1</li>
+        <li>Muestra los hechos 1 a 2</li>
+        <li>Crea un nuevo hecho que sea como el 3 pero con <code>(temperatura baja)</code></li>
+        <li>Elimina el hecho 1</li>
+        <li>Añade un hecho <code>(color verde)</code></li>
+        <li>Elimina todos los hechos</li>
+      </ul>
+    </div>
+
+    <h3>Representación del conocimiento</h3>
+    <ul>
+      <li><strong>Representación heurística</strong> → Reglas: <code>defrule</code></li>
+      <li><strong>Representación procedimental</strong> → Funciones (<code>deffunction</code>, <code>defgeneric</code>,
+      <code>defmethod</code>) y Objetos.</li>
+    </ul>
+
+    <h4>Reglas: comandos</h4>
+    <div class="syntax">(defrule &lt;nombre-regla&gt;
+ [&lt;comentario&gt;]
+ [&lt;propiedades&gt;]
+ &lt;elemento-condicional&gt;*
+ <span class="op">=&gt;</span>
+ &lt;acción&gt;*)</div>
+
+    <h4>Reglas: ejemplo</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defrule PuedoCruzar
+         (Semaforo verde)
+         =>
+         (printout t "Puedo cruzar" crlf))
+CLIPS> (defrule NoPuedoCruzar
+         (Semaforo rojo)
+         =>
+         (printout t "No puedo cruzar" crlf))
+CLIPS> (assert (Semaforo rojo))
+&lt;Fact-0&gt;
+CLIPS> (agenda)
+0      NoPuedoCruzar: f-0
+For a total of 1 activation.
+CLIPS> (run)
+No puedo cruzar</code></pre>
+
+    <div class="box tip">
+      <strong class="box-title">Reglas: ejercicio 2</strong>
+      Afirma el hecho de que el semáforo está verde y ejecuta las reglas activadas.
+    </div>
+
+    <h4>Reglas: ejemplo (encadenamiento)</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defrule ElectricidadOff (Electricidad apagada) =>
+   (assert (Comida estropeada)))
+CLIPS> (defrule FrigoAbierto (Frigorifico puerta abierta) =>
+   (assert (Comida estropeada)))
+CLIPS> (defrule AlSuper (Comida estropeada) =>
+   (assert (Necesito-ir-a supermercado)))
+CLIPS> (assert (Frigorifico puerta abierta))
+&lt;Fact-0&gt;
+CLIPS> (facts)
+f-0     (Frigorifico puerta abierta)
+For a total of 1 fact.
+CLIPS> (run)
+CLIPS> (facts)
+f-0     (Frigorifico puerta abierta)
+f-1     (Comida estropeada)
+f-2     (Necesito-ir-a supermercado)
+For a total of 3 facts.</code></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 3 -->
+  <!-- ============================================================ -->
+  <section id="tema3" class="tema">
+    <h2><span class="num">03</span> Hechos</h2>
+    <a class="pdf-link" href="tema03.pdf" target="_blank">📄 Ver tema03.pdf</a>
+
+    <h3>Representación de la información</h3>
+    <ul>
+      <li>Hechos: ordenados y no ordenados.</li>
+      <li>Variables globales: constructor <code>defglobal</code>.</li>
+      <li>Objetos: POO, instancias de objetos.</li>
+    </ul>
+
+    <h3>Órdenes de uso de hechos</h3>
+    <p><code>assert</code> · <code>facts</code> · <code>retract</code> · <code>modify</code> · <code>duplicate</code> ·
+    <code>deftemplate</code> · <code>deffacts</code> · <code>reset</code> · <code>clear</code></p>
+
+    <h3>Tipos y ejemplos</h3>
+    <div class="syntax">(nombre-relación campo1 campo2 ...)</div>
+    <ul>
+      <li><strong>Ordenados</strong>: <code>(casa calle-nueva 32)</code>, <code>(animales perro gato vaca)</code>,
+      <code>(asignatura IA 2 Pedro)</code></li>
+      <li><strong>No ordenados</strong> (hechos plantilla): <code>(coche (marca Ford) (modelo focus) (color gris))</code>,
+      <code>(cliente (nombre "Juan Pérez") (tlf 957123456))</code></li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (assert (libro "El Quijote"))
+&lt;Fact-0&gt;
+CLIPS> (assert (arbol encina))
+&lt;Fact-1&gt;
+CLIPS> (facts)
+f-0 (libro "El Quijote")
+f-1 (arbol encina)
+For a total of 2 facts.</code></pre>
+
+    <div class="box note">
+      <strong class="box-title">Hechos no ordenados</strong>
+      El orden de los campos <em>no</em> es importante:
+      <pre class="code" style="margin-top:.5rem;"><code class="clips">(clase (estudiantes 30) (profesor "Marta Ramírez"))
+(clase (profesor "Marta Ramírez") (estudiantes 30))</code></pre>
+      Se pueden modificar con <code>modify</code> y <code>duplicate</code>.
+    </div>
+
+    <h3>Comandos sobre hechos</h3>
+    <div class="syntax">(assert &lt;hecho&gt;+)
+(facts [&lt;inicio&gt; [&lt;final&gt; [máximo]]])
+(retract &lt;índice&gt;+ <span class="op">|</span> *)
+(modify &lt;índice&gt; &lt;nueva-casilla&gt;+)
+(duplicate &lt;índice&gt; &lt;nueva-casilla&gt;+)
+&lt;nueva-casilla&gt; <span class="op">::=</span> (&lt;nombre&gt; &lt;valor&gt;)</div>
+
+    <h3>Afirmando hechos (<code>assert</code>)</h3>
+    <p>El comando <code>assert</code> introduce datos en la base de hechos. <code>facts</code> muestra la base de
+    hechos, <code>clear</code> la limpia. <code>reset</code> borra hechos y afirma el hecho especial
+    <code>(initial-fact)</code> y los definidos en algún <code>deffacts</code>.</p>
+
+    <pre class="code"><code class="clips">CLIPS> (assert (a) (b) (c))
+&lt;Fact-2&gt;
+CLIPS> (facts)
+f-0 (a)
+f-1 (b)
+f-2 (c)
+For a total of 3 facts.
+CLIPS> (facts 0)
+f-0 (a)
+f-1 (b)
+f-2 (c)
+For a total of 3 facts.</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (facts 1)
+f-1 (b)
+f-2 (c)
+For a total of 2 facts.
+CLIPS> (facts 2)
+f-2 (c)
+For a total of 1 fact.
+CLIPS> (facts 0 1)
+f-0 (a)
+f-1 (b)
+For a total of 2 facts.
+CLIPS> (facts 0 2 2)
+f-0 (a)
+f-1 (b)
+For a total of 2 facts.</code></pre>
+
+    <div class="box warn">
+      <strong class="box-title">assert: cuidado con duplicados</strong>
+      <pre class="code" style="margin-top:.5rem;"><code class="clips">CLIPS> (assert (libro "El Quijote"))
+&lt;Fact-0&gt;
+CLIPS> (assert (libro "El Quijote"))
+FALSE</code></pre>
+      No se puede insertar un hecho ya existente (excepto con
+      <code>override-set-fact-duplication</code>). Los índices de los hechos no cambian aunque se borren hechos.
+    </div>
+
+    <h3>Iniciando la base de hechos (<code>clear</code>)</h3>
+    <p>El comando <code>clear</code>:</p>
+    <ul>
+      <li>Elimina todos los hechos de la base de hechos.</li>
+      <li>Reinicializa el índice de hechos a cero.</li>
+      <li>Reestablece CLIPS a su estado original.</li>
+      <li>También elimina la base de conocimiento.</li>
+    </ul>
+    <pre class="code"><code class="clips">CLIPS> (assert (a) (b) (c))
+&lt;Fact-2&gt;
+CLIPS> (facts)
+f-0 (a)
+f-1 (b)
+f-2 (c)
+For a total of 3 facts.
+CLIPS> (clear)
+CLIPS> (facts)
+CLIPS></code></pre>
+
+    <h3>Legibilidad de los hechos</h3>
+    <ul>
+      <li>Se puede usar el retorno de carro (intro) después de cada campo; CLIPS reemplaza retornos de carro y
+      tabuladores por espacios simples.</li>
+      <li>Los espacios en blanco separan campos múltiples.</li>
+      <li>Cuidado con mayúsculas/minúsculas: pueden producir hechos distintos.</li>
+      <li>Dentro de una cadena de caracteres, los espacios en blanco <em>sí</em> afectan.</li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (assert (lista-comidas
+                   helado
+                   fresas
+                   nata
+                   pescado))
+&lt;Fact-0&gt;
+CLIPS> (facts)
+f-0 (lista-comidas helado fresas nata pescado)
+For a total of 1 fact.</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (assert (es-animal caballo))
+&lt;Fact-0&gt;
+CLIPS> (assert (es-animal caballo ))
+FALSE
+CLIPS> (assert (es-animal Caballo ))
+&lt;Fact-1&gt;
+CLIPS> (facts)
+f-0 (es-animal caballo)
+f-1 (es-animal Caballo)
+For a total of 2 fact.</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (assert (es-animal "perro"))
+&lt;Fact-0&gt;
+CLIPS> (assert (es-animal " perro "))
+&lt;Fact-1&gt;
+CLIPS> (facts)
+f-0 (es-animal "perro")
+f-1 (es-animal " perro ")
+For a total of 4 facts.</code></pre>
+
+    <h3>Hechos: estilo</h3>
+    <table>
+      <tr><th>Peor</th><th>Mejor</th></tr>
+      <tr><td><code>(leche pan huevos)</code></td><td><code>(lista-compra leche pan huevos)</code></td></tr>
+      <tr><td><code>(perro) (gato) (vaca)</code></td><td><code>(es-animal perro)</code><br><code>(es-animal gato)</code><br><code>(es-animal vaca)</code><br>o bien <code>(animales perro gato vaca)</code></td></tr>
+    </table>
+    <div class="syntax">(nombre-relación campo1 campo2 ...)</div>
+
+    <h3>Retractar hechos (<code>retract</code>)</h3>
+    <ul>
+      <li>Elimina hechos de la base de hechos, especificando el/los índices: <code>(retract &lt;índice&gt;+)</code></li>
+      <li>No se puede eliminar un hecho ya eliminado.</li>
+      <li>Se pueden eliminar varios hechos a la vez, o todos con <code>(retract *)</code>.</li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (assert (animal-es pato))
+&lt;Fact-0&gt;
+CLIPS> (assert (animal-sonido cua))
+&lt;Fact-1&gt;
+CLIPS> (assert (El pato dice "Cua"))
+&lt;Fact-2&gt;
+CLIPS> (facts)
+f-0 (animal-es pato)
+f-1 (animal-sonido cua)
+f-2 (El pato dice "Cua")
+For a total of 3 facts.</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (retract 2)
+CLIPS> (facts)
+f-0 (animal-es pato)
+f-1 (animal-sonido cua)
+For a total of 2 facts.
+
+CLIPS> (retract 2)
+[PRNTUTIL1] Unable to find fact f-2.
+
+CLIPS> (retract 1)
+CLIPS> (facts)
+f-0 (animal-es pato)
+For a total of 1 fact.
+CLIPS> (retract *)
+CLIPS> (facts)
+CLIPS></code></pre>
+
+    <h3>Órdenes de depuración</h3>
+    <p><code>(watch facts)</code> muestra los hechos que entran (<code>==&gt;</code>) o salen (<code>&lt;==</code>)
+    de la lista de hechos.</p>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (watch facts)
+CLIPS> (assert (animal-es pato))
+==> f-0 (animal-es pato)
+&lt;Fact-0&gt;</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (reset)
+&lt;== f-0 (animal-es pato)
+==> f-0 (initial-fact)
+CLIPS> (assert (animal-es pato))
+==> f-1 (animal-es pato)
+&lt;Fact-1&gt;
+CLIPS> (retract 1)
+&lt;== f-1 (animal-es pato)
+CLIPS> (facts)
+f-0 (initial-fact)
+For a total of 1 fact.</code></pre>
+
+    <div class="box note">
+      <strong class="box-title">Otras órdenes de visualización</strong>
+      <code>(unwatch facts)</code> desactiva la presentación de hechos. También existen:
+      <code>(watch slots)</code>, <code>(watch rules)</code>, <code>(watch methods)</code>,
+      <code>(watch deffunctions)</code>, <code>(watch compilations)</code>, <code>(watch globals)</code>,
+      <code>(watch all)</code>…
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 4 -->
+  <!-- ============================================================ -->
+  <section id="tema4" class="tema">
+    <h2><span class="num">04</span> Hechos definidos a partir de plantillas — <code>deftemplate</code></h2>
+    <a class="pdf-link" href="tema04.pdf" target="_blank">📄 Ver tema04.pdf</a>
+
+    <h3>Plantillas</h3>
+    <p>Las plantillas representan <strong>hechos no ordenados</strong>: conceptos con sus atributos o relaciones
+    entre conceptos, de forma similar a las estructuras (<code>struct</code>) en C.</p>
+
+    <h3>Sintaxis del constructor <code>deftemplate</code></h3>
+    <div class="syntax">(deftemplate &lt;nombre&gt; [&lt;comentario&gt;]
+             &lt;definición-casilla&gt;*)
+&lt;definición-casilla&gt; <span class="op">::=</span> &lt;def-simple&gt; <span class="op">|</span> &lt;def-múltiple&gt;
+&lt;def-simple&gt;   <span class="op">::=</span> (slot &lt;nombre-casilla&gt; &lt;atributo&gt;*)
+&lt;def-múltiple&gt; <span class="op">::=</span> (multislot &lt;nombre-casilla&gt; &lt;atributo&gt;*)
+&lt;atributo&gt; <span class="op">::=</span> &lt;atrib-por-defecto&gt; <span class="op">|</span> &lt;atrib-restricción&gt;</div>
+
+    <div class="box warn">
+      <strong class="box-title">Reglas sobre redefinición</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Si se define una plantilla con el mismo nombre que otra existente, la anterior desaparece, aunque la
+        nueva sea errónea.</li>
+        <li>Una plantilla <em>no</em> se puede redefinir mientras esté siendo usada por un hecho o por un patrón en
+        el antecedente de una regla.</li>
+        <li>Cualquier número de campos simples o múltiples; CLIPS siempre obliga a indicar si un campo es
+        monovalor (<code>slot</code>) o multivalor (<code>multislot</code>).</li>
+      </ul>
+    </div>
+
+    <h4>Ejemplo</h4>
+    <pre class="code"><code class="clips">CLIPS>(deftemplate persona
+      (slot nombre)
+      (slot edad)
+      (multislot direccion))
+CLIPS> (assert    (persona (edad 24))
+                  (persona (nombre Juan))
+                  (persona (nombre Juan) (edad 24)
+                        (direccion Avd Cervantes)))
+&lt;Fact-2&gt;
+CLIPS> (facts)
+f-0     (persona (nombre nil) (edad 24) (direccion))
+f-1     (persona (nombre Juan) (edad nil) (direccion))
+f-2     (persona (nombre Juan) (edad 24) (direccion Avd Cervantes))
+For a total of 3 facts.</code></pre>
+
+    <h3>Valores por defecto</h3>
+    <div class="syntax">&lt;atrib-por-defecto&gt; <span class="op">::=</span>
+  (default ?DERIVE <span class="op">|</span> ?NONE <span class="op">|</span> &lt;expresión&gt;*) <span class="op">|</span>
+  (default-dynamic &lt;expresión&gt;*)</div>
+    <p><code>(default ?DERIVE)</code> equivale a no poner atributo de valor por defecto.</p>
+
+    <pre class="code"><code class="clips">CLIPS> (deftemplate datos
+  (slot w (default ?NONE))
+  (slot x (default ?DERIVE))
+  (slot y (default (gensym*)))
+  (slot z (default-dynamic (gensym*))))
+CLIPS> (assert    (datos))
+
+[TMPLTRHS1] Slot w requires a value because of its
+  (default ?NONE) attribute.
+CLIPS> (assert    (datos (w 3))
+                  (datos (w 4)))
+&lt;Fact-1&gt;
+CLIPS> (facts)
+f-0     (datos (w 3) (x nil) (y gen1) (z gen2))
+f-1     (datos (w 4) (x nil) (y gen1) (z gen3))
+For a total of 2 facts.</code></pre>
+
+    <h3>Restricciones de slots</h3>
+    <p>Limitan los valores que pueden tomar los campos. La comprobación puede ser <strong>estática</strong> (por
+    defecto) o <strong>dinámica</strong>, configurable con <code>set-static-constraint-checking</code> y
+    <code>set-dynamic-constraint-checking</code>.</p>
+
+    <h4>Restricciones de tipo</h4>
+    <div class="syntax">&lt;atrib-tipo&gt; <span class="op">::=</span> (type &lt;especificación-tipo&gt;)
+&lt;especificación-tipo&gt; <span class="op">::=</span> &lt;tipo&gt;+ <span class="op">|</span> ?VARIABLE
+&lt;tipo&gt; <span class="op">::=</span> SYMBOL <span class="op">|</span> STRING <span class="op">|</span> LEXEME <span class="op">|</span>
+        INTEGER <span class="op">|</span> FLOAT <span class="op">|</span> NUMBER <span class="op">|</span>
+        INSTANCE-NAME <span class="op">|</span> INSTANCE-ADDRESS <span class="op">|</span> INSTANCE <span class="op">|</span>
+        EXTERNAL-ADDRESS <span class="op">|</span> FACT-ADDRESS</div>
+
+    <pre class="code"><code class="clips">CLIPS> (deftemplate persona
+  (slot nombre (type LEXEME))
+  (slot edad (type INTEGER SYMBOL)))
+CLIPS> (assert (persona (nombre Juan) (edad 30)))
+&lt;Fact-0&gt;
+CLIPS> (assert (persona (nombre "Juan") (edad treinta)))
+&lt;Fact-1&gt;
+CLIPS> (assert (persona (nombre Juan) (edad 20.5)))
+
+[CSTRNCHK1] A literal slot value found in the assert command
+does not match the allowed types for slot edad.</code></pre>
+
+    <h4>Restricciones de constantes permitidas</h4>
+    <div class="syntax">&lt;atrib-permitidos&gt; <span class="op">::=</span>
+  (allowed-symbols &lt;lista-símbolos&gt;) <span class="op">|</span>
+  (allowed-strings &lt;lista-cadenas&gt;) <span class="op">|</span>
+  (allowed-lexemes &lt;lista-lexemas&gt;) <span class="op">|</span>
+  (allowed-integers &lt;lista-enteros&gt;) <span class="op">|</span>
+  (allowed-floats &lt;lista-reales&gt;) <span class="op">|</span>
+  (allowed-numbers &lt;lista-números&gt;) <span class="op">|</span>
+  (allowed-values &lt;lista-valores&gt;)</div>
+    <div class="syntax">&lt;lista-símbolos&gt;  <span class="op">::=</span> &lt;símbolo&gt;+  <span class="op">|</span> ?VARIABLE
+&lt;lista-cadenas&gt;  <span class="op">::=</span> &lt;cadena&gt;+  <span class="op">|</span> ?VARIABLE
+&lt;lista-lexemas&gt;  <span class="op">::=</span> &lt;lexema&gt;+  <span class="op">|</span> ?VARIABLE
+&lt;lista-enteros&gt;  <span class="op">::=</span> &lt;entero&gt;+  <span class="op">|</span> ?VARIABLE
+&lt;lista-reales&gt;   <span class="op">::=</span> &lt;real&gt;+    <span class="op">|</span> ?VARIABLE
+&lt;lista-números&gt;  <span class="op">::=</span> &lt;número&gt;+  <span class="op">|</span> ?VARIABLE
+&lt;lista-valores&gt;  <span class="op">::=</span> &lt;constante&gt;+ <span class="op">|</span> ?VARIABLE</div>
+
+    <pre class="code"><code class="clips">CLIPS> (deftemplate datos
+  (slot x (allowed-symbols uno dos))
+  (slot y (allowed-values uno dos)))
+CLIPS> (assert (datos (x 1) (y uno)))
+&lt;Fact-0&gt;
+CLIPS> (assert (datos (x 1) (y 1)))
+
+[CSTRNCHK1] A literal slot value found in the assert command
+does not match the allowed values for slot y.</code></pre>
+
+    <h4>Restricciones de rango</h4>
+    <div class="syntax">&lt;atrib-rango&gt; <span class="op">::=</span>
+  (range &lt;especificación-rango&gt; &lt;especificación-rango&gt;)
+&lt;especificación-rango&gt; <span class="op">::=</span> &lt;número&gt; <span class="op">|</span> ?VARIABLE</div>
+
+    <pre class="code"><code class="clips">CLIPS> (deftemplate calificacion
+   (slot alumno (type STRING))
+   (slot asignatura (type LEXEME))
+   (slot nota (type NUMBER) (range 0 10)))
+CLIPS> (assert (calificacion (alumno "Juan Pérez")
+              (asignatura Lengua)
+              (nota 7.5)))
+&lt;Fact-0&gt;
+CLIPS>
+(assert (calificacion (alumno "José López")
+              (asignatura Lengua)
+              (nota 11)))
+
+[CSTRNCHK1] A literal slot value found in the assert command
+does not fall in the allowed range 0 to 10 for slot nota.</code></pre>
+
+    <h4>Restricciones de cardinalidad</h4>
+    <div class="syntax">&lt;atrib-cardinalidad&gt; <span class="op">::=</span>
+  (cardinality &lt;espec-cardinalidad&gt; &lt;espec-cardinalidad&gt;)
+&lt;espec-cardinalidad&gt; <span class="op">::=</span> &lt;entero&gt; <span class="op">|</span> ?VARIABLE</div>
+
+    <pre class="code"><code class="clips">CLIPS> (deftemplate datos
+   (multislot valores (cardinality 2 4)))
+CLIPS> (assert (datos (valores 1 2)))
+&lt;Fact-0&gt;
+CLIPS> (assert (datos (valores 1)))
+
+[CSTRNCHK1] Literal slot values found in the assert command
+does not satisfy the cardinality restrictions for slot valores.
+
+CLIPS> (assert (datos (valores 1 2 3 4 5)))
+
+[CSTRNCHK1] Literal slot values found in the assert command
+does not satisfy the cardinality restrictions for slot valores.</code></pre>
+
+    <h3>Comandos relacionados</h3>
+    <div class="syntax">(ppdeftemplate &lt;nombre-plantilla&gt;)
+(list-deftemplates [&lt;nombre-módulo&gt; <span class="op">|</span> *])
+(undeftemplate &lt;nombre-plantilla&gt; <span class="op">|</span> *)</div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 5 -->
+  <!-- ============================================================ -->
+  <section id="tema5" class="tema">
+    <h2><span class="num">05</span> Hechos iniciales — <code>deffacts</code></h2>
+    <a class="pdf-link" href="tema05.pdf" target="_blank">📄 Ver tema05.pdf</a>
+
+    <h3><code>deffacts</code></h3>
+    <ul>
+      <li>Permite definir una lista de hechos que se afirman automáticamente cada vez que se ejecuta el comando
+      <code>reset</code>.</li>
+      <li>Si se define un <code>deffacts</code> con el mismo nombre que otro, aun siendo erróneo, sustituye al
+      anterior.</li>
+      <li>Puede haber múltiples <code>deffacts</code>, y en cada uno afirmarse cualquier número de hechos
+      (ordenados o no ordenados).</li>
+      <li>Permite definir hechos iniciales que son referenciados en un programa.</li>
+    </ul>
+
+    <h3>Sintaxis</h3>
+    <div class="syntax">(deffacts &lt;nombre-definición&gt;
+  [&lt;comentario&gt;] &lt;hecho&gt;*)</div>
+
+    <h3>Comandos <code>clear</code> y <code>reset</code></h3>
+    <table>
+      <tr><th><code>clear</code></th><th><code>reset</code></th></tr>
+      <tr><td>1. Vacía la agenda.</td><td>1. Borra todas las activaciones de la agenda.</td></tr>
+      <tr><td>2. Vacía la lista de hechos.</td><td>2. Borra todos los hechos de la lista de hechos.</td></tr>
+      <tr><td>3. Vacía la base de conocimiento.</td><td>3. Reinicializa la numeración de hechos.</td></tr>
+      <tr><td>4. Borra todas las definiciones hechas con constructores.</td><td>4. Afirma el hecho <code>(initial-fact)</code>.</td></tr>
+      <tr><td>5. Reinicializa la numeración de hechos.</td><td>5. Afirma todos los hechos definidos mediante constructores <code>deffacts</code>.</td></tr>
+    </table>
+
+    <h3>Ejemplo</h3>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (deffacts EstadoCoche "El estado de mi coche"
+   (coche motor "a punto") (coche bujias limpias))
+CLIPS> (assert (coche neumaticos gastados))
+&lt;Fact-0&gt;
+CLIPS> (facts)
+f-0     (coche neumaticos gastados)
+For a total of 1 fact.
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (coche motor "a punto")
+f-2     (coche bujias limpias)
+For a total of 3 facts.
+CLIPS> (assert (coche luces funcionan))
+&lt;Fact-3&gt;
+CLIPS> (deffacts EstadoCasa "El estado de mi casa"
+   (casa salon grande))</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (coche motor "a punto")
+f-2     (coche bujias limpias)
+f-3     (coche luces funcionan)
+For a total of 4 facts.
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (coche motor "a punto")
+f-2     (coche bujias limpias)
+f-3     (casa salon grande)
+For a total of 4 facts.</code></pre>
+
+    <div class="box note">
+      <strong class="box-title">Tras el segundo <code>reset</code></strong>
+      El hecho <code>(coche luces funcionan)</code> desaparece porque no proviene de ningún <code>deffacts</code>:
+      <code>reset</code> borra todos los hechos y solo vuelve a afirmar <code>(initial-fact)</code> y los hechos de
+      los <code>deffacts</code> definidos (en este caso, <code>EstadoCoche</code> y <code>EstadoCasa</code>).
+    </div>
+
+    <h3>Comandos relacionados</h3>
+    <div class="syntax">(ppdeffacts &lt;nombre-deffacts&gt;)
+(list-deffacts [&lt;nombre-módulo&gt; <span class="op">|</span> *])
+(undeffacts &lt;nombre-deffacts&gt; <span class="op">|</span> *)</div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 6 -->
+  <!-- ============================================================ -->
+  <section id="tema6" class="tema">
+    <h2><span class="num">06</span> Reglas — <code>defrule</code></h2>
+    <a class="pdf-link" href="tema06.pdf" target="_blank">📄 Ver tema06.pdf</a>
+
+    <div class="box note">
+      <strong class="box-title">Contenidos del tema</strong>
+      Introducción · Definición de reglas · Ciclo básico de ejecución de reglas · Sintaxis del antecedente ·
+      Propiedades de una regla · Comandos relacionados · Ejemplos.
+    </div>
+
+    <h3>Introducción</h3>
+    <p>Partes de la regla: <strong>antecedente</strong> (condiciones) y <strong>consecuente</strong> (acciones).</p>
+    <p><strong>Semántica</strong>: si el antecedente es cierto según los hechos almacenados en la lista de hechos,
+    entonces pueden realizarse las acciones especificadas en el consecuente.</p>
+
+    <h3>Definición de reglas</h3>
+    <div class="syntax">(defrule &lt;nombre-regla&gt;
+ [&lt;comentario&gt;]
+ [&lt;propiedades&gt;]
+ &lt;elemento-condicional&gt;*
+ <span class="op">=&gt;</span>
+ &lt;acción&gt;*)</div>
+
+    <pre class="code"><code class="clips">(defrule restaurante
+  "Cuándo ir al restaurante"
+  (tengo hambre)
+  (tengo dinero)
+  =>
+  (assert (ir-a restaurante)))</code></pre>
+
+    <div class="box warn">
+      <strong class="box-title">Consideraciones</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Si se define una regla con el mismo nombre que otra, aun siendo errónea, sustituye a la anterior.</li>
+        <li>Puede no haber ningún elemento condicional en el antecedente: en ese caso se usa automáticamente
+        <code>(initial-fact)</code>.</li>
+        <li>Puede no haber ninguna acción en el consecuente: la ejecución de la regla no tiene consecuencias.</li>
+        <li>El antecedente es de tipo <strong>conjuntivo</strong> (todos sus elementos deben cumplirse).</li>
+      </ul>
+    </div>
+
+    <pre class="code"><code class="clips">(defrule HolaMundo1
+  =>
+  (printout t "Hola Mundo" crlf))
+
+(defrule HolaMundo2
+  (initial-fact)
+  =>
+  (printout t "Hola Mundo" crlf))</code></pre>
+
+    <h3>Ciclo básico de ejecución de reglas</h3>
+    <h4>Conceptos</h4>
+    <ul>
+      <li>Una regla se <strong>activa</strong> cuando se satisface el antecedente.</li>
+      <li>Una regla puede activarse para distintos conjuntos de hechos (<strong>instancias</strong> de una regla).</li>
+      <li><strong>Activación / instancia de regla</strong>: nombre de la regla + identificadores de los hechos que la satisfacen.</li>
+      <li>Una regla se <strong>dispara</strong> cuando el motor de inferencia decide ejecutar las acciones de su consecuente.</li>
+      <li>Las activaciones se almacenan en la <strong>agenda</strong>.</li>
+      <li>Cada regla tiene una <strong>prioridad</strong> entre -10000 y 10000 (0 por defecto).</li>
+      <li>Se aplica una <strong>estrategia de resolución de conflictos</strong> para decidir qué regla se dispara si
+      hay varias con la misma (mayor) prioridad.</li>
+    </ul>
+
+    <h4>Pasos del ciclo</h4>
+    <ol>
+      <li>Las reglas se ejecutan con el comando <code>(run [&lt;máximo&gt;])</code>.</li>
+      <li>Si se ha alcanzado el máximo de disparos, se para la ejecución.</li>
+      <li>Se actualiza la agenda según la lista de hechos.</li>
+      <li>Se selecciona la instancia de regla a ejecutar de acuerdo a prioridades y estrategia de resolución de conflictos.</li>
+      <li>Se dispara la instancia seleccionada y se elimina de la agenda.</li>
+      <li>Volver al paso 2.</li>
+    </ol>
+
+    <h4>Ejemplo 1</h4>
+    <pre class="code"><code class="clips">CLIPS> (deffacts ejemplo-restaurante
+   (tengo hambre)
+   (tengo dinero))
+CLIPS> (defrule restaurante
+   (tengo hambre)
+   (tengo dinero)
+   =>
+   (assert (ir-a restaurante)))
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (tengo hambre)
+f-2     (tengo dinero)
+For a total of 3 facts.
+CLIPS> (agenda)
+0      restaurante: f-1,f-2
+For a total of 1 activation.
+CLIPS> (run)</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (facts)
+f-0      (initial-fact)
+f-1     (tengo hambre)
+f-2     (tengo dinero)
+f-3     (ir-a restaurante)
+For a total of 4 facts.
+CLIPS> (agenda)
+CLIPS> (retract 2)
+CLIPS> (assert (tengo dinero))
+&lt;Fact-4&gt;
+CLIPS> (facts)
+f-0      (initial-fact)
+f-1     (tengo hambre)
+f-3     (ir-a restaurante)
+f-4     (tengo dinero)
+For a total of 4 facts.
+CLIPS> (agenda)
+0      restaurante: f-1,f-4
+For a total of 1 activation.</code></pre>
+
+    <h4>Ejemplo 2 — <code>reset</code> reinicia la agenda</h4>
+    <pre class="code"><code class="clips">CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (tengo hambre)
+f-2     (tengo dinero)
+For a total of 3 facts.
+CLIPS> (agenda)
+0      restaurante: f-1,f-2
+For a total of 1 activation.
+CLIPS> (run)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (tengo hambre)
+f-2     (tengo dinero)
+f-3     (ir-a restaurante)
+For a total of 4 facts.
+CLIPS> (agenda)
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (tengo hambre)
+f-2     (tengo dinero)
+For a total of 3 facts.
+CLIPS> (agenda)
+0      restaurante: f-1,f-2
+For a total of 1 activation.</code></pre>
+
+    <h4>Ejemplo 3 — regla sin antecedente</h4>
+    <pre class="code"><code class="clips">CLIPS> (defrule hola-mundo
+   =>
+   (printout t "Hola mundo" crlf))
+CLIPS> (agenda)
+CLIPS> (reset)
+CLIPS> (facts)
+f-0      (initial-fact)
+For a total of 1 fact.
+CLIPS> (agenda)
+0       hola-mundo: f-0
+For a total of 1 activation.
+CLIPS> (run)
+Hola mundo
+CLIPS> (facts)
+f-0      (initial-fact)
+For a total of 1 fact.
+CLIPS> (agenda)</code></pre>
+
+    <h3>Sintaxis del antecedente</h3>
+    <p>El antecedente se compone de una serie de <strong>elementos condicionales (EC)</strong>. Hay 8 tipos:</p>
+    <table>
+      <tr><th>EC</th><th>Resumen</th></tr>
+      <tr><td><strong>patrón</strong></td><td>Conjunto de restricciones que debe cumplir un hecho.</td></tr>
+      <tr><td><strong>test</strong></td><td>Comprueba el valor devuelto por una función.</td></tr>
+      <tr><td><strong>and</strong></td><td>Se satisface si se satisfacen todos los EC que contiene.</td></tr>
+      <tr><td><strong>or</strong></td><td>Se satisface si se satisface alguno de los EC que contiene.</td></tr>
+      <tr><td><strong>not</strong></td><td>Se satisface si <em>no</em> se satisface el EC que contiene.</td></tr>
+      <tr><td><strong>exists</strong></td><td>Se satisface si al menos un conjunto de hechos cumple los EC.</td></tr>
+      <tr><td><strong>forall</strong></td><td>Se satisface si, siempre que se cumple el primer EC, se cumplen también los siguientes.</td></tr>
+      <tr><td><strong>logical</strong></td><td>Da soporte lógico a los hechos creados en el consecuente.</td></tr>
+    </table>
+
+    <h4>EC patrón</h4>
+    <p>Consiste en un conjunto de restricciones. El primer elemento de un patrón debe ser un símbolo. Puede
+    contener: literales, comodines, variables, conectores lógicos, predicados y valores devueltos por funciones.</p>
+    <div class="syntax">; Restricción para hechos ordenados
+(&lt;símbolo&gt; &lt;restricción-1&gt; ... &lt;restricción-n&gt;)
+
+; Restricción para hechos no ordenados
+(&lt;nombre-plantilla&gt;
+  (&lt;slot-1&gt; &lt;restricción-1&gt; ... &lt;restricción-n&gt;)
+  ...
+  (&lt;slot-k&gt; &lt;restricción-1&gt; ... &lt;restricción-m&gt;)</div>
+
+    <h5 style="color:var(--accent2)">Restricciones literales</h5>
+    <div class="syntax">&lt;restricción&gt; <span class="op">::=</span> &lt;constante&gt;</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule encontrar-datos
+  (datos 1 azul rojo) => )
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (datos 1.0 azul "rojo")
+f-2     (datos 1 azul)
+f-3     (datos 1 azul rojo)
+f-4     (datos 1 azul ROJO)
+f-5     (datos 1 rojo azul)
+f-6     (datos 1 azul rojo 6.9)
+For a total of 7 facts.
+CLIPS> (agenda)
+0      encontrar-datos: f-3
+For a total of 1 activation.</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule encontrar-juan (persona (nombre juan) (edad 20)) => )
+CLIPS> (defrule encontrar-ana (persona (edad 34) (nombre ana)) => )
+CLIPS> (reset)
+CLIPS> (facts)
+f-0      (initial-fact)
+f-1      (persona (nombre pepe) (edad 20) (amigos))
+f-2      (persona (nombre juan) (edad 20) (amigos luis))
+f-3      (persona (nombre pepe) (edad 34) (amigos))
+f-4      (persona (nombre ana) (edad 34) (amigos))
+f-5      (persona (nombre ana) (edad 20) (amigos juan))
+For a total of 6 facts.
+CLIPS> (agenda)
+0       encontrar-ana: f-4
+0       encontrar-juan: f-2
+For a total of 2 activations.</code></pre>
+
+    <h5 style="color:var(--accent2)">Restricciones con comodines</h5>
+    <p>Comodín monocampo <code>?</code>, comodín multicampo <code>$?</code>. Una casilla no especificada en un
+    patrón basado en plantilla se compara con un comodín implícito.</p>
+    <div class="syntax">&lt;restricción&gt; <span class="op">::=</span> &lt;constante&gt; <span class="op">|</span> ? <span class="op">|</span> $?</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule encontrar-datos (datos ? azul rojo $?) => )
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (datos 1.0 azul "rojo")
+f-2     (datos 1 azul)
+f-3     (datos 1 azul rojo)
+f-4     (datos 1 azul ROJO)
+f-5     (datos 1 azul rojo 6.9)
+For a total of 6 facts.
+CLIPS> (agenda)
+0      encontrar-datos: f-5
+0      encontrar-datos: f-3
+For a total of 2 activations.</code></pre>
+
+    <pre class="code"><code class="clips">; (dato $? VERDE $?) emparejaría con:
+(dato VERDE)
+(dato VERDE rojo azul)
+(dato rojo VERDE azul)
+(dato rojo azul VERDE)
+(dato VERDE azul VERDE)</code></pre>
+
+    <div class="box note">
+      <strong class="box-title">Casillas omitidas en patrones de plantilla</strong>
+      <pre class="code" style="margin-top:.5rem;"><code class="clips">; Si tenemos la plantilla
+(deftemplate persona
+   (multislot nombre)
+   (slot edad))
+
+; El patrón
+(persona (nombre Juan))
+; equivale a
+(persona (nombre Juan) (edad ?))
+
+; El patrón
+(persona (edad 40))
+; equivale a
+(persona (nombre $?) (edad 40))</code></pre>
+    </div>
+
+    <h5 style="color:var(--accent2)">Restricciones con variables</h5>
+    <p>Variable monocampo <code>?&lt;nombre&gt;</code>, variable multicampo <code>$?&lt;nombre&gt;</code>.</p>
+    <div class="syntax">&lt;restricción&gt; <span class="op">::=</span> &lt;constante&gt; <span class="op">|</span> ? <span class="op">|</span> $? <span class="op">|</span>
+              &lt;variable-monocampo&gt; <span class="op">|</span> &lt;variable-multicampo&gt;
+&lt;variable-monocampo&gt;   <span class="op">::=</span> ?&lt;nombre-variable&gt;
+&lt;variable-multicampo&gt; <span class="op">::=</span> $?&lt;nombre-variable&gt;</div>
+
+    <ul>
+      <li>Las variables son similares a los comodines, pero tienen nombre y conservan su valor dentro de su ámbito.</li>
+      <li>La primera vez que aparece una variable en el antecedente, si la regla concuerda con algún conjunto de
+      hechos, se le asigna un valor que conserva dentro de su ámbito.</li>
+      <li>La ligadura de una variable se mantiene únicamente en el ámbito de la regla en que ocurre: las variables
+      son <strong>locales a una regla</strong>.</li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule prueba
+  =>
+  (printout t ?x crlf))
+
+[PRCCODE3] Undefined variable x referenced in RHS of defrule.
+
+ERROR:
+(defrule MAIN::prueba
+   =>
+   (printout t ?x crlf))</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule encontrar-datos-triples
+         (datos ?x ?y ?z)
+         =>
+         (printout t ?x " : " ?y " : " ?z crlf))
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (datos 2 azul verde)
+f-2     (datos 1 azul)
+f-3     (datos 1 azul rojo)
+For a total of 4 facts.
+CLIPS> (run)
+1 : azul : rojo
+2 : azul : verde</code></pre>
+
+    <h5 style="color:var(--accent2)">Restricciones conectivas</h5>
+    <p>Conectores lógicos: <code>&amp;</code> (and), <code>|</code> (or), <code>~</code> (not).</p>
+    <div class="syntax">&lt;restricción&gt; <span class="op">::=</span> ? <span class="op">|</span> $? <span class="op">|</span> &lt;restricción-conectiva&gt;
+&lt;restricción-conectiva&gt; <span class="op">::=</span>
+    &lt;restricción-simple&gt; <span class="op">|</span>
+    &lt;restricción-simple&gt; &amp; &lt;restricción-conectiva&gt; <span class="op">|</span>
+    &lt;restricción-simple&gt; <span class="op">|</span> &lt;restricción-conectiva&gt;
+&lt;restricción-simple&gt; <span class="op">::=</span> &lt;término&gt; <span class="op">|</span> ~&lt;término&gt;
+&lt;término&gt; <span class="op">::=</span> &lt;constante&gt; <span class="op">|</span> &lt;variable-monocampo&gt; <span class="op">|</span> &lt;variable-multicampo&gt;</div>
+
+    <div class="box note">
+      <strong class="box-title">Precedencia: <code>~</code>, <code>&amp;</code>, <code>|</code></strong>
+      Excepción: si la primera restricción es una variable indefinida seguida del conectivo <code>&amp;</code>, la
+      variable se trata como una restricción aparte:
+      <pre class="code" style="margin-top:.5rem;"><code class="clips">?x&rojo|azul
+; equivale a
+?x&(rojo|azul)</code></pre>
+    </div>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule ejemplo1-1 (datos-A ~azul) => )
+CLIPS> (defrule ejemplo1-2 (datos-B (valor ~rojo&~verde)) => )
+CLIPS> (defrule ejemplo1-3 (datos-B (valor verde|rojo)) => )
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (datos-A verde)
+f-2     (datos-A azul)
+f-3     (datos-B (valor rojo))
+f-4     (datos-B (valor azul))
+For a total of 5 facts.
+CLIPS> (agenda)
+0      ejemplo1-3: f-3
+0      ejemplo1-2: f-4
+0      ejemplo1-1: f-1
+For a total of 3 activations.</code></pre>
+
+    <pre class="code"><code class="clips">(defrule regla1
+  (dato (valor ?x&~rojo&~verde))
+  =>
+  (printout t "Valor: " ?x crlf))
+CLIPS> (reset)
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (dato (valor rojo))
+f-2     (dato (valor azul))
+For a total of 3 facts.
+CLIPS> (run)
+Valor: azul</code></pre>
+
+    <pre class="code"><code class="clips">(defrule regla2
+   (dato (valor ?x & azul | verde))
+   (dato (valor ?y&~?x))
+   =>
+   (printout t ?x " y " ?y crlf))
+CLIPS> (reset)
+CLIPS> (facts)
+f-0      (initial-fact)
+f-1      (dato (valor rojo))
+f-2      (dato (valor azul))
+For a total of 3 facts.
+CLIPS> (agenda)
+0       regla2: f-2,f-1
+For a total of 1 activation.
+CLIPS> (run)
+azul y rojo</code></pre>
+
+    <h5 style="color:var(--accent2)">Restricciones predicado</h5>
+    <p>Restringen un campo según el valor de verdad de una expresión lógica. Se indica con <code>:</code> seguido de
+    una llamada a una función predicado. Se satisface si la función devuelve un valor distinto de <code>FALSE</code>.
+    Normalmente se usa junto a una restricción conectiva y una variable.</p>
+    <div class="syntax">&lt;término&gt; <span class="op">::=</span> &lt;constante&gt; <span class="op">|</span> &lt;variable-monocampo&gt; <span class="op">|</span>
+          &lt;variable-multicampo&gt; <span class="op">|</span> :&lt;llamada-a-función&gt;</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule predicado1 (datos ?x&:(numberp ?x)) => )
+CLIPS> (facts)
+f-0     (datos 1)
+f-1     (datos 2)
+f-2     (datos rojo)
+For a total of 3 facts.
+CLIPS> (agenda)
+0      predicado1: f-1
+0      predicado1: f-0
+For a total of 2 activations.</code></pre>
+
+    <h5 style="color:var(--accent2)">Restricciones de valor devuelto</h5>
+    <p>Se usa el valor devuelto por una función para restringir un campo, indicado con <code>=</code>. El valor
+    devuelto se incorpora en el patrón en la posición de la llamada y actúa como una restricción literal.</p>
+    <div class="syntax">&lt;término&gt; <span class="op">::=</span> &lt;constante&gt; <span class="op">|</span> &lt;variable-monocampo&gt; <span class="op">|</span>
+          &lt;variable-multicampo&gt; <span class="op">|</span> :&lt;llamada-a-función&gt; <span class="op">|</span> =&lt;llamada-a-función&gt;</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule doble
+         (datos (x ?x) (y =(* 2 ?x))) => )
+CLIPS> (facts)
+f-0     (datos (x 2) (y 4))
+f-1     (datos (x 3) (y 9))
+For a total of 2 facts.
+CLIPS> (agenda)
+0      doble: f-0
+For a total of 1 activation.</code></pre>
+
+    <h5 style="color:var(--accent2)">Captura de direcciones de hechos</h5>
+    <p>Para modificar, duplicar o eliminar hechos en el consecuente, es necesario obtener el índice del hecho. Solo
+    puede hacerse con ECs patrón.</p>
+    <div class="syntax">&lt;EC-patrón-asignado&gt; <span class="op">::=</span> ?&lt;nombre-variable&gt; &lt;- &lt;EC-patrón&gt;</div>
+    <pre class="code"><code class="clips">CLIPS> (facts)
+f-0     (dato 1)
+f-1     (dato 2)
+f-2     (dato 3)
+For a total of 3 facts.
+CLIPS> (defrule borra1
+         ?hecho <- (dato 1)
+         =>
+         (retract ?hecho))
+CLIPS> (run)
+CLIPS> (facts)
+f-1     (dato 2)
+f-2     (dato 3)
+For a total of 2 facts.</code></pre>
+
+    <h4>EC test</h4>
+    <p>Comprueba el valor devuelto por una función: se satisface si la función devuelve un valor distinto de
+    <code>FALSE</code>, y no se satisface si devuelve <code>FALSE</code>.</p>
+    <div class="syntax">&lt;EC-test&gt; <span class="op">::=</span> (test &lt;llamada-a-función&gt;)</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule diferencia
+         (dato ?x)
+         (valor ?y)
+         (test (>= (abs (- ?x ?y)) 3))
+         => )
+CLIPS> (assert (dato 6) (valor 9))
+&lt;Fact-1&gt;
+CLIPS> (facts)
+f-0     (dato 6)
+f-1     (valor 9)
+For a total of 2 facts.
+CLIPS> (agenda)
+0      diferencia: f-0,f-1
+For a total of 1 activation.</code></pre>
+
+    <div class="box warn">
+      Bajo determinadas circunstancias, en reglas con un EC <code>test</code> CLIPS puede añadir el EC
+      <code>(initial-fact)</code> al antecedente, por lo que debe ejecutarse <code>reset</code> para garantizar el
+      correcto funcionamiento en todas las circunstancias. (Lo mismo aplica a <code>not</code>, <code>exists</code>
+      y <code>forall</code>.)
+    </div>
+
+    <h4>EC or</h4>
+    <p>Se satisface si se satisface cualquiera de los EC que lo componen. Si se satisfacen varios, la regla se
+    activará varias veces.</p>
+    <div class="syntax">&lt;EC-or&gt; <span class="op">::=</span> (or &lt;elemento-condicional&gt;+)</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule posibles-tostadas
+         (tengo pan)
+         (or   (tengo mantequilla)
+               (tengo aceite))
+         =>
+         (assert (desayuno tostadas)))
+CLIPS> (facts)
+f-0     (initial-fact)
+f-1     (tengo pan)
+f-2     (tengo mantequilla)
+f-3     (tengo aceite)
+For a total of 4 facts.
+CLIPS> (agenda)
+0      posibles-tostadas: f-1,f-3
+0      posibles-tostadas: f-1,f-2
+For a total of 2 activations.</code></pre>
+
+    <h4>EC and</h4>
+    <p>Se satisface si se satisfacen todos los EC que lo componen. Permite mezclar EC <code>and</code> y
+    <code>or</code> en el antecedente.</p>
+    <div class="syntax">&lt;EC-and&gt; <span class="op">::=</span> (and &lt;elemento-condicional&gt;+)</div>
+    <pre class="code"><code class="clips">(defrule posibles-desayunos
+  (tengo zumo-natural)
+  (or (and (tengo pan)
+            (tengo aceite))
+      (and (tengo leche)
+            (tengo cereales)))
+  =>
+  (assert (desayuno sano)))</code></pre>
+
+    <h4>EC not</h4>
+    <p>Se satisface si <em>no</em> se satisface el EC que contiene. Solo puede negarse un EC. Las variables a las
+    que se asigna valor dentro de un EC <code>not</code> mantienen su valor solo dentro de ese EC.</p>
+    <div class="syntax">&lt;EC-not&gt; <span class="op">::=</span> (not &lt;elemento-condicional&gt;)</div>
+    <pre class="code"><code class="clips">(defrule Homer-loco
+  (not (hay tele))
+  (not (hay cerveza))
+  =>
+  (assert (Homer pierde la cabeza)))</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule numero-mayor
+   (numero ?x)
+   (not (numero ?y&:(> ?y ?x)))
+   =>
+   (printout t ?x " es el mayor número" crlf))
+CLIPS>
+(defrule numero-no-mayor
+   (numero ?x)
+   (not (numero ?y&:(> ?y ?x)))
+   =>
+   (printout t ?y " no es el mayor número" crlf))
+
+[PRCCODE3] Undefined variable y referenced in RHS of defrule.</code></pre>
+
+    <div class="box warn">
+      <strong class="box-title">?y no es accesible fuera del EC not</strong>
+      En <code>numero-no-mayor</code> la variable <code>?y</code> solo está ligada dentro del EC
+      <code>not</code>, por lo que no puede usarse en el consecuente (RHS) → error.
+    </div>
+
+    <h5 style="color:var(--accent2)">EC not y la propiedad de refracción</h5>
+    <pre class="code"><code class="clips">CLIPS> (defrule tenis
+   (not (tiempo lluvioso))
+   =>
+   (printout t "Podemos jugar al tenis." crlf))
+CLIPS> (agenda)
+CLIPS> (reset)
+CLIPS> (agenda)
+0      tenis: f-0,
+For a total of 1 activation.
+CLIPS> (run)
+Podemos jugar al tenis.
+CLIPS> (agenda)
+CLIPS> (assert (tiempo lluvioso))
+&lt;Fact-1&gt;
+CLIPS> (retract 1)
+CLIPS> (agenda)
+0      tenis: f-0,
+For a total of 1 activation.</code></pre>
+    <div class="box note">
+      Tras disparase, la regla <code>tenis</code> no vuelve a aparecer en la agenda hasta que cambian los hechos que
+      la activan (se afirma y luego se retracta <code>(tiempo lluvioso)</code>): es la <strong>refracción</strong>,
+      que evita que una misma activación se dispare repetidamente sin cambios relevantes.
+    </div>
+
+    <h4>EC exists</h4>
+    <p>Permite comprobar si una serie de ECs se satisface por al menos un conjunto de hechos.</p>
+    <div class="syntax">&lt;EC-exists&gt; <span class="op">::=</span> (exists &lt;elemento-condicional&gt;+)</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule tostadas-mermelada
+   (tengo pan)
+   (tengo mermelada ?)
+   =>
+   (printout t "Desayuno tostadas con mermelada." crlf))
+CLIPS> (facts)
+f-0      (initial-fact)
+f-1      (tengo pan)
+f-2      (tengo mermelada fresa)
+f-3      (tengo mermelada albaricoque)
+f-4      (tengo mermelada naranja)
+For a total of 5 facts.
+CLIPS> (agenda)
+0       tostadas-mermelada: f-1,f-4
+0       tostadas-mermelada: f-1,f-3
+0       tostadas-mermelada: f-1,f-2
+For a total of 3 activations.</code></pre>
+
+    <pre class="code"><code class="clips">; Con exists, una sola activación
+CLIPS> (defrule tostadas-mermelada
+   (tengo pan)
+   (exists (tengo mermelada ?))
+   =>
+   (printout t "Desayuno tostadas con mermelada." crlf))
+CLIPS> (facts)
+f-0      (initial-fact)
+f-1      (tengo pan)
+f-2      (tengo mermelada fresa)
+f-3      (tengo mermelada albaricoque)
+f-4      (tengo mermelada naranja)
+For a total of 5 facts.
+CLIPS> (agenda)
+0       tostadas-mermelada: f-1,
+For a total of 1 activation.</code></pre>
+
+    <p><code>exists</code> está implementado internamente usando <code>not</code> (de ahí que también pueda añadir
+    <code>(initial-fact)</code> al antecedente).</p>
+
+    <h4>EC forall</h4>
+    <p>Permite comprobar si siempre que se satisface un determinado EC se satisfacen también otros ECs dados. Se
+    satisface si, cada vez que se cumple el primer EC, se cumplen también los siguientes.</p>
+    <div class="syntax">&lt;EC-forall&gt; <span class="op">::=</span> (forall &lt;elemento-condicional&gt; &lt;elemento-condicional&gt;+)</div>
+    <pre class="code"><code class="clips">CLIPS> (defrule todos-limpios
+   (forall    (estudiante ?nombre)
+              (lengua ?nombre)
+              (matematicas ?nombre)
+              (historia ?nombre)) => )
+CLIPS> (reset)
+CLIPS> (agenda)
+0       todos-limpios: f-0,
+For a total of 1 activation.
+CLIPS> (assert (estudiante pepe) (lengua pepe) (matematicas pepe))
+&lt;Fact-3&gt;
+CLIPS> (agenda)
+CLIPS> (assert (historia pepe))
+&lt;Fact-4&gt;
+CLIPS> (agenda)
+0       todos-limpios: f-0,
+For a total of 1 activation.</code></pre>
+    <p><code>forall</code> también está implementado internamente usando <code>not</code>.</p>
+
+    <h4>EC logical</h4>
+    <ul>
+      <li>Permite indicar que la existencia de un conjunto de hechos depende de la existencia de otro conjunto de
+      hechos.</li>
+      <li>Los hechos del antecedente que formen parte de un EC <code>logical</code> proporcionan
+      <strong>soporte lógico</strong> a los hechos creados en el consecuente.</li>
+      <li>Un hecho puede recibir soporte lógico de varios conjuntos distintos de hechos (de varias reglas).</li>
+      <li>Un hecho permanece mientras permanezca alguno de los conjuntos de hechos que lo soportan lógicamente.</li>
+      <li>Los ECs incluidos en un EC <code>logical</code> están unidos por un <code>and</code> implícito. Solo los
+      primeros ECs del antecedente pueden ser de tipo <code>logical</code>.</li>
+    </ul>
+    <div class="syntax">&lt;EC-logical&gt; <span class="op">::=</span> (logical &lt;elemento-condicional&gt;+)</div>
+
+    <pre class="code"><code class="clips">; SIN logical: el hecho derivado sobrevive a la retractación de su causa
+CLIPS> (defrule puedo-pasar
+  (semaforo verde)
+  =>
+  (assert (puedo pasar)))
+CLIPS> (assert (semaforo verde))
+&lt;Fact-0&gt;
+CLIPS> (run)
+CLIPS> (facts)
+f-0     (semaforo verde)
+f-1     (puedo pasar)
+For a total of 2 facts.
+CLIPS> (retract 0)
+CLIPS> (facts)
+f-1     (puedo pasar)
+For a total of 1 fact.</code></pre>
+
+    <pre class="code"><code class="clips">; CON logical: el hecho derivado se retracta junto con su soporte
+CLIPS> (defrule puedo-pasar
+  (logical (semaforo verde))
+  =>
+  (assert (puedo pasar)))
+CLIPS> (assert (semaforo verde))
+&lt;Fact-0&gt;
+CLIPS> (run)
+CLIPS> (facts)
+f-0     (semaforo verde)
+f-1     (puedo pasar)
+For a total of 2 facts.
+CLIPS> (retract 0)
+CLIPS> (facts)
+; f-1 (puedo pasar) desaparece también, al perder su soporte lógico</code></pre>
+
+    <h3>Propiedades de una regla</h3>
+    <p>La declaración de propiedades se incluye tras el comentario y antes del antecedente, mediante la palabra
+    reservada <code>declare</code>. Una regla puede tener una única sentencia <code>declare</code>.</p>
+    <div class="syntax">&lt;declaración&gt; <span class="op">::=</span> (declare &lt;propiedad&gt;+)
+&lt;propiedad&gt; <span class="op">::=</span> (salience &lt;expresión-entera&gt;)</div>
+
+    <h4>Prioridad (<code>salience</code>)</h4>
+    <ul>
+      <li>Puede tomar valores entre -10000 y 10000. Valor por defecto: 0.</li>
+      <li>Puede evaluarse: cuando se define la regla (por defecto), cuando se activa la regla, o en cada ciclo de
+      ejecución (<em>prioridad dinámica</em>).</li>
+    </ul>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defrule primera
+  (declare (salience 10))
+  =>
+  (printout t "Me ejecuto la primera" crlf))
+CLIPS> (defrule segunda
+  =>
+  (printout t "Me ejecuto la segunda" crlf))
+CLIPS> (reset)
+CLIPS> (run)
+Me ejecuto la primera
+Me ejecuto la segunda</code></pre>
+
+    <h3>Comandos relacionados</h3>
+    <div class="syntax">(ppdefrule &lt;nombre-regla&gt;)
+(list-defrules [&lt;nombre-módulo&gt; <span class="op">|</span> *])
+(undefrule &lt;nombre-regla&gt; <span class="op">|</span> *)
+(agenda [&lt;nombre-módulo&gt; <span class="op">|</span> *])
+(run [&lt;expresión-entera&gt;])</div>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule ej1 => (printout t "Ejemplo 1" crlf))
+CLIPS> (defrule ej2 => (printout t "Ejemplo 2" crlf))
+CLIPS> (list-defrules)
+ej1
+ej2
+For a total of 2 defrules.
+CLIPS> (ppdefrule ej2)
+(defrule MAIN::ej2
+   =>
+   (printout t "Ejemplo 2" crlf))
+CLIPS> (undefrule ej1)
+CLIPS> (list-defrules)
+ej2
+For a total of 1 defrule.
+CLIPS> (undefrule *)
+CLIPS> (list-defrules)</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (defrule ej1 => (printout t "Ejemplo 1" crlf))
+CLIPS> (defrule ej2 => (printout t "Ejemplo 2" crlf))
+CLIPS> (reset)
+CLIPS> (agenda)
+0      ej1: f-0
+0      ej2: f-0
+For a total of 2 activations.
+CLIPS> (run 1)
+Ejemplo 1
+CLIPS> (run 1)
+Ejemplo 2
+CLIPS> (agenda)</code></pre>
+
+    <h3>Ejemplos</h3>
+    <h4>Sumar números</h4>
+    <pre class="code"><code class="clips">(deffacts valores-a-sumar
+  (dato 1)
+  (dato 2)
+  (dato 3)
+  (dato 4)
+  (dato 5)
+  (suma 0))
+
+(defrule sumar-numeros
+  ?s <- (suma ?total)
+  ?t <- (dato ?valor)
+  =>
+  (retract ?s ?t)
+  (assert (suma (+ ?total ?valor))))
+
+(defrule mostrar-suma
+  (not (dato ?))
+  ?s <- (suma ?total)
+  =>
+  (retract ?s)
+  (printout t "La suma es: " ?total crlf))</code></pre>
+
+    <h4>Pila</h4>
+    <pre class="code"><code class="clips">; La cabeza de la pila queda a la izquierda.
+(deffacts inicio-pila
+  (pila))
+
+(defrule meter-valor-pila
+  ?v <- (meter ?valor)
+  ?p <- (pila $?resto)
+  =>
+  (retract ?v ?p)
+  (assert (pila ?valor $?resto))
+  (printout t "Metiendo valor: " ?valor crlf))
+
+(defrule sacar-valor-pila
+  ?s <- (sacar)
+  ?p <- (pila ?valor $?resto)
+  =>
+  (retract ?s ?p)
+  (assert (pila $?resto))
+  (printout t "Sacando valor: " ?valor crlf))
+
+(defrule intentar-sacar-valor-pila-vacia
+  ?s <- (sacar)
+  (pila)
+  =>
+  (retract ?s)
+  (printout "La pila está vacía" crlf))</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (reset)
+CLIPS> (assert (meter primero))
+&lt;Fact-2&gt;
+CLIPS> (run)
+Metiendo valor: primero
+CLIPS> (assert (meter 2))
+&lt;Fact-4&gt;
+CLIPS> (run)
+Metiendo valor: 2
+CLIPS> (facts)
+f-0      (initial-fact)
+f-5     (pila 2 primero)
+For a total of 2 facts.
+CLIPS> (assert (sacar))
+&lt;Fact-6&gt;
+CLIPS> (run)
+Sacando valor: 2</code></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 7 -->
+  <!-- ============================================================ -->
+  <section id="tema7" class="tema">
+    <h2><span class="num">07</span> Módulos — <code>defmodule</code></h2>
+    <a class="pdf-link" href="tema07.pdf" target="_blank">📄 Ver tema07.pdf</a>
+
+    <h3>Introducción</h3>
+    <p>CLIPS permite estructurar la base de conocimientos y, al mismo tiempo, facilitar el control del razonamiento
+    de forma modular. <code>defmodule</code> permite agrupar constructos en módulos.</p>
+
+    <h3>Sintaxis</h3>
+    <div class="syntax">(defmodule &lt;nombre-módulo&gt; [&lt;comentario&gt;]
+   &lt;especificación-portabilidad&gt;*)
+
+&lt;especificación-portabilidad&gt; <span class="op">::=</span>
+            (export &lt;port-item&gt;) <span class="op">|</span>
+            (import &lt;nombre-módulo&gt; &lt;port-item&gt;)
+
+&lt;port-item&gt; <span class="op">::=</span> ?ALL <span class="op">|</span>
+                ?NONE <span class="op">|</span>
+       &lt;constructor-portable&gt; ?ALL <span class="op">|</span>
+       &lt;constructor-portable&gt; ?NONE <span class="op">|</span>
+       &lt;constructor-portable&gt; &lt;nombre-constructo&gt;+
+
+&lt;constructor-portable&gt; <span class="op">::=</span> deftemplate <span class="op">|</span> defglobal
+      <span class="op">|</span> deffunction <span class="op">|</span> defgeneric</div>
+
+    <h3>Definición de módulos</h3>
+    <ul>
+      <li>Un módulo no puede redefinirse ni borrarse, salvo el módulo <code>MAIN</code>, que puede redefinirse solo
+      una vez.</li>
+      <li>La única manera de borrar los módulos es con <code>clear</code>.</li>
+      <li>Siempre existe un módulo <code>MAIN</code>.</li>
+    </ul>
+
+    <h3>Especificación de módulo</h3>
+    <p>Cuando se define un constructo, éste se asocia siempre a un módulo, de dos maneras:</p>
+    <ul>
+      <li><strong>Explícita</strong>: para <code>deffacts</code>, <code>deftemplate</code>, <code>defrule</code>,
+      <code>deffunction</code> y <code>defgeneric</code> se indica incluyéndolo como parte del nombre con el
+      separador <code>::</code>. El módulo de un <code>defmethod</code> es el de su <code>defgeneric</code>.</li>
+      <li><strong>Implícita</strong>: el constructo se asocia al módulo actual.</li>
+    </ul>
+    <p>Para hacer referencia a un constructo: <strong>explícitamente</strong> con <code>nombre-módulo::</code>, o
+    <strong>implícitamente</strong> (módulo actual).</p>
+
+    <h3>Módulo actual</h3>
+    <ul>
+      <li><code>MAIN</code> es definido automáticamente por CLIPS y es el módulo actual cada vez que se inicia el
+      intérprete o se ejecuta <code>clear</code>.</li>
+      <li>El módulo actual cambia: con <code>set-current-module</code>, al definir un módulo, o al definir un
+      constructor asociado a un módulo.</li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (clear) ;Módulo actual MAIN
+CLIPS> (defmodule A) ;Módulo actual A
+CLIPS> (defmodule B) ;Módulo actual B
+CLIPS> (defrule r1 =>)
+CLIPS> (defrule A::r2 =>) ;Módulo actual A
+CLIPS> (list-defrules)
+r2
+For a total of 1 defrule.
+CLIPS> (set-current-module B) ;Módulo actual B
+A
+CLIPS> (list-defrules)
+r1
+For a total of 1 defrule.</code></pre>
+
+    <h3>Importación y exportación</h3>
+    <ul>
+      <li>A no ser que se exporten e importen explícitamente, los constructos de un módulo no pueden usarse en
+      otros módulos.</li>
+      <li>Un constructo es <strong>visible</strong> en un módulo si puede usarse en ese módulo.</li>
+      <li>Solo pueden importarse/exportarse plantillas, variables globales y funciones (convencionales y genéricas).</li>
+      <li>Los métodos se importan/exportan implícitamente al importar/exportar las funciones genéricas
+      correspondientes.</li>
+      <li>Un módulo puede exportar cualquier constructo que sea visible en él (no solo los definidos en él).</li>
+      <li>Para importar constructos de un módulo, estos deben haber sido previamente definidos.</li>
+      <li>Los hechos pertenecen al módulo en el que sea visible su plantilla correspondiente, no al módulo en que
+      se crearon.</li>
+      <li>La plantilla <code>initial-fact</code> debe ser importada de manera explícita.</li>
+    </ul>
+
+    <h3>Plantillas implícitas e inicialización de CLIPS</h3>
+    <ul>
+      <li>Cuando se afirma o referencia un hecho ordenado, se crea una plantilla implícita con una única casilla
+      multicampo (su nombre no se imprime al mostrar el hecho).</li>
+      <li>Al inicializar CLIPS se definen automáticamente:</li>
+    </ul>
+    <pre class="code"><code class="clips">(deftemplate initial-fact)
+(deffacts initial-fact
+   (initial-fact))</code></pre>
+
+    <h4>Ejemplo — sin exportar/importar (error)</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule A)
+CLIPS> (deftemplate A::datos (slot x))
+CLIPS> (defmodule B)
+CLIPS> (defrule B::r1 (datos (x 3)) =>)
+
+[PRNTUTIL2] Syntax Error:   Check appropriate syntax for defrule.
+
+ERROR:
+(defrule B::r1
+   (datos (</code></pre>
+
+    <h4>Ejemplo — exportando e importando</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule A (export deftemplate datos))
+CLIPS> (deftemplate A::datos (slot x))
+CLIPS> (defmodule B (import A deftemplate datos))
+CLIPS> (defrule B::r1 (datos (x 3)) =>)</code></pre>
+
+    <h4>Ejemplo — visibilidad de hechos por módulo</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule A (export deftemplate datos data))
+CLIPS> (deftemplate datos (slot x))
+CLIPS> (deftemplate data (slot y))
+CLIPS> (deffacts info (datos (x 1)) (data (y 2)))
+CLIPS> (defmodule B (import A deftemplate datos))
+CLIPS> (reset)
+CLIPS> (facts A)
+f-1     (datos (x 1))
+f-2     (data (y 2))
+For a total of 2 facts.
+CLIPS> (facts B)
+f-1     (datos (x 1))
+For a total of 1 fact.</code></pre>
+
+    <h4>Ejemplo — cuidado con las plantillas implícitas</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule A (export deftemplate ?ALL))
+CLIPS> (assert (datos 1))
+&lt;Fact-0&gt;
+CLIPS> (facts)
+f-0      (datos 1)
+For a total of 1 fact.
+CLIPS> (defmodule B (import A deftemplate ?ALL))
+CLIPS> (assert (datos 2) (data 3))
+&lt;Fact-2&gt;
+CLIPS> (facts)
+f-0      (datos 1)
+f-1      (datos 2)
+f-2      (data 3)
+For a total of 3 facts.
+CLIPS> (facts A)
+f-0      (datos 1)
+f-1      (datos 2)
+For a total of 2 facts.</code></pre>
+
+    <h3>Ejecución de reglas: foco y agenda</h3>
+    <ul>
+      <li>Cada módulo tiene su propia agenda.</li>
+      <li><code>run</code> ejecuta la agenda del <strong>módulo enfocado</strong>.</li>
+      <li><code>reset</code>, <code>clear</code> y la inicialización del sistema hacen que <code>MAIN</code> tenga
+      el foco actual.</li>
+      <li>Existe una <strong>pila de módulos enfocados</strong> cuyas agendas se ejecutan secuencialmente.</li>
+      <li>Una agenda se ejecuta hasta que cambia el foco a otro módulo, se terminan las activaciones, o se ejecuta
+      <code>return</code> en el consecuente de una regla.</li>
+    </ul>
+    <ul>
+      <li>El foco actual se cambia con <code>(focus &lt;nombre-módulo&gt;+)</code>.</li>
+      <li><code>focus</code> añade un nuevo foco a la pila, pero no elimina el que había.</li>
+      <li>Cambiar el módulo actual <strong>no</strong> cambia el foco; pero cambiar el foco <strong>sí</strong>
+      cambia automáticamente el módulo actual.</li>
+      <li><code>return</code> termina inmediatamente la ejecución del consecuente y quita el foco actual de la pila.</li>
+      <li>Puede examinarse la pila de focos con <code>(list-focus-stack)</code>.</li>
+    </ul>
+
+    <h4>Ejemplo — pila de focos</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule MAIN (export ?ALL))
+CLIPS> (defrule ejemplo =>
+   (printout t "Foco en MAIN" crlf)
+   (focus A B)) ;Añade a la pila de dcha. a izda.
+CLIPS> (defmodule A (import MAIN deftemplate initial-fact))
+CLIPS> (defrule ejemplo =>
+   (printout t "Foco en A" crlf))
+CLIPS> (defmodule B (import MAIN deftemplate initial-fact))
+CLIPS> (defrule ejemplo =>
+   (printout t "Foco en B" crlf))
+CLIPS> (reset)
+CLIPS> (run)
+Foco en MAIN
+Foco en A
+Foco en B</code></pre>
+
+    <h4>Ejemplo — <code>return</code> y la pila de focos</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule MAIN (export deftemplate initial-fact))
+CLIPS> (defmodule A (import MAIN deftemplate initial-fact))
+CLIPS> (defrule MAIN::inicio => (focus A))
+CLIPS> (defrule A::r1 =>
+   (return)
+   (printout t "No imprime" crlf))
+CLIPS> (defrule A::r2 =>
+   (return)
+   (printout t "No imprime" crlf))</code></pre>
+    <pre class="code"><code class="clips">CLIPS> (watch rules)
+CLIPS> (watch focus)
+CLIPS> (reset)
+&lt;== Focus MAIN
+==> Focus MAIN
+CLIPS> (run)
+FIRE    1 inicio: f-0
+==> Focus A from MAIN
+FIRE    2 r1: f-0
+&lt;== Focus A to MAIN
+&lt;== Focus MAIN</code></pre>
+
+    <h4>Ejemplo — máquina de estados con módulos</h4>
+    <pre class="code"><code class="clips">CLIPS> (clear)
+CLIPS> (defmodule DETECCION)
+CLIPS> (defmodule AISLAMIENTO)
+CLIPS> (defmodule RECUPERACION)
+CLIPS> (deffacts MAIN::informacion-control
+   (secuencia-fases DETECCION AISLAMIENTO RECUPERACION))
+CLIPS> (defrule MAIN::cambio-fase
+   ?l <- (secuencia-fases ?siguiente $?resto)
+   =>
+   (focus ?siguiente)
+   (retract ?l)
+   (assert (secuencia-fases $?resto ?siguiente)))
+CLIPS> (watch rules)
+CLIPS> (watch focus)</code></pre>
+    <pre class="code"><code class="clips">CLIPS> (reset)
+&lt;== Focus MAIN
+==> Focus MAIN
+CLIPS> (run 4)
+FIRE    1 cambio-fase: f-1
+==> Focus DETECCION from MAIN
+&lt;== Focus DETECCION to MAIN
+FIRE    2 cambio-fase: f-2
+==> Focus AISLAMIENTO from MAIN
+&lt;== Focus AISLAMIENTO to MAIN
+FIRE    3 cambio-fase: f-3
+==> Focus RECUPERACION from MAIN
+&lt;== Focus RECUPERACION to MAIN
+FIRE    4 cambio-fase: f-4
+==> Focus DETECCION from MAIN
+&lt;== Focus DETECCION to MAIN</code></pre>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 8 -->
+  <!-- ============================================================ -->
+  <section id="tema8" class="tema">
+    <h2><span class="num">08</span> Funciones — <code>deffunction</code></h2>
+    <a class="pdf-link" href="tema08.pdf" target="_blank">📄 Ver tema08.pdf</a>
+
+    <h3>Introducción</h3>
+    <p>El constructor <code>deffunction</code> permite crear nuevas funciones dentro de CLIPS. Componentes:</p>
+    <ul>
+      <li>Un nombre.</li>
+      <li>Un comentario (opcional).</li>
+      <li>Una lista de cero o más parámetros regulares.</li>
+      <li>Un parámetro comodín opcional que gestiona un número variable de argumentos.</li>
+      <li>Una secuencia de acciones/expresiones, que se ejecutan secuencialmente al llamar a la función.</li>
+    </ul>
+
+    <h4>Valor devuelto</h4>
+    <ul>
+      <li>El valor devuelto es el resultado de evaluar la última acción.</li>
+      <li>Si la función no tiene acciones, devuelve el símbolo <code>FALSE</code>.</li>
+      <li>Si ocurre un error durante la ejecución, se abortan las acciones no completadas y la función devuelve
+      <code>FALSE</code>.</li>
+      <li>Con <code>return</code> se interrumpe inmediatamente la ejecución, devolviendo el valor de su argumento.</li>
+      <li>Una función solo puede llamarse si ha sido previamente definida (salvo funciones recursivas).</li>
+    </ul>
+
+    <h3>Sintaxis</h3>
+    <div class="syntax">(deffunction &lt;nombre&gt; [&lt;comentario&gt;]
+  (&lt;parámetro-regular&gt;* [&lt;parámetro-comodín&gt;])
+  &lt;acción&gt;*)
+
+&lt;parámetro-regular&gt; <span class="op">::=</span> &lt;variable-monocampo&gt;
+&lt;parámetro-comodín&gt; <span class="op">::=</span> &lt;variable-multicampo&gt;</div>
+
+    <h3>Ejemplos</h3>
+    <pre class="code"><code class="clips">CLIPS> (deffunction print-args (?a ?b $?c)
+ (printout t ?a " " ?b " y " (length$ $?c)
+  " extras: " $?c crlf))
+CLIPS> (print-args 1 2)
+1 2 y 0 extras: ()
+CLIPS> (print-args a b c d)
+a b y 2 extras: (c d)</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS> (deffunction factorial (?a)
+ (if (or (not (integerp ?a)) (< ?a 0))
+   then (printout t "Error factorial." crlf)
+   else
+    (if (= ?a 0)
+     then 1
+     else (* ?a (factorial (- ?a 1))))))
+CLIPS> (factorial Hola)
+Error factorial.
+CLIPS> (factorial 4)
+24</code></pre>
+
+    <h3>Comandos relacionados</h3>
+    <div class="syntax">(ppdeffunction &lt;nombre-función&gt;)
+(list-deffunctions)
+(undeffunction &lt;nombre-función&gt;)</div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 9 -->
+  <!-- ============================================================ -->
+  <section id="tema9" class="tema">
+    <h2><span class="num">09</span> Funciones genéricas — <code>defgeneric</code> / <code>defmethod</code></h2>
+    <a class="pdf-link" href="tema09.pdf" target="_blank">📄 Ver tema09.pdf</a>
+
+    <h3>Introducción</h3>
+    <ul>
+      <li>Similares a <code>deffunction</code> pero más potentes: pueden <strong>sobrecargarse</strong>.</li>
+      <li>Una función genérica se compone de varios <strong>métodos</strong>, cada uno con una lista de parámetros
+      diferente.</li>
+      <li>Pueden tener funciones del sistema y funciones externas definidas por el usuario como métodos implícitos
+      (ej.: <code>+</code> para sumar números y concatenar cadenas).</li>
+      <li>CLIPS decide qué método ejecutar mediante <strong>ejecución genérica</strong> (<em>generic dispatch</em>).</li>
+    </ul>
+
+    <h3>Definición de funciones genéricas</h3>
+    <p>Una función genérica se corresponde con una cabecera y cero o más métodos. La cabecera se declara:</p>
+    <ul>
+      <li><strong>Explícitamente</strong>, con <code>defgeneric</code>.</li>
+      <li><strong>Implícitamente</strong>, definiendo al menos un método.</li>
+    </ul>
+
+    <h4>Componentes de un método</h4>
+    <ol>
+      <li>Nombre</li>
+      <li>Índice (opcional)</li>
+      <li>Comentario (opcional)</li>
+      <li>Conjunto de parámetros monocampo</li>
+      <li>Parámetro multicampo (opcional)</li>
+      <li>Secuencia de acciones</li>
+    </ol>
+    <p>El valor que devuelve un método es el resultado de evaluar su última acción (o <code>return</code>), y
+    <code>FALSE</code> si no tiene acciones o si ocurre un error.</p>
+
+    <h3>Sintaxis</h3>
+    <div class="syntax">(defgeneric &lt;nombre&gt; [&lt;comentario&gt;])
+
+(defmethod &lt;nombre&gt; [&lt;índice&gt;] [&lt;comentario&gt;]
+  (&lt;restricción-param&gt;*
+  [&lt;restricción-param-multicampo&gt;])
+  &lt;acción&gt;*)
+
+&lt;restricción-param&gt; <span class="op">::=</span> &lt;variable-monocampo&gt; <span class="op">|</span>
+   (&lt;variable-monocampo&gt; &lt;tipo&gt;* [&lt;consulta&gt;])
+
+&lt;restricción-param-multicampo&gt; <span class="op">::=</span>
+  &lt;variable-multicampo&gt; <span class="op">|</span>
+  (&lt;variable-multicampo&gt; &lt;tipo&gt;* [&lt;consulta&gt;])
+
+&lt;tipo&gt; <span class="op">::=</span>   INTEGER <span class="op">|</span> FLOAT <span class="op">|</span> NUMBER <span class="op">|</span>
+             SYMBOL <span class="op">|</span> STRING <span class="op">|</span> LEXEME
+
+&lt;consulta&gt; <span class="op">::=</span> &lt;variable-global&gt; <span class="op">|</span> &lt;llamada-función&gt;</div>
+
+    <h3>Índices</h3>
+    <ul>
+      <li>Un método se identifica mediante un nombre y una lista de parámetros, o mediante un nombre y un índice.</li>
+      <li>A cada método se le asigna un índice único dentro del conjunto de métodos de esa función genérica.</li>
+      <li>Si se define un método con el mismo nombre y los mismos parámetros (o el mismo índice) que otro
+      existente, el nuevo reemplaza al anterior.</li>
+      <li>Para reemplazar un método con otro de lista de parámetros distinta, se especifica el índice del método a
+      reemplazar.</li>
+    </ul>
+
+    <h3>Parámetros y restricciones</h3>
+    <ul>
+      <li><strong>De tipo</strong>: limita los tipos de dato admisibles para un argumento.</li>
+      <li><strong>De consulta</strong>: comprobación lógica que debe satisfacer un argumento para ser aceptado; se
+      cumple si se evalúa a un valor distinto de <code>FALSE</code>.</li>
+      <li>Las restricciones se comprueban de izquierda a derecha; si una no se cumple, no se evalúan las restantes.</li>
+      <li>Un parámetro sin restricciones acepta cualquier argumento.</li>
+    </ul>
+
+    <h4>Ejemplo — sobrecarga de <code>+</code></h4>
+    <pre class="code"><code class="clips">CLIPS> (defmethod + ((?a STRING) (?b STRING))
+   (str-cat ?a ?b))
+CLIPS>
+(list-defmethods)
++ #SYS1 (NUMBER) (NUMBER) ($? NUMBER)
++ #2 (STRING) (STRING)
+For a total of 2 methods.
+CLIPS>
+(+ 5 3)
+8
+CLIPS>
+(+ "Hola " "mundo")
+"Hola mundo"
+CLIPS>
+(+ "Me " "gusta " "CLIPS")
+[GENRCEXE1] No applicable methods for +.
+FALSE</code></pre>
+
+    <h3>Parámetro multicampo</h3>
+    <ul>
+      <li>Si se especifica un parámetro multicampo, el método puede recibir un número de argumentos igual o mayor
+      que un mínimo.</li>
+      <li>Los argumentos que no correspondan a un parámetro monocampo se agrupan en un valor multicampo,
+      referenciable mediante el parámetro multicampo en el cuerpo del método.</li>
+      <li>Las restricciones se aplican a cada campo del parámetro multicampo. No obstante, en la consulta puede
+      referenciarse el parámetro multicampo completo.</li>
+      <li>La variable especial <code>?current-argument</code> permite referenciar cada campo del parámetro
+      multicampo dentro de la consulta (su ámbito se limita a la consulta).</li>
+    </ul>
+
+    <pre class="code"><code class="clips">CLIPS> (defmethod m1 (($?a INTEGER)))
+CLIPS> ;Todos los parámetros deben ser enteros
+(m1 1 2 3)
+FALSE
+CLIPS> (m1 1 2.2 3)
+[GENRCEXE1] No applicable methods for m1.
+FALSE</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS>
+(defmethod m2 (($?a (printout t $?a crlf))))
+CLIPS> ;Las restricciones se comprueban para cada campo del parámetro multicampo
+(m2 1 2 3)
+(1 2 3)
+(1 2 3)
+(1 2 3)
+FALSE</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS>
+(defmethod m3 (($?a (printout t ?current-argument crlf))))
+CLIPS> (m3 1 2 3)
+1
+2
+3
+FALSE</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS>
+(defmethod m4 (($?a (> (length$ $?a) 2))))
+CLIPS> (m4 1 2)
+[GENRCEXE1] No applicable methods for m4.
+FALSE
+CLIPS> (m4 1 2 3)
+FALSE</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS>
+(defmethod m5 (($?a (evenp ?current-argument))))
+CLIPS> (m5 1 2 3)
+[GENRCEXE1] No applicable methods for m5.
+FALSE
+CLIPS> (m5 2 4 6)
+FALSE</code></pre>
+
+    <pre class="code"><code class="clips">CLIPS>
+(defmethod m6 (?a ?b
+              ($?c INTEGER (evenp ?current-argument))))
+CLIPS> ;Al menos 2 argumentos, de cualquier tipo
+;Opcionalmente más argumentos, siempre que sean enteros pares
+(m6 Hola)
+[GENRCEXE1] No applicable methods for m6.
+FALSE
+CLIPS> (m6 Hola mundo)
+FALSE
+CLIPS> (m6 Hola mundo 1)
+[GENRCEXE1] No applicable methods for m6.
+FALSE
+CLIPS> (m6 Hola mundo 2)
+FALSE</code></pre>
+
+    <h3>Ejecución genérica</h3>
+    <ul>
+      <li>Cuando se llama a una función genérica, CLIPS selecciona, de entre los métodos cuyas restricciones de
+      parámetros son satisfechas por los argumentos, el de <strong>mayor precedencia</strong>.</li>
+      <li>El método seleccionado se ejecuta y su valor devuelto es el valor devuelto por la función genérica.</li>
+    </ul>
+
+    <h4>Aplicabilidad y precedencia</h4>
+    <p>Un método es aplicable a una llamada si se cumplen 3 condiciones:</p>
+    <ol>
+      <li>Su nombre coincide con el de la llamada.</li>
+      <li>Acepta al menos tantos argumentos como se pasan en la llamada.</li>
+      <li>Cada argumento satisface las restricciones de parámetro correspondientes.</li>
+    </ol>
+    <p>La precedencia entre dos métodos se determina examinando sus restricciones de parámetro: en general, el
+    método con las restricciones <strong>más específicas</strong> tiene mayor precedencia.</p>
+
+    <h4>Ejemplo — precedencia entre métodos</h4>
+    <pre class="code"><code class="clips">CLIPS> (defmethod m1 () m1-1)
+CLIPS> (defmethod m1 (?a) m1-2)
+CLIPS> (defmethod m1 ((?a INTEGER)) m1-3)
+CLIPS> (defmethod m1 ((?a INTEGER SYMBOL)) m1-4)
+CLIPS> (defmethod m1 ((?a INTEGER STRING)) m1-5)
+CLIPS> (defmethod m1 ((?a INTEGER (evenp ?a))) m1-6)
+CLIPS> (m1)
+m1-1
+CLIPS> (m1 2.5)
+m1-2
+CLIPS> (m1 25)
+m1-3
+CLIPS> (m1 Hola)
+m1-4
+CLIPS> (m1 22)
+m1-6</code></pre>
+
+    <h3>Comandos relacionados</h3>
+    <div class="syntax">(ppdefgeneric &lt;nombre-función-genérica&gt;)
+(ppdefmethod &lt;nombre-función-genérica&gt; &lt;índice&gt;)
+(list-defgenerics [&lt;nombre-módulo&gt; <span class="op">|</span> *])
+(list-defmethods [&lt;nombre-función-genérica&gt;])
+(undefgeneric &lt;nombre-función-genérica&gt; <span class="op">|</span> *)
+(undefmethod &lt;nombre-función-genérica&gt; <span class="op">|</span> * &lt;índice&gt; <span class="op">|</span> *)</div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- RELACIONES DE EJERCICIOS -->
+  <!-- ============================================================ -->
+  <section id="relaciones" class="tema">
+    <h2><span class="num">📝</span> Relaciones de ejercicios</h2>
+
+    <h3>Relación 1 — Hechos</h3>
+    <a class="pdf-link" href="relacion01.pdf" target="_blank">📄 Ver relacion01.pdf</a>
+    <p>Ejercicios para practicar <code>deftemplate</code>, <code>slot</code>/<code>multislot</code>, restricciones
+    y <code>assert</code>:</p>
+    <ol>
+      <li>Plantilla <code>persona</code> con casillas simples: <code>nombre</code>, <code>apellido</code>,
+      <code>color-ojos</code>, <code>altura</code>.</li>
+      <li>Plantilla <code>persona2</code> con casillas <code>multislot</code> para nombre y apellidos.</li>
+      <li>Plantilla para libros con restricciones adecuadas; insertar hechos sobre varios libros de IA.</li>
+      <li>Plantillas para coches de un concesionario y ventas realizadas por vendedores; insertar el inventario y
+      las ventas indicadas.</li>
+      <li>Base de hechos para preparar <em>pisto</em> y <em>tortilla de patatas</em>: ingredientes disponibles vs.
+      por comprar, y actualización de la base de hechos tras la compra y tras cocinar.</li>
+      <li>Plantillas para alumnos, grupos de trabajo y notas (dos exámenes + nota media + nota de trabajo), con
+      restricciones: apellidos/nombre obligatorios, notas entre 0 y 10, grupos de máximo 4 personas.</li>
+      <li>Plantilla para conjuntos: nombre (símbolo o cadena), elementos (enteros o colores del arco iris) y
+      relación de subconjunto. Representar <code>A={1,2,3}</code>, <code>B={1,2,3,rojo,verde}</code>,
+      <code>C={rojo,verde,amarillo,azul}</code>.</li>
+      <li>Plantilla para películas de cine, con las casillas y restricciones que se consideren oportunas.</li>
+    </ol>
+
+    <h3>Relación 2 — Reglas</h3>
+    <a class="pdf-link" href="relacion02.pdf" target="_blank">📄 Ver relacion02.pdf</a>
+    <div class="box warn">
+      Nota del enunciado: para resolver estos ejercicios no pueden emplearse prioridades, módulos ni funciones
+      procedimentales (salvo, en todo caso, <code>bind</code>).
+    </div>
+    <ol>
+      <li>Granja de animales (perro, gato, pato, vaca, oveja, gallo): a partir de un hecho con el sonido del
+      animal, identificar de qué animal se trata, p.ej. <code>(sonido kikiriki)</code> → "Se trata de un gallo".</li>
+      <li>Igual que el anterior pero con plantilla
+        <pre class="code" style="margin-top:.5rem;"><code class="clips">(deftemplate animal
+  (slot tipo)
+  (slot sonido))</code></pre>
+        y una sola regla que muestre <code>kikiriki -> gallo</code>.</li>
+      <li>Plantilla con <code>nombre</code>, <code>tipo</code> y <code>sonido</code>; al afirmar
+      <code>(animal (nombre Toby) (tipo perro))</code>, una regla rellena <code>sonido</code> y muestra
+      "Toby dice guau".</li>
+      <li>Igual que el anterior pero con hechos iniciales (<code>deffacts</code>) y una sola regla.</li>
+      <li>Factorial de un número: ante <code>(factorial 3)</code>, mostrar "El factorial de 3 es 6".</li>
+      <li>Factorial para varios hechos a la vez, mostrando los resultados en orden inverso (5, 4, 3 → resultados de
+      120, 24, 6).</li>
+      <li>10 sensores (códigos 1–10) en estado correcto/incorrecto: plantilla + reglas que avisen (un único
+      mensaje) si 3 o más sensores están en estado incorrecto.</li>
+      <li>Plantilla para fechas + regla que compruebe si la fecha no es válida (regla de año bisiesto: múltiplo de
+      4 y no de 100, salvo múltiplo de 400).</li>
+      <li>Recomendador de plantas: tabla de características (frío, sombra, sequedad, suelo húmedo, suelo ácido,
+      ciudad, maceta, cuidado fácil, crecimiento rápido) para Hortensia, Adelfa, Laurel, Madreselva, Gardenia,
+      Enebro, Pimentero, Escaramujo, Aucuba, Azalea. Entrada: hechos
+      <code>(caracteristica-deseada &lt;característica&gt;)</code>; mostrar por pantalla las plantas que cumplan
+      exactamente esas características (ni más ni menos).</li>
+      <li>Variante del anterior: en vez de imprimir, afirmar hechos
+      <code>(deftemplate puede-plantarse (slot planta))</code> para todas las plantas que cumplan <em>todas</em>
+      las características deseadas (aunque tengan otras además).</li>
+      <li>Variante dinámica: la lista de <code>puede-plantarse</code> se actualiza (tras cada <code>run</code>) cada
+      vez que cambian las <code>caracteristica-deseada</code>. Ejemplo de comportamiento esperado incluido en el
+      PDF (con <code>frio</code> → escaramujo, pimentero, enebro, laurel; añadiendo
+      <code>crecimiento-rapido</code> → solo laurel; retractando <code>frio</code> → laurel, hortensia, adelfa,
+      madreselva).</li>
+      <li>Convertir un conjunto de hechos <code>(numero &lt;n&gt;)</code> en un único hecho
+      <code>(numeros &lt;n1&gt; &lt;n2&gt; ...)</code> con los valores ordenados de menor a mayor (p.ej.
+      <code>(numero 5) (numero 9) (numero 2)</code> → <code>(numeros 2 5 9)</code>).</li>
+      <li>Residencia de estudiantes: habitaciones simples/dobles/triples/cuádruples; es más económico llenar las
+      habitaciones grandes; los ocupantes de una habitación deben ser del mismo sexo y todos fumadores o todos no
+      fumadores. Definir plantillas y reglas para alojar a un estudiante (en habitación parcialmente ocupada
+      compatible, o si no en la mayor habitación libre); si no hay hueco, mostrar un mensaje.</li>
+      <li>Con las plantillas
+        <pre class="code" style="margin-top:.5rem;"><code class="clips">(deftemplate producto (slot nombre) (slot pvp))
+(deftemplate compra (slot producto) (slot unidades))</code></pre>
+        calcular el importe total de la compra de un cliente aplicando una promoción 3x2 en todos los productos,
+        afirmando el resultado como un hecho.</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EJEMPLOS TEMA 6 -->
+  <!-- ============================================================ -->
+  <section id="ejemplos" class="tema">
+    <h2><span class="num">💎</span> Ejemplos Tema 6 — Clasificación de gemas</h2>
+    <a class="pdf-link" href="ejemplos_tema06.pdf" target="_blank">📄 Ver ejemplos_tema06.pdf</a>
+
+    <p>Caso práctico clásico de "reglas con valores literales" vs. "reglas + plantilla + hecho genérico", muy útil
+    para entender la diferencia entre codificar el conocimiento <em>en las reglas</em> o <em>en los datos</em>.</p>
+
+    <h3>Datos: tabla de gemas</h3>
+    <table>
+      <tr><th>Gema</th><th>Dureza</th><th>Densidad</th><th>Colores</th></tr>
+      <tr><td>Diamante</td><td>10</td><td>3.5</td><td>amarillo, marrón, verde, azul, blanco, incoloro</td></tr>
+      <tr><td>Cuarzo</td><td>7</td><td>2.65</td><td>rojo, rosa, verde, azul, violeta, blanco, negro, incoloro</td></tr>
+      <tr><td>Turmalina</td><td>7</td><td>3.1</td><td>rojo, rosa, amarillo, marrón, verde, azul, blanco, negro, incoloro</td></tr>
+      <tr><td>Topacio</td><td>8</td><td>3.5</td><td>rojo, rosa, amarillo, marrón, azul, violeta, blanco, incoloro</td></tr>
+      <tr><td>Circonio</td><td>7</td><td>4.7</td><td>amarillo, marrón, verde, violeta, blanco, incoloro</td></tr>
+      <tr><td>Jade</td><td>7</td><td>3.3</td><td>rojo, rosa, amarillo, marrón, verde, azul, violeta, blanco, negro, incoloro</td></tr>
+      <tr><td>Ópalo</td><td>6</td><td>2.5</td><td>rojo, rosa, amarillo, marrón, blanco, negro, incoloro</td></tr>
+      <tr><td>Turquesa</td><td>5.5</td><td>2.5</td><td>azul</td></tr>
+    </table>
+
+    <h3>Solución 1 — una regla por gema, valores literales</h3>
+    <p>Cada regla comprueba directamente <code>dureza</code>, <code>densidad</code> y <code>color</code> con los
+    valores propios de cada gema (restricciones conectivas con <code>|</code> para los colores admitidos).</p>
+    <pre class="code"><code class="clips">(defrule diamante
+  (dureza 10)
+  (densidad 3.5)
+  (color amarillo | marron | verde | azul |
+  blanco | incoloro)
+  =>
+  (printout t "Diamante" crlf))
+
+(defrule cuarzo
+  (dureza 7)
+  (densidad 2.65)
+  (color rojo | rosa | verde | azul | violeta |
+  blanco | negro | incoloro)
+  =>
+  (printout t "Cuarzo" crlf))
+
+(defrule turmalina
+  (dureza 7)
+  (densidad 3.1)
+  (color rojo | rosa | amarillo | marron | verde
+  | azul | blanco | negro | incoloro)
+  =>
+  (printout t "Turmalina" crlf))
+
+(defrule topacio
+  (dureza 8)
+  (densidad 3.5)
+  (color rojo | rosa | amarillo | marron | azul |
+  violeta | blanco | incoloro)
+  =>
+  (printout t "Topacio" crlf))
+
+(defrule circonio
+  (dureza 7)
+  (densidad 4.7)
+  (color amarillo | marron | verde | violeta |
+  blanco | incoloro)
+  =>
+  (printout t "Circonio" crlf))
+
+(defrule jade
+  (dureza 7)
+  (densidad 3.3)
+  (color rojo | rosa | amarillo | marron | verde
+  |azul | violeta | blanco | negro | incoloro)
+  =>
+  (printout t "Jadeita" crlf))
+
+(defrule opalo
+  (dureza 6)
+  (densidad 2.5)
+  (color rojo | rosa | amarillo | marron | blanco
+  | negro | incoloro)
+  =>
+  (printout t "Ópalo" crlf))
+
+(defrule turquesa
+  (dureza 5.5)
+  (densidad 2.5)
+  (color azul)
+  =>
+  (printout t "Turquesa" crlf))</code></pre>
+
+    <div class="box warn">
+      <strong class="box-title">Inconveniente de la Solución 1</strong>
+      El conocimiento (qué dureza/densidad/colores tiene cada gema) está "hardcodeado" en cada regla. Añadir una
+      gema nueva implica escribir una regla completa nueva, y varias reglas pueden activarse simultáneamente para
+      el mismo hecho si comparten dureza/densidad/color.
+    </div>
+
+    <h3>Solución 2 — plantilla + hechos + una sola regla genérica</h3>
+    <p>El conocimiento sobre las gemas se traslada a <strong>datos</strong> (hechos basados en una plantilla), y
+    una única regla compara los valores observados (<code>dureza</code>, <code>densidad</code>, <code>color</code>)
+    contra cada hecho <code>gema</code> de la base de conocimiento.</p>
+
+    <pre class="code"><code class="clips">(deftemplate gema
+  (slot nombre)
+  (slot dureza)
+  (slot densidad)
+  (multislot colores))</code></pre>
+
+    <pre class="code"><code class="clips">(deffacts gemas
+   (gema (nombre diamante) (dureza 10) (densidad
+   3.5) (colores amarillo marron verde azul blanco
+   incoloro))
+   (gema (nombre cuarzo) (dureza 7) (densidad
+   2.65) (colores rojo rosa verde azul violeta
+   blanco negro incoloro))
+   (gema (nombre turmalina) (dureza 7) (densidad
+   3.1) (colores rojo rosa amarillo marron verde
+   azul blanco negro incoloro))
+   ; ... (resto de gemas con su dureza, densidad y colores)
+   )</code></pre>
+
+    <pre class="code"><code class="clips">(defrule identificar-gema
+  (dureza ?du)
+  (densidad ?de)
+  (color ?c)
+  (gema (nombre ?n) (dureza ?du) (densidad ?de)
+  (colores $? ?c $?))
+  =>
+  (printout t ?n crlf))</code></pre>
+
+    <div class="box tip">
+      <strong class="box-title">Ventaja de la Solución 2</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Añadir una gema nueva solo requiere un nuevo hecho <code>gema</code> en <code>deffacts</code>, sin
+        tocar las reglas.</li>
+        <li>El patrón <code>(colores $? ?c $?)</code> usa comodines multicampo para comprobar que <code>?c</code>
+        está <em>en algún lugar</em> de la lista de colores de la gema.</li>
+        <li>Es el mismo patrón de diseño que separa <em>"reglas de inferencia"</em> de <em>"base de conocimiento
+        declarativa"</em>, mucho más mantenible.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EDITOR / SANDBOX -->
+  <!-- ============================================================ -->
+  <section id="editor" class="tema">
+    <h2><span class="num">✏️</span> Editor — practica con CLIPS</h2>
+
+    <div class="box tip">
+      <strong class="box-title">Motor CLIPS real, en tu navegador</strong>
+      Esta página incluye el <strong>núcleo de CLIPS 6.4 compilado a WebAssembly</strong>: el código que escribas
+      abajo se ejecuta con el intérprete real (mismo motor de inferencia, <code>defrule</code>,
+      <code>deftemplate</code>, <code>deffacts</code>, <code>deffunction</code>,
+      <code>defgeneric</code>/<code>defmethod</code>, <code>defmodule</code>, etc.), todo localmente — sin servidor
+      ni conexión a internet. Pulsa <strong>"▶ Ejecutar código"</strong> para cargar tus construcciones y luego usa
+      la consola para escribir comandos (<code>(reset)</code>, <code>(run)</code>, <code>(facts)</code>...) como en
+      el CLIPS real.
+    </div>
+
+    <div class="editor-toolbar">
+      <label for="exampleSelect">Cargar ejemplo:</label>
+      <select id="exampleSelect">
+        <option value="">— elige un ejemplo —</option>
+        <option value="factorial">Función factorial (deffunction)</option>
+        <option value="gemas">Clasificación de gemas (plantilla + regla)</option>
+        <option value="pila">Pila: meter / sacar valores</option>
+        <option value="suma">Sumar números (deffacts + defrule)</option>
+        <option value="restaurante">Restaurante (defrule básico)</option>
+        <option value="semaforo">Semáforo (PuedoCruzar / NoPuedoCruzar)</option>
+        <option value="modulos">Módulos y pila de focos</option>
+        <option value="generica">Función genérica (defgeneric/defmethod)</option>
+      </select>
+      <button id="loadExampleBtn" class="primary" type="button">Cargar ejemplo</button>
+      <button id="clearEditorBtn" type="button">Vaciar</button>
+      <button id="copyEditorBtn" type="button">Copiar código</button>
+      <span id="editorCopyMsg"></span>
+    </div>
+
+    <div class="editor-grid">
+      <div class="editor-pane">
+        <h4>Tu código (editable)</h4>
+        <textarea id="editorInput" spellcheck="false" autocapitalize="off" autocomplete="off"
+          placeholder="; Escribe o pega aquí tu código CLIPS para practicar..."></textarea>
+      </div>
+      <div class="editor-pane">
+        <h4>Vista con resaltado de sintaxis</h4>
+        <pre class="code"><code id="editorPreview" class="clips"></code></pre>
+      </div>
+    </div>
+
+    <h3>Consola CLIPS</h3>
+    <div class="editor-toolbar">
+      <button id="runCodeBtn" class="primary" type="button">▶ Ejecutar código</button>
+      <button id="resetEnvBtn" type="button">↺ Reiniciar entorno</button>
+      <button id="clearConsoleBtn" type="button">Limpiar consola</button>
+      <span id="clipsStatus" class="mono">Cargando motor CLIPS (WebAssembly)…</span>
+    </div>
+    <pre class="code clips-console" id="clipsConsole"><code>; La salida de CLIPS aparecerá aquí.
+</code></pre>
+    <div class="editor-toolbar repl-row">
+      <span class="mono" style="color:var(--green);font-weight:700;">CLIPS&gt;</span>
+      <input id="replInput" type="text" class="mono" autocomplete="off" autocapitalize="off" spellcheck="false"
+        placeholder="Escribe un comando, p.ej. (facts) o (run), y pulsa Intro" disabled>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  Apuntes de Sistemas Inteligentes — generado a partir de los PDF en <code>Desktop/CLIPS</code>.
+</footer>
+
+<script src="clips-wasm/clips.js"></script>
+<script>
+// ---------- Resaltado de sintaxis CLIPS ----------
+const CLIPS_KEYWORDS = ['defrule','deftemplate','deffacts','deffunction','defgeneric','defmethod','defmodule',
+'defglobal','assert','retract','modify','duplicate','facts','reset','clear','printout','bind','if','then','else',
+'while','do','loop-for-count','return','not','and','or','exists','forall','logical','test','declare','salience',
+'slot','multislot','type','default','default-dynamic','range','cardinality','allowed-values','allowed-symbols',
+'allowed-strings','allowed-integers','allowed-floats','allowed-numbers','allowed-lexemes','watch','unwatch','run',
+'agenda','focus','undefrule','list-defrules','ppdefrule','export','import','set-current-module',
+'list-focus-stack','length$','str-cat','gensym*','numberp','integerp','evenp','crlf'];
+
+function highlightClips(code){
+  let escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const kw = CLIPS_KEYWORDS.map(k=>k.replace(/[$]/g,'\\$')).join('|');
+  const master = new RegExp(
+    '(^CLIPS&gt;)|(;[^\\n]*)|("[^"]*")|(\\$?\\?\\*?[A-Za-z_][\\w-]*\\*?|\\$?\\?)|\\b(' + kw + ')\\b|(\\b\\d+\\.?\\d*\\b)',
+    'gm'
+  );
+  return escaped.replace(master, (m, prompt, comment, str, variable, keyword, num) => {
+    if (prompt)   return '<span class="tok-prompt">'+m+'</span>';
+    if (comment)  return '<span class="tok-comment">'+m+'</span>';
+    if (str)      return '<span class="tok-string">'+m+'</span>';
+    if (variable) return '<span class="tok-var">'+m+'</span>';
+    if (keyword)  return '<span class="tok-kw">'+m+'</span>';
+    if (num)      return '<span class="tok-num">'+m+'</span>';
+    return m;
+  });
+}
+document.querySelectorAll('pre.code code.clips').forEach(el=>{
+  el.innerHTML = highlightClips(el.textContent);
+});
+
+// ---------- Mobile sidebar toggle ----------
+const sidebar = document.getElementById('sidebar');
+document.getElementById('navToggle').addEventListener('click', ()=>{
+  sidebar.classList.toggle('open');
+});
+sidebar.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>sidebar.classList.remove('open')));
+
+// ---------- Scrollspy ----------
+const links = [...sidebar.querySelectorAll('a[href^="#"]')];
+const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = '#'+entry.target.id;
+      links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
+    }
+  });
+}, {rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>obs.observe(s));
+
+// ---------- Editor / Sandbox ----------
+const CLIPS_EXAMPLES = {
+  factorial:
+`(deffunction factorial (?a)
+  (if (or (not (integerp ?a)) (< ?a 0))
+   then (printout t "Error factorial." crlf)
+   else
+    (if (= ?a 0)
+     then 1
+     else (* ?a (factorial (- ?a 1))))))
+
+; Pruébalo en un intérprete real con:
+; (factorial 4)   -> 24
+; (factorial Hola) -> Error factorial.`,
+
+  gemas:
+`(deftemplate gema
+  (slot nombre)
+  (slot dureza)
+  (slot densidad)
+  (multislot colores))
+
+(deffacts gemas
+  (gema (nombre diamante) (dureza 10) (densidad 3.5)
+        (colores amarillo marron verde azul blanco incoloro))
+  (gema (nombre cuarzo) (dureza 7) (densidad 2.65)
+        (colores rojo rosa verde azul violeta blanco negro incoloro))
+  (gema (nombre turquesa) (dureza 5.5) (densidad 2.5)
+        (colores azul)))
+
+(defrule identificar-gema
+  (dureza ?du)
+  (densidad ?de)
+  (color ?c)
+  (gema (nombre ?n) (dureza ?du) (densidad ?de)
+        (colores $? ?c $?))
+  =>
+  (printout t "Es un/a " ?n crlf))
+
+; Pruébalo con:
+; (reset)
+; (assert (dureza 5.5) (densidad 2.5) (color azul))
+; (run)`,
+
+  pila:
+`; La cabeza de la pila queda a la izquierda.
+(deffacts inicio-pila
+  (pila))
+
+(defrule meter-valor-pila
+  ?v <- (meter ?valor)
+  ?p <- (pila $?resto)
+  =>
+  (retract ?v ?p)
+  (assert (pila ?valor $?resto))
+  (printout t "Metiendo valor: " ?valor crlf))
+
+(defrule sacar-valor-pila
+  ?s <- (sacar)
+  ?p <- (pila ?valor $?resto)
+  =>
+  (retract ?s ?p)
+  (assert (pila $?resto))
+  (printout t "Sacando valor: " ?valor crlf))
+
+(defrule intentar-sacar-valor-pila-vacia
+  ?s <- (sacar)
+  (pila)
+  =>
+  (retract ?s)
+  (printout t "La pila está vacía" crlf))
+
+; Pruébalo con:
+; (reset)
+; (assert (meter 1) (meter 2) (sacar))
+; (run)`,
+
+  suma:
+`(deffacts valores-a-sumar
+  (dato 1)
+  (dato 2)
+  (dato 3)
+  (dato 4)
+  (dato 5)
+  (suma 0))
+
+(defrule sumar-numeros
+  ?s <- (suma ?total)
+  ?t <- (dato ?valor)
+  =>
+  (retract ?s ?t)
+  (assert (suma (+ ?total ?valor))))
+
+(defrule mostrar-suma
+  (not (dato ?))
+  ?s <- (suma ?total)
+  =>
+  (retract ?s)
+  (printout t "La suma es: " ?total crlf))
+
+; Pruébalo con: (reset) (run)`,
+
+  restaurante:
+`(deffacts ejemplo-restaurante
+  (tengo hambre)
+  (tengo dinero))
+
+(defrule restaurante
+  "Cuándo ir al restaurante"
+  (tengo hambre)
+  (tengo dinero)
+  =>
+  (assert (ir-a restaurante))
+  (printout t "¡Vamos al restaurante!" crlf))
+
+; Pruébalo con: (reset) (facts) (agenda) (run)`,
+
+  semaforo:
+`(defrule PuedoCruzar
+  (Semaforo verde)
+  =>
+  (printout t "Puedo cruzar" crlf))
+
+(defrule NoPuedoCruzar
+  (Semaforo rojo)
+  =>
+  (printout t "No puedo cruzar" crlf))
+
+; Pruébalo con:
+; (reset)
+; (assert (Semaforo rojo))
+; (agenda)
+; (run)
+;
+; Ejercicio: cambia el hecho a (Semaforo verde) y repite.`,
+
+  modulos:
+`(defmodule MAIN (export ?ALL))
+(defmodule DETECCION (import MAIN deftemplate ?ALL))
+(defmodule AISLAMIENTO (import MAIN deftemplate ?ALL))
+(defmodule RECUPERACION (import MAIN deftemplate ?ALL))
+
+(deffacts MAIN::informacion-control
+  (secuencia-fases DETECCION AISLAMIENTO RECUPERACION))
+
+(defrule MAIN::cambio-fase
+  ?l <- (secuencia-fases ?siguiente $?resto)
+  =>
+  (focus ?siguiente)
+  (retract ?l)
+  (assert (secuencia-fases $?resto ?siguiente)))
+
+; Pruébalo con:
+; (watch rules) (watch focus)
+; (reset)
+; (run 4)`,
+
+  generica:
+`(defmethod + ((?a STRING) (?b STRING))
+  (str-cat ?a ?b))
+
+(defmethod m1 () m1-1)
+(defmethod m1 (?a) m1-2)
+(defmethod m1 ((?a INTEGER)) m1-3)
+(defmethod m1 ((?a INTEGER SYMBOL)) m1-4)
+(defmethod m1 ((?a INTEGER (evenp ?a))) m1-6)
+
+; Pruébalo con:
+; (+ "Hola " "mundo")  -> "Hola mundo"
+; (m1)     -> m1-1
+; (m1 2.5) -> m1-2
+; (m1 25)  -> m1-3
+; (m1 Hola)-> m1-4
+; (m1 22)  -> m1-6 (la restricción más específica gana)`
+};
+
+const editorInput = document.getElementById('editorInput');
+const editorPreview = document.getElementById('editorPreview');
+const exampleSelect = document.getElementById('exampleSelect');
+const copyMsg = document.getElementById('editorCopyMsg');
+
+function updateEditorPreview(){
+  editorPreview.innerHTML = highlightClips(editorInput.value);
+}
+
+editorInput.addEventListener('input', updateEditorPreview);
+
+document.getElementById('loadExampleBtn').addEventListener('click', ()=>{
+  const key = exampleSelect.value;
+  if(!key) return;
+  editorInput.value = CLIPS_EXAMPLES[key];
+  updateEditorPreview();
+});
+
+document.getElementById('clearEditorBtn').addEventListener('click', ()=>{
+  editorInput.value = '';
+  updateEditorPreview();
+  editorInput.focus();
+});
+
+document.getElementById('copyEditorBtn').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(editorInput.value);
+    copyMsg.textContent = '¡Copiado!';
+  }catch(e){
+    copyMsg.textContent = 'No se pudo copiar.';
+  }
+  setTimeout(()=>copyMsg.textContent='', 2000);
+});
+
+// Carga inicial con un ejemplo de muestra
+editorInput.value = CLIPS_EXAMPLES.factorial;
+exampleSelect.value = 'factorial';
+updateEditorPreview();
+
+// ---------- Consola CLIPS real (WebAssembly) ----------
+const clipsConsole = document.getElementById('clipsConsole').querySelector('code');
+const clipsStatus = document.getElementById('clipsStatus');
+const runCodeBtn = document.getElementById('runCodeBtn');
+const resetEnvBtn = document.getElementById('resetEnvBtn');
+const clearConsoleBtn = document.getElementById('clearConsoleBtn');
+const replInput = document.getElementById('replInput');
+
+let clipsModule = null;
+
+function consoleAppend(html){
+  clipsConsole.insertAdjacentHTML('beforeend', html);
+  const pre = clipsConsole.parentElement;
+  pre.scrollTop = pre.scrollHeight;
+}
+
+function consoleEcho(cmd){
+  consoleAppend('<span class="console-cmd">CLIPS&gt; ' +
+    highlightClips(cmd) + '</span>\n');
+}
+
+function consoleOutput(text){
+  if(!text) return;
+  const esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  consoleAppend(esc);
+}
+
+// Divide un texto CLIPS en formas de primer nivel: (...) balanceados,
+// respetando cadenas "..." y comentarios ;...
+function splitClipsForms(text){
+  const forms = [];
+  let depth = 0, start = -1, inString = false, inComment = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i];
+    if(inComment){
+      if(c === '\n') inComment = false;
+      continue;
+    }
+    if(inString){
+      if(c === '\\'){ i++; continue; }
+      if(c === '"') inString = false;
+      continue;
+    }
+    if(c === ';' && depth === 0){ inComment = true; continue; }
+    if(c === '"'){ inString = true; if(start === -1) start = i; continue; }
+    if(c === '('){
+      if(depth === 0) start = i;
+      depth++;
+    } else if(c === ')'){
+      depth--;
+      if(depth === 0 && start !== -1){
+        forms.push(text.slice(start, i+1));
+        start = -1;
+      }
+    }
+  }
+  return forms.map(f=>f.trim()).filter(Boolean);
+}
+
+async function ensureClipsLoaded(){
+  if(clipsModule) return clipsModule;
+  clipsStatus.textContent = 'Cargando motor CLIPS (WebAssembly)…';
+  clipsModule = await CreateCLIPSModule();
+  clipsModule.ccall('clips_init', null, [], []);
+  clipsStatus.textContent = 'Motor CLIPS listo ✓';
+  replInput.disabled = false;
+  return clipsModule;
+}
+
+function evalClips(form){
+  const out = clipsModule.ccall('clips_eval', 'string', ['string'], [form]);
+  consoleEcho(form);
+  consoleOutput(out);
+}
+
+runCodeBtn.addEventListener('click', async ()=>{
+  runCodeBtn.disabled = true;
+  try{
+    await ensureClipsLoaded();
+    const forms = splitClipsForms(editorInput.value);
+    if(forms.length === 0){
+      consoleAppend('<span class="console-err">(No se ha encontrado ninguna forma "(...)" balanceada en el código)</span>\n');
+    }
+    for(const form of forms){
+      evalClips(form);
+    }
+  }catch(e){
+    consoleAppend('<span class="console-err">Error: '+String(e)+'</span>\n');
+  }finally{
+    runCodeBtn.disabled = false;
+  }
+});
+
+resetEnvBtn.addEventListener('click', async ()=>{
+  await ensureClipsLoaded();
+  clipsModule.ccall('clips_reset_env', null, [], []);
+  consoleAppend('<span class="console-cmd">; --- entorno CLIPS reiniciado (clear) ---</span>\n');
+});
+
+clearConsoleBtn.addEventListener('click', ()=>{
+  clipsConsole.innerHTML = '';
+});
+
+replInput.addEventListener('keydown', async (ev)=>{
+  if(ev.key !== 'Enter') return;
+  const cmd = replInput.value.trim();
+  if(!cmd) return;
+  replInput.value = '';
+  try{
+    await ensureClipsLoaded();
+    const forms = splitClipsForms(cmd);
+    if(forms.length === 0){
+      consoleEcho(cmd);
+      consoleAppend('<span class="console-err">(comando incompleto: faltan paréntesis)</span>\n');
+    }else{
+      forms.forEach(evalClips);
+    }
+  }catch(e){
+    consoleAppend('<span class="console-err">Error: '+String(e)+'</span>\n');
+  }
+});
+
+// Empieza a cargar el motor CLIPS en segundo plano sin bloquear la página.
+ensureClipsLoaded().catch(e=>{
+  clipsStatus.textContent = 'Error al cargar el motor CLIPS.';
+  console.error(e);
+});
+</script>
+</body>
+</html>
