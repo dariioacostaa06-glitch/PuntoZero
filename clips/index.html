@@ -2624,6 +2624,7 @@ m1-6</code></pre>
         <option value="semaforo">Semáforo (PuedoCruzar / NoPuedoCruzar)</option>
         <option value="modulos">Módulos y pila de focos</option>
         <option value="generica">Función genérica (defgeneric/defmethod)</option>
+        <option value="relacion01">Relación 1: Hechos (8 ejercicios resueltos)</option>
       </select>
       <button id="loadExampleBtn" class="primary" type="button">Cargar ejemplo</button>
       <button id="clearEditorBtn" type="button">Vaciar</button>
@@ -2891,7 +2892,170 @@ const CLIPS_EXAMPLES = {
 ; (m1 2.5) -> m1-2
 ; (m1 25)  -> m1-3
 ; (m1 Hola)-> m1-4
-; (m1 22)  -> m1-6 (la restricción más específica gana)`
+; (m1 22)  -> m1-6 (la restricción más específica gana)`,
+
+  relacion01:
+`; ============================================================
+; Relación 1 — Ejercicio 1: plantilla "persona" (casillas simples)
+; ============================================================
+(deftemplate persona
+  (slot nombre)
+  (slot apellido)
+  (slot color-ojos)
+  (slot altura))
+
+(deffacts personas-ej1
+  (persona (nombre Ana) (apellido Ruiz) (color-ojos verde) (altura 1.68)))
+
+; ============================================================
+; Ejercicio 2: plantilla "persona2" con multislots
+; ============================================================
+(deftemplate persona2
+  (multislot nombre)
+  (multislot apellidos))
+
+(deffacts personas-ej2
+  (persona2 (nombre Juan Carlos) (apellidos Garcia Lopez)))
+
+; ============================================================
+; Ejercicio 3: plantilla "libro" + hechos sobre 3 libros
+; ============================================================
+(deftemplate libro
+  (multislot autores)
+  (slot titulo (type STRING))
+  (slot editorial (type STRING))
+  (slot anio (type INTEGER) (range 1800 2100))
+  (slot edicion (type INTEGER) (default 1)))
+
+(deffacts libros
+  (libro (autores Mira Delgado Boticario Diez)
+         (titulo "Aspectos Basicos de la Inteligencia Artificial")
+         (editorial "Sanz y Torres") (anio 1995))
+  (libro (autores Galan Boticario Mira)
+         (titulo "Problemas Resueltos de Inteligencia Artificial Aplicada: Busqueda y Representacion")
+         (editorial "Addison-Wesley Iberoamericana") (anio 1998))
+  (libro (autores Rich Knight)
+         (titulo "Inteligencia Artificial")
+         (editorial "McGraw-Hill Interamericana") (anio 1994) (edicion 2)))
+
+; ============================================================
+; Ejercicio 4: concesionario Nissan (coches y ventas)
+; ============================================================
+(deftemplate coche
+  (slot marca (default Nissan))
+  (slot modelo)
+  (slot motor (allowed-values electrico gasolina hibrido diesel))
+  (slot puertas (type INTEGER))
+  (slot color)
+  (slot cantidad (type INTEGER) (default 1)))
+
+(deftemplate venta
+  (slot vendedor)
+  (slot modelo)
+  (slot fecha)
+  (slot cliente))
+
+(deffacts concesionario
+  (coche (modelo micra)   (motor electrico) (puertas 3) (color azul)   (cantidad 1))
+  (coche (modelo juke)    (motor gasolina)  (puertas 5) (color blanco) (cantidad 1))
+  (coche (modelo juke)    (motor hibrido)   (puertas 5) (color dorado) (cantidad 1))
+  (coche (modelo qashqai) (motor hibrido)   (puertas 5) (color gris)   (cantidad 2))
+  (coche (modelo qashqai) (motor hibrido)   (puertas 5) (color negro)  (cantidad 1))
+
+  (venta (vendedor "Juan Perez")    (modelo juke)    (fecha 10/10/2025) (cliente "Esteban Losada"))
+  (venta (vendedor "Ana Ballester") (modelo qashqai) (fecha 13/10/2025) (cliente "Juan Cano")))
+
+; ============================================================
+; Ejercicio 5: ingredientes para pisto y tortilla de patatas
+; ============================================================
+(deftemplate ingrediente
+  (slot nombre)
+  (slot estado (allowed-values en-cocina por-comprar agotado)))
+
+; Situación 1: lo que ya tienes en casa y lo que falta por comprar
+(deffacts despensa
+  (ingrediente (nombre pimiento-verde)    (estado en-cocina))
+  (ingrediente (nombre pimiento-rojo)     (estado en-cocina))
+  (ingrediente (nombre cebolla)           (estado en-cocina))
+  (ingrediente (nombre aceite)            (estado en-cocina))
+  (ingrediente (nombre sal)               (estado en-cocina))
+  (ingrediente (nombre berenjena)         (estado por-comprar))
+  (ingrediente (nombre calabacin)         (estado por-comprar))
+  (ingrediente (nombre tomate-triturado)  (estado por-comprar))
+  (ingrediente (nombre huevo)             (estado por-comprar))
+  (ingrediente (nombre patata)            (estado por-comprar)))
+
+; Pruébalo con: (reset) (facts)
+;
+; Situación 2 (vuelta de la compra): cada ingrediente "por-comprar" pasa a "en-cocina".
+; Escribe estas líneas en la consola, una a una:
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre berenjena)))        (estado en-cocina))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre calabacin)))        (estado en-cocina))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre tomate-triturado))) (estado en-cocina))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre huevo)))            (estado en-cocina))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre patata)))           (estado en-cocina))
+;
+; Situación 3 (almuerzo terminado): se agotan cebolla y tomate-triturado.
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre cebolla)))          (estado agotado))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre tomate-triturado))) (estado agotado))
+
+; ============================================================
+; Ejercicio 6: alumnos, grupos y notas
+; ============================================================
+(deftemplate alumno
+  (slot apellidos (type STRING) (default ?NONE))
+  (slot nombre (type STRING) (default ?NONE))
+  (slot grupo)
+  (slot nota-examen1 (type NUMBER) (range 0 10) (default 0))
+  (slot nota-examen2 (type NUMBER) (range 0 10) (default 0))
+  (slot nota-media (type NUMBER) (range 0 10) (default 0))
+  (slot nota-trabajo (type NUMBER) (range 0 10) (default 0)))
+
+(deftemplate grupo
+  (slot nombre)
+  (multislot miembros (cardinality 1 4)))
+
+(deffacts curso-ej6
+  (alumno (apellidos "Garcia Lopez") (nombre "Juan") (grupo G1)
+          (nota-examen1 7) (nota-examen2 8) (nota-media 7.5) (nota-trabajo 9))
+  (alumno (apellidos "Martinez Ruiz") (nombre "Maria") (grupo G1)
+          (nota-examen1 9) (nota-examen2 9) (nota-media 9) (nota-trabajo 9))
+  (grupo (nombre G1) (miembros Juan Maria)))
+
+; ============================================================
+; Ejercicio 7: conjuntos
+; ============================================================
+(deftemplate conjunto
+  (slot nombre (type SYMBOL STRING))
+  (multislot elementos (type INTEGER SYMBOL)
+             (allowed-symbols rojo naranja amarillo verde azul indigo violeta))
+  (slot subconjunto-de (type SYMBOL) (default ninguno)))
+
+(deffacts conjuntos
+  (conjunto (nombre A) (elementos 1 2 3) (subconjunto-de B))
+  (conjunto (nombre B) (elementos 1 2 3 rojo verde))
+  (conjunto (nombre C) (elementos rojo verde amarillo azul)))
+
+; ============================================================
+; Ejercicio 8: películas de cine
+; ============================================================
+(deftemplate pelicula
+  (slot titulo (type STRING) (default ?NONE))
+  (slot director (type STRING))
+  (slot anio (type INTEGER) (range 1888 2100))
+  (slot duracion (type INTEGER) (range 1 600))
+  (multislot genero (type SYMBOL))
+  (slot valoracion (type FLOAT) (range 0.0 10.0) (default 0.0)))
+
+(deffacts peliculas
+  (pelicula (titulo "Regreso al futuro") (director "Robert Zemeckis") (anio 1985) (duracion 116)
+            (genero ciencia-ficcion comedia aventuras) (valoracion 8.5))
+  (pelicula (titulo "El padrino") (director "Francis Ford Coppola") (anio 1972) (duracion 175)
+            (genero drama crimen) (valoracion 9.2)))
+
+; Pruébalo todo con:
+; (reset)
+; (facts)`
 };
 
 const editorInput = document.getElementById('editorInput');
