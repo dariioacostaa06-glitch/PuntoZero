@@ -2624,7 +2624,14 @@ m1-6</code></pre>
         <option value="semaforo">Semáforo (PuedoCruzar / NoPuedoCruzar)</option>
         <option value="modulos">Módulos y pila de focos</option>
         <option value="generica">Función genérica (defgeneric/defmethod)</option>
-        <option value="relacion01">Relación 1: Hechos (8 ejercicios resueltos)</option>
+        <option value="relacion01-ej1">Relación 1 · Ej.1: plantilla persona</option>
+        <option value="relacion01-ej2">Relación 1 · Ej.2: plantilla persona2 (multislot)</option>
+        <option value="relacion01-ej3">Relación 1 · Ej.3: plantilla libro</option>
+        <option value="relacion01-ej4">Relación 1 · Ej.4: concesionario (coche/venta)</option>
+        <option value="relacion01-ej5">Relación 1 · Ej.5: ingredientes (pisto/tortilla)</option>
+        <option value="relacion01-ej6">Relación 1 · Ej.6: alumnos y grupos</option>
+        <option value="relacion01-ej7">Relación 1 · Ej.7: conjuntos</option>
+        <option value="relacion01-ej8">Relación 1 · Ej.8: películas</option>
       </select>
       <button id="loadExampleBtn" class="primary" type="button">Cargar ejemplo</button>
       <button id="clearEditorBtn" type="button">Vaciar</button>
@@ -2894,7 +2901,7 @@ const CLIPS_EXAMPLES = {
 ; (m1 Hola)-> m1-4
 ; (m1 22)  -> m1-6 (la restricción más específica gana)`,
 
-  relacion01:
+  'relacion01-ej1':
 `; ============================================================
 ; Relación 1 — Ejercicio 1: plantilla "persona" (casillas simples)
 ; ============================================================
@@ -2907,8 +2914,11 @@ const CLIPS_EXAMPLES = {
 (deffacts personas-ej1
   (persona (nombre Ana) (apellido Ruiz) (color-ojos verde) (altura 1.68)))
 
-; ============================================================
-; Ejercicio 2: plantilla "persona2" con multislots
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej2':
+`; ============================================================
+; Relación 1 — Ejercicio 2: plantilla "persona2" con multislots
 ; ============================================================
 (deftemplate persona2
   (multislot nombre)
@@ -2917,8 +2927,11 @@ const CLIPS_EXAMPLES = {
 (deffacts personas-ej2
   (persona2 (nombre Juan Carlos) (apellidos Garcia Lopez)))
 
-; ============================================================
-; Ejercicio 3: plantilla "libro" + hechos sobre 3 libros
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej3':
+`; ============================================================
+; Relación 1 — Ejercicio 3: plantilla "libro" + hechos sobre 3 libros
 ; ============================================================
 (deftemplate libro
   (multislot autores)
@@ -2938,8 +2951,11 @@ const CLIPS_EXAMPLES = {
          (titulo "Inteligencia Artificial")
          (editorial "McGraw-Hill Interamericana") (anio 1994) (edicion 2)))
 
-; ============================================================
-; Ejercicio 4: concesionario Nissan (coches y ventas)
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej4':
+`; ============================================================
+; Relación 1 — Ejercicio 4: concesionario Nissan (coches y ventas)
 ; ============================================================
 (deftemplate coche
   (slot marca (default Nissan))
@@ -2965,8 +2981,11 @@ const CLIPS_EXAMPLES = {
   (venta (vendedor "Juan Perez")    (modelo juke)    (fecha 10/10/2025) (cliente "Esteban Losada"))
   (venta (vendedor "Ana Ballester") (modelo qashqai) (fecha 13/10/2025) (cliente "Juan Cano")))
 
-; ============================================================
-; Ejercicio 5: ingredientes para pisto y tortilla de patatas
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej5':
+`; ============================================================
+; Relación 1 — Ejercicio 5: ingredientes para pisto y tortilla de patatas
 ; ============================================================
 (deftemplate ingrediente
   (slot nombre)
@@ -2997,10 +3016,11 @@ const CLIPS_EXAMPLES = {
 ;
 ; Situación 3 (almuerzo terminado): se agotan cebolla y tomate-triturado.
 ; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre cebolla)))          (estado agotado))
-; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre tomate-triturado))) (estado agotado))
+; (modify (nth$ 1 (find-fact ((?i ingrediente)) (eq ?i:nombre tomate-triturado))) (estado agotado))`,
 
-; ============================================================
-; Ejercicio 6: alumnos, grupos y notas
+  'relacion01-ej6':
+`; ============================================================
+; Relación 1 — Ejercicio 6: alumnos, grupos y notas
 ; ============================================================
 (deftemplate alumno
   (slot apellidos (type STRING) (default ?NONE))
@@ -3022,8 +3042,11 @@ const CLIPS_EXAMPLES = {
           (nota-examen1 9) (nota-examen2 9) (nota-media 9) (nota-trabajo 9))
   (grupo (nombre G1) (miembros Juan Maria)))
 
-; ============================================================
-; Ejercicio 7: conjuntos
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej7':
+`; ============================================================
+; Relación 1 — Ejercicio 7: conjuntos
 ; ============================================================
 (deftemplate conjunto
   (slot nombre (type SYMBOL STRING))
@@ -3036,8 +3059,11 @@ const CLIPS_EXAMPLES = {
   (conjunto (nombre B) (elementos 1 2 3 rojo verde))
   (conjunto (nombre C) (elementos rojo verde amarillo azul)))
 
-; ============================================================
-; Ejercicio 8: películas de cine
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion01-ej8':
+`; ============================================================
+; Relación 1 — Ejercicio 8: películas de cine
 ; ============================================================
 (deftemplate pelicula
   (slot titulo (type STRING) (default ?NONE))
@@ -3053,9 +3079,7 @@ const CLIPS_EXAMPLES = {
   (pelicula (titulo "El padrino") (director "Francis Ford Coppola") (anio 1972) (duracion 175)
             (genero drama crimen) (valoracion 9.2)))
 
-; Pruébalo todo con:
-; (reset)
-; (facts)`
+; Pruébalo con: (reset) (facts)`
 };
 
 const editorInput = document.getElementById('editorInput');
