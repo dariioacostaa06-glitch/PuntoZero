@@ -2632,6 +2632,20 @@ m1-6</code></pre>
         <option value="relacion01-ej6">Relación 1 · Ej.6: alumnos y grupos</option>
         <option value="relacion01-ej7">Relación 1 · Ej.7: conjuntos</option>
         <option value="relacion01-ej8">Relación 1 · Ej.8: películas</option>
+        <option value="relacion02-ej1">Relación 2 · Ej.1: sonidos de animales (reglas simples)</option>
+        <option value="relacion02-ej2">Relación 2 · Ej.2: animal según sonido (hechos + regla)</option>
+        <option value="relacion02-ej3">Relación 2 · Ej.3: rellenar sonido con modify</option>
+        <option value="relacion02-ej4">Relación 2 · Ej.4: sonido-de-tipo (regla única)</option>
+        <option value="relacion02-ej5">Relación 2 · Ej.5: factorial (un número)</option>
+        <option value="relacion02-ej6">Relación 2 · Ej.6: factorial (varios números)</option>
+        <option value="relacion02-ej7">Relación 2 · Ej.7: aviso de sensores incorrectos</option>
+        <option value="relacion02-ej8">Relación 2 · Ej.8: validar fechas</option>
+        <option value="relacion02-ej9">Relación 2 · Ej.9: plantas con características exactas</option>
+        <option value="relacion02-ej10">Relación 2 · Ej.10: plantas que pueden plantarse</option>
+        <option value="relacion02-ej11">Relación 2 · Ej.11: plantas (actualización dinámica)</option>
+        <option value="relacion02-ej12">Relación 2 · Ej.12: ordenar números</option>
+        <option value="relacion02-ej13">Relación 2 · Ej.13: residencia de estudiantes</option>
+        <option value="relacion02-ej14">Relación 2 · Ej.14: supermercado 3x2</option>
       </select>
       <button id="loadExampleBtn" class="primary" type="button">Cargar ejemplo</button>
       <button id="clearEditorBtn" type="button">Vaciar</button>
@@ -3079,7 +3093,602 @@ const CLIPS_EXAMPLES = {
   (pelicula (titulo "El padrino") (director "Francis Ford Coppola") (anio 1972) (duracion 175)
             (genero drama crimen) (valoracion 9.2)))
 
-; Pruébalo con: (reset) (facts)`
+; Pruébalo con: (reset) (facts)`,
+
+  'relacion02-ej1':
+`; ============================================================
+; Relación 2 — Ejercicio 1: identificar el animal según su sonido
+; ============================================================
+(defrule identificar-perro
+  (sonido guau)
+  =>
+  (printout t "Se trata de un perro" crlf))
+
+(defrule identificar-gato
+  (sonido miau)
+  =>
+  (printout t "Se trata de un gato" crlf))
+
+(defrule identificar-pato
+  (sonido cuac)
+  =>
+  (printout t "Se trata de un pato" crlf))
+
+(defrule identificar-vaca
+  (sonido mu)
+  =>
+  (printout t "Se trata de una vaca" crlf))
+
+(defrule identificar-oveja
+  (sonido bee)
+  =>
+  (printout t "Se trata de una oveja" crlf))
+
+(defrule identificar-gallo
+  (sonido kikiriki)
+  =>
+  (printout t "Se trata de un gallo" crlf))
+
+; Pruébalo con: (assert (sonido guau)) (run)`,
+
+  'relacion02-ej2':
+`; ============================================================
+; Relación 2 — Ejercicio 2: identificar animal a partir de hechos
+; ============================================================
+(deftemplate animal
+  (slot tipo)
+  (slot sonido))
+
+(deffacts sonidos-conocidos
+  (animal (tipo perro) (sonido guau))
+  (animal (tipo gato) (sonido miau))
+  (animal (tipo pato) (sonido cuac))
+  (animal (tipo vaca) (sonido mu))
+  (animal (tipo oveja) (sonido bee))
+  (animal (tipo gallo) (sonido kikiriki)))
+
+(defrule identificar-animal
+  (sonido ?s)
+  (animal (tipo ?t) (sonido ?s))
+  =>
+  (printout t ?s " -> " ?t crlf))
+
+; Pruébalo con: (reset) (assert (sonido mu)) (run)`,
+
+  'relacion02-ej3':
+`; ============================================================
+; Relación 2 — Ejercicio 3: cada animal "dice" su sonido (modify)
+; ============================================================
+(deftemplate animal
+  (slot nombre)
+  (slot tipo)
+  (slot sonido))
+
+(defrule perro-dice-guau
+  ?a <- (animal (nombre ?n) (tipo perro) (sonido nil))
+  =>
+  (modify ?a (sonido guau))
+  (printout t ?n " dice guau" crlf))
+
+(defrule gato-dice-miau
+  ?a <- (animal (nombre ?n) (tipo gato) (sonido nil))
+  =>
+  (modify ?a (sonido miau))
+  (printout t ?n " dice miau" crlf))
+
+(defrule pato-dice-cuac
+  ?a <- (animal (nombre ?n) (tipo pato) (sonido nil))
+  =>
+  (modify ?a (sonido cuac))
+  (printout t ?n " dice cuac" crlf))
+
+(defrule vaca-dice-mu
+  ?a <- (animal (nombre ?n) (tipo vaca) (sonido nil))
+  =>
+  (modify ?a (sonido mu))
+  (printout t ?n " dice mu" crlf))
+
+(defrule oveja-dice-bee
+  ?a <- (animal (nombre ?n) (tipo oveja) (sonido nil))
+  =>
+  (modify ?a (sonido bee))
+  (printout t ?n " dice bee" crlf))
+
+(defrule gallo-dice-kikiriki
+  ?a <- (animal (nombre ?n) (tipo gallo) (sonido nil))
+  =>
+  (modify ?a (sonido kikiriki))
+  (printout t ?n " dice kikiriki" crlf))
+
+; Pruébalo con:
+; (assert (animal (nombre Toby) (tipo perro)))
+; (run)
+; (facts)`,
+
+  'relacion02-ej4':
+`; ============================================================
+; Relación 2 — Ejercicio 4: sonido-de-tipo (una sola regla)
+; ============================================================
+(deftemplate animal
+  (slot nombre)
+  (slot tipo)
+  (slot sonido))
+
+(deftemplate sonido-de-tipo
+  (slot tipo)
+  (slot sonido))
+
+(deffacts conocimiento-animales
+  (sonido-de-tipo (tipo perro) (sonido guau))
+  (sonido-de-tipo (tipo gato) (sonido miau))
+  (sonido-de-tipo (tipo pato) (sonido cuac))
+  (sonido-de-tipo (tipo vaca) (sonido mu))
+  (sonido-de-tipo (tipo oveja) (sonido bee))
+  (sonido-de-tipo (tipo gallo) (sonido kikiriki))
+  (animal (nombre Toby) (tipo perro))
+  (animal (nombre Garfield) (tipo gato)))
+
+(defrule rellenar-sonido-animal
+  ?a <- (animal (nombre ?n) (tipo ?t) (sonido nil))
+  (sonido-de-tipo (tipo ?t) (sonido ?s))
+  =>
+  (modify ?a (sonido ?s))
+  (printout t ?n " dice " ?s crlf))
+
+; Pruébalo con: (reset) (run)`,
+
+  'relacion02-ej5':
+`; ============================================================
+; Relación 2 — Ejercicio 5: factorial de un número (recursión por reglas)
+; ============================================================
+(defrule iniciar-factorial
+  ?f <- (factorial ?n)
+  =>
+  (retract ?f)
+  (assert (calculo-factorial ?n ?n 1)))
+
+(defrule paso-factorial
+  ?c <- (calculo-factorial ?n ?i ?prod)
+  (test (> ?i 1))
+  =>
+  (retract ?c)
+  (assert (calculo-factorial ?n (- ?i 1) (* ?prod ?i))))
+
+(defrule fin-factorial
+  ?c <- (calculo-factorial ?n ?i ?prod)
+  (test (<= ?i 1))
+  =>
+  (retract ?c)
+  (printout t "El factorial de " ?n " es " ?prod crlf))
+
+; Pruébalo con: (assert (factorial 5)) (run)`,
+
+  'relacion02-ej6':
+`; ============================================================
+; Relación 2 — Ejercicio 6: factorial de varios números a la vez
+; ============================================================
+(defrule iniciar-factorial
+  ?f <- (factorial ?n)
+  =>
+  (retract ?f)
+  (assert (calculo-factorial ?n ?n 1)))
+
+(defrule paso-factorial
+  ?c <- (calculo-factorial ?n ?i ?prod)
+  (test (> ?i 1))
+  =>
+  (retract ?c)
+  (assert (calculo-factorial ?n (- ?i 1) (* ?prod ?i))))
+
+(defrule fin-factorial
+  ?c <- (calculo-factorial ?n ?i ?prod)
+  (test (<= ?i 1))
+  =>
+  (retract ?c)
+  (printout t "El factorial de " ?n " es " ?prod crlf))
+
+(deffacts numeros-factorial
+  (factorial 3)
+  (factorial 4)
+  (factorial 5))
+
+; Pruébalo con: (reset) (run)
+; CLIPS calcula los tres factoriales sin necesidad de prioridades:
+; la estrategia por defecto "depth" (LIFO) procesa primero el ultimo
+; hecho declarado, (factorial 5), por lo que el orden de salida es
+; 120, 24 y 6.`,
+
+  'relacion02-ej7':
+`; ============================================================
+; Relación 2 — Ejercicio 7: avisar si 3 o más sensores fallan
+; ============================================================
+(deftemplate sensor
+  (slot id (type INTEGER) (range 1 10))
+  (slot estado (allowed-values correcto incorrecto)))
+
+(deffacts sensores
+  (sensor (id 1) (estado correcto))
+  (sensor (id 2) (estado incorrecto))
+  (sensor (id 3) (estado correcto))
+  (sensor (id 4) (estado incorrecto))
+  (sensor (id 5) (estado correcto))
+  (sensor (id 6) (estado incorrecto))
+  (sensor (id 7) (estado correcto))
+  (sensor (id 8) (estado correcto))
+  (sensor (id 9) (estado correcto))
+  (sensor (id 10) (estado correcto)))
+
+(defrule aviso-sensores-incorrectos
+  (sensor (id ?id1) (estado incorrecto))
+  (sensor (id ?id2) (estado incorrecto))
+  (sensor (id ?id3) (estado incorrecto))
+  (test (< ?id1 ?id2))
+  (test (< ?id2 ?id3))
+  (not (aviso-sensores))
+  =>
+  (assert (aviso-sensores))
+  (printout t "Atencion: 3 o mas sensores en estado incorrecto" crlf))
+
+; Pruébalo con: (reset) (run)`,
+
+  'relacion02-ej8':
+`; ============================================================
+; Relación 2 — Ejercicio 8: comprobar si una fecha es válida
+; ============================================================
+(deftemplate fecha
+  (slot dia (type INTEGER))
+  (slot mes (type INTEGER))
+  (slot anio (type INTEGER)))
+
+(defrule comprobar-fecha
+  (fecha (dia ?d) (mes ?m) (anio ?a))
+  =>
+  (if (or (< ?m 1) (> ?m 12) (< ?d 1))
+   then
+    (printout t ?d "/" ?m "/" ?a " no es una fecha valida" crlf)
+   else
+    (bind ?bisiesto (and (= (mod ?a 4) 0)
+                          (or (<> (mod ?a 100) 0) (= (mod ?a 400) 0))))
+    (bind ?dias-mes (create$ 31 (if ?bisiesto then 29 else 28) 31 30 31 30 31 31 30 31 30 31))
+    (bind ?max-dia (nth$ ?m ?dias-mes))
+    (if (> ?d ?max-dia)
+     then (printout t ?d "/" ?m "/" ?a " no es una fecha valida" crlf)
+     else (printout t ?d "/" ?m "/" ?a " es una fecha valida" crlf))))
+
+; Pruébalo con:
+; (assert (fecha (dia 29) (mes 2) (anio 2024)))
+; (assert (fecha (dia 29) (mes 2) (anio 2023)))
+; (assert (fecha (dia 31) (mes 4) (anio 2024)))
+; (run)`,
+
+  'relacion02-ej9':
+`; ============================================================
+; Relación 2 — Ejercicio 9: plantas con las características EXACTAS deseadas
+; ============================================================
+(deftemplate planta
+  (slot nombre))
+
+(deftemplate tiene
+  (slot planta)
+  (slot caracteristica))
+
+(deffacts catalogo-plantas
+  (planta (nombre hortensia))
+  (planta (nombre adelfa))
+  (planta (nombre laurel))
+  (planta (nombre madreselva))
+  (planta (nombre gardenia))
+  (planta (nombre enebro))
+  (planta (nombre pimentero))
+  (planta (nombre escaramujo))
+  (planta (nombre aucuba))
+  (planta (nombre azalea))
+
+  (tiene (planta hortensia) (caracteristica sombra))
+  (tiene (planta hortensia) (caracteristica ciudad))
+  (tiene (planta hortensia) (caracteristica maceta))
+  (tiene (planta hortensia) (caracteristica crecimiento-rapido))
+
+  (tiene (planta adelfa) (caracteristica ciudad))
+  (tiene (planta adelfa) (caracteristica maceta))
+  (tiene (planta adelfa) (caracteristica cuidado-facil))
+  (tiene (planta adelfa) (caracteristica crecimiento-rapido))
+
+  (tiene (planta laurel) (caracteristica frio))
+  (tiene (planta laurel) (caracteristica sombra))
+  (tiene (planta laurel) (caracteristica sequedad))
+  (tiene (planta laurel) (caracteristica suelo-humedo))
+  (tiene (planta laurel) (caracteristica ciudad))
+  (tiene (planta laurel) (caracteristica cuidado-facil))
+  (tiene (planta laurel) (caracteristica crecimiento-rapido))
+
+  (tiene (planta madreselva) (caracteristica ciudad))
+  (tiene (planta madreselva) (caracteristica maceta))
+  (tiene (planta madreselva) (caracteristica cuidado-facil))
+  (tiene (planta madreselva) (caracteristica crecimiento-rapido))
+
+  (tiene (planta gardenia) (caracteristica sombra))
+  (tiene (planta gardenia) (caracteristica suelo-acido))
+  (tiene (planta gardenia) (caracteristica maceta))
+
+  (tiene (planta enebro) (caracteristica frio))
+  (tiene (planta enebro) (caracteristica sequedad))
+  (tiene (planta enebro) (caracteristica suelo-acido))
+  (tiene (planta enebro) (caracteristica ciudad))
+  (tiene (planta enebro) (caracteristica cuidado-facil))
+
+  (tiene (planta pimentero) (caracteristica frio))
+  (tiene (planta pimentero) (caracteristica sombra))
+  (tiene (planta pimentero) (caracteristica suelo-humedo))
+  (tiene (planta pimentero) (caracteristica suelo-acido))
+  (tiene (planta pimentero) (caracteristica cuidado-facil))
+
+  (tiene (planta escaramujo) (caracteristica frio))
+  (tiene (planta escaramujo) (caracteristica sombra))
+  (tiene (planta escaramujo) (caracteristica suelo-humedo))
+  (tiene (planta escaramujo) (caracteristica ciudad))
+  (tiene (planta escaramujo) (caracteristica cuidado-facil))
+
+  (tiene (planta aucuba) (caracteristica sombra))
+  (tiene (planta aucuba) (caracteristica sequedad))
+  (tiene (planta aucuba) (caracteristica maceta))
+  (tiene (planta aucuba) (caracteristica cuidado-facil))
+
+  (tiene (planta azalea) (caracteristica sombra))
+  (tiene (planta azalea) (caracteristica suelo-humedo))
+  (tiene (planta azalea) (caracteristica suelo-acido))
+  (tiene (planta azalea) (caracteristica maceta)))
+
+(defrule planta-exacta
+  (planta (nombre ?p))
+  (not (and (caracteristica-deseada ?c)
+            (not (tiene (planta ?p) (caracteristica ?c)))))
+  (not (and (tiene (planta ?p) (caracteristica ?c2))
+            (not (caracteristica-deseada ?c2))))
+  =>
+  (printout t ?p crlf))
+
+; Pruébalo con (el conjunto exacto de "laurel"):
+; (reset)
+; (assert (caracteristica-deseada frio))
+; (assert (caracteristica-deseada sombra))
+; (assert (caracteristica-deseada sequedad))
+; (assert (caracteristica-deseada suelo-humedo))
+; (assert (caracteristica-deseada ciudad))
+; (assert (caracteristica-deseada cuidado-facil))
+; (assert (caracteristica-deseada crecimiento-rapido))
+; (run)   -> imprime "laurel"`,
+
+  'relacion02-ej10':
+`; ============================================================
+; Relación 2 — Ejercicio 10: plantas que pueden plantarse (puede-plantarse)
+; ============================================================
+(deftemplate planta
+  (slot nombre)
+  (multislot caracteristicas))
+
+(deffacts catalogo-plantas
+  (planta (nombre hortensia)  (caracteristicas sombra ciudad maceta crecimiento-rapido))
+  (planta (nombre adelfa)     (caracteristicas ciudad maceta cuidado-facil crecimiento-rapido))
+  (planta (nombre laurel)     (caracteristicas frio sombra sequedad suelo-humedo ciudad cuidado-facil crecimiento-rapido))
+  (planta (nombre madreselva) (caracteristicas ciudad maceta cuidado-facil crecimiento-rapido))
+  (planta (nombre gardenia)   (caracteristicas sombra suelo-acido maceta))
+  (planta (nombre enebro)     (caracteristicas frio sequedad suelo-acido ciudad cuidado-facil))
+  (planta (nombre pimentero)  (caracteristicas frio sombra suelo-humedo suelo-acido cuidado-facil))
+  (planta (nombre escaramujo) (caracteristicas frio sombra suelo-humedo ciudad cuidado-facil))
+  (planta (nombre aucuba)     (caracteristicas sombra sequedad maceta cuidado-facil))
+  (planta (nombre azalea)     (caracteristicas sombra suelo-humedo suelo-acido maceta)))
+
+(deftemplate puede-plantarse
+  (slot planta))
+
+(defrule planta-compatible
+  (planta (nombre ?p) (caracteristicas $?cars))
+  (not (and (caracteristica-deseada ?c)
+            (test (not (member$ ?c ?cars)))))
+  (not (puede-plantarse (planta ?p)))
+  =>
+  (assert (puede-plantarse (planta ?p))))
+
+; Pruébalo con:
+; (reset)
+; (assert (caracteristica-deseada frio))
+; (run)
+; (facts 11)   -> apareceran escaramujo, pimentero, enebro y laurel`,
+
+  'relacion02-ej11':
+`; ============================================================
+; Relación 2 — Ejercicio 11: plantas, actualización dinámica de puede-plantarse
+; ============================================================
+(deftemplate planta
+  (slot nombre)
+  (multislot caracteristicas))
+
+(deffacts catalogo-plantas
+  (planta (nombre hortensia)  (caracteristicas sombra ciudad maceta crecimiento-rapido))
+  (planta (nombre adelfa)     (caracteristicas ciudad maceta cuidado-facil crecimiento-rapido))
+  (planta (nombre laurel)     (caracteristicas frio sombra sequedad suelo-humedo ciudad cuidado-facil crecimiento-rapido))
+  (planta (nombre madreselva) (caracteristicas ciudad maceta cuidado-facil crecimiento-rapido))
+  (planta (nombre gardenia)   (caracteristicas sombra suelo-acido maceta))
+  (planta (nombre enebro)     (caracteristicas frio sequedad suelo-acido ciudad cuidado-facil))
+  (planta (nombre pimentero)  (caracteristicas frio sombra suelo-humedo suelo-acido cuidado-facil))
+  (planta (nombre escaramujo) (caracteristicas frio sombra suelo-humedo ciudad cuidado-facil))
+  (planta (nombre aucuba)     (caracteristicas sombra sequedad maceta cuidado-facil))
+  (planta (nombre azalea)     (caracteristicas sombra suelo-humedo suelo-acido maceta)))
+
+(deftemplate puede-plantarse
+  (slot planta))
+
+(defrule planta-compatible
+  (planta (nombre ?p) (caracteristicas $?cars))
+  (not (and (caracteristica-deseada ?c)
+            (test (not (member$ ?c ?cars)))))
+  (not (puede-plantarse (planta ?p)))
+  =>
+  (assert (puede-plantarse (planta ?p))))
+
+(defrule planta-ya-no-compatible
+  ?pp <- (puede-plantarse (planta ?p))
+  (planta (nombre ?p) (caracteristicas $?cars))
+  (caracteristica-deseada ?c)
+  (test (not (member$ ?c ?cars)))
+  =>
+  (retract ?pp))
+
+; Reproduce el ejemplo del enunciado, paso a paso:
+; (reset)
+; (assert (caracteristica-deseada frio))
+; (run)
+; (facts 11)
+; (assert (caracteristica-deseada crecimiento-rapido))
+; (run)
+; (facts 11)
+; (retract 11)
+; (run)
+; (facts 15)`,
+
+  'relacion02-ej12':
+`; ============================================================
+; Relación 2 — Ejercicio 12: ordenar (numero N) en un único hecho (numeros ...)
+; ============================================================
+(defrule extraer-minimo-inicial
+  ?f <- (numero ?n)
+  (not (numero ?m&:(< ?m ?n)))
+  (not (numeros $?))
+  =>
+  (retract ?f)
+  (assert (numeros ?n)))
+
+(defrule extraer-minimo-siguiente
+  ?f <- (numero ?n)
+  (not (numero ?m&:(< ?m ?n)))
+  ?lst <- (numeros $?lista)
+  =>
+  (retract ?f ?lst)
+  (assert (numeros $?lista ?n)))
+
+(deffacts numeros-desordenados
+  (numero 5)
+  (numero 9)
+  (numero 2))
+
+; Pruébalo con: (reset) (run) (facts)  -> (numeros 2 5 9)`,
+
+  'relacion02-ej13':
+`; ============================================================
+; Relación 2 — Ejercicio 13: residencia de estudiantes
+; ============================================================
+(deftemplate habitacion
+  (slot id (type INTEGER))
+  (slot capacidad (type INTEGER))
+  (slot ocupantes (type INTEGER) (default 0))
+  (slot sexo (default nil))
+  (slot fumador (default nil)))
+
+(deftemplate estudiante
+  (slot nombre)
+  (slot sexo)
+  (slot fumador))
+
+(deftemplate alojamiento
+  (slot estudiante)
+  (slot habitacion (type INTEGER)))
+
+(defrule alojar-en-habitacion-compatible
+  ?e <- (estudiante (nombre ?n) (sexo ?s) (fumador ?f))
+  ?h <- (habitacion (id ?id) (capacidad ?cap) (ocupantes ?oc) (sexo ?s) (fumador ?f))
+  (test (> ?oc 0))
+  (test (< ?oc ?cap))
+  =>
+  (retract ?e)
+  (modify ?h (ocupantes (+ ?oc 1)))
+  (assert (alojamiento (estudiante ?n) (habitacion ?id)))
+  (printout t ?n " alojado/a en la habitacion " ?id crlf))
+
+(defrule alojar-en-habitacion-vacia-mas-grande
+  ?e <- (estudiante (nombre ?n) (sexo ?s) (fumador ?f))
+  (not (and (habitacion (sexo ?s) (fumador ?f) (ocupantes ?oc) (capacidad ?cap))
+            (test (and (> ?oc 0) (< ?oc ?cap)))))
+  ?h <- (habitacion (id ?id) (capacidad ?cap2) (ocupantes 0))
+  (not (and (habitacion (ocupantes 0) (capacidad ?cap3))
+            (test (> ?cap3 ?cap2))))
+  =>
+  (retract ?e)
+  (modify ?h (ocupantes 1) (sexo ?s) (fumador ?f))
+  (assert (alojamiento (estudiante ?n) (habitacion ?id)))
+  (printout t ?n " alojado/a en la habitacion " ?id crlf))
+
+(defrule no-hay-habitacion-disponible
+  ?e <- (estudiante (nombre ?n) (sexo ?s) (fumador ?f))
+  (not (and (habitacion (sexo ?s) (fumador ?f) (ocupantes ?oc) (capacidad ?cap))
+            (test (and (> ?oc 0) (< ?oc ?cap)))))
+  (not (habitacion (ocupantes 0)))
+  =>
+  (retract ?e)
+  (printout t "No hay habitacion disponible para " ?n crlf))
+
+(deffacts residencia
+  ; habitaciones: simple=1, doble=2, triple=3, cuadruple=4 plazas
+  (habitacion (id 1) (capacidad 4))
+  (habitacion (id 2) (capacidad 3))
+  (habitacion (id 3) (capacidad 2))
+  (habitacion (id 4) (capacidad 2))
+  (habitacion (id 5) (capacidad 1))
+
+  (estudiante (nombre Ana)    (sexo M) (fumador no))
+  (estudiante (nombre Bea)    (sexo M) (fumador no))
+  (estudiante (nombre Carlos) (sexo H) (fumador si))
+  (estudiante (nombre Diego)  (sexo H) (fumador si))
+  (estudiante (nombre Elena)  (sexo M) (fumador no))
+  (estudiante (nombre Fran)   (sexo H) (fumador no)))
+
+; Pruébalo con: (reset) (run) (facts)`,
+
+  'relacion02-ej14':
+`; ============================================================
+; Relación 2 — Ejercicio 14: importe total con promoción 3x2
+; ============================================================
+(deftemplate producto
+  (slot nombre)
+  (slot pvp))
+
+(deftemplate compra
+  (slot producto)
+  (slot unidades))
+
+(deftemplate total-compra
+  (slot importe))
+
+(defrule iniciar-total
+  (not (total-compra))
+  (compra)
+  =>
+  (assert (total-compra (importe 0))))
+
+(defrule procesar-compra
+  ?c <- (compra (producto ?p) (unidades ?u))
+  (producto (nombre ?p) (pvp ?precio))
+  ?t <- (total-compra (importe ?imp))
+  =>
+  (retract ?c ?t)
+  (bind ?gratis (div ?u 3))
+  (bind ?a-pagar (- ?u ?gratis))
+  (assert (total-compra (importe (+ ?imp (* ?a-pagar ?precio))))))
+
+(deffacts supermercado
+  (producto (nombre coca-cola) (pvp 1.5))
+  (producto (nombre leche)     (pvp 0.9))
+  (producto (nombre pan)       (pvp 1.0))
+
+  (compra (producto coca-cola) (unidades 3))
+  (compra (producto leche)     (unidades 7))
+  (compra (producto pan)       (unidades 1)))
+
+; Pruébalo con: (reset) (run) (facts)
+; coca-cola: 3 unid. (3x2 -> paga 2) = 3.0
+; leche:     7 unid. (3x2 -> paga 5) = 4.5
+; pan:       1 unid. (sin descuento) = 1.0
+; total = 8.5`
 };
 
 const editorInput = document.getElementById('editorInput');
