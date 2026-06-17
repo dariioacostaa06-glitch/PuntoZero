@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR · Arquitectura de Redes — Guia de estudio</title>
+<style>
+:root{
+  --bg:#0d1117;
+  --bg-card:#161b22;
+  --bg-code:#0a0e14;
+  --border:#30363d;
+  --text:#c9d1d9;
+  --text-dim:#8b949e;
+  --accent:#56d364;
+  --accent2:#79c0ff;
+  --green:#7ee787;
+  --purple:#d2a8ff;
+  --red:#ff7b72;
+  --blue:#a5d6ff;
+  --orange:#ffa657;
+  --sidebar-w:270px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{color:var(--accent2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;gap:1rem;
+  background:linear-gradient(135deg,#161b22,#0d1117);
+  border-bottom:1px solid var(--border);
+  padding:.75rem 1.25rem;
+}
+.topbar .logo{
+  font-weight:800;font-size:1.25rem;letter-spacing:.5px;
+  color:var(--accent);
+}
+.topbar .logo span{color:var(--text-dim);font-weight:400;font-size:.85rem;margin-left:.5rem;}
+#navToggle{
+  display:none;
+  margin-left:auto;
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:1rem;
+}
+
+.layout{display:flex;max-width:1400px;margin:0 auto;}
+.sidebar{
+  width:var(--sidebar-w);flex:none;
+  position:sticky;top:53px;align-self:flex-start;
+  height:calc(100vh - 53px);overflow-y:auto;
+  border-right:1px solid var(--border);
+  padding:1rem .75rem 2rem;
+}
+.sidebar h4{
+  text-transform:uppercase;font-size:.7rem;letter-spacing:1px;
+  color:var(--text-dim);margin:1.25rem 0 .4rem .5rem;
+}
+.sidebar a{
+  display:block;color:var(--text);padding:.35rem .6rem;border-radius:6px;
+  font-size:.85rem;
+}
+.sidebar a:hover{background:var(--bg-card);text-decoration:none;}
+.sidebar a.active{background:var(--bg-card);color:var(--accent);font-weight:600;}
+.sidebar .tnum{color:var(--text-dim);margin-right:.35rem;font-variant-numeric:tabular-nums;}
+
+main{flex:1;min-width:0;padding:1.5rem 2rem 5rem;}
+
+.hero{padding:2rem 0 1rem;}
+.hero h1{font-size:2.1rem;margin:0 0 .25rem;}
+.hero p{color:var(--text-dim);max-width:700px;}
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:1rem;margin:1.5rem 0 2.5rem;
+}
+.card-link{
+  display:block;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;padding:1rem 1.1rem;color:var(--text);transition:.15s;
+}
+.card-link:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none;}
+.card-link .badge{
+  display:inline-block;font-weight:700;
+  font-size:.75rem;border-radius:5px;padding:.1rem .45rem;margin-bottom:.4rem;
+}
+.badge-fisico{background:#2ea043;color:#fff;}
+.badge-enlace{background:#1f6feb;color:#fff;}
+.badge-intro{background:var(--orange);color:#1a1300;}
+.badge-lan{background:var(--purple);color:#1a1300;}
+.card-link h3{margin:.2rem 0 .3rem;font-size:1.02rem;}
+.card-link p{margin:0;color:var(--text-dim);font-size:.85rem;}
+
+section.tema{
+  border-top:1px solid var(--border);
+  padding-top:2rem;margin-top:2rem;
+}
+section.tema > h2{
+  font-size:1.6rem;margin-top:0;
+  display:flex;align-items:center;gap:.6rem;
+}
+section.tema > h2 .num{
+  background:var(--accent);color:#0d1117;font-weight:800;
+  border-radius:8px;padding:.15rem .55rem;font-size:1rem;
+}
+h3{color:var(--accent2);border-bottom:1px dashed var(--border);padding-bottom:.25rem;margin-top:2rem;}
+h4{color:var(--purple);margin-top:1.4rem;}
+
+.pdf-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--bg-card);border:1px solid var(--border);
+  padding:.3rem .7rem;border-radius:6px;font-size:.85rem;color:var(--text-dim);
+  margin-bottom:1rem;
+}
+.pdf-link:hover{color:var(--accent);border-color:var(--accent);text-decoration:none;}
+
+.box{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;
+}
+.note{border-left:4px solid var(--accent2);}
+.tip{border-left:4px solid var(--green);}
+.warn{border-left:4px solid var(--red);}
+.important{border-left:4px solid var(--orange);}
+.box > strong:first-child, .box-title{
+  display:block;text-transform:uppercase;font-size:.72rem;letter-spacing:1px;
+  color:var(--text-dim);margin-bottom:.4rem;
+}
+
+.diagram{
+  display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:1.2rem 0;
+}
+.diagram .node{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:8px;
+  padding:.8rem 1.1rem;text-align:center;font-size:.9rem;min-width:140px;
+}
+.diagram .node.center{border-color:var(--accent);color:var(--accent);font-weight:700;}
+
+.layer-stack{
+  display:flex;flex-direction:column;align-items:center;gap:0;margin:1.2rem auto;max-width:320px;
+}
+.layer-stack .layer{
+  width:100%;text-align:center;padding:.6rem;font-size:.85rem;font-weight:600;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.9rem;}
+th,td{border:1px solid var(--border);padding:.5rem .7rem;text-align:left;vertical-align:top;}
+th{background:var(--bg-card);color:var(--accent2);}
+tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+td code, th code{color:var(--blue);}
+
+.formula{
+  background:var(--bg-code);border:1px solid var(--border);border-radius:8px;
+  padding:.9rem 1.1rem;margin:.8rem 0;overflow-x:auto;
+  font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:.9rem;
+  color:var(--blue);text-align:center;
+}
+
+footer{
+  border-top:1px solid var(--border);padding:2rem;text-align:center;
+  color:var(--text-dim);font-size:.85rem;
+}
+
+/* ===== Progress Tracker ===== */
+.tracker-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+.tracker-table th,.tracker-table td{
+  border:1px solid var(--border);padding:.55rem .7rem;text-align:center;vertical-align:middle;
+}
+.tracker-table th{background:var(--bg-card);color:var(--accent2);font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;}
+.tracker-table td:first-child{text-align:left;font-weight:600;min-width:200px;}
+.tracker-table .row-done{background:rgba(86,211,100,.06);}
+.tracker-table .row-done td:first-child{color:var(--green);}
+.check-cell{cursor:pointer;transition:.15s;position:relative;}
+.check-cell:hover{background:rgba(255,255,255,.04);}
+.check-cell input{display:none;}
+.check-cell .ck{
+  display:inline-block;width:22px;height:22px;border-radius:5px;
+  border:2px solid var(--border);transition:.15s;font-size:0;line-height:22px;
+}
+.check-cell input:checked+.ck{
+  background:var(--accent);border-color:var(--accent);
+  font-size:14px;color:#0d1117;
+}
+
+/* Stats */
+.stats-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:1rem;margin:1.5rem 0;
+}
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:10px;
+  padding:1rem;text-align:center;
+}
+.stat-card .stat-val{font-size:2rem;font-weight:800;color:var(--accent);}
+.stat-card .stat-label{font-size:.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:.2rem;}
+
+.progress-bar-wrap{
+  background:var(--bg-code);border-radius:8px;height:18px;overflow:hidden;margin:.4rem 0;
+  border:1px solid var(--border);
+}
+.progress-bar-fill{
+  height:100%;border-radius:8px;transition:width .4s ease;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+}
+
+.col-progress{margin:1rem 0;}
+.col-progress .col-row{
+  display:flex;align-items:center;gap:.8rem;margin:.5rem 0;
+}
+.col-progress .col-label{width:100px;font-size:.85rem;font-weight:600;text-align:right;flex:none;}
+.col-progress .col-bar{flex:1;}
+.col-progress .col-pct{width:45px;font-size:.85rem;color:var(--text-dim);text-align:right;flex:none;}
+
+/* Chart bars */
+.chart-container{margin:1.5rem 0;}
+.chart-bar-row{
+  display:flex;align-items:center;gap:.6rem;margin:.35rem 0;
+}
+.chart-bar-label{width:36px;font-size:.78rem;color:var(--text-dim);text-align:right;flex:none;font-weight:700;}
+.chart-bar-track{flex:1;height:24px;background:var(--bg-code);border-radius:6px;overflow:hidden;display:flex;border:1px solid var(--border);}
+.chart-bar-seg{height:100%;transition:width .4s ease;min-width:0;}
+.chart-bar-seg.s-apuntes{background:#ff7b72;}
+.chart-bar-seg.s-subrayados{background:#ffa657;}
+.chart-bar-seg.s-estudiados{background:#79c0ff;}
+.chart-bar-seg.s-test{background:#56d364;}
+.chart-bar-val{width:35px;font-size:.78rem;color:var(--text-dim);text-align:left;flex:none;}
+
+.chart-legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin:.8rem 0;font-size:.8rem;}
+.chart-legend span{display:flex;align-items:center;gap:.3rem;}
+.chart-legend .dot{width:12px;height:12px;border-radius:3px;flex:none;}
+
+/* Donut chart (canvas) */
+.donut-wrap{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1.5rem 0;}
+.donut-wrap canvas{flex:none;}
+.donut-info{text-align:center;}
+.donut-info .big{font-size:2.6rem;font-weight:800;color:var(--accent);}
+.donut-info .sub{color:var(--text-dim);font-size:.85rem;}
+
+/* Reset button */
+.btn-reset{
+  background:transparent;border:1px solid var(--red);color:var(--red);
+  padding:.45rem 1rem;border-radius:6px;cursor:pointer;font-size:.85rem;
+  font-family:inherit;margin-top:1rem;
+}
+.btn-reset:hover{background:var(--red);color:#0d1117;}
+
+@media (max-width:900px){
+  .sidebar{
+    position:fixed;left:0;top:53px;height:calc(100vh - 53px);
+    background:var(--bg);z-index:40;transform:translateX(-100%);
+    transition:.2s;width:80vw;max-width:300px;
+  }
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 20px rgba(0,0,0,.5);}
+  #navToggle{display:block;}
+  main{padding:1.25rem 1.1rem 4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">AR <span>· Arquitectura de Redes — guia de estudio</span></div>
+  <button id="navToggle" aria-label="Abrir indice">&#9776; Indice</button>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <h4>General</h4>
+    <a href="#inicio">Inicio</a>
+
+    <h4>Introduccion</h4>
+    <a href="#tema1"><span class="tnum">01</span>Introduccion a las redes</a>
+    <a href="#tema2"><span class="tnum">02</span>Modelos de redes</a>
+
+    <h4>Nivel fisico</h4>
+    <a href="#tema3"><span class="tnum">03</span>Medios de transmision</a>
+    <a href="#tema4"><span class="tnum">04</span>Teoria de la senal</a>
+    <a href="#tema5"><span class="tnum">05</span>Transmision digital</a>
+    <a href="#tema6"><span class="tnum">06</span>Transmision analogica</a>
+    <a href="#tema7"><span class="tnum">07</span>Ancho de banda</a>
+
+    <h4>Nivel de enlace</h4>
+    <a href="#tema8"><span class="tnum">08</span>Introduccion enlace</a>
+    <a href="#tema9"><span class="tnum">09</span>Entramado y gestion</a>
+    <a href="#tema10"><span class="tnum">10</span>Control de flujo</a>
+    <a href="#tema11"><span class="tnum">11</span>Deteccion de errores</a>
+    <a href="#tema12"><span class="tnum">12</span>Protocolos de enlace</a>
+    <a href="#tema13"><span class="tnum">13</span>Acceso al medio</a>
+
+    <h4>Redes LAN</h4>
+    <a href="#tema14"><span class="tnum">14</span>Redes de Area Local</a>
+
+    <h4>Herramientas</h4>
+    <a href="#progreso" style="color:var(--green);">&#9745; Progreso de estudio</a>
+  </nav>
+
+  <main>
+
+  <!-- ============================================================ -->
+  <!-- INICIO -->
+  <!-- ============================================================ -->
+  <section id="inicio" class="hero">
+    <h1>Arquitectura de Redes (AR)</h1>
+    <p>Resumen interactivo de los 14 temas de la asignatura del <strong>Grado en Ingenieria Informatica</strong> de la Universidad de Cordoba,
+    impartida por el Dr. Francisco Javier Rodriguez Lozano. Conceptos clave de cada tema con enlaces a los PDF originales.</p>
+
+    <div class="cards">
+      <a class="card-link" href="#tema1"><span class="badge badge-intro">Tema 1</span><h3>Introduccion a las redes</h3><p>Elementos de comunicacion, clasificacion de redes, topologias.</p></a>
+      <a class="card-link" href="#tema2"><span class="badge badge-intro">Tema 2</span><h3>Modelos de redes</h3><p>OSI (7 capas), TCP/IP (4 capas), protocolos y servicios.</p></a>
+      <a class="card-link" href="#tema3"><span class="badge badge-fisico">Tema 3</span><h3>Medios de transmision</h3><p>Par trenzado, coaxial, fibra optica, medios inalambricos.</p></a>
+      <a class="card-link" href="#tema4"><span class="badge badge-fisico">Tema 4</span><h3>Teoria de la senal</h3><p>Senales analogicas/digitales, perturbaciones, Shannon y Nyquist.</p></a>
+      <a class="card-link" href="#tema5"><span class="badge badge-fisico">Tema 5</span><h3>Transmision digital</h3><p>Codificacion de linea (NRZ, Manchester, AMI), modos de transmision.</p></a>
+      <a class="card-link" href="#tema6"><span class="badge badge-fisico">Tema 6</span><h3>Transmision analogica</h3><p>Modulacion ASK, FSK, PSK, QAM y conversion analogica.</p></a>
+      <a class="card-link" href="#tema7"><span class="badge badge-fisico">Tema 7</span><h3>Ancho de banda</h3><p>Multiplexacion FDM, WDM, TDM y espectro expandido.</p></a>
+      <a class="card-link" href="#tema8"><span class="badge badge-enlace">Tema 8</span><h3>Enlace de datos: Intro</h3><p>Tipos de enlace, funciones, direcciones MAC, NIC.</p></a>
+      <a class="card-link" href="#tema9"><span class="badge badge-enlace">Tema 9</span><h3>Entramado y gestion</h3><p>Generacion de tramas, byte/bit stuffing, servicios de enlace.</p></a>
+      <a class="card-link" href="#tema10"><span class="badge badge-enlace">Tema 10</span><h3>Control de flujo</h3><p>Stop & Wait, Ventana deslizante, eficiencia.</p></a>
+      <a class="card-link" href="#tema11"><span class="badge badge-enlace">Tema 11</span><h3>Deteccion y correccion</h3><p>Paridad, checksum, CRC, Hamming, ARQ.</p></a>
+      <a class="card-link" href="#tema12"><span class="badge badge-enlace">Tema 12</span><h3>Protocolos de enlace</h3><p>BSC, HDLC, PPP y LCP.</p></a>
+      <a class="card-link" href="#tema13"><span class="badge badge-enlace">Tema 13</span><h3>Acceso al medio</h3><p>Aloha, CSMA/CD, CSMA/CA, paso de testigo.</p></a>
+      <a class="card-link" href="#tema14"><span class="badge badge-lan">Tema 14</span><h3>Redes de Area Local</h3><p>Topologias, Ethernet II, IEEE 802.3, IEEE 802.11 (Wi-Fi).</p></a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 1 -->
+  <!-- ============================================================ -->
+  <section id="tema1" class="tema">
+    <h2><span class="num">01</span> Introduccion a las redes</h2>
+    <a class="pdf-link" href="AR_T1.pdf" target="_blank">&#128196; Ver AR_T1.pdf (43 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Las redes influyen en todos los ambitos de la vida:</p>
+    <ul>
+      <li><strong>Sin limites</strong>: las comunicaciones en Internet fomentan comunidades mundiales (redes sociales, videoconferencias).</li>
+      <li><strong>Aprendizaje</strong>: ya no es necesario estar en un aula para formarse.</li>
+      <li><strong>Trabajo</strong>: las redes de datos respaldan el teletrabajo y la formacion online.</li>
+      <li><strong>Ocio</strong>: musica, peliculas, juegos online, streaming.</li>
+    </ul>
+
+    <h3>Elementos de comunicacion</h3>
+    <p>Todo sistema de comunicacion se compone de <strong>cuatro elementos</strong>:</p>
+    <div class="diagram">
+      <div class="node">Emisor (Origen)</div>
+      <div class="node center">Canal (Medio)</div>
+      <div class="node">Receptor (Destino)</div>
+      <div class="node" style="flex-basis:100%;max-width:260px;">Mensaje</div>
+    </div>
+
+    <h4>Componentes de red</h4>
+    <p>La infraestructura de red contiene tres categorias:</p>
+    <ul>
+      <li><strong>Dispositivos</strong>: terminales (hosts: servidores y clientes) e intermedios (switches, routers, puntos de acceso, firewalls).</li>
+      <li><strong>Medios</strong>: cobre (cables), vidrio (fibra optica), transmision inalambrica.</li>
+      <li><strong>Servicios</strong>: aplicaciones y procesos de red.</li>
+    </ul>
+
+    <h4>Factores para seleccionar dispositivos</h4>
+    <table>
+      <tr><th>Factor</th><th>Descripcion</th></tr>
+      <tr><td>Coste</td><td>Capacidad y caracteristicas del dispositivo.</td></tr>
+      <tr><td>Puertos</td><td>Velocidad y tipo de puertos/interfaces.</td></tr>
+      <tr><td>Expansion</td><td>Ranuras modulares para flexibilidad futura.</td></tr>
+      <tr><td>Servicios y SO</td><td>QoS, VoIP, DHCP, seguridad y facilidad de administracion.</td></tr>
+    </table>
+
+    <h3>Protocolos</h3>
+    <p>Reglas y mecanismos necesarios para la comunicacion eficaz. Incluyen:</p>
+    <ul>
+      <li><strong>Codificacion</strong>: el emisor convierte mensajes en bits, que se codifican en senales.</li>
+      <li><strong>Formato y encapsulamiento</strong>: cada mensaje se encapsula en tramas/paquetes con direcciones de origen y destino.</li>
+      <li><strong>Tamano del mensaje</strong>: los mensajes largos se dividen en paquetes mas pequenos.</li>
+      <li><strong>Sincronizacion</strong>: control de cuando y como se envian los datos.</li>
+      <li><strong>Opciones de entrega</strong>: unicast, multicast, broadcast.</li>
+    </ul>
+
+    <h3>Clasificacion de las redes</h3>
+    <div class="box note">
+      <strong class="box-title">Por tamano / cobertura</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>PAN</strong> (Personal Area Network): area personal, ~10m.</li>
+        <li><strong>LAN</strong> (Local Area Network): edificio/campus, hasta ~1km.</li>
+        <li><strong>MAN</strong> (Metropolitan Area Network): ciudad.</li>
+        <li><strong>WAN</strong> (Wide Area Network): paises, continentes.</li>
+      </ul>
+    </div>
+
+    <div class="box tip">
+      <strong class="box-title">Por topologia</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>Bus</strong>: todos comparten un unico medio.</li>
+        <li><strong>Estrella</strong>: nodo central conecta a todos.</li>
+        <li><strong>Anillo</strong>: cada nodo conectado al siguiente, formando un circulo.</li>
+        <li><strong>Malla</strong>: cada nodo conectado a varios/todos.</li>
+        <li><strong>Arbol</strong>: jerarquia de estrellas.</li>
+        <li><strong>Hibrida</strong>: combinacion de varias topologias.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 2 -->
+  <!-- ============================================================ -->
+  <section id="tema2" class="tema">
+    <h2><span class="num">02</span> Modelos de redes</h2>
+    <a class="pdf-link" href="AR_T2.pdf" target="_blank">&#128196; Ver AR_T2.pdf (67 diapos)</a>
+
+    <h3>Modelos de referencia</h3>
+    <p>Existen dos modelos principales:</p>
+    <ul>
+      <li><strong>OSI</strong> (Open Systems Interconnection) &mdash; estandar <em>de iure</em>.</li>
+      <li><strong>TCP/IP</strong> (Transmission Control Protocol / Internet Protocol) &mdash; estandar <em>de facto</em>.</li>
+    </ul>
+    <p>Organismos: ISOC, IEEE 802, UIT-T, ISO, Forum ATM.</p>
+
+    <h3>Modelo OSI &mdash; 7 capas</h3>
+    <div class="layer-stack">
+      <div class="layer" style="background:#d2a8ff30;">7. Aplicacion</div>
+      <div class="layer" style="background:#d2a8ff20;">6. Presentacion</div>
+      <div class="layer" style="background:#d2a8ff10;">5. Sesion</div>
+      <div class="layer" style="background:#79c0ff30;">4. Transporte</div>
+      <div class="layer" style="background:#56d36430;">3. Red</div>
+      <div class="layer" style="background:#ffa65730;">2. Enlace de datos</div>
+      <div class="layer" style="background:#ff7b7230;">1. Fisica</div>
+    </div>
+
+    <table>
+      <tr><th>Capa</th><th>Funcion principal</th><th>Unidad de datos (PDU)</th></tr>
+      <tr><td><strong>7. Aplicacion</strong></td><td>Protocolos para comunicaciones proceso a proceso.</td><td>Datos</td></tr>
+      <tr><td><strong>6. Presentacion</strong></td><td>Representacion comun de los datos (cifrado, compresion).</td><td>Datos</td></tr>
+      <tr><td><strong>5. Sesion</strong></td><td>Organiza el dialogo y administra el intercambio de datos.</td><td>Datos</td></tr>
+      <tr><td><strong>4. Transporte</strong></td><td>Segmentacion, transporte fiable extremo a extremo.</td><td>Segmentos</td></tr>
+      <tr><td><strong>3. Red</strong></td><td>Enrutamiento de paquetes entre redes diferentes.</td><td>Paquetes</td></tr>
+      <tr><td><strong>2. Enlace de datos</strong></td><td>Intercambio de tramas entre dispositivos en un medio comun.</td><td>Tramas</td></tr>
+      <tr><td><strong>1. Fisica</strong></td><td>Transmision de bits en bruto por el canal de comunicacion.</td><td>Bits</td></tr>
+    </table>
+
+    <h3>Modelo TCP/IP &mdash; 4 capas</h3>
+    <div class="layer-stack">
+      <div class="layer" style="background:#d2a8ff30;">4. Aplicacion</div>
+      <div class="layer" style="background:#79c0ff30;">3. Transporte</div>
+      <div class="layer" style="background:#56d36430;">2. Red / Internet</div>
+      <div class="layer" style="background:#ff7b7230;">1. Fisica / Acceso a red</div>
+    </div>
+
+    <table>
+      <tr><th>Capa TCP/IP</th><th>Funcion</th><th>Equivalencia OSI</th></tr>
+      <tr><td><strong>Aplicacion</strong></td><td>Aplicaciones de red y servicios de internet (HTTP, SMTP, DNS...).</td><td>Capas 5, 6 y 7</td></tr>
+      <tr><td><strong>Transporte</strong></td><td>Transporte fiable (TCP) o rapido (UDP). Puertos.</td><td>Capa 4</td></tr>
+      <tr><td><strong>Red / Internet</strong></td><td>Formato de paquete, protocolo IP, enrutamiento, control de congestion.</td><td>Capa 3</td></tr>
+      <tr><td><strong>Fisica / Acceso a red</strong></td><td>Control de hardware y medios. Transmision de datagramas IP.</td><td>Capas 1 y 2</td></tr>
+    </table>
+
+    <h3>Diferencias OSI vs TCP/IP</h3>
+    <div class="box important">
+      <strong class="box-title">Claves</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>OSI tiene <strong>7 capas</strong>; TCP/IP tiene <strong>4 capas</strong>.</li>
+        <li>OSI es un modelo <strong>conceptual</strong>; TCP/IP es un <strong>protocolo real</strong> usado en la practica.</li>
+        <li>TCP/IP no distingue entre capa fisica y enlace.</li>
+        <li>OSI es mas generico; TCP/IP es mas abstracto con menos capas.</li>
+        <li>En la practica se usa TCP/IP, pero dispositivos como switches L2 y L3 hacen referencia al modelo OSI.</li>
+      </ul>
+    </div>
+
+    <h3>Capa fisica &mdash; resumen</h3>
+    <p>Transmite bits <em>en bruto</em> por un canal de comunicacion. Factores:</p>
+    <ul>
+      <li><strong>Representacion de bits</strong>: codificacion de 0s y 1s en senales.</li>
+      <li><strong>Velocidad de transmision</strong>: n. de bits que se transmiten por segundo (bps, kbps, Mbps, Gbps, Tbps).</li>
+      <li><strong>Sincronizacion</strong>: emisor y receptor sincronizados a nivel de bits.</li>
+      <li><strong>Interfaz</strong>: conexion entre dispositivos y el medio.</li>
+      <li><strong>Modos de transmision</strong>: Simplex, Half-Duplex, Full-Duplex.</li>
+      <li><strong>Medios</strong>: cableados electricos (cobre), fibra optica (luz), inalambricos.</li>
+    </ul>
+
+    <h3>Capa de enlace de datos</h3>
+    <p>Responsable de la entrega de datos <strong>nodo a nodo</strong>. Funciones:</p>
+    <ul>
+      <li><strong>Generacion de tramas</strong>: organiza bits en tramas con direccionamiento y control de errores.</li>
+      <li><strong>Control de flujo</strong>: sincroniza velocidades de emisor y receptor.</li>
+      <li><strong>Control de acceso</strong>: decide que dispositivo usa el canal (evita colisiones).</li>
+    </ul>
+    <p>Subcapas: <strong>LLC</strong> (Logical Link Control) y <strong>MAC</strong> (Media Access Control).</p>
+
+    <h3>Capa de red</h3>
+    <p>Transferencia de <strong>paquetes</strong> entre redes diferentes. Funciones:</p>
+    <ul>
+      <li><strong>Encapsulamiento/desencapsulamiento</strong>: anade cabecera con direccion origen y destino.</li>
+      <li><strong>Enrutamiento (routing)</strong>: encontrar la mejor ruta posible (en routers).</li>
+      <li><strong>Reenvio (forwarding)</strong>: mover paquete de interfaz de entrada a interfaz de salida.</li>
+    </ul>
+
+    <h3>Capa de transporte</h3>
+    <p>Capa <strong>extremo a extremo</strong>. Transmision ordenada y sin duplicacion. Usa <strong>segmentos</strong>. Funciones:</p>
+    <ul>
+      <li><strong>Puertos</strong>: direccion de 16 bits para identificar procesos (0-1023 bien conocidos, 1024-49151 registrados, 49152-65535 dinamicos).</li>
+      <li><strong>TCP</strong>: orientado a conexion, fiable, handshake.</li>
+      <li><strong>UDP</strong>: sin conexion, rapido, sin garantia.</li>
+      <li><strong>Multiplexacion/Demultiplexacion</strong>: compartir la red entre multiples procesos.</li>
+    </ul>
+
+    <h3>Capas superiores (sesion, presentacion, aplicacion)</h3>
+    <ul>
+      <li><strong>Sesion</strong>: gestiona el dialogo entre aplicaciones.</li>
+      <li><strong>Presentacion</strong>: representacion, cifrado y compresion de datos.</li>
+      <li><strong>Aplicacion</strong>: protocolos de usuario (HTTP, SMTP, FTP, DNS...).</li>
+    </ul>
+
+    <h3>Protocolos y servicios</h3>
+    <div class="box note">
+      <strong class="box-title">Critica al modelo OSI</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Aparicion inoportuna (apocalipsis de los dos elefantes).</li>
+        <li>Modelo complejo con capas de poca utilidad (sesion, presentacion).</li>
+        <li>Ignora servicios y protocolos sin conexion.</li>
+      </ul>
+    </div>
+    <div class="box note">
+      <strong class="box-title">Critica al modelo TCP/IP</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Fronteras difusas entre servicios, interfaces y protocolos.</li>
+        <li>No es un modelo general.</li>
+        <li>No distingue entre capa fisica y enlace.</li>
+        <li>Protocolos dificilmente reemplazables.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 3 -->
+  <!-- ============================================================ -->
+  <section id="tema3" class="tema">
+    <h2><span class="num">03</span> Nivel fisico &mdash; Medios de transmision</h2>
+    <a class="pdf-link" href="AR_T3.pdf" target="_blank">&#128196; Ver AR_T3.pdf (52 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>El <strong>medio</strong> es cualquier camino fisico entre transmisor y receptor por el que se propaga la senal.</p>
+    <ul>
+      <li><strong>Medios guiados</strong>: confinados en un camino fisico solido (cables).</li>
+      <li><strong>Medios no guiados</strong>: no confinados (aire, vacio) &mdash; usan antenas.</li>
+    </ul>
+
+    <h3>Medios guiados</h3>
+
+    <h4>Par trenzado</h4>
+    <ul>
+      <li>Dos conductores aislados trenzados entre si. El trenzado reduce la diafonia.</li>
+      <li>Tipos: <strong>UTP</strong> (sin apantallar) y <strong>STP</strong> (apantallado).</li>
+      <li>Conectores tipicos: <strong>RJ11</strong> (telefonos) y <strong>RJ45</strong> (redes).</li>
+      <li>Categorias segun norma <strong>ISO/IEC 11801</strong>: CAT 1 a CAT 8.</li>
+    </ul>
+    <table>
+      <tr><th>Categoria</th><th>Velocidad max.</th><th>Frecuencia</th><th>Uso tipico</th></tr>
+      <tr><td>CAT 5e</td><td>1 Gbps</td><td>100 MHz</td><td>Ethernet, Fast/Gigabit Ethernet</td></tr>
+      <tr><td>CAT 6</td><td>10 Gbps</td><td>250 MHz</td><td>10G Ethernet (37-55m)</td></tr>
+      <tr><td>CAT 6a</td><td>10 Gbps</td><td>500 MHz</td><td>10G Ethernet</td></tr>
+      <tr><td>CAT 7</td><td>10 Gbps</td><td>600 MHz</td><td>Gigabit/10G Ethernet (100m)</td></tr>
+      <tr><td>CAT 8</td><td>40 Gbps</td><td>2000 MHz</td><td>25G/40G Ethernet (30m)</td></tr>
+    </table>
+
+    <div class="box tip">
+      <strong class="box-title">Normas de conexion RJ45</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>T-568A</strong> y <strong>T-568B</strong>: dos estandares de cableado.</li>
+        <li><strong>Cable directo</strong>: ambos extremos con la misma norma.</li>
+        <li><strong>Cable cruzado</strong>: un extremo T-568A y otro T-568B.</li>
+      </ul>
+    </div>
+
+    <div class="box note">
+      <strong class="box-title">Parametros de calidad del par trenzado</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li><strong>NEXT</strong> (Near-End Crosstalk): diafonia en el extremo cercano.</li>
+        <li><strong>FEXT</strong> (Far-End Crosstalk): diafonia en el extremo lejano.</li>
+        <li><strong>Return loss</strong>: perdida de retorno (senal reflejada).</li>
+        <li>Definidos por ISO/IEC 11801, TIA/EIA-568-C.2.</li>
+      </ul>
+    </div>
+
+    <h4>Cable coaxial</h4>
+    <ul>
+      <li>Hilo conductor interno (nucleo) + conductor externo (malla) separados por dieelectrico aislante + cubierta plastica exterior.</li>
+      <li>Categorizados por <strong>RG</strong> (Radio Government): RG-58, RG-59, RG-62, etc.</li>
+      <li>Conector tipico: <strong>BNC</strong>.</li>
+      <li>Longitud maxima del segmento: ~185 metros.</li>
+    </ul>
+
+    <h4>Fibra optica</h4>
+    <ul>
+      <li>Transmision de senales de luz a traves de un nucleo de vidrio o silicio.</li>
+      <li>Componentes: <strong>nucleo</strong>, <strong>cubierta</strong> (refleja la luz hacia el nucleo), <strong>buffer</strong>, <strong>material de refuerzo</strong>, <strong>envoltura</strong>.</li>
+      <li>Tipos: <strong>monomodo</strong> (SMF, larga distancia) y <strong>multimodo</strong> (MMF, corta distancia).</li>
+      <li>Ventajas: mayor ancho de banda, inmunidad a interferencias electromagneticas, mayor distancia.</li>
+    </ul>
+
+    <h3>Medios no guiados (inalambricos)</h3>
+    <ul>
+      <li>Transportan senales electromagneticas mediante frecuencias de radio y microondas.</li>
+      <li>Factores: <strong>area de cobertura</strong>, <strong>interferencia</strong>, <strong>seguridad</strong>, <strong>medio compartido</strong>.</li>
+      <li>Afectados por materiales de construccion, dispositivos cercanos y condiciones atmosfericas.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 4 -->
+  <!-- ============================================================ -->
+  <section id="tema4" class="tema">
+    <h2><span class="num">04</span> Nivel fisico &mdash; Teoria de la senal</h2>
+    <a class="pdf-link" href="AR_T4.pdf" target="_blank">&#128196; Ver AR_T4.pdf (42 diapos)</a>
+
+    <h3>Tipos de senales</h3>
+    <table>
+      <tr><th>Tipo</th><th>Descripcion</th></tr>
+      <tr><td><strong>Analogica</strong></td><td>Funcion continua, infinitos valores en un intervalo de tiempo. Sensible al ruido, dificil de recuperar.</td></tr>
+      <tr><td><strong>Digital</strong></td><td>Numero finito de valores discretos. Mas estable al ruido, facil de recuperar con repetidores.</td></tr>
+      <tr><td><strong>Periodica</strong></td><td>Repite sus valores a lo largo del tiempo (tanto analogica como digital).</td></tr>
+    </table>
+
+    <h3>Fundamentos de la transmision</h3>
+    <ul>
+      <li><strong>Senal sinusoidal</strong>: definida por <strong>amplitud</strong> (A), <strong>frecuencia</strong> (f) y <strong>fase</strong> (&phi;).</li>
+      <li><strong>Periodo</strong> (T) = 1/f. <strong>Frecuencia</strong> (f) = 1/T.</li>
+      <li><strong>Ancho de banda</strong>: rango de frecuencias que contiene una senal compuesta.</li>
+      <li><strong>Analisis de Fourier</strong>: toda senal periodica puede descomponerse en senales sinusoidales.</li>
+    </ul>
+
+    <h3>Perturbaciones en la transmision</h3>
+    <ul>
+      <li><strong>Atenuacion</strong>: perdida de energia de la senal con la distancia. Se mide en <strong>decibelios (dB)</strong>.</li>
+      <li><strong>Distorsion</strong>: cambio en la forma de la senal (por componentes de diferente frecuencia que viajan a distinta velocidad).</li>
+      <li><strong>Ruido</strong>: senales no deseadas que se insertan en la transmision. Tipos: termico, inducido, diafonia, impulsivo.</li>
+      <li><strong>SNR</strong> (Signal-to-Noise Ratio): relacion senal-ruido, en dB.</li>
+    </ul>
+    <div class="formula">SNR(dB) = 10 &middot; log&#8321;&#8320;(Potencia_senal / Potencia_ruido)</div>
+
+    <h3>Limites de velocidad de datos</h3>
+
+    <div class="box tip">
+      <strong class="box-title">Teorema de Nyquist (canal sin ruido)</strong>
+      <div class="formula">C = 2 &middot; B &middot; log&#8322;(L)</div>
+      <p style="margin:.3rem 0 0;">Donde C = velocidad maxima (bps), B = ancho de banda (Hz), L = numero de niveles de senal.</p>
+    </div>
+
+    <div class="box important">
+      <strong class="box-title">Teorema de Shannon (canal con ruido)</strong>
+      <div class="formula">C = B &middot; log&#8322;(1 + SNR)</div>
+      <p style="margin:.3rem 0 0;">Limite teorico absoluto de capacidad del canal, independiente del numero de niveles.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 5 -->
+  <!-- ============================================================ -->
+  <section id="tema5" class="tema">
+    <h2><span class="num">05</span> Nivel fisico &mdash; Transmision digital</h2>
+    <a class="pdf-link" href="AR_T5.pdf" target="_blank">&#128196; Ver AR_T5.pdf (52 diapos)</a>
+
+    <h3>Datos digitales, senales digitales</h3>
+    <p>Los 0 y 1 se codifican mediante pulsos de tension (<strong>codigos de linea</strong> o <strong>banda base</strong>). Objetivo: aprovechar el ancho de banda, detectar errores, permitir sincronismo y eliminar componente continua.</p>
+
+    <h4>Clasificacion de senales de banda base</h4>
+    <table>
+      <tr><th>Criterio</th><th>Tipos</th></tr>
+      <tr><td>Polaridad del pulso</td><td><strong>Unipolar</strong> (0 y +V), <strong>Polar</strong> (-V y +V), <strong>Bipolar</strong> (tres niveles: -V, 0, +V)</td></tr>
+      <tr><td>Ancho del pulso</td><td><strong>NRZ</strong> (No Return to Zero), <strong>RZ</strong> (Return to Zero)</td></tr>
+    </table>
+
+    <h4>Codificaciones principales</h4>
+    <table>
+      <tr><th>Codigo</th><th>Tipo</th><th>Descripcion</th></tr>
+      <tr><td><strong>NRZ-L</strong></td><td>Polar NRZ</td><td>El nivel de tension define el bit (alto=0, bajo=1 o viceversa).</td></tr>
+      <tr><td><strong>NRZ-I</strong></td><td>Polar NRZ</td><td>Un cambio de nivel = bit 1, sin cambio = bit 0.</td></tr>
+      <tr><td><strong>Manchester</strong></td><td>Polar RZ</td><td>Transicion en la mitad del bit: bajo&rarr;alto=1, alto&rarr;bajo=0. Autosincronizante.</td></tr>
+      <tr><td><strong>Manchester Diferencial</strong></td><td>Polar RZ</td><td>Transicion al inicio del bit indica 0; sin transicion indica 1.</td></tr>
+      <tr><td><strong>AMI</strong></td><td>Bipolar</td><td>0=nivel cero, 1=alterna entre +V y -V. Elimina componente continua.</td></tr>
+    </table>
+
+    <h3>Datos analogicos, senales digitales</h3>
+    <p>Conversion analogico-digital mediante <strong>PCM</strong> (Pulse Code Modulation):</p>
+    <ol>
+      <li><strong>Muestreo</strong>: tomar muestras de la senal analogica a una frecuencia &ge; 2&middot;f<sub>max</sub> (Nyquist).</li>
+      <li><strong>Cuantificacion</strong>: asignar a cada muestra un nivel discreto.</li>
+      <li><strong>Codificacion</strong>: representar cada nivel como una secuencia binaria.</li>
+    </ol>
+
+    <h3>Modos de transmision digital</h3>
+    <table>
+      <tr><th>Modo</th><th>Descripcion</th></tr>
+      <tr><td><strong>Paralelo</strong></td><td>Multiples bits simultaneamente por multiples canales. Rapido pero costoso y corta distancia.</td></tr>
+      <tr><td><strong>Serie</strong></td><td>Un bit tras otro por un unico canal. Mas lento pero mas economico y larga distancia.</td></tr>
+    </table>
+    <p>Dentro de la transmision serie:</p>
+    <ul>
+      <li><strong>Asincrona</strong>: bits de inicio (start) y parada (stop) delimitan cada byte. No requiere reloj compartido.</li>
+      <li><strong>Sincrona</strong>: flujo continuo de bits sincronizado por reloj. Mayor eficiencia.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 6 -->
+  <!-- ============================================================ -->
+  <section id="tema6" class="tema">
+    <h2><span class="num">06</span> Nivel fisico &mdash; Transmision analogica</h2>
+    <a class="pdf-link" href="AR_T6.pdf" target="_blank">&#128196; Ver AR_T6.pdf (28 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Se usa transmision analogica cuando el medio lo requiere. Se basa en <strong>modulacion</strong>: modificar una caracteristica de una <strong>onda portadora</strong> segun los datos.</p>
+    <p>Una senal de onda seno se define por tres caracteristicas: <strong>amplitud</strong>, <strong>frecuencia</strong> y <strong>fase</strong>.</p>
+
+    <h3>Datos digitales &rarr; senales analogicas</h3>
+    <table>
+      <tr><th>Modulacion</th><th>Nombre completo</th><th>Parametro que cambia</th></tr>
+      <tr><td><strong>ASK</strong></td><td>Amplitude-Shift Keying</td><td>Amplitud (frecuencia y fase constantes)</td></tr>
+      <tr><td><strong>FSK</strong></td><td>Frequency-Shift Keying</td><td>Frecuencia (amplitud y fase constantes)</td></tr>
+      <tr><td><strong>PSK</strong></td><td>Phase-Shift Keying</td><td>Fase (amplitud y frecuencia constantes)</td></tr>
+      <tr><td><strong>QAM</strong></td><td>Quadrature Amplitude Modulation</td><td>Amplitud + Fase combinadas</td></tr>
+    </table>
+
+    <div class="box note">
+      <strong class="box-title">QAM</strong>
+      Combina ASK y PSK para transmitir mas bits por simbolo. QAM-16, QAM-64, QAM-256... a mayor orden, mayor velocidad pero mayor sensibilidad al ruido.
+    </div>
+
+    <h3>Datos analogicos &rarr; senales analogicas</h3>
+    <p>Modulacion de una senal analogica con portadora analogica. Tipos: <strong>AM</strong> (amplitud), <strong>FM</strong> (frecuencia), <strong>PM</strong> (fase).</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 7 -->
+  <!-- ============================================================ -->
+  <section id="tema7" class="tema">
+    <h2><span class="num">07</span> Nivel fisico &mdash; Aprovechamiento del ancho de banda</h2>
+    <a class="pdf-link" href="AR_T7.pdf" target="_blank">&#128196; Ver AR_T7.pdf (36 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Objetivo: compartir lineas de transmision entre multiples usuarios/dispositivos de forma eficiente. Dos tecnicas:</p>
+    <ul>
+      <li><strong>Multiplexacion</strong> &rarr; eficiencia.</li>
+      <li><strong>Espectro expandido</strong> &rarr; aislamiento y eliminacion de interferencias.</li>
+    </ul>
+
+    <h3>Multiplexacion</h3>
+    <p><em>n</em> lineas de entrada &rarr; <strong>Multiplexor</strong> &rarr; 1 enlace &rarr; <strong>Demultiplexor</strong> &rarr; <em>n</em> lineas de salida. Cada porcion del enlace es un <strong>canal</strong>.</p>
+
+    <table>
+      <tr><th>Tecnica</th><th>Tipo</th><th>Descripcion</th></tr>
+      <tr><td><strong>FDM</strong></td><td>Analogica</td><td>Cada senal se modula a una frecuencia portadora distinta. Se necesitan <strong>bandas de guarda</strong> entre canales.</td></tr>
+      <tr><td><strong>WDM</strong></td><td>Optica</td><td>Igual que FDM pero en fibra optica: cada canal usa una longitud de onda diferente (prisma/difraccion).</td></tr>
+      <tr><td><strong>TDM</strong></td><td>Digital</td><td>A cada usuario se le asigna una <strong>ranura temporal</strong> con todo el ancho de banda. Sincrono (ranuras fijas) o estadistico (bajo demanda).</td></tr>
+    </table>
+
+    <h3>Espectro expandido</h3>
+    <p>Expande la senal a un ancho de banda mayor del necesario para mejorar la resistencia a interferencias y la seguridad.</p>
+    <ul>
+      <li><strong>FHSS</strong> (Frequency Hopping Spread Spectrum): salta de frecuencia en frecuencia segun un patron pseudoaleatorio.</li>
+      <li><strong>DSSS</strong> (Direct Sequence Spread Spectrum): multiplica la senal por un codigo de chips de alta velocidad.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 8 -->
+  <!-- ============================================================ -->
+  <section id="tema8" class="tema">
+    <h2><span class="num">08</span> Nivel de enlace de datos &mdash; Introduccion</h2>
+    <a class="pdf-link" href="AR_T8.pdf" target="_blank">&#128196; Ver AR_T8.pdf (35 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>El nivel fisico tiene limitaciones: errores de bits, cambios de valor, retardos. El objetivo de la capa de enlace es convertir el medio fisico (propenso a errores) en un <strong>enlace de datos logico libre de errores</strong>.</p>
+    <ul>
+      <li>Proporcionar servicios a la capa de red.</li>
+      <li>Usar los servicios de la capa fisica para generar tramas.</li>
+      <li>Garantizar entrega sin errores a capas superiores.</li>
+      <li>Regular el flujo de tramas.</li>
+    </ul>
+
+    <h4>Terminologia</h4>
+    <table>
+      <tr><th>Termino</th><th>Definicion</th></tr>
+      <tr><td><strong>Nodo</strong></td><td>Dispositivo intermedio o terminal que comparte informacion a nivel de enlace.</td></tr>
+      <tr><td><strong>Enlace</strong></td><td>Canal fisico que conecta a dos nodos adyacentes.</td></tr>
+      <tr><td><strong>Trama</strong></td><td>Unidad de datos (PDU) del nivel de enlace.</td></tr>
+      <tr><td><strong>Protocolo de enlace</strong></td><td>Define el modo de comunicacion entre nodos para intercambiar tramas.</td></tr>
+    </table>
+
+    <h3>Tipos de enlace</h3>
+    <ul>
+      <li><strong>Punto a punto</strong>: solo dos nodos (emisor y receptor). El enlace es exclusivo. Ej: Fast/Gigabit Ethernet, PPP, HDLC.</li>
+      <li><strong>Difusion (broadcast)</strong>: multiples nodos comparten un mismo medio. Requiere control de acceso al medio (MAC).</li>
+    </ul>
+
+    <h3>Funciones de la capa de enlace</h3>
+    <ul>
+      <li><strong>Generacion de tramas (entramado)</strong></li>
+      <li><strong>Direccionamiento</strong> (MAC)</li>
+      <li><strong>Control de errores</strong></li>
+      <li><strong>Control de flujo</strong></li>
+      <li><strong>Control de acceso al medio</strong></li>
+    </ul>
+
+    <h3>Direcciones a nivel de enlace (MAC)</h3>
+    <ul>
+      <li>Direccion fisica de <strong>48 bits</strong> (6 bytes), grabada en la <strong>NIC</strong> (tarjeta de interfaz de red).</li>
+      <li>Formato: <code>XX:XX:XX:XX:XX:XX</code> (hexadecimal).</li>
+      <li>Primeros 3 bytes: <strong>OUI</strong> (identificador del fabricante). Ultimos 3 bytes: identificador unico del dispositivo.</li>
+      <li>Direccion de broadcast: <code>FF:FF:FF:FF:FF:FF</code>.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 9 -->
+  <!-- ============================================================ -->
+  <section id="tema9" class="tema">
+    <h2><span class="num">09</span> Nivel de enlace de datos &mdash; Entramado y gestion del enlace</h2>
+    <a class="pdf-link" href="AR_T9.pdf" target="_blank">&#128196; Ver AR_T9.pdf (30 diapos)</a>
+
+    <h3>Generacion de tramas (entramado)</h3>
+    <p>Tarea critica del nivel de enlace: estandariza la transferencia de datos entre nodos. Permite al receptor distinguir el inicio y fin de cada trama.</p>
+
+    <h4>Estructura general de una trama</h4>
+    <div class="diagram">
+      <div class="node" style="background:#2ea04320;border-color:#2ea043;">Cabecera (Header)</div>
+      <div class="node center">Carga util (Payload)</div>
+      <div class="node" style="background:#ff7b7220;border-color:#ff7b72;">Cierre (Trailer)</div>
+    </div>
+    <ul>
+      <li><strong>Cabecera</strong>: direcciones fisicas de origen/destino + bytes de control.</li>
+      <li><strong>Carga util</strong>: datos del mensaje a transmitir.</li>
+      <li><strong>Cierre</strong>: informacion para deteccion/correccion de errores.</li>
+    </ul>
+
+    <h4>Metodos de entramado</h4>
+    <table>
+      <tr><th>Metodo</th><th>Descripcion</th></tr>
+      <tr><td><strong>Byte counting</strong></td><td>La cabecera indica el numero total de bytes de la trama.</td></tr>
+      <tr><td><strong>Byte stuffing</strong></td><td>Se insertan caracteres de inicio y fin (ej: FLAG). Si aparecen en los datos, se escapan con un caracter especial (ESC).</td></tr>
+      <tr><td><strong>Bit stuffing</strong></td><td>Se usan patrones de bits de inicio/fin (ej: 01111110). Si aparecen 5 unos seguidos en datos, se inserta un 0.</td></tr>
+      <tr><td><strong>Violacion de codificacion</strong></td><td>Se usan patrones invalidos de la codificacion del nivel fisico como delimitadores.</td></tr>
+    </table>
+
+    <h3>Gestion del enlace y servicios</h3>
+    <ul>
+      <li><strong>Sin conexion y sin confirmacion</strong>: se envian tramas sin establecer conexion ni esperar ACK. Ej: Ethernet.</li>
+      <li><strong>Sin conexion y con confirmacion</strong>: no hay conexion pero cada trama se confirma individualmente. Ej: Wi-Fi (802.11).</li>
+      <li><strong>Con conexion y con confirmacion</strong>: se establece conexion, se confirman tramas y se libera la conexion.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 10 -->
+  <!-- ============================================================ -->
+  <section id="tema10" class="tema">
+    <h2><span class="num">10</span> Nivel de enlace de datos &mdash; Control de flujo</h2>
+    <a class="pdf-link" href="AR_T10.pdf" target="_blank">&#128196; Ver AR_T10.pdf (30 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p><strong>Problema</strong>: un emisor rapido puede saturar a un receptor lento, desbordando su buffer y perdiendo tramas.</p>
+    <p><strong>Solucion</strong>: limitar la velocidad de envio. El control de flujo establece protocolos para que emisor y receptor se comuniquen sin saturarse.</p>
+
+    <h4>Conceptos previos</h4>
+    <ul>
+      <li><strong>Tiempo de transmision</strong> (t<sub>trama</sub>): N<sub>b</sub> / C (bits de la trama / velocidad en bps).</li>
+      <li><strong>Tiempo de propagacion</strong> (t<sub>prop</sub>): d / v (longitud del enlace / velocidad de propagacion). Medios guiados: v &asymp; 2&middot;10<sup>8</sup> m/s. No guiados: v &asymp; 3&middot;10<sup>8</sup> m/s.</li>
+    </ul>
+
+    <h3>Protocolo de Parada y espera (Stop &amp; Wait)</h3>
+    <ul>
+      <li>Cada trama emitida debe ser <strong>confirmada</strong> (ACK) por el receptor antes de enviar la siguiente.</li>
+      <li>El emisor no transmite hasta recibir el ACK.</li>
+      <li>Soluciona el desbordamiento pero es <strong>ineficiente</strong>: el enlace esta desaprovechado mientras espera el ACK.</li>
+    </ul>
+    <div class="formula">Eficiencia = t<sub>trama</sub> / (t<sub>trama</sub> + 2 &middot; t<sub>prop</sub> + t<sub>ACK</sub>)</div>
+
+    <h3>Protocolo de Ventana deslizante (Sliding Window)</h3>
+    <ul>
+      <li>El emisor puede enviar <strong>varias tramas</strong> sin esperar confirmacion, hasta un maximo (<strong>tamano de ventana W</strong>).</li>
+      <li>Mayor eficiencia que Stop &amp; Wait.</li>
+      <li>Las tramas se numeran con un <strong>numero de secuencia</strong>.</li>
+      <li>El receptor confirma las tramas recibidas, y la ventana del emisor &laquo;se desliza&raquo; permitiendo enviar mas.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 11 -->
+  <!-- ============================================================ -->
+  <section id="tema11" class="tema">
+    <h2><span class="num">11</span> Nivel de enlace de datos &mdash; Deteccion y correccion de errores</h2>
+    <a class="pdf-link" href="AR_T11.pdf" target="_blank">&#128196; Ver AR_T11.pdf (61 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Todo sistema de comunicacion es susceptible a errores. Fuentes principales:</p>
+    <ul>
+      <li><strong>Interferencias</strong></li>
+      <li><strong>Distorsion de retardo</strong></li>
+      <li><strong>Atenuacion</strong></li>
+    </ul>
+    <p>Tipos de errores: <strong>error en un bit</strong> (un unico bit alterado) y <strong>error en rafaga</strong> (multiples bits consecutivos).</p>
+    <div class="formula">BER (Bit Error Rate) = Bits erroneos / Total bits</div>
+    <p>La clave de deteccion y correccion es la <strong>redundancia</strong>: anadir bits extra a los datos.</p>
+
+    <h3>Tecnicas de deteccion de errores</h3>
+
+    <h4>Comprobacion de paridad</h4>
+    <ul>
+      <li>Se anade un <strong>bit de paridad</strong> al bloque de datos.</li>
+      <li><strong>Paridad par</strong>: el total de 1s (datos + bit) debe ser par.</li>
+      <li><strong>Paridad impar</strong>: el total de 1s debe ser impar.</li>
+      <li>Solo detecta errores de un numero <strong>impar</strong> de bits.</li>
+    </ul>
+
+    <h4>Comprobacion de suma de verificacion (Checksum)</h4>
+    <ul>
+      <li>Se dividen los datos en bloques de n bits.</li>
+      <li>Se suman todos los bloques (complemento a uno) y se envia el complemento de la suma.</li>
+      <li>El receptor repite el calculo y verifica.</li>
+    </ul>
+
+    <h4>Comprobacion de redundancia ciclica (CRC)</h4>
+    <ul>
+      <li>Tecnica mas potente y utilizada en redes (Ethernet, Wi-Fi, etc.).</li>
+      <li>Se basa en <strong>division polinomica</strong> (aritmetica modulo 2 / XOR).</li>
+      <li>El emisor calcula un CRC a partir de los datos y un <strong>polinomio generador</strong> y lo anade al final de la trama.</li>
+      <li>El receptor divide la trama recibida por el mismo polinomio: si el resto es 0, no hay error.</li>
+    </ul>
+
+    <h3>Tecnicas de correccion de errores</h3>
+
+    <h4>FEC &mdash; Paridad bidimensional</h4>
+    <p>Se organizan los datos en una matriz y se calculan bits de paridad por filas y columnas. Permite detectar y corregir errores de un bit.</p>
+
+    <h4>FEC &mdash; Codigo de Hamming</h4>
+    <ul>
+      <li>Anade bits de redundancia en posiciones potencias de 2 (1, 2, 4, 8...).</li>
+      <li>Puede <strong>corregir errores de un bit</strong> y detectar errores de dos bits.</li>
+      <li>Distancia de Hamming: numero de posiciones en que difieren dos palabras de codigo.</li>
+    </ul>
+
+    <h4>ARQ (Automatic Repeat Request)</h4>
+    <table>
+      <tr><th>Variante</th><th>Descripcion</th></tr>
+      <tr><td><strong>Parada y espera</strong></td><td>Si se detecta error, se pide retransmision. Ineficiente.</td></tr>
+      <tr><td><strong>Vuelta atras (Go-Back-N)</strong></td><td>Se retransmiten la trama erronea y todas las posteriores.</td></tr>
+      <tr><td><strong>Rechazo selectivo</strong></td><td>Solo se retransmite la trama erronea. Mas eficiente pero el receptor necesita buffer.</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 12 -->
+  <!-- ============================================================ -->
+  <section id="tema12" class="tema">
+    <h2><span class="num">12</span> Nivel de enlace de datos &mdash; Protocolos de enlace de datos</h2>
+    <a class="pdf-link" href="AR_T12.pdf" target="_blank">&#128196; Ver AR_T12.pdf (33 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Los protocolos de enlace garantizan que los bits/bytes transmitidos coinciden con los recibidos. Incorporan los mecanismos vistos en temas anteriores (entramado, control de flujo, deteccion de errores).</p>
+
+    <h3>BSC (Binary Synchronous Communications)</h3>
+    <ul>
+      <li>Desarrollado por <strong>IBM en 1967</strong>. Tambien llamado BISYN.</li>
+      <li><strong>Orientado a caracteres</strong> (ASCII/EBCDIC).</li>
+      <li>Emplea <strong>ARQ de parada y espera</strong> &rarr; Half-Duplex.</li>
+      <li>Orientado a la conexion.</li>
+      <li>Transmision sincrona con caracteres especiales de delimitacion: SOH, STX, ETX, EOT, ENQ, ACK, NAK, DLE, SYN, ETB.</li>
+      <li>Dos tipos de tramas: <strong>control</strong> (establecimiento de conexion) e <strong>informacion</strong> (datos).</li>
+    </ul>
+
+    <h3>HDLC (High-Level Data Link Control)</h3>
+    <ul>
+      <li>Protocolo <strong>orientado a bits</strong>, definido por ISO.</li>
+      <li>Soporta <strong>Full-Duplex</strong>.</li>
+      <li>Usa <strong>bit stuffing</strong> con bandera 01111110.</li>
+      <li>Tres tipos de tramas: <strong>I</strong> (informacion), <strong>S</strong> (supervision) y <strong>U</strong> (no numeradas).</li>
+      <li>Modos: NRM (Normal Response Mode), ABM (Asynchronous Balanced Mode), ARM (Asynchronous Response Mode).</li>
+    </ul>
+
+    <h3>PPP (Point-to-Point Protocol)</h3>
+    <ul>
+      <li>Protocolo estandar para conexiones <strong>punto a punto</strong> sobre enlaces serie.</li>
+      <li>Basado en HDLC pero mas flexible.</li>
+      <li>Soporta multiples protocolos de red (IP, IPX...).</li>
+      <li>Fases: establecimiento del enlace (LCP), autenticacion (PAP/CHAP), configuracion de red (NCP), transferencia y terminacion.</li>
+    </ul>
+
+    <h3>LCP (Link Control Protocol)</h3>
+    <ul>
+      <li>Protocolo utilizado dentro de PPP para <strong>establecer, configurar, probar y cerrar</strong> el enlace de datos.</li>
+      <li>Negocia parametros como MTU, protocolo de autenticacion, compresion, etc.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 13 -->
+  <!-- ============================================================ -->
+  <section id="tema13" class="tema">
+    <h2><span class="num">13</span> Nivel de enlace de datos &mdash; Control de acceso al medio</h2>
+    <a class="pdf-link" href="AR_T13.pdf" target="_blank">&#128196; Ver AR_T13.pdf (52 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Cuando <strong>multiples nodos comparten un medio</strong> (enlace de difusion), las tramas pueden <strong>colisionar</strong>. La subcapa <strong>MAC</strong> se encarga de gestionar quien transmite y cuando.</p>
+    <p>Tres estrategias principales:</p>
+    <ul>
+      <li><strong>Acceso por canales</strong> (reparticion).</li>
+      <li><strong>Acceso aleatorio</strong> (comparticion).</li>
+      <li><strong>Acceso controlado</strong> (asignacion).</li>
+    </ul>
+
+    <h3>Acceso por canales</h3>
+    <p>Se emplean tecnicas de <strong>multiplexacion</strong> (FDM, WDM, TDM, TDMA) para dividir el ancho de banda en canales dedicados. Problema: desperdicio si un canal esta inactivo.</p>
+
+    <h3>Acceso aleatorio</h3>
+    <p>Todos los nodos compiten por el medio. Si hay colision, se aplican mecanismos de resolucion.</p>
+
+    <h4>Aloha puro</h4>
+    <ul>
+      <li>Cualquier nodo transmite cuando quiere.</li>
+      <li>Si hay colision, espera un tiempo aleatorio y reintenta.</li>
+      <li>Eficiencia maxima teorica: <strong>18.4%</strong>.</li>
+    </ul>
+
+    <h4>Aloha ranurado</h4>
+    <ul>
+      <li>El tiempo se divide en <strong>ranuras</strong>; solo se puede transmitir al inicio de una ranura.</li>
+      <li>Reduce colisiones. Eficiencia maxima: <strong>36.8%</strong>.</li>
+    </ul>
+
+    <h4>CSMA (Carrier Sense Multiple Access)</h4>
+    <p>&laquo;Escuchar antes de hablar&raquo;: cada nodo detecta si el medio esta ocupado antes de transmitir.</p>
+    <table>
+      <tr><th>Variante</th><th>Comportamiento</th></tr>
+      <tr><td><strong>1-persistente</strong></td><td>Si el canal esta libre, transmite inmediatamente. Si esta ocupado, espera y transmite en cuanto se libere.</td></tr>
+      <tr><td><strong>No persistente</strong></td><td>Si esta ocupado, espera un tiempo aleatorio antes de volver a escuchar.</td></tr>
+      <tr><td><strong>p-persistente</strong></td><td>Si esta libre, transmite con probabilidad p; con probabilidad 1-p espera.</td></tr>
+    </table>
+
+    <div class="box important">
+      <strong class="box-title">CSMA/CD (Collision Detection)</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>Si se detecta colision <strong>durante</strong> la transmision, se aborta y se envia una senal de interferencia (<strong>jam</strong>).</li>
+        <li>Se espera un tiempo aleatorio (algoritmo <strong>Binary Exponential Backoff</strong>) antes de reintentar.</li>
+        <li>Usado en <strong>Ethernet cableado</strong> (IEEE 802.3).</li>
+      </ul>
+    </div>
+
+    <div class="box important">
+      <strong class="box-title">CSMA/CA (Collision Avoidance)</strong>
+      <ul style="margin:.3rem 0 0;">
+        <li>En medios inalambricos no es posible detectar colisiones. Se intenta <strong>evitarlas</strong>.</li>
+        <li>Mecanismo RTS/CTS (Request to Send / Clear to Send) para reservar el medio.</li>
+        <li>Usado en <strong>Wi-Fi</strong> (IEEE 802.11).</li>
+      </ul>
+    </div>
+
+    <h3>Acceso controlado</h3>
+    <table>
+      <tr><th>Metodo</th><th>Descripcion</th></tr>
+      <tr><td><strong>Reserva de bits / mapa de bits</strong></td><td>Cada nodo tiene un slot de reserva; si quiere transmitir, pone su bit a 1.</td></tr>
+      <tr><td><strong>Encuesta o sondeo (polling)</strong></td><td>Un nodo primario pregunta a cada secundario si tiene datos que enviar.</td></tr>
+      <tr><td><strong>Conteo descendente binario</strong></td><td>Cada nodo emite su direccion bit a bit; los de mayor direccion ganan.</td></tr>
+      <tr><td><strong>Paso de testigo (Token Passing)</strong></td><td>Un testigo (token) circula por la red; solo el nodo que lo tiene puede transmitir. Ej: Token Ring.</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TEMA 14 -->
+  <!-- ============================================================ -->
+  <section id="tema14" class="tema">
+    <h2><span class="num">14</span> Redes de Area Local (LAN)</h2>
+    <a class="pdf-link" href="AR_T14.pdf" target="_blank">&#128196; Ver AR_T14.pdf (74 diapos)</a>
+
+    <h3>Introduccion</h3>
+    <p>Una <strong>LAN</strong> (Local Area Network) es un conjunto de elementos fisicos y logicos que proporcionan interconexion en un area privada y restringida.</p>
+    <ul>
+      <li>Cobertura: generalmente &lt; 1 km.</li>
+      <li>Velocidad alta: Mbps a Gbps.</li>
+      <li>Pertenecen a una unica organizacion.</li>
+      <li>Tasa de error muy baja.</li>
+    </ul>
+
+    <h4>Componentes de una LAN</h4>
+    <ul>
+      <li><strong>Dispositivos terminales</strong>: PCs, tablets, smartphones, Smart TVs...</li>
+      <li><strong>Dispositivos intermedios</strong>: switches, hubs, puentes, routers.</li>
+      <li><strong>Medios de transmision</strong>: par trenzado, coaxial, fibra optica, radiofrecuencia.</li>
+    </ul>
+
+    <h3>Topologias LAN</h3>
+    <p>La <strong>topologia</strong> indica la forma fisica y logica de la red.</p>
+    <ul>
+      <li><strong>Fisica</strong>: distribucion del cableado y forma de interconexion (punto a punto, multipunto).</li>
+      <li><strong>Logica</strong>: forma de circulacion de las tramas (bus, anillo, estrella, arbol, malla, hibrida).</li>
+    </ul>
+
+    <h3>Dispositivos de interconexion</h3>
+    <table>
+      <tr><th>Dispositivo</th><th>Capa OSI</th><th>Funcion</th></tr>
+      <tr><td><strong>Repetidor / Hub</strong></td><td>1 (Fisica)</td><td>Amplifica/regenera la senal. No filtra trafico.</td></tr>
+      <tr><td><strong>Puente (Bridge)</strong></td><td>2 (Enlace)</td><td>Filtra trafico por direccion MAC. Conecta segmentos de LAN.</td></tr>
+      <tr><td><strong>Switch</strong></td><td>2 (Enlace)</td><td>Puente multipuerto. Tabla MAC para reenvio inteligente de tramas.</td></tr>
+      <tr><td><strong>Router</strong></td><td>3 (Red)</td><td>Interconecta redes diferentes. Enruta por direccion IP.</td></tr>
+    </table>
+
+    <h3>Estandares LAN / WLAN</h3>
+
+    <h4>Ethernet II (DIX)</h4>
+    <ul>
+      <li>Estandar original de Ethernet (Digital, Intel, Xerox).</li>
+      <li>Trama: Preambulo + SFD + MAC destino + MAC origen + EtherType + Datos + FCS.</li>
+    </ul>
+
+    <h4>IEEE 802.3 (Ethernet)</h4>
+    <ul>
+      <li>Estandar IEEE para redes Ethernet con cable.</li>
+      <li>Define subcapa MAC con <strong>CSMA/CD</strong>.</li>
+      <li>Nomenclatura: <code>velocidad BASE/BROAD tipo_medio</code> (ej: 10BASE-T, 100BASE-TX, 1000BASE-T).</li>
+      <li>Variantes: Fast Ethernet (100 Mbps), Gigabit Ethernet (1 Gbps), 10 Gigabit Ethernet.</li>
+    </ul>
+
+    <h4>IEEE 802.11 (Wi-Fi)</h4>
+    <ul>
+      <li>Estandar para redes inalambricas de area local (WLAN).</li>
+      <li>Opera en bandas de <strong>2.4 GHz</strong> y <strong>5 GHz</strong>.</li>
+      <li>Usa <strong>CSMA/CA</strong> como mecanismo de acceso al medio.</li>
+      <li>Modos de operacion: <strong>Infraestructura</strong> (con punto de acceso) y <strong>Ad-hoc</strong> (entre dispositivos).</li>
+    </ul>
+    <table>
+      <tr><th>Estandar</th><th>Banda</th><th>Velocidad max.</th><th>Nombre comercial</th></tr>
+      <tr><td>802.11a</td><td>5 GHz</td><td>54 Mbps</td><td>&mdash;</td></tr>
+      <tr><td>802.11b</td><td>2.4 GHz</td><td>11 Mbps</td><td>&mdash;</td></tr>
+      <tr><td>802.11g</td><td>2.4 GHz</td><td>54 Mbps</td><td>&mdash;</td></tr>
+      <tr><td>802.11n</td><td>2.4/5 GHz</td><td>600 Mbps</td><td>Wi-Fi 4</td></tr>
+      <tr><td>802.11ac</td><td>5 GHz</td><td>6.9 Gbps</td><td>Wi-Fi 5</td></tr>
+      <tr><td>802.11ax</td><td>2.4/5/6 GHz</td><td>9.6 Gbps</td><td>Wi-Fi 6/6E</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PROGRESO -->
+  <!-- ============================================================ -->
+  <section id="progreso" class="tema">
+    <h2><span class="num" style="background:var(--green);">&#9745;</span> Progreso de estudio</h2>
+
+    <!-- Donut + stats cards -->
+    <div class="donut-wrap">
+      <canvas id="donutChart" width="180" height="180"></canvas>
+      <div class="donut-info">
+        <div class="big" id="globalPct">0%</div>
+        <div class="sub">progreso global</div>
+      </div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card"><div class="stat-val" id="statDone">0</div><div class="stat-label">Completados</div></div>
+      <div class="stat-card"><div class="stat-val" id="statTotal">56</div><div class="stat-label">Total casillas</div></div>
+      <div class="stat-card"><div class="stat-val" id="statTemasDone">0</div><div class="stat-label">Temas 100%</div></div>
+      <div class="stat-card"><div class="stat-val" id="statRemain">56</div><div class="stat-label">Pendientes</div></div>
+    </div>
+
+    <!-- Per-column progress -->
+    <h3>Progreso por fase</h3>
+    <div class="col-progress" id="colProgress"></div>
+
+    <!-- Stacked bar chart per theme -->
+    <h3>Progreso por tema</h3>
+    <div class="chart-legend">
+      <span><span class="dot" style="background:#ff7b72;"></span> Apuntes</span>
+      <span><span class="dot" style="background:#ffa657;"></span> Subrayados</span>
+      <span><span class="dot" style="background:#79c0ff;"></span> Estudiados</span>
+      <span><span class="dot" style="background:#56d364;"></span> Test</span>
+    </div>
+    <div class="chart-container" id="barChart"></div>
+
+    <!-- Tracker table -->
+    <h3>Tabla de seguimiento</h3>
+    <table class="tracker-table" id="trackerTable">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Tema</th>
+          <th style="color:#ff7b72;">Apuntes</th>
+          <th style="color:#ffa657;">Subrayados</th>
+          <th style="color:#79c0ff;">Estudiados</th>
+          <th style="color:#56d364;">Test</th>
+        </tr>
+      </thead>
+      <tbody id="trackerBody"></tbody>
+    </table>
+
+    <button class="btn-reset" id="btnReset">Reiniciar todo el progreso</button>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  AR &mdash; Arquitectura de Redes &middot; 2.&ordm; Grado en Ingenieria Informatica &middot; UCO<br>
+  Dr. Francisco Javier Rodriguez Lozano &middot; Resumen generado como guia de estudio
+</footer>
+
+<script>
+document.getElementById('navToggle').addEventListener('click',()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+});
+document.querySelectorAll('.sidebar a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      document.querySelectorAll('.sidebar a').forEach(a=>{
+        a.classList.toggle('active',a.getAttribute('href')==='#'+id);
+      });
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+
+/* ===== PROGRESS TRACKER ===== */
+(function(){
+  const COLS=['apuntes','subrayados','estudiados','test'];
+  const COL_COLORS=['#ff7b72','#ffa657','#79c0ff','#56d364'];
+  const TEMAS=[
+    {id:1, label:'T1 — Introduccion a las redes'},
+    {id:2, label:'T2 — Modelos de redes'},
+    {id:3, label:'T3 — Medios de transmision'},
+    {id:4, label:'T4 — Teoria de la senal'},
+    {id:5, label:'T5 — Transmision digital'},
+    {id:6, label:'T6 — Transmision analogica'},
+    {id:7, label:'T7 — Ancho de banda'},
+    {id:8, label:'T8 — Enlace: Introduccion'},
+    {id:9, label:'T9 — Entramado y gestion'},
+    {id:10,label:'T10 — Control de flujo'},
+    {id:11,label:'T11 — Deteccion de errores'},
+    {id:12,label:'T12 — Protocolos de enlace'},
+    {id:13,label:'T13 — Acceso al medio'},
+    {id:14,label:'T14 — Redes de Area Local'},
+  ];
+  const TOTAL=TEMAS.length*COLS.length;
+  const KEY='ar_progress_v1';
+
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+  function save(d){localStorage.setItem(KEY,JSON.stringify(d));}
+  function k(tema,col){return tema+'_'+col;}
+
+  let data=load();
+
+  // Build table
+  const tbody=document.getElementById('trackerBody');
+  TEMAS.forEach(t=>{
+    const tr=document.createElement('tr');
+    const tdName=document.createElement('td');
+    tdName.innerHTML=t.label;
+    tr.appendChild(tdName);
+    COLS.forEach(col=>{
+      const td=document.createElement('td');
+      td.className='check-cell';
+      const inp=document.createElement('input');
+      inp.type='checkbox';
+      inp.checked=!!data[k(t.id,col)];
+      inp.dataset.tema=t.id;
+      inp.dataset.col=col;
+      const ck=document.createElement('span');
+      ck.className='ck';
+      ck.textContent='✓';
+      td.appendChild(inp);
+      td.appendChild(ck);
+      td.addEventListener('click',()=>{
+        inp.checked=!inp.checked;
+        data[k(t.id,col)]=inp.checked;
+        save(data);
+        update();
+      });
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+
+  function update(){
+    let done=0;
+    let colDone={};COLS.forEach(c=>colDone[c]=0);
+    let temasDone=0;
+
+    TEMAS.forEach(t=>{
+      let tAll=true;
+      const tr=tbody.children[t.id-1];
+      COLS.forEach((col,ci)=>{
+        const checked=!!data[k(t.id,col)];
+        if(checked){done++;colDone[col]++;}else{tAll=false;}
+        tr.children[ci+1].querySelector('input').checked=checked;
+      });
+      if(tAll){temasDone++;tr.classList.add('row-done');}
+      else{tr.classList.remove('row-done');}
+    });
+
+    const pct=Math.round(done/TOTAL*100);
+    document.getElementById('globalPct').textContent=pct+'%';
+    document.getElementById('statDone').textContent=done;
+    document.getElementById('statTotal').textContent=TOTAL;
+    document.getElementById('statTemasDone').textContent=temasDone;
+    document.getElementById('statRemain').textContent=TOTAL-done;
+
+    // Donut
+    drawDonut(pct);
+
+    // Column progress bars
+    const cpEl=document.getElementById('colProgress');
+    cpEl.innerHTML='';
+    COLS.forEach((col,i)=>{
+      const p=Math.round(colDone[col]/TEMAS.length*100);
+      cpEl.innerHTML+=
+        '<div class="col-row">'+
+        '<div class="col-label" style="color:'+COL_COLORS[i]+'">'+col.charAt(0).toUpperCase()+col.slice(1)+'</div>'+
+        '<div class="col-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:'+p+'%;background:'+COL_COLORS[i]+';"></div></div></div>'+
+        '<div class="col-pct">'+p+'%</div>'+
+        '</div>';
+    });
+
+    // Bar chart
+    const bcEl=document.getElementById('barChart');
+    bcEl.innerHTML='';
+    TEMAS.forEach(t=>{
+      let segs='';
+      let count=0;
+      COLS.forEach((col,i)=>{
+        const checked=!!data[k(t.id,col)];
+        if(checked)count++;
+        segs+='<div class="chart-bar-seg s-'+col+'" style="width:'+(checked?25:0)+'%;"></div>';
+      });
+      bcEl.innerHTML+=
+        '<div class="chart-bar-row">'+
+        '<div class="chart-bar-label">T'+t.id+'</div>'+
+        '<div class="chart-bar-track">'+segs+'</div>'+
+        '<div class="chart-bar-val">'+count+'/4</div>'+
+        '</div>';
+    });
+  }
+
+  function drawDonut(pct){
+    const canvas=document.getElementById('donutChart');
+    const ctx=canvas.getContext('2d');
+    const w=canvas.width,h=canvas.height;
+    const cx=w/2,cy=h/2,r=70,lw=18;
+    ctx.clearRect(0,0,w,h);
+
+    // Background ring
+    ctx.beginPath();
+    ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.strokeStyle='#30363d';
+    ctx.lineWidth=lw;
+    ctx.stroke();
+
+    // Progress ring
+    if(pct>0){
+      const startAngle=-Math.PI/2;
+      const endAngle=startAngle+(Math.PI*2*pct/100);
+      const grad=ctx.createLinearGradient(0,0,w,h);
+      grad.addColorStop(0,'#56d364');
+      grad.addColorStop(1,'#79c0ff');
+      ctx.beginPath();
+      ctx.arc(cx,cy,r,startAngle,endAngle);
+      ctx.strokeStyle=grad;
+      ctx.lineWidth=lw;
+      ctx.lineCap='round';
+      ctx.stroke();
+    }
+
+    // Center text
+    ctx.fillStyle='#c9d1d9';
+    ctx.font='bold 28px system-ui, sans-serif';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(pct+'%',cx,cy);
+  }
+
+  // Reset
+  document.getElementById('btnReset').addEventListener('click',()=>{
+    if(confirm('Seguro que quieres reiniciar todo el progreso?')){
+      data={};save(data);update();
+    }
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
