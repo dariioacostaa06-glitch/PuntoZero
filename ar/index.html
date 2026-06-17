@@ -267,6 +267,27 @@ footer{
 .prob-group-title .arrow{transition:transform .2s;color:var(--text-dim);}
 .prob-group-title.open .arrow{transform:rotate(90deg);}
 .prob-group-title .pgcount{margin-left:auto;font-size:.75rem;color:var(--text-dim);font-weight:400;}
+.sol-btn{
+  display:inline-block;margin-top:.6rem;padding:.35rem .8rem;border-radius:6px;cursor:pointer;
+  font-size:.8rem;font-weight:600;border:1px solid var(--green);color:var(--green);background:transparent;
+  font-family:inherit;transition:.15s;
+}
+.sol-btn:hover{background:var(--green);color:#0d1117;}
+.sol-content{
+  display:none;margin-top:.6rem;padding:.8rem 1rem;
+  background:rgba(126,231,135,.04);border:1px solid rgba(126,231,135,.15);border-radius:8px;
+  font-size:.88rem;line-height:1.65;
+}
+.sol-content.open{display:block;}
+.sol-content .sol-step{color:var(--accent2);font-weight:700;margin-top:.5rem;display:block;}
+.sol-content .sol-formula{
+  display:block;background:var(--bg-code);border:1px solid var(--border);border-radius:6px;
+  padding:.5rem .8rem;margin:.4rem 0;font-family:monospace;color:var(--blue);text-align:center;font-size:.9rem;
+}
+.sol-content .sol-result{
+  display:inline-block;background:var(--green);color:#0d1117;font-weight:800;
+  padding:.15rem .5rem;border-radius:5px;margin-top:.3rem;
+}
 .prob-list{display:none;padding:.5rem 0;}
 .prob-list.open{display:block;}
 .prob-item{
@@ -1283,64 +1304,147 @@ footer{
         <a class="pdf-link" href="problemas/Ejercicios-F%C3%ADsico.pdf" target="_blank" onclick="event.stopPropagation();" style="margin:0;">&#128196; PDF</a>
         <span class="pgcount">21 ejercicios</span>
       </div>
-      <div class="prob-list">
-        <div class="prob-item"><span class="prob-num">1</span>Un canal de comunicaciones debe soportar velocidad de datos de hasta 10 kbps. El canal tiene una relacion senal a ruido de 50. ¿Cual es el ancho de banda maximo en hercios para este canal?</div>
+      <div class="prob-list open">
+        <div class="prob-item"><span class="prob-num">1</span>Un canal de comunicaciones debe soportar velocidad de datos de hasta 10 kbps. El canal tiene una relacion senal a ruido de 50. ¿Cual es el ancho de banda maximo en hercios para este canal?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Aplicamos el teorema de Shannon (T4):</span><span class="sol-formula">C = B &middot; log&sub2;(1 + SNR)</span>Despejamos B:<span class="sol-formula">B = C / log&sub2;(1 + SNR) = 10000 / log&sub2;(51)</span><span class="sol-formula">log&sub2;(51) = ln(51)/ln(2) = 3.932/0.693 = 5.672</span><span class="sol-formula">B = 10000 / 5.672 = 1763 Hz</span><span class="sol-result">B &asymp; 1763 Hz</span></div>
+        </div>
 
         <div class="prob-item"><span class="prob-num">2</span>Un sistema de transmision de imagenes, transmite imagenes con una resolucion de 480x500 pixeles, en la que cada pixel puede tomar valores de intensidad en el rango 0-31. Ademas, el sistema es capaz de enviar 30 imagenes por segundo.
           <ol class="prob-sub"><li>Determina la velocidad maxima de transmision del sistema.</li><li>Determinar la capacidad del canal si se transmite por un medio de 4,5 MHz de ancho de banda con una relacion senal-ruido de 35.</li></ol>
+          <button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Velocidad maxima de transmision:</span>Rango 0-31 = 32 niveles &rarr; bits/pixel = log&sub2;(32) = 5 bits<span class="sol-formula">V = 480 &times; 500 &times; 5 &times; 30 = 36 000 000 bps</span><span class="sol-result">V = 36 Mbps</span><span class="sol-step">b) Capacidad del canal (Shannon):</span><span class="sol-formula">C = B &middot; log&sub2;(1 + SNR) = 4.5&times;10&sup6; &times; log&sub2;(36)</span><span class="sol-formula">log&sub2;(36) = 5.17</span><span class="sol-formula">C = 4.5&times;10&sup6; &times; 5.17 = 23.27 Mbps</span><span class="sol-result">C &asymp; 23.27 Mbps</span> (menor que 36 Mbps, asi que el canal NO puede soportar la transmision)</div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">3</span>Disponemos de un sistema con un medio guiado mediante una linea de comunicacion. La potencia de la senal a la entrada de dicho sistema es de 0,5 W y el nivel de ruido a la salida es de 4,5 &mu;W. Calcule la relacion senal-ruido.</div>
-
-        <div class="prob-item"><span class="prob-num">4</span>Calcule la atenuacion de un sistema de comunicacion mediante medios no guiados que trabajan a 11 GHz con una velocidad de transmision de 90 Mbps si las antenas distan 80 km.</div>
-
-        <div class="prob-item"><span class="prob-num">5</span>Un sistema emplea un patron de constelacion (ver PDF para diagrama). Determine:
-          <ol class="prob-sub"><li>El tipo de modulacion que emplea.</li><li>La velocidad de datos del sistema sabiendo que transmite a 4800 baudios.</li></ol>
+        <div class="prob-item"><span class="prob-num">3</span>Disponemos de un sistema con un medio guiado mediante una linea de comunicacion. La potencia de la senal a la entrada de dicho sistema es de 0,5 W y el nivel de ruido a la salida es de 4,5 &mu;W. Calcule la relacion senal-ruido.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Formula SNR (T4):</span><span class="sol-formula">SNR = P_senal / P_ruido = 0.5 / 4.5&times;10&supmin;&sup6; = 111 111.11</span><span class="sol-formula">SNR(dB) = 10 &middot; log&sub1;&sub0;(111111.11) = 10 &times; 5.046 = 50.46 dB</span><span class="sol-result">SNR = 111 111 (lineal) &asymp; 50.46 dB</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">6</span>Calcula la tasa de baudios para las siguientes tasas de bits y tipos de modulacion:
-          <ol class="prob-sub"><li>2000 bps, FSK</li><li>4000 bps, ASK</li><li>6000 bps, 2-PSK</li><li>6000 bps, 4-PSK</li><li>6000 bps, 8-PSK</li><li>4000 bps, 4-QAM</li><li>6000 bps, 16-QAM</li><li>36000 bps, 64-QAM</li></ol>
+        <div class="prob-item"><span class="prob-num">4</span>Calcule la atenuacion de un sistema de comunicacion mediante medios no guiados que trabajan a 11 GHz con una velocidad de transmision de 90 Mbps si las antenas distan 80 km.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Atenuacion en espacio libre:</span><span class="sol-formula">&lambda; = c/f = 3&times;10&sup8; / 11&times;10&sup9; = 0.02727 m</span><span class="sol-formula">L(dB) = 20 &middot; log&sub1;&sub0;(4&pi;d / &lambda;)</span><span class="sol-formula">L = 20 &middot; log&sub1;&sub0;(4&pi; &times; 80000 / 0.02727)</span><span class="sol-formula">L = 20 &middot; log&sub1;&sub0;(36 861 538) = 20 &times; 7.567</span><span class="sol-result">L &asymp; 151.3 dB</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">7</span>Dibuja el diagrama de constelacion para:
-          <ol class="prob-sub"><li>ASK, con amplitudes de 1 y 3</li><li>2-PSK, con amplitudes de 1 y 180 grados</li><li>8-QAM, con amplitudes de 1 y 2 en 360 grados</li></ol>
+        <div class="prob-item"><span class="prob-num">5</span>Un sistema emplea un patron de constelacion (ver PDF). Determine: a) tipo de modulacion, b) velocidad de datos a 4800 baudios.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Tipo de modulacion:</span>El diagrama muestra 16 puntos distribuidos a distintas fases y amplitudes &rarr; <strong>16-QAM</strong> (combinacion de amplitud y fase, T6).<span class="sol-step">b) Velocidad de datos:</span>16 puntos &rarr; bits/simbolo = log&sub2;(16) = 4 bits<span class="sol-formula">V = 4800 baudios &times; 4 bits/baudio = 19 200 bps</span><span class="sol-result">19.2 kbps con modulacion 16-QAM</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">8</span>Responde a las siguientes preguntas:
-          <ol class="prob-sub"><li>Un diagrama de constelacion de modem tiene puntos de datos en (1,1), (1,-1), (-1,1) y (-1,-1). ¿Cuantos bps puede lograr un modem a 1200 baudios?</li><li>Un diagrama con puntos en (0,1) y (0,2). ¿El modem usa modulacion de fase o de amplitud?</li><li>En un diagrama con todos los puntos en un circulo centrado en el origen, ¿que tipo de modulacion se utiliza?</li><li>¿Cuantas frecuencias utiliza un modem QAM-64 de duplex total?</li></ol>
+        <div class="prob-item"><span class="prob-num">6</span>Calcula la tasa de baudios para las siguientes tasas de bits y tipos de modulacion.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Formula (T6): Baudios = bps / log&sub2;(L)</span>
+          <table><tr><th>Caso</th><th>bps</th><th>Mod.</th><th>L</th><th>bits/simb</th><th>Baudios</th></tr>
+          <tr><td>a</td><td>2000</td><td>FSK</td><td>2</td><td>1</td><td><strong>2000</strong></td></tr>
+          <tr><td>b</td><td>4000</td><td>ASK</td><td>2</td><td>1</td><td><strong>4000</strong></td></tr>
+          <tr><td>c</td><td>6000</td><td>2-PSK</td><td>2</td><td>1</td><td><strong>6000</strong></td></tr>
+          <tr><td>d</td><td>6000</td><td>4-PSK</td><td>4</td><td>2</td><td><strong>3000</strong></td></tr>
+          <tr><td>e</td><td>6000</td><td>8-PSK</td><td>8</td><td>3</td><td><strong>2000</strong></td></tr>
+          <tr><td>f</td><td>4000</td><td>4-QAM</td><td>4</td><td>2</td><td><strong>2000</strong></td></tr>
+          <tr><td>g</td><td>6000</td><td>16-QAM</td><td>16</td><td>4</td><td><strong>1500</strong></td></tr>
+          <tr><td>h</td><td>36000</td><td>64-QAM</td><td>64</td><td>6</td><td><strong>6000</strong></td></tr></table></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">9</span>Se ha obtenido en el receptor la siguiente secuencia de bits empleando una codificacion bipolar: +-0+-0-+. Indique si la secuencia recibida es correcta. ¿Seria posible que hubieran patrones de bits diferentes que dieran como resultado ese mismo patron?</div>
-
-        <div class="prob-item"><span class="prob-num">10</span>Una senal se cuantiza utilizando 10 bits PCM. Calcule el ruido de cuantizacion.</div>
-
-        <div class="prob-item"><span class="prob-num">11</span>Una senal NRZ-L se pasa a traves de un filtro con r = 0,5 y, posteriormente, se modula sobre una portadora. La velocidad de transmision es 2400 bps. Calcula el ancho de banda para ASK y FSK. Para FSK supon que las frecuencias utilizadas son 50 kHz y 55 kHz.</div>
-
-        <div class="prob-item"><span class="prob-num">12</span>Considera una senal de audio cuyas componentes espectrales estan comprendidas en el rango de 300 a 3000 Hz. Supon que se usa una frecuencia de muestreo de 7000 muestras por segundo para generar una senal PCM.
-          <ol class="prob-sub"><li>Para una SNR = 30, ¿cuantos niveles se necesitan en un cuantizador uniforme?</li><li>¿Cual es la velocidad de transmision maxima del sistema?</li></ol>
+        <div class="prob-item"><span class="prob-num">7</span>Dibuja el diagrama de constelacion para: a) ASK amplitudes 1 y 3, b) 2-PSK amplitudes 1 y 180&deg;, c) 8-QAM amplitudes 1 y 2 en 360&deg;.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) ASK (amplitudes 1 y 3):</span>Dos puntos sobre el eje real positivo: <strong>(1, 0)</strong> y <strong>(3, 0)</strong>. Solo varia la amplitud, frecuencia y fase constantes.<span class="sol-step">b) 2-PSK (amplitud 1, fases 0&deg; y 180&deg;):</span>Dos puntos en el eje real: <strong>(1, 0)</strong> y <strong>(-1, 0)</strong>. Misma amplitud, fases opuestas.<span class="sol-step">c) 8-QAM (amplitudes 1 y 2):</span>8 puntos: 4 puntos con amplitud 1 a 45&deg;, 135&deg;, 225&deg;, 315&deg; y 4 puntos con amplitud 2 a 0&deg;, 90&deg;, 180&deg;, 270&deg;. Combinacion de amplitud y fase.</div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">13</span>Supon que empleamos una codificacion bipolar-AMI que se transmite en un medio guiado en banda base en el que hay presencia de ruido. Determine si existe algun error y cual es la cadena binaria que recibe y/o deberia recibir el receptor. (Ver diagrama de senal en el PDF).</div>
-
-        <div class="prob-item"><span class="prob-num">14</span>Disponemos de dos antenas, una emisora y otra receptora, colocadas a unas alturas de 10m y 7m respectivamente. Se sabe que ambas antenas estan separadas 10 m. ¿Que inclinacion debe tener la antena emisora para poder tener vision directa con la antena receptora?</div>
-
-        <div class="prob-item"><span class="prob-num">15</span>Se tiene un canal con un ancho de banda de 80 Hz, se desea emplear la tecnica de espectro expandido por salto de frecuencia (FHSS) empleando todo el ancho de banda. Muestre cual seria la secuencia de saltos en dos ciclos, suponiendo 3 bits para generacion del patron pseudo-aleatorio.</div>
-
-        <div class="prob-item"><span class="prob-num">16</span>Se pretende enviar el siguiente patron de informacion 110100001 en un canal de banda base. Dibuje la senal a emitir considerando logica positiva en las siguientes codificaciones:
-          <ol class="prob-sub"><li>Polar RZ</li><li>NRZ-L</li><li>Manchester</li><li>HDB3</li><li>Manchester diferencial</li><li>Bipolar NRZ con logica negativa</li></ol>
+        <div class="prob-item"><span class="prob-num">8</span>Responde a las siguientes preguntas sobre diagramas de constelacion.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Puntos (1,1), (1,-1), (-1,1), (-1,-1) a 1200 baudios:</span>4 puntos &rarr; log&sub2;(4) = 2 bits/simbolo<span class="sol-formula">V = 1200 &times; 2 = 2400 bps</span><span class="sol-result">2400 bps</span><span class="sol-step">b) Puntos en (0,1) y (0,2):</span>Misma fase (90&deg;), distintas amplitudes &rarr; <span class="sol-result">Modulacion de amplitud (ASK)</span><span class="sol-step">c) Puntos en un circulo centrado en el origen:</span>Misma amplitud (radio), distintas fases &rarr; <span class="sol-result">Modulacion de fase (PSK)</span><span class="sol-step">d) QAM-64 duplex total:</span>Full-duplex requiere una portadora por direccion &rarr; <span class="sol-result">2 frecuencias</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">17</span>Se tienen dos repetidores inalambricos de 2,4 MHz a lo largo de un edificio de 100 m. Cada repetidor esta colocado a 25 metros desde el inicio (A) y el final del edificio (B): A--25m--Rep--50m--Rep--25m--B. Determine cual es la atenuacion entre el punto A y el punto B.</div>
-
-        <div class="prob-item"><span class="prob-num">18</span>Dado un sistema de microfonia inalambrica analogica que emplea un ancho de banda de 4 kHz y tiene una SNR de 50, ¿que ruido de cuantizacion percibiria un usuario si se digitalizasen los datos y se transmitiesen a la tasa maxima fijada por Shannon?</div>
-
-        <div class="prob-item"><span class="prob-num">19</span>Dada una fuente de 12 V, determina la maxima longitud alcanzable en los siguientes medios de transmision, si el voltaje a recibir es 5 V:
-          <ol class="prob-sub"><li>Par trenzado de 0,5 mm a 300 kHz con atenuacion de 11 dB/km</li><li>Par trenzado de 0,5 mm a 1 MHz con atenuacion de 20 dB/km</li><li>Cable coaxial de 9,5 mm a 1 MHz con atenuacion de 2,5 dB/km</li><li>Cable coaxial de 9,5 mm a 25 MHz con atenuacion de 9 dB/km</li></ol>
+        <div class="prob-item"><span class="prob-num">9</span>Secuencia bipolar recibida: +-0+-0-+. ¿Es correcta? ¿Podrian otros patrones dar el mismo resultado?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Verificacion de alternancia AMI (T5):</span>En AMI los 1s deben alternar entre + y -. Rastreamos:
+          <br>Pos1(+) Pos2(-) Pos3(0) Pos4(+) Pos5(-) Pos6(0) Pos7(-) Pos8(+)
+          <br>Secuencia de 1s: <strong>+, -, +, -, -, +</strong>
+          <br>Posicion 7: deberia ser <strong>+</strong> (alterna del - anterior), pero es <strong>-</strong>.
+          <br><span class="sol-result">HAY ERROR en la posicion 7</span>
+          <br>La secuencia correcta seria: +-0+-0<strong>+</strong>-
+          <br>Binario: <strong>11011011</strong>
+          <span class="sol-step">¿Otros patrones iguales?</span>En AMI la correspondencia es unica (0&rarr;0, 1&rarr;alterna +/-). <span class="sol-result">No, no es posible</span>.</div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">20</span>Se desea utilizar el metodo de espectro ensanchado por secuencia directa (DSSS) a la siguiente secuencia de bits 1001011. Sabiendo que emisor y receptor emplean la pseudo-secuencia de bits 110111001 para los 0 y los 1, indique cual seria la cadena de bits a enviar desde el emisor.</div>
+        <div class="prob-item"><span class="prob-num">10</span>Una senal se cuantiza utilizando 10 bits PCM. Calcule el ruido de cuantizacion.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Formula SNR de cuantizacion (T5):</span><span class="sol-formula">SNR_q(dB) = 1.76 + 6.02 &times; n</span><span class="sol-formula">SNR_q = 1.76 + 6.02 &times; 10 = 61.96 dB</span>Niveles de cuantizacion: L = 2&sup1;&sup0; = 1024<span class="sol-formula">SNR_q(lineal) = 10^(61.96/10) &asymp; 1 572 864</span><span class="sol-result">SNR_q &asymp; 61.96 dB</span></div>
+        </div>
 
-        <div class="prob-item"><span class="prob-num">21</span>Se desea realizar un radioenlace entre dos campos de cultivos a 1,4 km de distancia con un arbol de 7m a mitad de camino. El ingeniero duda entre 2.4 GHz o 5 GHz. ¿Cual de las dos frecuencias deberia emplear con antenas a 10m de altura? ¿A que altura habria que colocarlas para no descartar ninguna opcion?</div>
+        <div class="prob-item"><span class="prob-num">11</span>Senal NRZ-L con filtro r=0.5, modulada sobre portadora a 2400 bps. Ancho de banda para ASK y FSK (50 kHz y 55 kHz).
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Ancho de banda en banda base con roll-off (T5/T6):</span><span class="sol-formula">B_base = (1+r) &times; V_t/2 = 1.5 &times; 1200 = 1800 Hz</span><span class="sol-step">Para ASK:</span><span class="sol-formula">B_ASK = 2 &times; B_base = 2 &times; 1800 = 3600 Hz</span><span class="sol-result">B_ASK = 3600 Hz</span><span class="sol-step">Para FSK (f1=50 kHz, f2=55 kHz):</span><span class="sol-formula">B_FSK = (f2 - f1) + 2 &times; B_base = 5000 + 3600 = 8600 Hz</span><span class="sol-result">B_FSK = 8600 Hz</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">12</span>Senal de audio 300-3000 Hz, muestreo 7000 muestras/seg, PCM. a) Niveles para SNR=30 dB, b) Velocidad maxima.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Niveles de cuantizacion:</span><span class="sol-formula">SNR_q(dB) = 1.76 + 6.02&middot;n &ge; 30 dB</span><span class="sol-formula">n &ge; (30 - 1.76) / 6.02 = 4.69 &rarr; n = 5 bits</span><span class="sol-formula">L = 2&sup5; = 32 niveles</span><span class="sol-result">32 niveles (5 bits/muestra)</span><span class="sol-step">b) Velocidad maxima:</span><span class="sol-formula">V = f_muestreo &times; n = 7000 &times; 5 = 35 000 bps</span><span class="sol-result">V = 35 kbps</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">13</span>Codificacion bipolar-AMI con ruido (ver diagrama en PDF). Determine si hay error.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Metodo (T5):</span>En AMI, los 1s deben alternar estrictamente entre + y -. Cualquier violacion (dos + o dos - consecutivos) indica un error de transmision.<span class="sol-step">Procedimiento:</span>1. Leer la senal del diagrama nivel por nivel.<br>2. Identificar los pulsos no-cero (representan 1s).<br>3. Verificar que alternan +, -, +, -, ...<br>4. Si hay violacion de alternancia &rarr; error detectado.<br>5. La cadena binaria correcta se obtiene: pulso &ne; 0 &rarr; 1, pulso = 0 &rarr; 0.<br><em>(La respuesta exacta depende de la lectura precisa del diagrama del PDF)</em></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">14</span>Antenas a 10m y 7m, separadas 10m. ¿Inclinacion para vision directa?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Trigonometria basica:</span>Diferencia de altura = 10 - 7 = 3 m<br>Distancia horizontal = 10 m<span class="sol-formula">tan(&theta;) = &Delta;h / d = 3 / 10 = 0.3</span><span class="sol-formula">&theta; = arctan(0.3) = 16.7&deg;</span><span class="sol-result">&theta; &asymp; 16.7&deg; hacia abajo</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">15</span>FHSS con B=80 Hz, 3 bits para patron pseudo-aleatorio. Secuencia de saltos en 2 ciclos.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Calculo (T7):</span>3 bits &rarr; 2&sup3; = 8 combinaciones &rarr; <strong>8 canales de frecuencia</strong><span class="sol-formula">Ancho de cada canal = 80 / 8 = 10 Hz</span>Canales: f1(0-10Hz), f2(10-20Hz), ..., f8(70-80Hz)<span class="sol-step">Secuencia pseudo-aleatoria (ejemplo):</span>Patron de 3 bits: 001, 111, 100, 010, 110, 000, 011, 101<br>Mapeo: 000&rarr;f1, 001&rarr;f2, 010&rarr;f3, ..., 111&rarr;f8<span class="sol-step">2 ciclos:</span>Ciclo 1: f2, f8, f5, f3, f7, f1, f4, f6<br>Ciclo 2: f2, f8, f5, f3, f7, f1, f4, f6 (se repite el patron)</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">16</span>Patron 110100001 en banda base. Dibujar en: a) Polar RZ, b) NRZ-L, c) Manchester, d) HDB3, e) Manchester diferencial, f) Bipolar NRZ logica negativa.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Datos: 1 1 0 1 0 0 0 0 1</span>
+          <span class="sol-step">a) Polar RZ:</span>1&rarr;+V primera mitad / 0 segunda mitad; 0&rarr;-V primera mitad / 0 segunda mitad<br><code>+0 +0 -0 +0 -0 -0 -0 -0 +0</code>
+          <span class="sol-step">b) NRZ-L (logica positiva):</span>1&rarr;+V; 0&rarr;-V (nivel constante todo el bit)<br><code>+V +V -V +V -V -V -V -V +V</code>
+          <span class="sol-step">c) Manchester:</span>1&rarr;alto&rarr;bajo (transicion descendente en mitad); 0&rarr;bajo&rarr;alto (ascendente en mitad)<br><code>&darr; &darr; &uarr; &darr; &uarr; &uarr; &uarr; &uarr; &darr;</code>
+          <span class="sol-step">d) HDB3:</span>Primero AMI: +, -, 0, +, 0, 0, 0, 0, -<br>4 ceros consecutivos (pos 5-8). Pulsos previos desde ultima sustitucion: 3 (impar) &rarr; regla <strong>000V</strong><br>V = misma polaridad que ultimo pulso (+), violando alternancia<br><code>+, -, 0, +, 0, 0, 0, <strong>+</strong>, -</code>
+          <span class="sol-step">e) Manchester diferencial:</span>1&rarr;NO transicion al inicio; 0&rarr;SI transicion al inicio. Siempre transicion a mitad de bit.<br>Partiendo de nivel alto:<br>1: [H&rarr;L] 1: [L&rarr;H] 0: [&darr;L&rarr;H] 1: [H&rarr;L] 0: [&uarr;H&rarr;L] 0: [&uarr;H&rarr;L] 0: [&uarr;H&rarr;L] 0: [&uarr;H&rarr;L] 1: [L&rarr;H]
+          <span class="sol-step">f) Bipolar NRZ logica negativa:</span>Logica negativa invierte: 0&rarr;alterna +/-, 1&rarr;nivel 0<br><code>0, 0, +V, 0, -V, +V, -V, +V, 0</code></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">17</span>Dos repetidores inalambricos de 2,4 MHz en edificio de 100m. A--25m--Rep--50m--Rep--25m--B. Atenuacion A&rarr;B.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Atenuacion por tramos (espacio libre):</span><span class="sol-formula">&lambda; = c/f = 3&times;10&sup8; / 2.4&times;10&sup6; = 125 m</span><span class="sol-formula">L = 20&middot;log&sub1;&sub0;(4&pi;d / &lambda;)</span>Tramo A&rarr;Rep1 (25m): L&sub1; = 20&middot;log&sub1;&sub0;(4&pi;&times;25/125) = 20&middot;log&sub1;&sub0;(2.51) &asymp; <strong>8 dB</strong><br>Tramo Rep1&rarr;Rep2 (50m): L&sub2; = 20&middot;log&sub1;&sub0;(4&pi;&times;50/125) = 20&middot;log&sub1;&sub0;(5.03) &asymp; <strong>14 dB</strong><br>Tramo Rep2&rarr;B (25m): L&sub3; = 20&middot;log&sub1;&sub0;(2.51) &asymp; <strong>8 dB</strong><span class="sol-step">Con repetidores (regeneran la senal):</span>La atenuacion efectiva es la del tramo mas largo: <span class="sol-result">14 dB (tramo de 50m)</span><br>Sin repetidores seria: 20&middot;log&sub1;&sub0;(4&pi;&times;100/125) &asymp; 20 dB</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">18</span>Microfonia inalambrica, B=4 kHz, SNR=50. ¿Ruido de cuantizacion si se digitaliza a tasa maxima de Shannon?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">1. Capacidad de Shannon:</span><span class="sol-formula">C = 4000 &middot; log&sub2;(1+50) = 4000 &times; 5.672 = 22 688 bps</span><span class="sol-step">2. Muestreo (Nyquist):</span><span class="sol-formula">f_m = 2 &times; 4000 = 8000 muestras/s</span><span class="sol-step">3. Bits por muestra:</span><span class="sol-formula">n = floor(C / f_m) = floor(22688 / 8000) = floor(2.836) = 2 bits</span><span class="sol-step">4. Ruido de cuantizacion:</span><span class="sol-formula">SNR_q = 1.76 + 6.02 &times; 2 = 13.8 dB</span><span class="sol-result">SNR_q = 13.8 dB</span> (muy inferior a los 50 originales = 17 dB, habria perdida notable de calidad)</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">19</span>Fuente 12 V, recibir 5 V. Maxima longitud en distintos medios.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Atenuacion admisible:</span><span class="sol-formula">A = 20&middot;log&sub1;&sub0;(V_in/V_out) = 20&middot;log&sub1;&sub0;(12/5) = 20&times;0.38 = 7.6 dB</span><span class="sol-step">L_max = Atenuacion_admisible / Atenuacion_por_km:</span>
+          <table><tr><th>Medio</th><th>Aten. (dB/km)</th><th>L_max</th></tr>
+          <tr><td>a) Par trenzado 0.5mm, 300kHz</td><td>11</td><td>7.6/11 = <strong>691 m</strong></td></tr>
+          <tr><td>b) Par trenzado 0.5mm, 1MHz</td><td>20</td><td>7.6/20 = <strong>380 m</strong></td></tr>
+          <tr><td>c) Coaxial 9.5mm, 1MHz</td><td>2.5</td><td>7.6/2.5 = <strong>3 042 m</strong></td></tr>
+          <tr><td>d) Coaxial 9.5mm, 25MHz</td><td>9</td><td>7.6/9 = <strong>845 m</strong></td></tr></table></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">20</span>DSSS con secuencia 1001011 y pseudo-secuencia 110111001.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">DSSS (T7): cada bit se multiplica por la pseudo-secuencia:</span>Bit 1 &rarr; pseudo-secuencia tal cual: 110111001<br>Bit 0 &rarr; pseudo-secuencia invertida: 001000110
+          <table><tr><th>Bit</th><th>Chips enviados</th></tr>
+          <tr><td>1</td><td>110111001</td></tr>
+          <tr><td>0</td><td>001000110</td></tr>
+          <tr><td>0</td><td>001000110</td></tr>
+          <tr><td>1</td><td>110111001</td></tr>
+          <tr><td>0</td><td>001000110</td></tr>
+          <tr><td>1</td><td>110111001</td></tr>
+          <tr><td>1</td><td>110111001</td></tr></table><span class="sol-result">110111001 001000110 001000110 110111001 001000110 110111001 110111001</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">21</span>Radioenlace 1.4 km, arbol de 7m a mitad, antenas a 10m. ¿2.4 GHz o 5 GHz? ¿Altura minima para ambas?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Radio de la 1&ordf; zona de Fresnel:</span><span class="sol-formula">r&sub1; = &radic;(&lambda; &middot; d&sub1; &middot; d&sub2; / d)</span>Con d&sub1; = d&sub2; = 700m (obstaculo centrado), d = 1400m:<span class="sol-step">Para 2.4 GHz:</span><span class="sol-formula">&lambda; = 3&times;10&sup8;/2.4&times;10&sup9; = 0.125 m</span><span class="sol-formula">r&sub1; = &radic;(0.125 &times; 700 &times; 700 / 1400) = &radic;(43.75) = 6.61 m</span>Se necesita libre el 60%: 0.6 &times; 6.61 = <strong>3.97 m</strong><br>Espacio libre disponible: 10 - 7 = 3 m &lt; 3.97 m &rarr; <span style="color:var(--red);">NO VIABLE</span><span class="sol-step">Para 5 GHz:</span><span class="sol-formula">&lambda; = 3&times;10&sup8;/5&times;10&sup9; = 0.06 m</span><span class="sol-formula">r&sub1; = &radic;(0.06 &times; 350) = &radic;(21) = 4.58 m</span>60%: 0.6 &times; 4.58 = <strong>2.75 m</strong><br>Espacio libre: 3 m &gt; 2.75 m &rarr; <span style="color:var(--green);">VIABLE</span><br><span class="sol-result">Usar 5 GHz</span><span class="sol-step">Altura minima para que valgan las dos:</span><span class="sol-formula">h = 7 + 0.6 &times; 6.61 = 7 + 3.97 &asymp; 11 m</span><span class="sol-result">Antenas a &ge; 11 m</span></div>
+        </div>
       </div>
     </div>
 
@@ -1353,43 +1457,139 @@ footer{
         <span class="pgcount">15 ejercicios</span>
       </div>
       <div class="prob-list">
-        <div class="prob-item"><span class="prob-num">1</span>Dadas dos estaciones A y B que se comunican utilizando HDLC y teniendo en cuenta que una trama erronea se presenta por una linea discontinua, complete las secuencias de tramas suponiendo que ni A ni B tienen mas informacion que enviarse. Indique si hay algun error en las representaciones. (Ver diagramas en PDF).</div>
-
-        <div class="prob-item"><span class="prob-num">2</span>Un cable de 100 km de longitud opera con una tasa de datos de 1,544 Mbps. La velocidad del cable es 2/3 de la velocidad de la luz en el vacio. ¿Cual es la longitud de dicho enlace en bits?</div>
-
-        <div class="prob-item"><span class="prob-num">3</span>De los siguientes casos, ¿cual seria la secuencia de bits que deberia de mandar el emisor si se desea utilizar como metodo de deteccion de errores la paridad impar?
-          <ol class="prob-sub"><li>100101</li><li>111111</li><li>000000</li><li>101010</li></ol>
+        <div class="prob-item"><span class="prob-num">1</span>HDLC: completar secuencias de tramas (ver diagramas en PDF).
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Modo ABM (HDLC, T12):</span>SABME = Set Asynchronous Balanced Mode Extended; UA = Unnumbered Ack; I(N(S),N(R)) = Trama de informacion.<span class="sol-step">Diagrama 1:</span>A&rarr;B: SABME &rarr; B&rarr;A: UA &rarr; A&rarr;B: I(0,0)<br>Completar: B&rarr;A: <strong>RR(1)</strong> (confirma recepcion, espera trama 1). Fin.<span class="sol-step">Diagrama 2:</span>Identico al 1. B responde <strong>RR(1)</strong>.<span class="sol-step">Diagrama 3:</span>A&rarr;B: SABME &rarr; B&rarr;A: UA &rarr; A&rarr;B: I(0,0) &rarr; B&rarr;A: I(0,1) &rarr; A&rarr;B: I(1,1)<br>B confirma con <strong>RR(2)</strong> (o I(1,2) si tiene mas datos). Los N(R) hacen piggybacking de las confirmaciones.</div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">4</span>Un canal tiene una velocidad de transmision de 4 kbps y un retardo de propagacion de 20 ms. ¿Cual es la longitud de la trama en bits si se pretende utilizar un esquema de parada y espera con una eficiencia minima del 50%?</div>
-
-        <div class="prob-item"><span class="prob-num">5</span>Comparar el rendimiento de Stop & Wait con Ventana deslizante (tamano 7):
-          <ol class="prob-sub"><li>Calcule rendimiento con trama de 4000 bits, probabilidad de error despreciable, v_prop = 2/3·c: en enlace de 10000 km a 250 kbps y en enlace de 100 m a 10 Mbps.</li><li>¿En que condiciones es aceptable Stop & Wait para eficiencia minima del 80%?</li></ol>
+        <div class="prob-item"><span class="prob-num">2</span>Cable 100 km, 1.544 Mbps, v = 2/3 de c. ¿Longitud del enlace en bits?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Formula (T10):</span><span class="sol-formula">t_prop = d / v = 100 000 / (2/3 &times; 3&times;10&sup8;) = 100 000 / 2&times;10&sup8; = 0.5 ms</span><span class="sol-formula">Longitud en bits = C &times; t_prop = 1.544&times;10&sup6; &times; 5&times;10&supmin;&sup4;</span><span class="sol-result">772 bits</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">6</span>Considerando un protocolo ARQ de parada y espera, determine cual debe ser el valor minimo del temporizador.</div>
-
-        <div class="prob-item"><span class="prob-num">7</span>Se emplea como mecanismo de deteccion de errores un CRC-3 mediante el polinomio X&sup3;+X&sup2;+1. El receptor ha recibido el mensaje 10110101110100. Determine si el mensaje recibido es correcto.</div>
-
-        <div class="prob-item"><span class="prob-num">8</span>Se emplea paridad bidimensional como mecanismo de correccion de errores. Se desea transmitir la cadena 1100101010101110110, considerando palabras de 4 bits. ¿Cual seria la secuencia de bits que se mandaria al receptor?</div>
-
-        <div class="prob-item"><span class="prob-num">9</span>Suponiendo que una trama esta compuesta por palabras de 16 bits, calcule el valor de la suma de verificacion de los datos A7A2CABF903AA123.</div>
-
-        <div class="prob-item"><span class="prob-num">10</span>Dadas las siguientes direcciones MAC determine de que tipo concreto son:
-          <ol class="prob-sub"><li>4A:30:10:21:10:1A</li><li>47:20:1B:2E:08:EE</li><li>FF:FF:FF:FF:FF:FF</li></ol>
+        <div class="prob-item"><span class="prob-num">3</span>Paridad impar: ¿que secuencia manda el emisor?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Paridad impar (T11): total de 1s debe ser impar.</span>
+          <table><tr><th>Datos</th><th>N&ordm; de 1s</th><th>Bit paridad</th><th>Resultado</th></tr>
+          <tr><td>100101</td><td>3 (impar)</td><td>0</td><td><strong>1001010</strong></td></tr>
+          <tr><td>111111</td><td>6 (par)</td><td>1</td><td><strong>1111111</strong></td></tr>
+          <tr><td>000000</td><td>0 (par)</td><td>1</td><td><strong>0000001</strong></td></tr>
+          <tr><td>101010</td><td>3 (impar)</td><td>0</td><td><strong>1010100</strong></td></tr></table></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">11</span>En un escenario con tres nodos (A, B y C) se emplean el protocolo BSC (control sincrono binario). Teniendo en cuenta que la estacion maestra es la B, muestre el flujo de intercambios de dos tramas de informacion entre A y C.</div>
-
-        <div class="prob-item"><span class="prob-num">12</span>Un receptor ha recibido la siguiente secuencia en bits: 1011101. Sabiendo que el emisor ha utilizado un codigo Hamming (7,4) con paridad par, indique si la informacion ha llegado correctamente, y en caso contrario, que correccion seria necesaria aplicar.</div>
-
-        <div class="prob-item"><span class="prob-num">13</span>Desde un nodo emisor A se mandan T0, T1, T2 de informacion; el nodo receptor B las confirma. Mientras B confirma, A manda T3, T4 y T5, pero T4 no llega. Con 3 bits de secuencia y 6 tramas totales, dibuje:
-          <ol class="prob-sub"><li>Diagrama con mecanismo de vuelta atras (Go-Back-N) + ventanas de emision y recepcion.</li><li>Diagrama con mecanismo de rechazo selectivo + ventanas.</li><li>Diagrama con ventana deslizante + parada y espera + ventanas.</li></ol>
+        <div class="prob-item"><span class="prob-num">4</span>C = 4 kbps, t_prop = 20 ms. ¿Longitud de trama para Stop&amp;Wait con eficiencia &ge; 50%?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Eficiencia Stop&amp;Wait (T10):</span><span class="sol-formula">&eta; = t_trama / (t_trama + 2&middot;t_prop)</span>t_trama = N / C = N / 4000<span class="sol-formula">0.5 &le; (N/4000) / (N/4000 + 0.04)</span>Resolviendo:<span class="sol-formula">0.5 &times; (N/4000 + 0.04) &le; N/4000</span><span class="sol-formula">N/8000 + 0.02 &le; N/4000</span><span class="sol-formula">0.02 &le; N/8000</span><span class="sol-formula">N &ge; 160 bits</span><span class="sol-result">N &ge; 160 bits</span></div>
         </div>
 
-        <div class="prob-item"><span class="prob-num">14</span>Se desea realizar una division de tramas empleando la tecnica de insercion de violaciones de codificacion empleando Manchester diferencial. Los datos a enviar son: 1010101 con violacion positiva seguida de negativa como delimitador de inicio y de fin. Dibuje la senal.</div>
+        <div class="prob-item"><span class="prob-num">5</span>Comparar Stop&amp;Wait vs Ventana deslizante (W=7), trama=4000 bits, v=2/3&middot;c.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Enlace 10 000 km, 250 kbps:</span><span class="sol-formula">t_trama = 4000/250000 = 16 ms</span><span class="sol-formula">t_prop = 10&sup7;/(2&times;10&sup8;) = 50 ms</span><span class="sol-formula">a = t_prop/t_trama = 50/16 = 3.125</span><span class="sol-formula">S&amp;W: &eta; = 1/(1+2&times;3.125) = 1/7.25 = <strong>13.8%</strong></span><span class="sol-formula">VD(7): &eta; = 7/7.25 = <strong>96.6%</strong></span><span class="sol-step">Enlace 100 m, 10 Mbps:</span><span class="sol-formula">t_trama = 4000/10&sup7; = 0.4 ms</span><span class="sol-formula">t_prop = 100/(2&times;10&sup8;) = 0.0005 ms</span><span class="sol-formula">a = 0.0005/0.4 = 0.00125</span><span class="sol-formula">S&amp;W: &eta; = 1/1.0025 = <strong>99.75%</strong></span><span class="sol-formula">VD(7): &eta; = min(1, 7/1.0025) = <strong>100%</strong></span><span class="sol-step">b) S&amp;W aceptable si &eta; &ge; 80%:</span><span class="sol-formula">0.8 &le; 1/(1+2a) &rarr; a &le; 0.125</span><span class="sol-result">Es aceptable cuando t_prop/t_trama &le; 0.125</span> (distancias cortas o tramas grandes, como el caso de 100m a 10 Mbps)</div>
+        </div>
 
-        <div class="prob-item"><span class="prob-num">15</span>Muestre el diagrama de flujo de intercambio de tramas asi como su contenido exacto, inicio de conexion y cierre usando el protocolo BISYN, con dos tramas de informacion donde la primera llega correctamente y la segunda falla.</div>
+        <div class="prob-item"><span class="prob-num">6</span>ARQ Stop&amp;Wait: valor minimo del temporizador.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">El timer se inicia al terminar de enviar la trama (T10):</span>Debe cubrir el tiempo hasta que el ACK vuelva:<span class="sol-formula">T_min = t_prop (ida) + t_proc + t_ACK + t_prop (vuelta)</span><span class="sol-formula">T_min = 2&middot;t_prop + t_proc + t_ACK</span>Si despreciamos procesamiento:<span class="sol-result">T_min &asymp; 2&middot;t_prop + t_ACK</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">7</span>CRC-3, polinomio X&sup3;+X&sup2;+1 (1101). Mensaje recibido: 10110101110100. ¿Es correcto?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Division modulo-2 del mensaje entre el polinomio (T11):</span>Dividendo: 10110101110100 &divide; 1101
+          <br>Paso 1: 1011 XOR 1101 = 0110 &rarr; traer bit 0 &rarr; 1100
+          <br>Paso 2: 1100 XOR 1101 = 0001 &rarr; traer bit 1 &rarr; 0011
+          <br>Paso 3: 0011, MSB=0 &rarr; traer bit 0 &rarr; 0110
+          <br>Paso 4: 0110, MSB=0 &rarr; traer bit 1 &rarr; 1101
+          <br>Paso 5: 1101 XOR 1101 = 0000 &rarr; traer bit 1 &rarr; 0001
+          <br>Paso 6: 0001, MSB=0 &rarr; traer bit 1 &rarr; 0011
+          <br>Paso 7: 0011, MSB=0 &rarr; traer bit 0 &rarr; 0110
+          <br>Paso 8: 0110, MSB=0 &rarr; traer bit 1 &rarr; 1101
+          <br>Paso 9: 1101 XOR 1101 = 0000 &rarr; traer bit 0 &rarr; 0000
+          <br>Paso 10: 0000, MSB=0 &rarr; traer bit 0 &rarr; 0000
+          <br><strong>Resto = 000</strong><br><span class="sol-result">SI, el mensaje es correcto (resto = 0)</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">8</span>Paridad bidimensional. Cadena 1100101010101110110, palabras de 4 bits.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Organizar en matriz de 4 columnas (T11):</span>
+          <table><tr><th></th><th>C1</th><th>C2</th><th>C3</th><th>C4</th><th>Par fila</th></tr>
+          <tr><td>R1</td><td>1</td><td>1</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>R2</td><td>1</td><td>0</td><td>1</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>R3</td><td>1</td><td>0</td><td>1</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td>R4</td><td>1</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td></tr>
+          <tr><td>R5</td><td>1</td><td>1</td><td>0</td><td>0</td><td><strong>0</strong></td></tr>
+          <tr><td><strong>Par col</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>0</strong></td><td><strong>1</strong></td></tr></table>
+          <span class="sol-result">Secuencia enviada: 11000 10100 10100 11101 11000 11101</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">9</span>Checksum de A7A2 CABF 903A A123, palabras de 16 bits.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Suma en complemento a uno (T11):</span><span class="sol-formula">A7A2 + CABF = 17261 &rarr; carry: 7261 + 1 = 7262</span><span class="sol-formula">7262 + 903A = 1029C &rarr; carry: 029C + 1 = 029D</span><span class="sol-formula">029D + A123 = A3C0 &rarr; sin carry</span>Complemento a uno:<span class="sol-formula">Checksum = ~A3C0 = 5C3F</span><span class="sol-result">Checksum = 0x5C3F</span></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">10</span>Tipo de direcciones MAC: a) 4A:30:10:21:10:1A, b) 47:20:1B:2E:08:EE, c) FF:FF:FF:FF:FF:FF.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Analisis del primer byte (T8):</span>Bit LSB (bit 0) del primer byte: 0=unicast, 1=multicast.<br>Bit 1 del primer byte: 0=global (OUI), 1=localmente administrada.
+          <table><tr><th>MAC</th><th>1er byte (bin)</th><th>LSB</th><th>Bit 1</th><th>Tipo</th></tr>
+          <tr><td>4A:30:10:21:10:1A</td><td>0100 1010</td><td>0</td><td>1</td><td><strong>Unicast, administrada localmente</strong></td></tr>
+          <tr><td>47:20:1B:2E:08:EE</td><td>0100 0111</td><td>1</td><td>1</td><td><strong>Multicast, administrada localmente</strong></td></tr>
+          <tr><td>FF:FF:FF:FF:FF:FF</td><td>1111 1111</td><td>1</td><td>1</td><td><strong>Broadcast</strong></td></tr></table></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">11</span>BSC con 3 nodos (A,B,C), maestro=B. Flujo de 2 tramas de A a C.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">BSC: maestro-esclavo, half-duplex (T12).</span>
+          <span class="sol-step">Fase 1: B recoge datos de A</span>
+          B&rarr;A: SYN SYN ENQ (sondeo a A)<br>A&rarr;B: SYN SYN ACK<br>A&rarr;B: SYN SYN SOH id STX Datos1 ETX BCC<br>B&rarr;A: SYN SYN ACK 0<br>A&rarr;B: SYN SYN SOH id STX Datos2 ETX BCC<br>B&rarr;A: SYN SYN ACK 1<br>A&rarr;B: SYN SYN EOT
+          <span class="sol-step">Fase 2: B envia datos a C</span>
+          B&rarr;C: SYN SYN ENQ (seleccion de C)<br>C&rarr;B: SYN SYN ACK<br>B&rarr;C: SYN SYN SOH id STX Datos1 ETX BCC<br>C&rarr;B: SYN SYN ACK 0<br>B&rarr;C: SYN SYN SOH id STX Datos2 ETX BCC<br>C&rarr;B: SYN SYN ACK 1<br>B&rarr;C: SYN SYN EOT</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">12</span>Hamming (7,4), paridad par. Recibido: 1011101. ¿Llego correcto?
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Posiciones en Hamming (7,4) (T11):</span>
+          <table><tr><th>Pos</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+          <tr><td>Tipo</td><td>p1</td><td>p2</td><td>d1</td><td>p4</td><td>d2</td><td>d3</td><td>d4</td></tr>
+          <tr><td>Valor</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr></table>
+          <span class="sol-step">Calcular sindrome:</span>
+          s1 = pos1&oplus;pos3&oplus;pos5&oplus;pos7 = 1&oplus;1&oplus;1&oplus;1 = <strong>0</strong><br>
+          s2 = pos2&oplus;pos3&oplus;pos6&oplus;pos7 = 0&oplus;1&oplus;0&oplus;1 = <strong>0</strong><br>
+          s4 = pos4&oplus;pos5&oplus;pos6&oplus;pos7 = 1&oplus;1&oplus;0&oplus;1 = <strong>1</strong>
+          <span class="sol-formula">Sindrome = s4 s2 s1 = 100 = posicion 4</span>
+          <span class="sol-result">Error en posicion 4</span>: bit p4 debe cambiar de 1 a 0.<br>
+          Corregido: 10<strong>1</strong><strong style="color:var(--green);">0</strong>101<br>Datos extraidos (pos 3,5,6,7): <strong>1, 1, 0, 1</strong> &rarr; dato original = <strong>1101</strong></div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">13</span>A envia T0-T5, T4 se pierde. Diagramas para: a) Go-Back-N, b) Rechazo selectivo, c) S&amp;W.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">a) Go-Back-N (T11):</span>
+          A&rarr;B: T0, T1, T2<br>B&rarr;A: ACK3 (confirma hasta T2)<br>A&rarr;B: T3, <del>T4</del>(pierde), T5<br>B recibe T3 &rarr; ACK4. Recibe T5 &rarr; <strong>descarta</strong> (fuera de orden).<br>Timer de T4 expira &rarr; A retransmite <strong>desde T4</strong>: T4, T5<br>B recibe T4 &rarr; ACK5. Recibe T5 &rarr; ACK6.
+          <span class="sol-step">b) Rechazo selectivo (T11):</span>
+          A&rarr;B: T0, T1, T2<br>B&rarr;A: ACK3<br>A&rarr;B: T3, <del>T4</del>(pierde), T5<br>B recibe T3 &rarr; ACK4. Recibe T5 &rarr; <strong>almacena en buffer</strong>, envia <strong>SREJ(4)</strong> (pide solo T4).<br>A retransmite <strong>solo T4</strong>.<br>B recibe T4, ya tiene T5 &rarr; ACK6.
+          <span class="sol-step">c) Stop &amp; Wait (T10):</span>
+          A&rarr;B: T0 &rarr; B&rarr;A: ACK1<br>A&rarr;B: T1 &rarr; B&rarr;A: ACK2<br>A&rarr;B: T2 &rarr; B&rarr;A: ACK3<br>A&rarr;B: T3 &rarr; B&rarr;A: ACK4<br>A&rarr;B: T4 (se pierde) &rarr; timer expira &rarr; retransmite T4<br>A&rarr;B: T4 &rarr; B&rarr;A: ACK5<br>A&rarr;B: T5 &rarr; B&rarr;A: ACK6</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">14</span>Division de tramas con violaciones de codificacion Manchester diferencial. Datos: 1010101.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Metodo (T9):</span>En Manchester diferencial, siempre hay transicion a mitad de bit (reloj). Una <strong>violacion</strong> es la ausencia de esa transicion obligatoria.<span class="sol-step">Estructura de la senal:</span>
+          <strong>[VP][VN]</strong> | Manchester_dif(1010101) | <strong>[VP][VN]</strong><br><br>
+          VP (Violacion positiva): se mantiene nivel <strong>alto</strong> donde deberia haber transicion descendente.<br>
+          VN (Violacion negativa): se mantiene nivel <strong>bajo</strong> donde deberia haber transicion ascendente.<br><br>
+          Entre delimitadores, los 7 bits de datos se codifican en Manchester diferencial normal (1=sin transicion al inicio, 0=con transicion al inicio, siempre transicion a mitad de bit).</div>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">15</span>BISYN: diagrama de flujo con 2 tramas, 1&ordf; OK y 2&ordf; falla.
+          <br><button class="sol-btn" onclick="this.nextElementSibling.classList.toggle('open')">Ver solucion</button>
+          <div class="sol-content"><span class="sol-step">Inicio de conexion (T12):</span>
+          A&rarr;B: SYN SYN ENQ<br>B&rarr;A: SYN SYN ACK
+          <span class="sol-step">Transferencia de datos:</span>
+          A&rarr;B: SYN SYN SOH id STX <em>Datos&sub1;</em> ETX BCC &nbsp; (trama 1)<br>B&rarr;A: SYN SYN ACK 0 &nbsp; (confirmacion positiva)
+          <br><br>A&rarr;B: SYN SYN SOH id STX <em>Datos&sub2;</em> ETX BCC &nbsp; (trama 2)<br>B&rarr;A: SYN SYN <strong>NAK</strong> 1 &nbsp; (error detectado, confirmacion negativa)
+          <span class="sol-step">Retransmision:</span>
+          A&rarr;B: SYN SYN SOH id STX <em>Datos&sub2;</em> ETX BCC &nbsp; (retransmision trama 2)<br>B&rarr;A: SYN SYN ACK 1 &nbsp; (ahora OK)
+          <span class="sol-step">Cierre de conexion:</span>
+          A&rarr;B: SYN SYN EOT</div>
+        </div>
       </div>
     </div>
 
