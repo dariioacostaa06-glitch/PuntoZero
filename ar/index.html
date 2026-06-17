@@ -255,6 +255,31 @@ footer{
 .test-history{margin:1.5rem 0;}
 .test-history table{font-size:.85rem;}
 
+/* ===== Problemas accordion ===== */
+.prob-group{margin:1.2rem 0;}
+.prob-group-title{
+  display:flex;align-items:center;gap:.6rem;cursor:pointer;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:8px;
+  padding:.7rem 1rem;font-weight:700;font-size:.95rem;transition:.15s;
+  user-select:none;
+}
+.prob-group-title:hover{border-color:var(--orange);}
+.prob-group-title .arrow{transition:transform .2s;color:var(--text-dim);}
+.prob-group-title.open .arrow{transform:rotate(90deg);}
+.prob-group-title .pgcount{margin-left:auto;font-size:.75rem;color:var(--text-dim);font-weight:400;}
+.prob-list{display:none;padding:.5rem 0;}
+.prob-list.open{display:block;}
+.prob-item{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:.9rem 1.1rem;margin:.5rem 0;font-size:.9rem;line-height:1.55;
+}
+.prob-item .prob-num{
+  display:inline-block;background:var(--red);color:#0d1117;font-weight:800;
+  font-size:.72rem;border-radius:4px;padding:.1rem .4rem;margin-right:.4rem;
+}
+.prob-item .prob-sub{margin:.4rem 0 0 1.2rem;color:var(--text-dim);}
+.prob-item .prob-sub li{margin:.2rem 0;}
+
 /* ===== Progress Tracker ===== */
 .tracker-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
 .tracker-table th,.tracker-table td{
@@ -386,6 +411,8 @@ footer{
 
     <h4>Herramientas</h4>
     <a href="#tests" style="color:var(--orange);">&#9998; Tests interactivos</a>
+    <a href="#problemas" style="color:var(--red);">&#9997; Problemas</a>
+    <a href="#practicas" style="color:var(--purple);">&#9881; Practicas</a>
     <a href="#progreso" style="color:var(--green);">&#9745; Progreso de estudio</a>
   </nav>
 
@@ -1243,6 +1270,188 @@ footer{
   </section>
 
   <!-- ============================================================ -->
+  <!-- PROBLEMAS -->
+  <!-- ============================================================ -->
+  <section id="problemas" class="tema">
+    <h2><span class="num" style="background:var(--red);">&#9997;</span> Problemas</h2>
+
+    <!-- Enunciados Nivel Fisico -->
+    <div class="prob-group">
+      <div class="prob-group-title" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <span class="arrow">&#9654;</span>
+        Ejercicios de Nivel Fisico
+        <a class="pdf-link" href="problemas/Ejercicios-F%C3%ADsico.pdf" target="_blank" onclick="event.stopPropagation();" style="margin:0;">&#128196; PDF</a>
+        <span class="pgcount">21 ejercicios</span>
+      </div>
+      <div class="prob-list">
+        <div class="prob-item"><span class="prob-num">1</span>Un canal de comunicaciones debe soportar velocidad de datos de hasta 10 kbps. El canal tiene una relacion senal a ruido de 50. ¿Cual es el ancho de banda maximo en hercios para este canal?</div>
+
+        <div class="prob-item"><span class="prob-num">2</span>Un sistema de transmision de imagenes, transmite imagenes con una resolucion de 480x500 pixeles, en la que cada pixel puede tomar valores de intensidad en el rango 0-31. Ademas, el sistema es capaz de enviar 30 imagenes por segundo.
+          <ol class="prob-sub"><li>Determina la velocidad maxima de transmision del sistema.</li><li>Determinar la capacidad del canal si se transmite por un medio de 4,5 MHz de ancho de banda con una relacion senal-ruido de 35.</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">3</span>Disponemos de un sistema con un medio guiado mediante una linea de comunicacion. La potencia de la senal a la entrada de dicho sistema es de 0,5 W y el nivel de ruido a la salida es de 4,5 &mu;W. Calcule la relacion senal-ruido.</div>
+
+        <div class="prob-item"><span class="prob-num">4</span>Calcule la atenuacion de un sistema de comunicacion mediante medios no guiados que trabajan a 11 GHz con una velocidad de transmision de 90 Mbps si las antenas distan 80 km.</div>
+
+        <div class="prob-item"><span class="prob-num">5</span>Un sistema emplea un patron de constelacion (ver PDF para diagrama). Determine:
+          <ol class="prob-sub"><li>El tipo de modulacion que emplea.</li><li>La velocidad de datos del sistema sabiendo que transmite a 4800 baudios.</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">6</span>Calcula la tasa de baudios para las siguientes tasas de bits y tipos de modulacion:
+          <ol class="prob-sub"><li>2000 bps, FSK</li><li>4000 bps, ASK</li><li>6000 bps, 2-PSK</li><li>6000 bps, 4-PSK</li><li>6000 bps, 8-PSK</li><li>4000 bps, 4-QAM</li><li>6000 bps, 16-QAM</li><li>36000 bps, 64-QAM</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">7</span>Dibuja el diagrama de constelacion para:
+          <ol class="prob-sub"><li>ASK, con amplitudes de 1 y 3</li><li>2-PSK, con amplitudes de 1 y 180 grados</li><li>8-QAM, con amplitudes de 1 y 2 en 360 grados</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">8</span>Responde a las siguientes preguntas:
+          <ol class="prob-sub"><li>Un diagrama de constelacion de modem tiene puntos de datos en (1,1), (1,-1), (-1,1) y (-1,-1). ¿Cuantos bps puede lograr un modem a 1200 baudios?</li><li>Un diagrama con puntos en (0,1) y (0,2). ¿El modem usa modulacion de fase o de amplitud?</li><li>En un diagrama con todos los puntos en un circulo centrado en el origen, ¿que tipo de modulacion se utiliza?</li><li>¿Cuantas frecuencias utiliza un modem QAM-64 de duplex total?</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">9</span>Se ha obtenido en el receptor la siguiente secuencia de bits empleando una codificacion bipolar: +-0+-0-+. Indique si la secuencia recibida es correcta. ¿Seria posible que hubieran patrones de bits diferentes que dieran como resultado ese mismo patron?</div>
+
+        <div class="prob-item"><span class="prob-num">10</span>Una senal se cuantiza utilizando 10 bits PCM. Calcule el ruido de cuantizacion.</div>
+
+        <div class="prob-item"><span class="prob-num">11</span>Una senal NRZ-L se pasa a traves de un filtro con r = 0,5 y, posteriormente, se modula sobre una portadora. La velocidad de transmision es 2400 bps. Calcula el ancho de banda para ASK y FSK. Para FSK supon que las frecuencias utilizadas son 50 kHz y 55 kHz.</div>
+
+        <div class="prob-item"><span class="prob-num">12</span>Considera una senal de audio cuyas componentes espectrales estan comprendidas en el rango de 300 a 3000 Hz. Supon que se usa una frecuencia de muestreo de 7000 muestras por segundo para generar una senal PCM.
+          <ol class="prob-sub"><li>Para una SNR = 30, ¿cuantos niveles se necesitan en un cuantizador uniforme?</li><li>¿Cual es la velocidad de transmision maxima del sistema?</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">13</span>Supon que empleamos una codificacion bipolar-AMI que se transmite en un medio guiado en banda base en el que hay presencia de ruido. Determine si existe algun error y cual es la cadena binaria que recibe y/o deberia recibir el receptor. (Ver diagrama de senal en el PDF).</div>
+
+        <div class="prob-item"><span class="prob-num">14</span>Disponemos de dos antenas, una emisora y otra receptora, colocadas a unas alturas de 10m y 7m respectivamente. Se sabe que ambas antenas estan separadas 10 m. ¿Que inclinacion debe tener la antena emisora para poder tener vision directa con la antena receptora?</div>
+
+        <div class="prob-item"><span class="prob-num">15</span>Se tiene un canal con un ancho de banda de 80 Hz, se desea emplear la tecnica de espectro expandido por salto de frecuencia (FHSS) empleando todo el ancho de banda. Muestre cual seria la secuencia de saltos en dos ciclos, suponiendo 3 bits para generacion del patron pseudo-aleatorio.</div>
+
+        <div class="prob-item"><span class="prob-num">16</span>Se pretende enviar el siguiente patron de informacion 110100001 en un canal de banda base. Dibuje la senal a emitir considerando logica positiva en las siguientes codificaciones:
+          <ol class="prob-sub"><li>Polar RZ</li><li>NRZ-L</li><li>Manchester</li><li>HDB3</li><li>Manchester diferencial</li><li>Bipolar NRZ con logica negativa</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">17</span>Se tienen dos repetidores inalambricos de 2,4 MHz a lo largo de un edificio de 100 m. Cada repetidor esta colocado a 25 metros desde el inicio (A) y el final del edificio (B): A--25m--Rep--50m--Rep--25m--B. Determine cual es la atenuacion entre el punto A y el punto B.</div>
+
+        <div class="prob-item"><span class="prob-num">18</span>Dado un sistema de microfonia inalambrica analogica que emplea un ancho de banda de 4 kHz y tiene una SNR de 50, ¿que ruido de cuantizacion percibiria un usuario si se digitalizasen los datos y se transmitiesen a la tasa maxima fijada por Shannon?</div>
+
+        <div class="prob-item"><span class="prob-num">19</span>Dada una fuente de 12 V, determina la maxima longitud alcanzable en los siguientes medios de transmision, si el voltaje a recibir es 5 V:
+          <ol class="prob-sub"><li>Par trenzado de 0,5 mm a 300 kHz con atenuacion de 11 dB/km</li><li>Par trenzado de 0,5 mm a 1 MHz con atenuacion de 20 dB/km</li><li>Cable coaxial de 9,5 mm a 1 MHz con atenuacion de 2,5 dB/km</li><li>Cable coaxial de 9,5 mm a 25 MHz con atenuacion de 9 dB/km</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">20</span>Se desea utilizar el metodo de espectro ensanchado por secuencia directa (DSSS) a la siguiente secuencia de bits 1001011. Sabiendo que emisor y receptor emplean la pseudo-secuencia de bits 110111001 para los 0 y los 1, indique cual seria la cadena de bits a enviar desde el emisor.</div>
+
+        <div class="prob-item"><span class="prob-num">21</span>Se desea realizar un radioenlace entre dos campos de cultivos a 1,4 km de distancia con un arbol de 7m a mitad de camino. El ingeniero duda entre 2.4 GHz o 5 GHz. ¿Cual de las dos frecuencias deberia emplear con antenas a 10m de altura? ¿A que altura habria que colocarlas para no descartar ninguna opcion?</div>
+      </div>
+    </div>
+
+    <!-- Enunciados Nivel Enlace -->
+    <div class="prob-group">
+      <div class="prob-group-title" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <span class="arrow">&#9654;</span>
+        Ejercicios de Nivel de Enlace de Datos
+        <a class="pdf-link" href="problemas/Ejercicios-Enlace.pdf" target="_blank" onclick="event.stopPropagation();" style="margin:0;">&#128196; PDF</a>
+        <span class="pgcount">15 ejercicios</span>
+      </div>
+      <div class="prob-list">
+        <div class="prob-item"><span class="prob-num">1</span>Dadas dos estaciones A y B que se comunican utilizando HDLC y teniendo en cuenta que una trama erronea se presenta por una linea discontinua, complete las secuencias de tramas suponiendo que ni A ni B tienen mas informacion que enviarse. Indique si hay algun error en las representaciones. (Ver diagramas en PDF).</div>
+
+        <div class="prob-item"><span class="prob-num">2</span>Un cable de 100 km de longitud opera con una tasa de datos de 1,544 Mbps. La velocidad del cable es 2/3 de la velocidad de la luz en el vacio. ¿Cual es la longitud de dicho enlace en bits?</div>
+
+        <div class="prob-item"><span class="prob-num">3</span>De los siguientes casos, ¿cual seria la secuencia de bits que deberia de mandar el emisor si se desea utilizar como metodo de deteccion de errores la paridad impar?
+          <ol class="prob-sub"><li>100101</li><li>111111</li><li>000000</li><li>101010</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">4</span>Un canal tiene una velocidad de transmision de 4 kbps y un retardo de propagacion de 20 ms. ¿Cual es la longitud de la trama en bits si se pretende utilizar un esquema de parada y espera con una eficiencia minima del 50%?</div>
+
+        <div class="prob-item"><span class="prob-num">5</span>Comparar el rendimiento de Stop & Wait con Ventana deslizante (tamano 7):
+          <ol class="prob-sub"><li>Calcule rendimiento con trama de 4000 bits, probabilidad de error despreciable, v_prop = 2/3·c: en enlace de 10000 km a 250 kbps y en enlace de 100 m a 10 Mbps.</li><li>¿En que condiciones es aceptable Stop & Wait para eficiencia minima del 80%?</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">6</span>Considerando un protocolo ARQ de parada y espera, determine cual debe ser el valor minimo del temporizador.</div>
+
+        <div class="prob-item"><span class="prob-num">7</span>Se emplea como mecanismo de deteccion de errores un CRC-3 mediante el polinomio X&sup3;+X&sup2;+1. El receptor ha recibido el mensaje 10110101110100. Determine si el mensaje recibido es correcto.</div>
+
+        <div class="prob-item"><span class="prob-num">8</span>Se emplea paridad bidimensional como mecanismo de correccion de errores. Se desea transmitir la cadena 1100101010101110110, considerando palabras de 4 bits. ¿Cual seria la secuencia de bits que se mandaria al receptor?</div>
+
+        <div class="prob-item"><span class="prob-num">9</span>Suponiendo que una trama esta compuesta por palabras de 16 bits, calcule el valor de la suma de verificacion de los datos A7A2CABF903AA123.</div>
+
+        <div class="prob-item"><span class="prob-num">10</span>Dadas las siguientes direcciones MAC determine de que tipo concreto son:
+          <ol class="prob-sub"><li>4A:30:10:21:10:1A</li><li>47:20:1B:2E:08:EE</li><li>FF:FF:FF:FF:FF:FF</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">11</span>En un escenario con tres nodos (A, B y C) se emplean el protocolo BSC (control sincrono binario). Teniendo en cuenta que la estacion maestra es la B, muestre el flujo de intercambios de dos tramas de informacion entre A y C.</div>
+
+        <div class="prob-item"><span class="prob-num">12</span>Un receptor ha recibido la siguiente secuencia en bits: 1011101. Sabiendo que el emisor ha utilizado un codigo Hamming (7,4) con paridad par, indique si la informacion ha llegado correctamente, y en caso contrario, que correccion seria necesaria aplicar.</div>
+
+        <div class="prob-item"><span class="prob-num">13</span>Desde un nodo emisor A se mandan T0, T1, T2 de informacion; el nodo receptor B las confirma. Mientras B confirma, A manda T3, T4 y T5, pero T4 no llega. Con 3 bits de secuencia y 6 tramas totales, dibuje:
+          <ol class="prob-sub"><li>Diagrama con mecanismo de vuelta atras (Go-Back-N) + ventanas de emision y recepcion.</li><li>Diagrama con mecanismo de rechazo selectivo + ventanas.</li><li>Diagrama con ventana deslizante + parada y espera + ventanas.</li></ol>
+        </div>
+
+        <div class="prob-item"><span class="prob-num">14</span>Se desea realizar una division de tramas empleando la tecnica de insercion de violaciones de codificacion empleando Manchester diferencial. Los datos a enviar son: 1010101 con violacion positiva seguida de negativa como delimitador de inicio y de fin. Dibuje la senal.</div>
+
+        <div class="prob-item"><span class="prob-num">15</span>Muestre el diagrama de flujo de intercambio de tramas asi como su contenido exacto, inicio de conexion y cierre usando el protocolo BISYN, con dos tramas de informacion donde la primera llega correctamente y la segunda falla.</div>
+      </div>
+    </div>
+
+    <!-- Tracker de problemas -->
+    <h3>Seguimiento de problemas</h3>
+    <table class="tracker-table" id="probTrackerTable">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Problema</th>
+          <th style="color:#79c0ff;">Leido</th>
+          <th style="color:#ffa657;">Intentado</th>
+          <th style="color:#56d364;">Resuelto</th>
+        </tr>
+      </thead>
+      <tbody id="probTrackerBody"></tbody>
+    </table>
+    <div class="donut-wrap">
+      <canvas id="probDonut" width="140" height="140"></canvas>
+      <div class="donut-info">
+        <div class="big" id="probPct">0%</div>
+        <div class="sub">problemas resueltos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PRACTICAS -->
+  <!-- ============================================================ -->
+  <section id="practicas" class="tema">
+    <h2><span class="num" style="background:var(--purple);">&#9881;</span> Practicas</h2>
+
+    <div class="cards" style="margin-bottom:1.5rem;">
+      <a class="card-link" href="practicas/Practica_1.pdf" target="_blank"><span class="badge" style="background:var(--purple);color:#0d1117;">P1</span><h3>Nivel fisico de la transmision de datos</h3><p>Simulador MATLAB: NRZ vs Manchester, ruido blanco, SNR.</p></a>
+      <a class="card-link" href="practicas/Practica_2.pdf" target="_blank"><span class="badge" style="background:var(--purple);color:#0d1117;">P2</span><h3>Nivel de enlace: Protocolos ARQ</h3><p>Simulador SimARQ: Stop & Wait, Go-Back-N, Rechazo selectivo.</p></a>
+      <a class="card-link" href="practicas/Practica_3.pdf" target="_blank"><span class="badge" style="background:var(--purple);color:#0d1117;">P3</span><h3>Cisco IOS: Switches y routers I</h3><p>Packet Tracer: topologia con 3 switches, 3 routers, configuracion IP.</p></a>
+      <a class="card-link" href="practicas/Practica_4.pdf" target="_blank"><span class="badge" style="background:var(--purple);color:#0d1117;">P4</span><h3>Cisco IOS: Switches y routers II</h3><p>Packet Tracer: nueva sede, telnet, rutas estaticas, conectividad.</p></a>
+      <a class="card-link" href="practicas/practica_5.pdf" target="_blank"><span class="badge" style="background:var(--purple);color:#0d1117;">P5</span><h3>Analizador de protocolos Wireshark</h3><p>Ethereal/Wireshark: Spanning Tree, LLC, formatos de trama, campos MAC.</p></a>
+    </div>
+
+    <h3>Seguimiento de practicas</h3>
+    <table class="tracker-table" id="pracTrackerTable">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Practica</th>
+          <th style="color:#79c0ff;">Leida</th>
+          <th style="color:#ffa657;">Empezada</th>
+          <th style="color:#d2a8ff;">Informe</th>
+          <th style="color:#56d364;">Entregada</th>
+        </tr>
+      </thead>
+      <tbody id="pracTrackerBody"></tbody>
+    </table>
+    <div class="donut-wrap">
+      <canvas id="pracDonut" width="140" height="140"></canvas>
+      <div class="donut-info">
+        <div class="big" id="pracPct">0%</div>
+        <div class="sub">practicas completadas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- PROGRESO -->
   <!-- ============================================================ -->
   <section id="progreso" class="tema">
@@ -1663,6 +1872,100 @@ function renderHistory(){
 
 renderSelector();
 renderHistory();
+})();
+
+/* ===== PROBLEMAS & PRACTICAS TRACKERS ===== */
+(function(){
+  function miniTracker(cfg){
+    const data=(function(){try{return JSON.parse(localStorage.getItem(cfg.key))||{};}catch(e){return {};}})();
+    function save(){localStorage.setItem(cfg.key,JSON.stringify(data));}
+    const tbody=document.getElementById(cfg.tbodyId);
+
+    cfg.rows.forEach(r=>{
+      const tr=document.createElement('tr');
+      const td0=document.createElement('td');
+      td0.innerHTML=r.label;
+      tr.appendChild(td0);
+      cfg.cols.forEach(col=>{
+        const td=document.createElement('td');
+        td.className='check-cell';
+        const inp=document.createElement('input');
+        inp.type='checkbox';
+        const k=r.id+'_'+col;
+        inp.checked=!!data[k];
+        const ck=document.createElement('span');
+        ck.className='ck';ck.textContent='✓';
+        td.appendChild(inp);td.appendChild(ck);
+        td.addEventListener('click',()=>{inp.checked=!inp.checked;data[k]=inp.checked;save();update();});
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    function drawMiniDonut(canvas,pct){
+      const ctx=canvas.getContext('2d');
+      const w=canvas.width,h=canvas.height,cx=w/2,cy=h/2,r=52,lw=14;
+      ctx.clearRect(0,0,w,h);
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle='#30363d';ctx.lineWidth=lw;ctx.stroke();
+      if(pct>0){
+        const grad=ctx.createLinearGradient(0,0,w,h);
+        grad.addColorStop(0,cfg.color1);grad.addColorStop(1,cfg.color2);
+        ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*pct/100);
+        ctx.strokeStyle=grad;ctx.lineWidth=lw;ctx.lineCap='round';ctx.stroke();
+      }
+      ctx.fillStyle='#c9d1d9';ctx.font='bold 22px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(pct+'%',cx,cy);
+    }
+
+    function update(){
+      let done=0,total=cfg.rows.length*cfg.cols.length;
+      let rowsDone=0;
+      cfg.rows.forEach((r,ri)=>{
+        let allDone=true;
+        const tr=tbody.children[ri];
+        cfg.cols.forEach((col,ci)=>{
+          const k=r.id+'_'+col;
+          const checked=!!data[k];
+          tr.children[ci+1].querySelector('input').checked=checked;
+          if(checked)done++;else allDone=false;
+        });
+        if(allDone){rowsDone++;tr.classList.add('row-done');}else{tr.classList.remove('row-done');}
+      });
+      const lastCol=cfg.cols[cfg.cols.length-1];
+      let lastDone=0;
+      cfg.rows.forEach(r=>{if(data[r.id+'_'+lastCol])lastDone++;});
+      const pct=Math.round(lastDone/cfg.rows.length*100);
+      document.getElementById(cfg.pctId).textContent=pct+'%';
+      drawMiniDonut(document.getElementById(cfg.canvasId),pct);
+    }
+    update();
+  }
+
+  // Problemas tracker
+  const probRows=[];
+  for(let i=1;i<=21;i++)probRows.push({id:'f'+i,label:'<span style="color:var(--red);font-weight:700;">F'+i+'</span> Nivel fisico'});
+  for(let i=1;i<=15;i++)probRows.push({id:'e'+i,label:'<span style="color:var(--accent2);font-weight:700;">E'+i+'</span> Nivel de enlace'});
+  miniTracker({
+    key:'ar_prob_track_v1',tbodyId:'probTrackerBody',
+    rows:probRows,cols:['leido','intentado','resuelto'],
+    pctId:'probPct',canvasId:'probDonut',
+    color1:'#ff7b72',color2:'#ffa657'
+  });
+
+  // Practicas tracker
+  miniTracker({
+    key:'ar_prac_track_v1',tbodyId:'pracTrackerBody',
+    rows:[
+      {id:'p1',label:'P1 — Nivel fisico: transmision de datos'},
+      {id:'p2',label:'P2 — Nivel de enlace: Protocolos ARQ'},
+      {id:'p3',label:'P3 — Cisco IOS: Switches y routers I'},
+      {id:'p4',label:'P4 — Cisco IOS: Switches y routers II'},
+      {id:'p5',label:'P5 — Analizador Wireshark'},
+    ],
+    cols:['leida','empezada','informe','entregada'],
+    pctId:'pracPct',canvasId:'pracDonut',
+    color1:'#d2a8ff',color2:'#79c0ff'
+  });
 })();
 
 /* ===== PROGRESS TRACKER ===== */
