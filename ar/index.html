@@ -168,6 +168,93 @@ footer{
   color:var(--text-dim);font-size:.85rem;
 }
 
+/* ===== Tests ===== */
+.test-selector{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));
+  gap:.5rem;margin:1rem 0;
+}
+.test-btn{
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  padding:.55rem .5rem;border-radius:8px;cursor:pointer;font-size:.82rem;
+  font-family:inherit;font-weight:600;transition:.15s;text-align:center;
+}
+.test-btn:hover{border-color:var(--orange);color:var(--orange);}
+.test-btn.active{background:var(--orange);color:#0d1117;border-color:var(--orange);}
+.test-btn .tbadge{
+  display:block;font-size:.65rem;font-weight:400;margin-top:.15rem;opacity:.7;
+}
+.test-btn.passed .tbadge{color:var(--green);}
+
+.quiz-area{margin:1.5rem 0;display:none;}
+.quiz-area.visible{display:block;}
+.quiz-header{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  margin-bottom:1rem;
+}
+.quiz-header h3{margin:0;border:none;padding:0;}
+.quiz-qcount{color:var(--text-dim);font-size:.85rem;}
+
+.q-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:10px;
+  padding:1.2rem 1.4rem;margin:1rem 0;
+}
+.q-card .q-num{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem;}
+.q-card .q-text{font-size:1rem;font-weight:600;margin-bottom:.8rem;}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;}
+.q-opt{
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  padding:.55rem .8rem;cursor:pointer;transition:.15s;font-size:.9rem;
+}
+.q-opt:hover{border-color:var(--accent2);}
+.q-opt.selected{border-color:var(--accent2);background:rgba(121,192,255,.08);}
+.q-opt.correct{border-color:var(--green);background:rgba(126,231,135,.1);color:var(--green);}
+.q-opt.wrong{border-color:var(--red);background:rgba(255,123,114,.08);color:var(--red);}
+.q-opt .q-letter{
+  width:24px;height:24px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;
+  flex:none;transition:.15s;
+}
+.q-opt.selected .q-letter{border-color:var(--accent2);color:var(--accent2);}
+.q-opt.correct .q-letter{border-color:var(--green);background:var(--green);color:#0d1117;}
+.q-opt.wrong .q-letter{border-color:var(--red);background:var(--red);color:#0d1117;}
+.q-opt.disabled{pointer-events:none;opacity:.7;}
+.q-opt.correct.disabled,.q-opt.wrong.disabled{opacity:1;}
+.q-feedback{margin-top:.5rem;font-size:.85rem;padding:.4rem .6rem;border-radius:6px;display:none;}
+.q-feedback.visible{display:block;}
+.q-feedback.ok{background:rgba(126,231,135,.1);color:var(--green);}
+.q-feedback.fail{background:rgba(255,123,114,.08);color:var(--red);}
+
+.quiz-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.5rem 0;}
+.quiz-submit,.quiz-retry{
+  padding:.6rem 1.4rem;border-radius:8px;cursor:pointer;font-size:.9rem;
+  font-family:inherit;font-weight:700;border:none;
+}
+.quiz-submit{background:var(--orange);color:#0d1117;}
+.quiz-submit:hover{opacity:.85;}
+.quiz-submit:disabled{opacity:.4;cursor:not-allowed;}
+.quiz-retry{background:transparent;border:1px solid var(--accent2);color:var(--accent2);}
+.quiz-retry:hover{background:var(--accent2);color:#0d1117;}
+
+.quiz-result{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:10px;
+  padding:1.5rem;text-align:center;margin:1.5rem 0;display:none;
+}
+.quiz-result.visible{display:block;}
+.quiz-result .result-score{font-size:2.4rem;font-weight:800;}
+.quiz-result .result-score.great{color:var(--green);}
+.quiz-result .result-score.ok{color:var(--orange);}
+.quiz-result .result-score.bad{color:var(--red);}
+.quiz-result .result-msg{color:var(--text-dim);font-size:.9rem;margin-top:.3rem;}
+.quiz-result .result-bar{
+  max-width:300px;margin:.8rem auto;height:12px;background:var(--bg-code);
+  border-radius:6px;overflow:hidden;border:1px solid var(--border);
+}
+.quiz-result .result-fill{height:100%;border-radius:6px;transition:width .5s;}
+
+.test-history{margin:1.5rem 0;}
+.test-history table{font-size:.85rem;}
+
 /* ===== Progress Tracker ===== */
 .tracker-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
 .tracker-table th,.tracker-table td{
@@ -298,6 +385,7 @@ footer{
     <a href="#tema14"><span class="tnum">14</span>Redes de Area Local</a>
 
     <h4>Herramientas</h4>
+    <a href="#tests" style="color:var(--orange);">&#9998; Tests interactivos</a>
     <a href="#progreso" style="color:var(--green);">&#9745; Progreso de estudio</a>
   </nav>
 
@@ -1141,6 +1229,20 @@ footer{
   </section>
 
   <!-- ============================================================ -->
+  <!-- TESTS -->
+  <!-- ============================================================ -->
+  <section id="tests" class="tema">
+    <h2><span class="num" style="background:var(--orange);">&#9998;</span> Tests interactivos</h2>
+    <p style="color:var(--text-dim);">Selecciona un tema para hacer el test. Las puntuaciones se guardan en tu navegador.</p>
+
+    <div class="test-selector" id="testSelector"></div>
+    <div id="quizArea" class="quiz-area"></div>
+
+    <h3 id="histTitle" style="display:none;">Historial de puntuaciones</h3>
+    <div class="test-history" id="testHistory"></div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- PROGRESO -->
   <!-- ============================================================ -->
   <section id="progreso" class="tema">
@@ -1222,6 +1324,346 @@ const obs=new IntersectionObserver(es=>{
   });
 },{rootMargin:'-20% 0px -70% 0px'});
 document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+
+/* ===== TESTS INTERACTIVOS ===== */
+(function(){
+const SKEY='ar_test_scores_v1';
+const LETTERS=['A','B','C','D'];
+function loadScores(){try{return JSON.parse(localStorage.getItem(SKEY))||{};}catch(e){return {};}}
+function saveScores(s){localStorage.setItem(SKEY,JSON.stringify(s));}
+
+const QUIZZES=[
+{id:1,title:'T1 — Introduccion a las redes',questions:[
+  {q:'¿Cuales son los 4 elementos basicos de un sistema de comunicacion?',
+   opts:['Emisor, receptor, canal y mensaje','Hardware, software, datos y red','Servidor, cliente, switch y router','Protocolo, interfaz, servicio y medio'],ans:0},
+  {q:'¿Que tipo de red cubre un area metropolitana (una ciudad)?',
+   opts:['LAN','PAN','MAN','WAN'],ans:2},
+  {q:'¿Que tipo de dispositivo es un switch o un router?',
+   opts:['Dispositivo terminal','Dispositivo intermedio','Dispositivo de usuario','Dispositivo pasivo'],ans:1},
+  {q:'¿En que topologia todos los nodos estan conectados a un nodo central?',
+   opts:['Bus','Anillo','Malla','Estrella'],ans:3},
+  {q:'¿Que tipo de entrega envia un mensaje a TODOS los dispositivos de la red?',
+   opts:['Unicast','Multicast','Broadcast','Anycast'],ans:2},
+  {q:'¿Que nombre reciben los dispositivos finales como PCs o smartphones en una red?',
+   opts:['Nodos intermedios','Hosts','Gateways','Modems'],ans:1},
+  {q:'¿Que aspecto de los protocolos define como se "envuelve" un mensaje con direcciones de origen y destino?',
+   opts:['Codificacion','Sincronizacion','Encapsulamiento','Fragmentacion'],ans:2},
+]},
+{id:2,title:'T2 — Modelos de redes',questions:[
+  {q:'¿Cuantas capas tiene el modelo OSI?',
+   opts:['4','5','6','7'],ans:3},
+  {q:'¿Que modelo de red es el estandar "de facto" usado en Internet?',
+   opts:['OSI','TCP/IP','ATM','X.25'],ans:1},
+  {q:'¿Que capa del modelo OSI se encarga del enrutamiento de paquetes?',
+   opts:['Enlace de datos','Transporte','Red','Sesion'],ans:2},
+  {q:'¿Que protocolo de la capa de transporte es orientado a conexion y fiable?',
+   opts:['UDP','ICMP','TCP','ARP'],ans:2},
+  {q:'¿Cual es la unidad de datos (PDU) de la capa de enlace?',
+   opts:['Bit','Paquete','Segmento','Trama'],ans:3},
+  {q:'¿Que capas del modelo OSI agrupa la capa de Aplicacion de TCP/IP?',
+   opts:['1, 2 y 3','4 y 5','5, 6 y 7','Solo la 7'],ans:2},
+  {q:'¿Que subcapas tiene la capa de enlace de datos?',
+   opts:['TCP y UDP','LLC y MAC','IP y ARP','NIC y PHY'],ans:1},
+]},
+{id:3,title:'T3 — Medios de transmision',questions:[
+  {q:'¿Que conector se usa tipicamente en redes Ethernet con par trenzado?',
+   opts:['RJ11','BNC','RJ45','SC'],ans:2},
+  {q:'¿Que tipo de cable tiene un conductor central rodeado por una malla metalica?',
+   opts:['Par trenzado','Coaxial','Fibra optica','Cable plano'],ans:1},
+  {q:'¿Que categoria de par trenzado soporta hasta 10 Gbps a 250 MHz?',
+   opts:['CAT 5e','CAT 6','CAT 7','CAT 8'],ans:1},
+  {q:'¿Que medio de transmision es inmune a interferencias electromagneticas?',
+   opts:['Par trenzado UTP','Cable coaxial','Fibra optica','Cable STP'],ans:2},
+  {q:'¿Cuales son las dos normas de cableado para conectores RJ45?',
+   opts:['T-568A y T-568B','CAT 5 y CAT 6','STP y UTP','EIA y TIA'],ans:0},
+  {q:'¿Que parametro mide la diafonia en el extremo cercano del par trenzado?',
+   opts:['FEXT','Return loss','NEXT','Atenuacion'],ans:2},
+  {q:'¿Que tipo de fibra optica se usa para larga distancia?',
+   opts:['Multimodo (MMF)','Monomodo (SMF)','Plastica (POF)','Gradual'],ans:1},
+]},
+{id:4,title:'T4 — Teoria de la senal',questions:[
+  {q:'¿Que teorema da la capacidad maxima de un canal SIN ruido?',
+   opts:['Shannon','Nyquist','Fourier','Ohm'],ans:1},
+  {q:'¿Que teorema da la capacidad maxima de un canal CON ruido?',
+   opts:['Nyquist','Fourier','Shannon','Hamming'],ans:2},
+  {q:'¿Que mide la SNR (Signal-to-Noise Ratio)?',
+   opts:['Velocidad de la senal','Ancho de banda del canal','Relacion entre potencia de senal y potencia de ruido','Frecuencia de la portadora'],ans:2},
+  {q:'¿Que perturbacion causa perdida de energia de la senal con la distancia?',
+   opts:['Distorsion','Ruido termico','Diafonia','Atenuacion'],ans:3},
+  {q:'¿Que tipo de senal toma infinitos valores continuos en el tiempo?',
+   opts:['Digital','Analogica','Periodica','Discreta'],ans:1},
+  {q:'¿Que tres caracteristicas definen una senal sinusoidal?',
+   opts:['Voltaje, corriente y resistencia','Amplitud, frecuencia y fase','Periodo, longitud y velocidad','Ruido, ancho de banda y atenuacion'],ans:1},
+]},
+{id:5,title:'T5 — Transmision digital',questions:[
+  {q:'¿Que codificacion de linea tiene una transicion en la mitad de cada bit y es autosincronizante?',
+   opts:['NRZ-L','NRZ-I','AMI','Manchester'],ans:3},
+  {q:'¿Que significan las siglas NRZ?',
+   opts:['New Return to Zero','No Return to Zero','Non-Redundant Zero','Negative Return Zone'],ans:1},
+  {q:'¿Que tecnica convierte una senal analogica a digital (muestreo, cuantificacion, codificacion)?',
+   opts:['QAM','FDM','PCM','ASK'],ans:2},
+  {q:'¿En que codificacion bipolar los 1s alternan entre +V y -V?',
+   opts:['NRZ-L','Manchester','NRZ-I','AMI'],ans:3},
+  {q:'¿Que modo de transmision envia un bit tras otro por un unico canal?',
+   opts:['Paralelo','Serie','Simplex','Broadcast'],ans:1},
+  {q:'¿Que tipo de senal usa solo niveles positivos (0 y +V)?',
+   opts:['Polar','Bipolar','Unipolar','Multinivel'],ans:2},
+  {q:'¿Segun el teorema de Nyquist, a que frecuencia minima se debe muestrear una senal?',
+   opts:['Igual a la frecuencia maxima','El doble de la frecuencia maxima','La mitad de la frecuencia maxima','El triple de la frecuencia maxima'],ans:1},
+]},
+{id:6,title:'T6 — Transmision analogica',questions:[
+  {q:'¿Que modulacion modifica la AMPLITUD de la portadora segun los datos digitales?',
+   opts:['FSK','PSK','QAM','ASK'],ans:3},
+  {q:'¿Que modulacion combina cambios de amplitud Y fase (ASK + PSK)?',
+   opts:['FSK','QAM','AM','FM'],ans:1},
+  {q:'¿Que modulacion modifica la FRECUENCIA de la portadora?',
+   opts:['ASK','PSK','FSK','QAM'],ans:2},
+  {q:'¿Que modulacion modifica la FASE de la portadora?',
+   opts:['ASK','FSK','AM','PSK'],ans:3},
+  {q:'¿Que tres parametros definen una onda portadora?',
+   opts:['Voltaje, corriente y potencia','Amplitud, frecuencia y fase','Ancho de banda, latencia y jitter','Ruido, senal y canal'],ans:1},
+  {q:'¿Que tipo de modulacion analogica-analogica modifica la frecuencia?',
+   opts:['AM','PM','FM','QAM'],ans:2},
+]},
+{id:7,title:'T7 — Ancho de banda',questions:[
+  {q:'¿Que tecnica de multiplexacion divide el ancho de banda en frecuencias diferentes?',
+   opts:['TDM','WDM','FDM','CDM'],ans:2},
+  {q:'¿Que tecnica de multiplexacion es especifica de fibra optica (diferentes longitudes de onda)?',
+   opts:['FDM','TDM','WDM','FHSS'],ans:2},
+  {q:'¿Que tecnica asigna ranuras temporales a cada usuario?',
+   opts:['FDM','WDM','TDM','DSSS'],ans:2},
+  {q:'¿Que tecnica de espectro expandido salta de frecuencia en frecuencia?',
+   opts:['DSSS','FHSS','OFDM','CDMA'],ans:1},
+  {q:'¿Para que sirven las bandas de guarda en FDM?',
+   opts:['Aumentar la velocidad','Evitar solapamiento entre canales','Reducir el ruido','Comprimir los datos'],ans:1},
+  {q:'¿Que dispositivo combina multiples senales en un unico enlace?',
+   opts:['Router','Demultiplexor','Multiplexor','Switch'],ans:2},
+]},
+{id:8,title:'T8 — Enlace: Introduccion',questions:[
+  {q:'¿Cuantos bits tiene una direccion MAC?',
+   opts:['16','32','48','64'],ans:2},
+  {q:'¿Cual es la direccion MAC de broadcast?',
+   opts:['00:00:00:00:00:00','FF:FF:FF:FF:FF:FF','11:11:11:11:11:11','AA:AA:AA:AA:AA:AA'],ans:1},
+  {q:'¿Que tipo de enlace es exclusivo entre dos nodos (emisor y receptor)?',
+   opts:['Difusion','Multipunto','Punto a punto','Broadcast'],ans:2},
+  {q:'¿Que identifican los primeros 3 bytes de una direccion MAC?',
+   opts:['El tipo de red','El fabricante (OUI)','El protocolo','La velocidad'],ans:1},
+  {q:'¿Cual es el objetivo principal de la capa de enlace de datos?',
+   opts:['Enrutar paquetes entre redes','Transmitir bits por el medio fisico','Convertir el medio fisico en un enlace logico libre de errores','Gestionar aplicaciones de red'],ans:2},
+  {q:'¿Como se llama la PDU (unidad de datos) del nivel de enlace?',
+   opts:['Paquete','Segmento','Trama','Datagrama'],ans:2},
+]},
+{id:9,title:'T9 — Entramado y gestion',questions:[
+  {q:'¿Cuales son las 3 partes principales de una trama?',
+   opts:['IP, MAC y datos','Cabecera, carga util y cierre (trailer)','Preambulo, SFD y FCS','Origen, destino y checksum'],ans:1},
+  {q:'¿Que metodo de entramado inserta un bit 0 tras 5 bits 1 consecutivos en los datos?',
+   opts:['Byte counting','Byte stuffing','Bit stuffing','Violacion de codificacion'],ans:2},
+  {q:'¿Que servicio de enlace usa Ethernet (IEEE 802.3)?',
+   opts:['Con conexion y con confirmacion','Sin conexion y con confirmacion','Sin conexion y sin confirmacion','Con conexion y sin confirmacion'],ans:2},
+  {q:'¿Que servicio de enlace usa Wi-Fi (IEEE 802.11)?',
+   opts:['Sin conexion y sin confirmacion','Sin conexion y con confirmacion','Con conexion y con confirmacion','Con conexion y sin confirmacion'],ans:1},
+  {q:'¿Que metodo usa un campo en la cabecera que indica el total de bytes de la trama?',
+   opts:['Bit stuffing','Byte stuffing','Byte counting','Flag insertion'],ans:2},
+]},
+{id:10,title:'T10 — Control de flujo',questions:[
+  {q:'¿Que protocolo espera un ACK antes de enviar la siguiente trama?',
+   opts:['Ventana deslizante','Go-Back-N','Parada y espera (Stop & Wait)','Rechazo selectivo'],ans:2},
+  {q:'¿Que protocolo permite enviar W tramas sin esperar confirmacion?',
+   opts:['Stop & Wait','Aloha','Ventana deslizante (Sliding Window)','Token Passing'],ans:2},
+  {q:'¿Como se calcula el tiempo de propagacion?',
+   opts:['N_bits / Velocidad_transmision','Distancia / Velocidad_propagacion','Velocidad / Distancia','Bits * Tiempo_bit'],ans:1},
+  {q:'¿Cual es el principal problema de Stop & Wait?',
+   opts:['No detecta errores','Es muy complejo','Es ineficiente (enlace desaprovechado)','No funciona en Full-Duplex'],ans:2},
+  {q:'¿Que velocidad de propagacion aproximada tienen los medios guiados?',
+   opts:['3 × 10⁸ m/s','2 × 10⁸ m/s','1 × 10⁸ m/s','1.5 × 10⁸ m/s'],ans:1},
+  {q:'¿Como se calcula el tiempo de transmision de una trama?',
+   opts:['d / v','N_bits / Velocidad_bps','Velocidad / N_bits','2 × t_prop'],ans:1},
+]},
+{id:11,title:'T11 — Deteccion y correccion de errores',questions:[
+  {q:'¿Que tecnica de deteccion de errores usa division polinomica (XOR)?',
+   opts:['Paridad','Checksum','CRC','Hamming'],ans:2},
+  {q:'¿Que codigo puede detectar Y corregir errores de un solo bit?',
+   opts:['CRC','Paridad simple','Checksum','Codigo de Hamming'],ans:3},
+  {q:'¿Que significa BER?',
+   opts:['Binary Error Response','Bit Error Rate','Byte Encoding Ratio','Buffer Error Register'],ans:1},
+  {q:'¿Que tipo de error afecta a dos o mas bits consecutivos?',
+   opts:['Error de bit unico','Error de paridad','Error en rafaga','Error de checksum'],ans:2},
+  {q:'¿Que variante de ARQ solo retransmite la trama con error (no las posteriores)?',
+   opts:['Parada y espera','Go-Back-N','Rechazo selectivo','Aloha'],ans:2},
+  {q:'¿Que principio es clave tanto para deteccion como para correccion de errores?',
+   opts:['Compresion','Redundancia','Multiplexacion','Encapsulamiento'],ans:1},
+  {q:'¿La paridad simple solo detecta errores de un numero ___ de bits?',
+   opts:['Par','Primo','Impar','Cualquiera'],ans:2},
+]},
+{id:12,title:'T12 — Protocolos de enlace',questions:[
+  {q:'¿Quien desarrollo el protocolo BSC y en que ano?',
+   opts:['Xerox, 1973','ISO, 1984','IBM, 1967','IEEE, 1980'],ans:2},
+  {q:'¿Que protocolo es orientado a bits y usa bit stuffing con bandera 01111110?',
+   opts:['BSC','PPP','HDLC','LCP'],ans:2},
+  {q:'¿Que protocolo se usa en conexiones punto a punto sobre enlaces serie?',
+   opts:['HDLC','BSC','Ethernet','PPP'],ans:3},
+  {q:'¿Que protocolo dentro de PPP se encarga de establecer, configurar y cerrar el enlace?',
+   opts:['NCP','HDLC','LCP','BSC'],ans:2},
+  {q:'¿Es BSC Half-Duplex o Full-Duplex?',
+   opts:['Full-Duplex','Half-Duplex','Simplex','Depende de la configuracion'],ans:1},
+  {q:'¿Cuales son los tres tipos de tramas en HDLC?',
+   opts:['Datos, control y error','I (informacion), S (supervision) y U (no numeradas)','SYN, ACK y NAK','Request, Response y Confirm'],ans:1},
+]},
+{id:13,title:'T13 — Acceso al medio',questions:[
+  {q:'¿Que mecanismo de acceso al medio usa Ethernet cableado (IEEE 802.3)?',
+   opts:['CSMA/CA','Token Passing','CSMA/CD','Aloha'],ans:2},
+  {q:'¿Que mecanismo usa Wi-Fi (IEEE 802.11) para evitar colisiones?',
+   opts:['CSMA/CD','Token Passing','CSMA/CA','TDMA'],ans:2},
+  {q:'¿Cual es la eficiencia maxima teorica de Aloha puro?',
+   opts:['36.8%','50%','18.4%','100%'],ans:2},
+  {q:'¿Que metodo de acceso controlado hace circular un token por la red?',
+   opts:['Polling','Reserva de bits','Conteo descendente','Paso de testigo (Token Passing)'],ans:3},
+  {q:'¿Que significan las siglas CSMA?',
+   opts:['Channel Shared Multiple Access','Carrier Sense Multiple Access','Collision Safe Media Access','Central Station Multiple Allocation'],ans:1},
+  {q:'¿Que algoritmo usa CSMA/CD para calcular el tiempo de espera tras una colision?',
+   opts:['Round Robin','FIFO','Binary Exponential Backoff','Random Uniform'],ans:2},
+  {q:'¿Que eficiencia maxima tiene Aloha ranurado?',
+   opts:['18.4%','25%','36.8%','50%'],ans:2},
+]},
+{id:14,title:'T14 — Redes de Area Local',questions:[
+  {q:'¿Que estandar IEEE define Ethernet cableado?',
+   opts:['IEEE 802.11','IEEE 802.3','IEEE 802.15','IEEE 802.1'],ans:1},
+  {q:'¿Que estandar IEEE define Wi-Fi?',
+   opts:['IEEE 802.3','IEEE 802.1Q','IEEE 802.11','IEEE 802.5'],ans:2},
+  {q:'¿Que dispositivo opera en capa 2 y usa una tabla MAC para reenviar tramas?',
+   opts:['Router','Hub','Repetidor','Switch'],ans:3},
+  {q:'¿Que nombre comercial recibe el estandar 802.11ax?',
+   opts:['Wi-Fi 4','Wi-Fi 5','Wi-Fi 6','Wi-Fi 7'],ans:2},
+  {q:'¿Cual es la cobertura tipica maxima de una LAN?',
+   opts:['10 metros','100 metros','1 km','100 km'],ans:2},
+  {q:'¿En que capa OSI opera un router?',
+   opts:['Capa 1 (Fisica)','Capa 2 (Enlace)','Capa 3 (Red)','Capa 4 (Transporte)'],ans:2},
+  {q:'¿Que dispositivo de capa 1 simplemente amplifica/regenera la senal sin filtrar trafico?',
+   opts:['Switch','Router','Hub / Repetidor','Puente'],ans:2},
+]},
+];
+
+const selEl=document.getElementById('testSelector');
+const areaEl=document.getElementById('quizArea');
+const histEl=document.getElementById('testHistory');
+const histTitle=document.getElementById('histTitle');
+let scores=loadScores();
+
+function renderSelector(){
+  selEl.innerHTML='';
+  QUIZZES.forEach(quiz=>{
+    const btn=document.createElement('button');
+    btn.className='test-btn';
+    const best=scores[quiz.id];
+    if(best!==undefined && best>=70) btn.classList.add('passed');
+    btn.innerHTML='T'+quiz.id+(best!==undefined?'<span class="tbadge">Mejor: '+best+'%</span>':'<span class="tbadge">Sin hacer</span>');
+    btn.addEventListener('click',()=>startQuiz(quiz));
+    selEl.appendChild(btn);
+  });
+}
+
+function startQuiz(quiz){
+  document.querySelectorAll('.test-btn').forEach(b=>b.classList.remove('active'));
+  selEl.children[quiz.id-1].classList.add('active');
+  areaEl.classList.add('visible');
+
+  const shuffled=quiz.questions.map(q=>{
+    const indices=[0,1,2,3];
+    for(let i=indices.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[indices[i],indices[j]]=[indices[j],indices[i]];}
+    return{q:q.q,opts:indices.map(i=>q.opts[i]),ans:indices.indexOf(q.ans)};
+  });
+
+  let answered=new Array(shuffled.length).fill(-1);
+  let submitted=false;
+
+  function render(){
+    let html='<div class="quiz-header"><h3 style="color:var(--orange);">'+quiz.title+'</h3><span class="quiz-qcount">'+shuffled.length+' preguntas</span></div>';
+    html+='<div id="quizResult" class="quiz-result"></div>';
+
+    shuffled.forEach((q,qi)=>{
+      html+='<div class="q-card"><div class="q-num">Pregunta '+(qi+1)+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">';
+      q.opts.forEach((opt,oi)=>{
+        let cls='q-opt';
+        if(!submitted && answered[qi]===oi) cls+=' selected';
+        if(submitted){
+          cls+=' disabled';
+          if(oi===q.ans) cls+=' correct';
+          else if(answered[qi]===oi) cls+=' wrong';
+        }
+        html+='<div class="'+cls+'" data-qi="'+qi+'" data-oi="'+oi+'"><span class="q-letter">'+LETTERS[oi]+'</span><span>'+opt+'</span></div>';
+      });
+      html+='</div>';
+      if(submitted){
+        if(answered[qi]===q.ans) html+='<div class="q-feedback visible ok">Correcto</div>';
+        else if(answered[qi]===-1) html+='<div class="q-feedback visible fail">Sin responder — la correcta era: '+LETTERS[q.ans]+') '+q.opts[q.ans]+'</div>';
+        else html+='<div class="q-feedback visible fail">Incorrecto — la correcta era: '+LETTERS[q.ans]+') '+q.opts[q.ans]+'</div>';
+      }
+      html+='</div>';
+    });
+
+    html+='<div class="quiz-actions">';
+    if(!submitted) html+='<button class="quiz-submit" id="qSubmit">Corregir test</button>';
+    html+='<button class="quiz-retry" id="qRetry">Reintentar</button>';
+    html+='</div>';
+
+    areaEl.innerHTML=html;
+
+    if(!submitted){
+      areaEl.querySelectorAll('.q-opt').forEach(el=>{
+        el.addEventListener('click',()=>{
+          const qi=+el.dataset.qi,oi=+el.dataset.oi;
+          answered[qi]=oi;
+          render();
+        });
+      });
+      const subBtn=document.getElementById('qSubmit');
+      subBtn.addEventListener('click',()=>{submitted=true;showResult();render();renderSelector();renderHistory();});
+    }
+    document.getElementById('qRetry').addEventListener('click',()=>startQuiz(quiz));
+
+    if(submitted){
+      const resEl=document.getElementById('quizResult');
+      const correct=shuffled.filter((q,i)=>answered[i]===q.ans).length;
+      const pct=Math.round(correct/shuffled.length*100);
+      let cls=pct>=70?'great':pct>=40?'ok':'bad';
+      let msg=pct>=90?'Excelente, dominas este tema':pct>=70?'Bien, pero repasa los fallos':pct>=40?'Regular, necesitas repasar mas':'Necesitas estudiar este tema a fondo';
+      let color=pct>=70?'var(--green)':pct>=40?'var(--orange)':'var(--red)';
+      resEl.className='quiz-result visible';
+      resEl.innerHTML='<div class="result-score '+cls+'">'+correct+' / '+shuffled.length+'</div><div class="result-msg">'+pct+'% — '+msg+'</div><div class="result-bar"><div class="result-fill" style="width:'+pct+'%;background:'+color+';"></div></div>';
+    }
+  }
+
+  function showResult(){
+    const correct=shuffled.filter((q,i)=>answered[i]===q.ans).length;
+    const pct=Math.round(correct/shuffled.length*100);
+    if(scores[quiz.id]===undefined||pct>scores[quiz.id]){scores[quiz.id]=pct;saveScores(scores);}
+  }
+
+  render();
+  areaEl.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderHistory(){
+  const entries=QUIZZES.filter(q=>scores[q.id]!==undefined);
+  if(entries.length===0){histTitle.style.display='none';histEl.innerHTML='';return;}
+  histTitle.style.display='';
+  let html='<table><tr><th>Tema</th><th>Mejor nota</th><th>Estado</th></tr>';
+  let total=0,count=0;
+  entries.forEach(q=>{
+    const s=scores[q.id];total+=s;count++;
+    const color=s>=70?'var(--green)':s>=40?'var(--orange)':'var(--red)';
+    const estado=s>=70?'Aprobado':s>=40?'Necesita repaso':'Suspendido';
+    html+='<tr><td>'+q.title+'</td><td style="color:'+color+';font-weight:700;">'+s+'%</td><td style="color:'+color+';">'+estado+'</td></tr>';
+  });
+  const avg=Math.round(total/count);
+  html+='<tr style="border-top:2px solid var(--border);"><td><strong>Media global</strong></td><td colspan="2"><strong>'+avg+'%</strong> ('+count+'/'+QUIZZES.length+' temas realizados)</td></tr>';
+  html+='</table>';
+  histEl.innerHTML=html;
+}
+
+renderSelector();
+renderHistory();
+})();
 
 /* ===== PROGRESS TRACKER ===== */
 (function(){
