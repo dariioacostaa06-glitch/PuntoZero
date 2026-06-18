@@ -168,6 +168,62 @@ footer{
   color:var(--text-dim);font-size:.85rem;
 }
 
+/* ===== Mind Maps ===== */
+.mm-selector{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0;}
+.mm-btn{
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  padding:.45rem .7rem;border-radius:6px;cursor:pointer;font-size:.8rem;
+  font-family:inherit;font-weight:600;transition:.15s;
+}
+.mm-btn:hover{border-color:var(--blue);color:var(--blue);}
+.mm-btn.active{background:var(--blue);color:#0d1117;border-color:var(--blue);}
+.mm-viewport{
+  margin:1.5rem 0;overflow-x:auto;padding:1rem 0;
+  min-height:200px;
+}
+.mm-tree{display:none;}
+.mm-tree.visible{display:block;}
+
+.mm{list-style:none;padding:0;margin:0;position:relative;}
+.mm .root{
+  display:inline-block;padding:.6rem 1.2rem;border-radius:10px;font-weight:800;
+  font-size:1rem;color:#0d1117;margin-bottom:.5rem;
+}
+.mm .branch{
+  list-style:none;padding-left:1.8rem;margin:.2rem 0;
+  border-left:2px solid var(--border);
+}
+.mm .node{
+  position:relative;padding:.3rem 0 .3rem 1.2rem;cursor:default;
+}
+.mm .node::before{
+  content:'';position:absolute;left:0;top:50%;
+  width:1rem;height:0;border-top:2px solid var(--border);
+}
+.mm .node-label{
+  display:inline-block;padding:.3rem .7rem;border-radius:6px;font-size:.85rem;
+  border:1px solid var(--border);background:var(--bg-card);transition:.15s;
+}
+.mm .node-label.l1{font-weight:700;font-size:.9rem;border-color:var(--accent2);color:var(--accent2);}
+.mm .node-label.l2{font-weight:600;color:var(--purple);}
+.mm .node-label.l3{color:var(--text);font-size:.82rem;}
+.mm .node-label.l4{color:var(--text-dim);font-size:.8rem;border-style:dashed;}
+
+.mm .node-toggle{
+  display:inline-block;width:18px;height:18px;border-radius:50%;
+  background:var(--bg-code);border:1px solid var(--border);
+  color:var(--text-dim);font-size:11px;text-align:center;line-height:16px;
+  cursor:pointer;margin-right:.3rem;user-select:none;transition:.15s;vertical-align:middle;
+}
+.mm .node-toggle:hover{border-color:var(--accent2);color:var(--accent2);}
+.mm .branch.collapsed{display:none;}
+
+/* colors per block */
+.mm-fisico .root{background:linear-gradient(135deg,#2ea043,#56d364);}
+.mm-intro .root{background:linear-gradient(135deg,#d47f00,#ffa657);}
+.mm-enlace .root{background:linear-gradient(135deg,#1f6feb,#79c0ff);}
+.mm-lan .root{background:linear-gradient(135deg,#8b5cf6,#d2a8ff);}
+
 /* ===== Tests ===== */
 .test-selector{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));
@@ -431,6 +487,7 @@ footer{
     <a href="#tema14"><span class="tnum">14</span>Redes de Area Local</a>
 
     <h4>Herramientas</h4>
+    <a href="#mapas" style="color:var(--blue);">&#10066; Mapas mentales</a>
     <a href="#tests" style="color:var(--orange);">&#9998; Tests interactivos</a>
     <a href="#problemas" style="color:var(--red);">&#9997; Problemas</a>
     <a href="#practicas" style="color:var(--purple);">&#9881; Practicas</a>
@@ -1277,6 +1334,16 @@ footer{
   </section>
 
   <!-- ============================================================ -->
+  <!-- MAPAS MENTALES -->
+  <!-- ============================================================ -->
+  <section id="mapas" class="tema">
+    <h2><span class="num" style="background:var(--blue);">&#10066;</span> Mapas mentales</h2>
+    <p style="color:var(--text-dim);">Selecciona un tema. Haz clic en los <strong>circulos &plusmn;</strong> para expandir o colapsar ramas.</p>
+    <div class="mm-selector" id="mmSelector"></div>
+    <div class="mm-viewport" id="mmViewport"></div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- TESTS -->
   <!-- ============================================================ -->
   <section id="tests" class="tema">
@@ -1733,6 +1800,164 @@ const obs=new IntersectionObserver(es=>{
   });
 },{rootMargin:'-20% 0px -70% 0px'});
 document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+
+/* ===== MAPAS MENTALES ===== */
+(function(){
+const MM=[
+{id:1,title:'T1',cls:'mm-intro',root:'Introduccion a las redes',children:[
+  {t:'Introduccion',ch:[{t:'Sin limites (comunidades globales)'},{t:'Aprendizaje (e-learning)'},{t:'Trabajo (teletrabajo)'},{t:'Ocio (streaming, gaming)'}]},
+  {t:'Elementos de comunicacion',ch:[{t:'Emisor (origen)'},{t:'Receptor (destino)'},{t:'Canal (medio de transmision)'},{t:'Mensaje (datos)'}]},
+  {t:'Componentes de red',ch:[
+    {t:'Dispositivos',ch:[{t:'Terminales (hosts)',ch:[{t:'Servidores'},{t:'Clientes'}]},{t:'Intermedios',ch:[{t:'Switches'},{t:'Routers'},{t:'Puntos de acceso'},{t:'Firewalls'}]}]},
+    {t:'Medios',ch:[{t:'Cobre (cables metalicos)'},{t:'Fibra optica (vidrio)'},{t:'Inalambrico'}]},
+    {t:'Servicios y procesos'}
+  ]},
+  {t:'Protocolos',ch:[{t:'Codificacion'},{t:'Encapsulamiento'},{t:'Tamano del mensaje'},{t:'Sincronizacion'},{t:'Opciones de entrega',ch:[{t:'Unicast'},{t:'Multicast'},{t:'Broadcast'}]}]},
+  {t:'Clasificacion',ch:[{t:'Por tamano',ch:[{t:'PAN (~10m)'},{t:'LAN (<1km)'},{t:'MAN (ciudad)'},{t:'WAN (paises)'}]},{t:'Por topologia',ch:[{t:'Bus'},{t:'Estrella'},{t:'Anillo'},{t:'Malla'},{t:'Arbol'},{t:'Hibrida'}]}]}
+]},
+{id:2,title:'T2',cls:'mm-intro',root:'Modelos de redes',children:[
+  {t:'Modelo OSI (7 capas)',ch:[{t:'7. Aplicacion (HTTP, SMTP, FTP)'},{t:'6. Presentacion (cifrado, compresion)'},{t:'5. Sesion (dialogo)'},{t:'4. Transporte (segmentos, TCP/UDP)'},{t:'3. Red (paquetes, enrutamiento)'},{t:'2. Enlace de datos (tramas, MAC)'},{t:'1. Fisica (bits)'}]},
+  {t:'Modelo TCP/IP (4 capas)',ch:[{t:'4. Aplicacion (= OSI 5+6+7)'},{t:'3. Transporte (TCP, UDP, puertos)'},{t:'2. Red / Internet (IP, routing)'},{t:'1. Fisica / Acceso a red (= OSI 1+2)'}]},
+  {t:'OSI vs TCP/IP',ch:[{t:'OSI: conceptual, 7 capas'},{t:'TCP/IP: de facto, 4 capas'},{t:'TCP/IP no separa fisica y enlace'},{t:'OSI mas generico'}]},
+  {t:'Capa de transporte',ch:[{t:'TCP (fiable, conexion, handshake)'},{t:'UDP (rapido, sin conexion)'},{t:'Puertos',ch:[{t:'0-1023: bien conocidos'},{t:'1024-49151: registrados'},{t:'49152-65535: dinamicos'}]},{t:'Multiplexacion / Demultiplexacion'}]},
+  {t:'Organismos',ch:[{t:'ISOC'},{t:'IEEE 802'},{t:'UIT-T'},{t:'ISO'},{t:'Forum ATM'}]}
+]},
+{id:3,title:'T3',cls:'mm-fisico',root:'Medios de transmision',children:[
+  {t:'Medios guiados',ch:[
+    {t:'Par trenzado',ch:[{t:'UTP (sin apantallar)'},{t:'STP (apantallado)'},{t:'Categorias (CAT 5e a CAT 8)'},{t:'Conectores: RJ45, RJ11'},{t:'Normas T-568A / T-568B'},{t:'Cable directo vs cruzado'},{t:'Parametros: NEXT, FEXT, Return loss'}]},
+    {t:'Cable coaxial',ch:[{t:'Nucleo + malla + dieelectrico'},{t:'Conector BNC'},{t:'Tipos RG (RG-58, RG-59, RG-62)'},{t:'Max ~185m por segmento'}]},
+    {t:'Fibra optica',ch:[{t:'Nucleo + cubierta + buffer'},{t:'Monomodo (SMF, larga distancia)'},{t:'Multimodo (MMF, corta distancia)'},{t:'Inmune a interferencias EM'},{t:'Mayor ancho de banda'}]}
+  ]},
+  {t:'Medios no guiados',ch:[{t:'Senales electromagneticas'},{t:'Radio y microondas'},{t:'Factores: cobertura, interferencia, seguridad'},{t:'Medio compartido'}]},
+  {t:'Espectro electromagnetico',ch:[{t:'Baja frecuencia a alta frecuencia'},{t:'Radio → Microondas → Infrarrojo → Luz visible'}]}
+]},
+{id:4,title:'T4',cls:'mm-fisico',root:'Teoria de la senal',children:[
+  {t:'Tipos de senales',ch:[{t:'Analogica (continua, infinitos valores)'},{t:'Digital (discreta, finitos valores)'},{t:'Periodica (repite patron)'}]},
+  {t:'Senal sinusoidal',ch:[{t:'Amplitud (A)'},{t:'Frecuencia (f) = 1/T'},{t:'Fase (φ)'},{t:'Fourier: toda senal = suma de senos'}]},
+  {t:'Fundamentos transmision',ch:[{t:'Ancho de banda = rango de frecuencias'},{t:'Velocidad (bps, kbps, Mbps, Gbps)'}]},
+  {t:'Perturbaciones',ch:[{t:'Atenuacion (perdida energia con distancia)'},{t:'Distorsion (cambio de forma)'},{t:'Ruido',ch:[{t:'Termico'},{t:'Inducido'},{t:'Diafonia (crosstalk)'},{t:'Impulsivo'}]},{t:'SNR = P_senal / P_ruido (dB)'}]},
+  {t:'Limites de velocidad',ch:[{t:'Nyquist (sin ruido): C = 2B·log₂(L)'},{t:'Shannon (con ruido): C = B·log₂(1+SNR)'},{t:'Shannon = limite teorico absoluto'}]}
+]},
+{id:5,title:'T5',cls:'mm-fisico',root:'Transmision digital',children:[
+  {t:'Datos digitales → senales digitales',ch:[
+    {t:'Codigos de linea (banda base)',ch:[{t:'Polaridad',ch:[{t:'Unipolar (0, +V)'},{t:'Polar (-V, +V)'},{t:'Bipolar (-V, 0, +V)'}]},{t:'Ancho de pulso',ch:[{t:'NRZ (No Return to Zero)'},{t:'RZ (Return to Zero)'}]}]},
+    {t:'Codificaciones principales',ch:[{t:'NRZ-L (nivel = bit)'},{t:'NRZ-I (cambio = 1)'},{t:'Manchester (transicion a mitad)'},{t:'Manchester dif. (transicion inicio = 0)'},{t:'AMI (1s alternan +/-)'},{t:'HDB3 (AMI + sustitucion 4 ceros)'}]}
+  ]},
+  {t:'Datos analogicos → senales digitales',ch:[{t:'PCM (Pulse Code Modulation)',ch:[{t:'1. Muestreo (≥ 2·f_max)'},{t:'2. Cuantificacion (niveles discretos)'},{t:'3. Codificacion (secuencia binaria)'}]},{t:'SNR_q = 1.76 + 6.02·n dB'}]},
+  {t:'Modos de transmision',ch:[{t:'Paralelo (multiples canales, rapido, corto)'},{t:'Serie',ch:[{t:'Asincrona (start/stop bits)'},{t:'Sincrona (reloj compartido)'}]}]}
+]},
+{id:6,title:'T6',cls:'mm-fisico',root:'Transmision analogica',children:[
+  {t:'Datos digitales → senales analogicas',ch:[
+    {t:'Modulacion',ch:[{t:'ASK (varia amplitud)'},{t:'FSK (varia frecuencia)'},{t:'PSK (varia fase)'},{t:'QAM (amplitud + fase)',ch:[{t:'QAM-16, QAM-64, QAM-256...'},{t:'Mayor orden = mas bps pero mas ruido'}]}]},
+    {t:'Elementos necesarios',ch:[{t:'Senal moduladora (digital)'},{t:'Senal portadora (analogica)'},{t:'Receptor ajustado a portadora'}]},
+    {t:'Baudios = bps / log₂(L)'}
+  ]},
+  {t:'Datos analogicos → senales analogicas',ch:[{t:'AM (modula amplitud)'},{t:'FM (modula frecuencia)'},{t:'PM (modula fase)'}]},
+  {t:'Diagrama de constelacion',ch:[{t:'Eje I (en fase) vs Q (cuadratura)'},{t:'Cada punto = un simbolo'},{t:'Distancia entre puntos = robustez al ruido'}]}
+]},
+{id:7,title:'T7',cls:'mm-fisico',root:'Ancho de banda',children:[
+  {t:'Multiplexacion (eficiencia)',ch:[
+    {t:'FDM (Division de frecuencia)',ch:[{t:'Tecnica analogica'},{t:'Cada canal = frecuencia portadora'},{t:'Bandas de guarda entre canales'}]},
+    {t:'WDM (Division de longitud de onda)',ch:[{t:'FDM aplicado a fibra optica'},{t:'Cada canal = longitud de onda diferente'}]},
+    {t:'TDM (Division de tiempo)',ch:[{t:'Tecnica digital'},{t:'Ranuras temporales por usuario'},{t:'Sincrono (ranuras fijas) vs Estadistico (bajo demanda)'}]}
+  ]},
+  {t:'Espectro expandido (aislamiento)',ch:[{t:'FHSS (salto de frecuencia)',ch:[{t:'Patron pseudo-aleatorio'},{t:'Saltos rapidos entre frecuencias'}]},{t:'DSSS (secuencia directa)',ch:[{t:'Multiplica por codigo de chips'},{t:'Mayor ancho de banda'}]}]},
+  {t:'Conceptos',ch:[{t:'MUX (n entradas → 1 enlace)'},{t:'DEMUX (1 enlace → n salidas)'},{t:'Canal = porcion de un enlace'}]}
+]},
+{id:8,title:'T8',cls:'mm-enlace',root:'Enlace: Introduccion',children:[
+  {t:'Objetivos',ch:[{t:'Enlace logico libre de errores'},{t:'Servir a capa de red'},{t:'Usar servicios de capa fisica'},{t:'Regular flujo de tramas'}]},
+  {t:'Terminologia',ch:[{t:'Nodo (dispositivo)'},{t:'Enlace (canal fisico entre nodos)'},{t:'Trama (PDU del nivel de enlace)'},{t:'Protocolo de enlace'}]},
+  {t:'Tipos de enlace',ch:[{t:'Punto a punto (2 nodos exclusivos)'},{t:'Difusion (medio compartido)'}]},
+  {t:'Funciones',ch:[{t:'Generacion de tramas (entramado)'},{t:'Direccionamiento (MAC)'},{t:'Control de errores'},{t:'Control de flujo'},{t:'Control de acceso al medio'}]},
+  {t:'Direcciones MAC',ch:[{t:'48 bits (6 bytes)'},{t:'Formato XX:XX:XX:XX:XX:XX'},{t:'OUI (3 bytes fabricante) + ID unico (3 bytes)'},{t:'Broadcast: FF:FF:FF:FF:FF:FF'},{t:'Bit LSB byte 1: 0=unicast, 1=multicast'}]},
+  {t:'Subcapas',ch:[{t:'LLC (Logical Link Control)'},{t:'MAC (Media Access Control)'}]}
+]},
+{id:9,title:'T9',cls:'mm-enlace',root:'Entramado y gestion',children:[
+  {t:'Generacion de tramas',ch:[
+    {t:'Estructura de trama',ch:[{t:'Cabecera (header): dir. origen/destino + control'},{t:'Carga util (payload): datos'},{t:'Cierre (trailer): deteccion errores'}]},
+    {t:'Metodos de entramado',ch:[{t:'Byte counting (campo longitud)'},{t:'Byte stuffing (FLAG + ESC)'},{t:'Bit stuffing (01111110, inserta 0 tras 5 unos)'},{t:'Violacion de codificacion'}]}
+  ]},
+  {t:'Gestion del enlace',ch:[{t:'Sin conexion, sin confirmacion (Ethernet)'},{t:'Sin conexion, con confirmacion (Wi-Fi)'},{t:'Con conexion y confirmacion'}]}
+]},
+{id:10,title:'T10',cls:'mm-enlace',root:'Control de flujo',children:[
+  {t:'Problema',ch:[{t:'Emisor rapido satura receptor lento'},{t:'Desbordamiento de buffer → perdida de tramas'}]},
+  {t:'Conceptos previos',ch:[{t:'t_trama = N_bits / C'},{t:'t_prop = d / v'},{t:'Medios guiados: v ≈ 2×10⁸ m/s'},{t:'No guiados: v ≈ 3×10⁸ m/s'}]},
+  {t:'Stop & Wait',ch:[{t:'Envia 1 trama → espera ACK'},{t:'Simple pero ineficiente'},{t:'η = 1 / (1 + 2a), a = t_prop/t_trama'}]},
+  {t:'Ventana deslizante',ch:[{t:'Envia W tramas sin esperar'},{t:'Numeros de secuencia'},{t:'η = min(1, W/(1+2a))'},{t:'Mucho mas eficiente'}]}
+]},
+{id:11,title:'T11',cls:'mm-enlace',root:'Deteccion y correccion de errores',children:[
+  {t:'Tipos de errores',ch:[{t:'Error en un bit (1 bit alterado)'},{t:'Error en rafaga (multiples bits)'},{t:'BER = bits erroneos / total bits'}]},
+  {t:'Fuentes de error',ch:[{t:'Interferencias'},{t:'Distorsion de retardo'},{t:'Atenuacion'}]},
+  {t:'Deteccion',ch:[{t:'Paridad (par/impar)',ch:[{t:'1 bit extra'},{t:'Solo detecta errores impares'}]},{t:'Checksum (suma verificacion)',ch:[{t:'Suma bloques en complemento a 1'},{t:'Envia complemento de la suma'}]},{t:'CRC (redundancia ciclica)',ch:[{t:'Division polinomica (XOR)'},{t:'Polinomio generador'},{t:'Resto = 0 → OK'}]}]},
+  {t:'Correccion',ch:[{t:'FEC - Paridad bidimensional',ch:[{t:'Matriz filas × columnas'},{t:'Detecta y corrige 1 bit'}]},{t:'FEC - Hamming',ch:[{t:'Bits redundancia en potencias de 2'},{t:'Sindrome localiza error'},{t:'Corrige 1 bit, detecta 2'}]},{t:'ARQ',ch:[{t:'Parada y espera (retransmite 1)'},{t:'Go-Back-N (retransmite desde error)'},{t:'Rechazo selectivo (solo la erronea)'}]}]}
+]},
+{id:12,title:'T12',cls:'mm-enlace',root:'Protocolos de enlace',children:[
+  {t:'BSC (IBM, 1967)',ch:[{t:'Orientado a caracteres (ASCII/EBCDIC)'},{t:'Half-duplex'},{t:'ARQ parada y espera'},{t:'Caracteres especiales: SYN, SOH, STX, ETX, EOT, ENQ, ACK, NAK, DLE'},{t:'Tramas de control e informacion'}]},
+  {t:'HDLC (ISO)',ch:[{t:'Orientado a bits'},{t:'Full-duplex'},{t:'Bit stuffing (bandera 01111110)'},{t:'Tramas: I, S, U'},{t:'Modos: NRM, ABM, ARM'}]},
+  {t:'PPP',ch:[{t:'Punto a punto sobre serie'},{t:'Basado en HDLC'},{t:'Fases: LCP → Autenticacion → NCP → Datos → Cierre'},{t:'PAP / CHAP'}]},
+  {t:'LCP',ch:[{t:'Establece, configura y cierra enlace'},{t:'Negocia MTU, autenticacion, compresion'}]}
+]},
+{id:13,title:'T13',cls:'mm-enlace',root:'Control de acceso al medio',children:[
+  {t:'Problema',ch:[{t:'Medio compartido → colisiones'},{t:'Subcapa MAC gestiona acceso'}]},
+  {t:'Acceso por canales',ch:[{t:'FDM, WDM, TDM, TDMA'},{t:'Canales dedicados'},{t:'Desperdicio si canal inactivo'}]},
+  {t:'Acceso aleatorio',ch:[
+    {t:'Aloha puro (18.4% eficiencia)'},{t:'Aloha ranurado (36.8% eficiencia)'},
+    {t:'CSMA (escuchar antes de hablar)',ch:[{t:'1-persistente'},{t:'No persistente'},{t:'p-persistente'}]},
+    {t:'CSMA/CD (Ethernet cableado)',ch:[{t:'Detecta colision durante TX'},{t:'Senal JAM'},{t:'Binary Exponential Backoff'}]},
+    {t:'CSMA/CA (Wi-Fi)',ch:[{t:'Evita colisiones (no detecta)'},{t:'RTS / CTS'},{t:'NAV (vector de asignacion)'}]}
+  ]},
+  {t:'Acceso controlado',ch:[{t:'Reserva de bits / mapa de bits'},{t:'Polling (encuesta / sondeo)'},{t:'Conteo descendente binario'},{t:'Token Passing (paso de testigo)'}]}
+]},
+{id:14,title:'T14',cls:'mm-lan',root:'Redes de Area Local',children:[
+  {t:'Caracteristicas LAN',ch:[{t:'Cobertura < 1 km'},{t:'Alta velocidad (Mbps - Gbps)'},{t:'Una organizacion'},{t:'Baja tasa de error'}]},
+  {t:'Componentes',ch:[{t:'Terminales (PC, tablet, smartphone)'},{t:'Intermedios (switch, hub, router)'},{t:'Medios (par trenzado, fibra, RF)'}]},
+  {t:'Topologias',ch:[{t:'Fisica (punto a punto, multipunto)'},{t:'Logica (bus, anillo, estrella, malla, arbol, hibrida)'}]},
+  {t:'Dispositivos',ch:[{t:'Hub / Repetidor (capa 1)'},{t:'Puente / Bridge (capa 2)'},{t:'Switch (capa 2, tabla MAC)'},{t:'Router (capa 3, tabla IP)'}]},
+  {t:'Estandares',ch:[
+    {t:'Ethernet II (DIX)',ch:[{t:'Preambulo + SFD + MACs + EtherType + Datos + FCS'}]},
+    {t:'IEEE 802.3 (Ethernet)',ch:[{t:'CSMA/CD'},{t:'10BASE-T, 100BASE-TX, 1000BASE-T'},{t:'Fast / Gigabit / 10G Ethernet'}]},
+    {t:'IEEE 802.11 (Wi-Fi)',ch:[{t:'CSMA/CA'},{t:'2.4 GHz / 5 GHz / 6 GHz'},{t:'802.11n = Wi-Fi 4'},{t:'802.11ac = Wi-Fi 5'},{t:'802.11ax = Wi-Fi 6'}]}
+  ]}
+]}
+];
+
+function buildTree(node,level){
+  let html='<li class="node">';
+  const hasKids=node.ch&&node.ch.length;
+  if(hasKids)html+='<span class="node-toggle" onclick="this.parentElement.querySelector(\'.branch\').classList.toggle(\'collapsed\');this.textContent=this.textContent===\'+\'?\'−\':\'+\';">&minus;</span>';
+  html+='<span class="node-label l'+(level>4?4:level)+'">'+node.t+'</span>';
+  if(hasKids){
+    html+='<ul class="branch">';
+    node.ch.forEach(c=>{html+=buildTree(c,level+1);});
+    html+='</ul>';
+  }
+  html+='</li>';
+  return html;
+}
+
+const selEl=document.getElementById('mmSelector');
+const vpEl=document.getElementById('mmViewport');
+
+MM.forEach(m=>{
+  const btn=document.createElement('button');
+  btn.className='mm-btn';
+  btn.textContent=m.title;
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.mm-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.mm-tree').forEach(t=>t.classList.remove('visible'));
+    document.getElementById('mm-'+m.id).classList.add('visible');
+  });
+  selEl.appendChild(btn);
+
+  let treeHtml='<div id="mm-'+m.id+'" class="mm-tree '+m.cls+'"><ul class="mm"><li><span class="root">'+m.root+'</span><ul class="branch">';
+  m.children.forEach(c=>{treeHtml+=buildTree(c,1);});
+  treeHtml+='</ul></li></ul></div>';
+  vpEl.insertAdjacentHTML('beforeend',treeHtml);
+});
+
+// Show first by default
+if(selEl.children.length){selEl.children[0].click();}
 
 /* ===== TESTS INTERACTIVOS ===== */
 (function(){
