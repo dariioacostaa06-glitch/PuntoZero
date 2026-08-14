@@ -233,6 +233,74 @@ img { max-width: 100%; display: block; }
 
 .wings__col--telefonia .wings__list { color: #4A3218; }
 
+/* ---------- Ofertas y operadoras ---------- */
+
+.wings__offer {
+  margin-top: 1.75rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.wings__offer-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-700);
+  margin-bottom: 0.4rem;
+}
+
+.wings__offer--telefonia .wings__offer-eyebrow { color: var(--brass); }
+
+.wings__offer-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.4;
+  color: var(--ink-900);
+}
+
+.wings__col--telefonia .wings__offer-text { color: #4A3218; }
+
+.wings__operators {
+  margin-top: 1.75rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.wings__operators-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8A6A3C;
+  margin-bottom: 0.75rem;
+}
+
+.wings__operator-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.wings__operator-list li {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #4A3218;
+  background: var(--paper);
+  border: 1px solid rgba(74, 50, 24, 0.25);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+}
+
 .wings__divider {
   display: flex;
   align-items: center;
@@ -254,6 +322,7 @@ img { max-width: 100%; display: block; }
   }
   .wings__col { text-align: left; padding: 3rem 2.75rem; }
   .wings__icon { margin: 0 0 1.5rem; }
+  .wings__operator-list { justify-content: flex-start; }
 }
 
 /* ---------- Find us ---------- */
