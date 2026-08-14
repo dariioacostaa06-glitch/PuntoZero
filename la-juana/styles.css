@@ -1,0 +1,320 @@
+/* La Juana — Telefonía · Papelería — Fernán-Núñez
+   Paleta: azul tinta (papelería/pluma) + latón cálido (telefonía de toda la vida),
+   sobre fondo color papel. Ver SKILL landing-pages para convención de despliegue. */
+
+:root {
+  --paper: #F7F2E6;
+  --paper-deep: #EFE6D2;
+  --ink-900: #16233F;
+  --ink-700: #2E4A78;
+  --ink-400: #7C8FB3;
+  --ink-100: #E7ECF6;
+  --brass: #B8874C;
+  --brass-100: #F1E4D0;
+  --line: rgba(22, 35, 63, 0.16);
+  --line-strong: rgba(22, 35, 63, 0.32);
+
+  --font-display: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+  --font-body: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  --max-w: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-900);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--ink-700);
+  outline-offset: 3px;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+}
+
+.topbar__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-700);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem 0.45rem 0.7rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.topbar__call:hover {
+  background: var(--ink-100);
+  border-color: var(--line-strong);
+}
+
+.icon-phone {
+  width: 15px;
+  height: 15px;
+  color: var(--brass);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4.5rem;
+  text-align: center;
+}
+
+.hero__mark {
+  width: min(300px, 62vw);
+  margin: 0 auto 1.75rem;
+  animation: mark-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mark-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero__logo {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  mix-blend-mode: multiply;
+}
+
+.hero__tagline {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.35rem);
+  line-height: 1.25;
+  color: var(--ink-900);
+  margin: 0 auto 2.25rem;
+  max-width: 20ch;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn--primary {
+  background: var(--ink-900);
+  color: var(--paper);
+}
+
+.btn--primary:hover { background: var(--ink-700); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink-900);
+  border-color: var(--line-strong);
+}
+
+.btn--ghost:hover {
+  background: var(--ink-100);
+  border-color: var(--ink-700);
+}
+
+/* ---------- Wings (Papelería & Telefonía) ---------- */
+
+.wings {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  text-align: center;
+}
+
+.wings__col {
+  padding: 2.5rem 1.75rem;
+  border-radius: 28px;
+  background: var(--paper-deep);
+}
+
+.wings__col--papeleria { color: var(--ink-900); }
+.wings__col--telefonia {
+  background: var(--brass-100);
+}
+
+.wings__icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1.25rem;
+}
+
+.wings__col--papeleria .wings__icon { color: var(--ink-700); }
+.wings__col--telefonia .wings__icon { color: var(--brass); }
+
+.wings__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin: 0 0 1.1rem;
+}
+
+.wings__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.98rem;
+  color: var(--ink-900);
+}
+
+.wings__col--telefonia .wings__list { color: #4A3218; }
+
+.wings__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wings__amp {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 2.75rem;
+  color: var(--line-strong);
+}
+
+@media (min-width: 780px) {
+  .wings {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+  }
+  .wings__col { text-align: left; padding: 3rem 2.75rem; }
+  .wings__icon { margin: 0 0 1.5rem; }
+}
+
+/* ---------- Find us ---------- */
+
+.find {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  padding-top: 3.5rem;
+}
+
+.find__title {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-400);
+  margin: 0 0 1.25rem;
+}
+
+.find__address {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem);
+  margin: 0 0 0.75rem;
+}
+
+.find__phone {
+  margin: 0 0 1.75rem;
+}
+
+.find__phone a {
+  text-decoration: none;
+  color: var(--ink-700);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.find__phone a:hover { color: var(--brass); border-color: var(--brass); }
+
+.find__actions {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--ink-400);
+}
+
+.footer__dot { color: var(--line-strong); }

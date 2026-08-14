@@ -1,0 +1,7 @@
+{
+  "domain": "puntozerosl.es",
+  "provider": "github-pages",
+  "repo": "https://github.com/dariioacostaa06-glitch/PuntoZero.git",
+  "branch": "main",
+  "landingsDir": "."
+}
