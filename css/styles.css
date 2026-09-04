@@ -2050,3 +2050,241 @@ button {
         display: none;
     }
 }
+/* =========================================================================
+   PORTADA CON SCROLL (escritorio, >=1024px)
+   -------------------------------------------------------------------------
+   La portada era un panel a pantalla completa con overflow:hidden. Ahora es
+   un recorrido vertical, que es lo que le da sentido al fondo 3D. Las vistas
+   de detalle (cartas, web, 3D, arch3D) siguen siendo paneles, pero pasan a
+   position:fixed porque el documento ya no mide una pantalla: en absolute se
+   quedarían clavadas arriba del todo.
+   ========================================================================= */
+@media (min-width: 1024px) {
+
+    #desktop-app {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    /* El logo 3D acompaña todo el recorrido en vez de irse con el hero. */
+    #canvas-container {
+        position: fixed;
+        pointer-events: none;
+    }
+
+    .desk-nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        /* Opaca de más a propósito: por detrás pasa el logo 3D y con un fondo
+           muy translúcido su reflejo especular se colaba como un manchón gris
+           justo sobre el menú. */
+        background: rgba(10, 10, 10, .72);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    #desk-scroll {
+        position: relative;
+        z-index: 10;
+        display: block;
+    }
+
+    .pz-sec {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 8rem 5%;
+        box-sizing: border-box;
+        scroll-margin-top: 6.5rem;   /* la cabecera es sticky */
+    }
+
+    .pz-hero {
+        min-height: calc(100vh - 6rem);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 0;
+        pointer-events: none;
+    }
+
+    /* Las secciones movidas traían contenedores pensados para un panel. */
+    .pz-sec .desk-detail-container,
+    .pz-sec .desk-services-container,
+    .pz-sec .desk-contacto-container {
+        max-width: 1180px;
+        margin: 0 auto;
+        height: auto;
+        overflow: visible;
+    }
+
+    .pz-sec .btn-volver,
+    .pz-sec .btn-volver-desk { display: none; }
+
+    /* --- Pista de scroll del hero --- */
+    .pz-scroll-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 2.5rem;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .7rem;
+        color: rgba(255, 255, 255, .45);
+        font-size: .68rem;
+        letter-spacing: .3em;
+        text-transform: uppercase;
+    }
+
+    .pz-scroll-mouse {
+        width: 20px;
+        height: 33px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5;
+    }
+
+    .pz-scroll-mouse circle { fill: currentColor; stroke: none; }
+
+    /* --- Paneles de detalle: ahora fijos --- */
+    #desktop-app .desk-view {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 60;
+    }
+
+    body.pz-panel-abierto { overflow: hidden; }
+
+    /* --- Hueco de la cabecera donde aterriza el logo del loader --- */
+    .desk-logo {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .desk-logo-marca {
+        display: inline-flex;
+        width: 1.5em;
+        height: 1.5em;
+        margin-right: .6em;
+        flex: 0 0 auto;
+    }
+
+    .desk-logo-marca #pz-logo {
+        width: 100%;
+        height: 100%;
+        color: currentColor;
+        visibility: visible;
+        position: relative;
+    }
+}
+
+/* =========================================================================
+   PORTADA MÓVIL CON SCROLL  (< 1024px)
+   -------------------------------------------------------------------------
+   El móvil era una app de pantallas: #mobile-app medía 100vh con overflow
+   hidden y #app-content hacía de scroller interno. Se pasa a scroll del
+   documento —así el navegador esconde su barra de direcciones al bajar, cosa
+   que un scroller interno no consigue— con la cabecera pegada arriba.
+   ========================================================================= */
+@media (max-width: 1023px) {
+
+    #mobile-app {
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
+    }
+
+    .mobile-header {
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background: rgba(10, 10, 10, .82);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    #app-content {
+        overflow: visible;
+        background-color: transparent;
+    }
+
+    #mobile-canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    #app-content > * { position: relative; z-index: 1; }
+
+    .pzm-sec {
+        display: block;
+        width: 100%;
+        padding: 4.5rem 5%;
+        box-sizing: border-box;
+        scroll-margin-top: 4.5rem;
+    }
+
+    .pzm-hero {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-top: 2rem;
+    }
+
+    .pzm-hero .landing-bg { display: none; }
+
+    .pzm-scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+        margin-top: 2.5rem;
+        color: rgba(255, 255, 255, .38);
+        font-size: .62rem;
+        letter-spacing: .3em;
+        text-transform: uppercase;
+    }
+
+    .pzm-scroll-mouse {
+        width: 17px;
+        height: 28px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5;
+    }
+
+    .pzm-scroll-mouse circle { fill: currentColor; stroke: none; }
+
+    /* Las secciones movidas venían con cabecera y botón de "volver" de pantalla
+       completa; dentro del recorrido ya no tienen sentido. */
+    .pzm-sec .btn-volver { display: none; }
+    .pzm-sec .view-header { padding: 0 0 1.2rem; }
+    .pzm-sec .view-body { padding: 0; }
+
+    /* --- Vistas de detalle: siguen siendo pantalla completa --- */
+    #mobile-app .view {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        overflow-y: auto;
+        background-color: #0a0a0a;
+        padding: 1rem 5% 3rem;
+    }
+
+    body.pzm-panel-abierto { overflow: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pz-scroll-hint,
+    .pzm-scroll-hint { display: none; }
+}
