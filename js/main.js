@@ -85,11 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================================================
-       INICIALIZACIÓN CONDICIONAL (Responsividad Extrema)
-       Aseguramos ahorro de recursos en móviles. El 3D no arrancará debajo de 1024px.
+       INICIALIZACIÓN CONDICIONAL
+       El 3D arranca en ambos, pero en móvil con una escena mucho más barata.
        ========================================================================= */
     if (window.innerWidth >= 1024) {
         initDesktop3DScene();
+    } else {
+        initMobile3DScene();
     }
 });
 
@@ -106,27 +108,47 @@ function Maps(targetId) {
 }
 
 // Escuchar los cambios en el hash
+/* La portada móvil dejó de ser una pantalla y pasó a ser un recorrido, igual
+   que en escritorio. Estos destinos ya no cambian de vista: bajan hasta su
+   sección. El resto (cartas, web, 3D, arch3D) siguen siendo pantalla completa.
+   Se conserva el enrutado por hash para que los enlaces sigan funcionando. */
+const PZM_SECCIONES = [
+    'view-landing',
+    'view-services-list',
+    'view-ejemplos',
+    'view-sobre',
+    'view-contacto-mobile'
+];
+
+function pzmCerrarVista() {
+    document.querySelectorAll('#mobile-app .view').forEach(v => v.classList.remove('active-view'));
+    document.body.classList.remove('pzm-panel-abierto');
+}
+
 function handleRouting() {
-    // Obtener el hash sin el '#' (si está vacío, por defecto es 'view-landing')
     const hash = window.location.hash.substring(1) || 'view-landing';
 
-    // Ocultar todas las vistas
-    document.querySelectorAll('.view').forEach(view => {
-        view.classList.remove('active-view');
-    });
+    if (PZM_SECCIONES.includes(hash)) {
+        pzmCerrarVista();
+        const destino = document.getElementById(hash);
+        if (!destino) return;
+        if (hash === 'view-landing') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+    }
 
-    // Mostrar la vista objetivo
+    pzmCerrarVista();
     const targetView = document.getElementById(hash);
     if (targetView) {
         targetView.classList.add('active-view');
+        document.body.classList.add('pzm-panel-abierto');
+        targetView.scrollTop = 0;
     } else {
-        // Fallback de seguridad si el ID no existe
-        const homeView = document.getElementById('view-landing');
-        if (homeView) homeView.classList.add('active-view');
+        window.scrollTo(0, 0);
     }
-    
-    // Reset de scroll al inicio de la nueva sección
-    window.scrollTo(0, 0);
 }
 
 // Escuchar cuando el usuario pulsa botones (UI o Hardware)
@@ -175,23 +197,65 @@ function filtrarEjemplos(input) {
     if (noResults) noResults.hidden = visibles > 0;
 }
 
-function NavDesk(viewId) {
-    // Ocultar todas las vistas de escritorio
-    document.querySelectorAll('.desk-view').forEach(view => {
-        view.classList.remove('active-desk-view');
-    });
+/* La portada dejó de ser un panel y pasó a ser un recorrido con scroll, así que
+   NavDesk tiene ahora dos comportamientos según el destino. Se mantiene el mismo
+   nombre y la misma firma a propósito: hay 24 onclick en el HTML apuntando aquí
+   y no hacía falta tocar ni uno. */
+const PZ_SECCIONES = [
+    'desk-home-view',
+    'desk-services-view',
+    'desk-view-ejemplos',
+    'desk-view-sobre',
+    'desk-view-contacto'
+];
 
-    // Mostrar la vista solicitada
+function pzCerrarPanel() {
+    document.querySelectorAll('.desk-view').forEach(v => v.classList.remove('active-desk-view'));
+    document.body.classList.remove('pz-panel-abierto');
+    // El overflow:hidden del body no basta: hay que soltar también a Lenis.
+    if (window.pzScrollFondo) window.pzScrollFondo(true);
+}
+
+function NavDesk(viewId) {
+    // Destino dentro de la portada: se baja hasta la sección.
+    if (PZ_SECCIONES.includes(viewId)) {
+        pzCerrarPanel();
+        const destino = document.getElementById(viewId);
+        if (!destino) return;
+        // window.pzScrollA lo instala js/home.js cuando Lenis está activo; si no,
+        // se recurre al scroll nativo para no depender de que cargue.
+        if (window.pzScrollA) window.pzScrollA(destino);
+        else destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+
+    // Destino de detalle: panel superpuesto, con el fondo bloqueado.
+    pzCerrarPanel();
     const targetView = document.getElementById(viewId);
     if (targetView) {
         targetView.classList.add('active-desk-view');
+        document.body.classList.add('pz-panel-abierto');
+        targetView.scrollTop = 0;
+        if (window.pzScrollFondo) window.pzScrollFondo(false);
     }
 }
 
-function initDesktop3DScene() {
+function initDesktop3DScene(opciones) {
     if (typeof THREE === 'undefined') return;
 
-    const container = document.getElementById('canvas-container');
+    // Los valores por defecto son los del escritorio, tal cual estaban. El móvil
+    // llama a esta misma función pasando los suyos (ver initMobile3DScene).
+    const cfg = Object.assign({
+        contenedor: 'canvas-container',
+        escala: 8,
+        camaraZ: 12,
+        pixelRatioMax: Infinity,
+        inercia: true,
+        curveSegments: 26,
+        bevel: true
+    }, opciones || {});
+
+    const container = document.getElementById(cfg.contenedor);
     if (!container) return;
 
     // 1. ESCENA Y CAMARA
@@ -199,64 +263,65 @@ function initDesktop3DScene() {
 
     // El aspect ratio coincide directamente con las dimensiones del contenedor right
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.z = 12;
+    camera.position.z = cfg.camaraZ;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, cfg.pixelRatioMax));
     container.appendChild(renderer.domElement);
 
-    // 2. CARGADOR Y GEOMETRÍA COLOSAL (GLTF)
+    // 2. GEOMETRÍA DEL LOGO
+    // Antes se cargaba 'Logo_PuntoZero.GLB' con GLTFLoader, pero ese fichero no
+    // era un GLB: era un 3MF de laminador renombrado, así que la carga fallaba
+    // siempre y el canvas quedaba vacío. Ahora la geometría se extruye por
+    // código en js/logo3d.js, a partir de la misma medición del logo que usa el
+    // SVG del loader. Ver ese fichero para el detalle.
     let logoModel = null;
-    const baseRotX = -Math.PI / 2; // Corrección de Eje
+    const baseRotX = 0; // La geometría ya nace mirando a cámara.
 
-    if (typeof THREE.GLTFLoader !== 'undefined') {
-        const loader = new THREE.GLTFLoader();
-        loader.load('Logo_PuntoZero.GLB', function (gltf) {
-            logoModel = gltf.scene;
-
-            // Centrado de pivote estricto
-            const box = new THREE.Box3().setFromObject(logoModel);
-            const center = box.getCenter(new THREE.Vector3());
-            logoModel.position.sub(center);
-
-            // Escala Masiva/Colosal (Ajustado agresivo)
-            const size = box.getSize(new THREE.Vector3());
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 16 / maxDim; // Muy inmersivo de fondo
-            logoModel.scale.set(scale, scale, scale);
-
-            // Orientación nativa vertical (frente cámara)
-            logoModel.rotation.x = baseRotX;
-
-            // Material oscuro metálico
-            logoModel.traverse(function (child) {
-                if (child.isMesh) {
-                    child.material = new THREE.MeshStandardMaterial({
-                        color: 0x111111,
-                        metalness: 0.8,
-                        roughness: 0.15
-                    });
-                }
-            });
-
-            scene.add(logoModel);
+    if (typeof window.pzCrearLogo3D === 'function') {
+        // Metal oscuro y mate. El material anterior (metalness .8 / roughness .15)
+        // nunca llegó a verse porque el modelo no cargaba; con la geometría ya
+        // visible ese acabado quemaba un reflejo blanco justo sobre el titular.
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x161616,
+            metalness: 0.55,
+            roughness: 0.42
         });
+        logoModel = window.pzCrearLogo3D(THREE, material, {
+            curveSegments: cfg.curveSegments,
+            bevel: cfg.bevel
+        });
+
+        // A z=12 con fov 45 se ven unas 9,9 unidades de alto: 8 deja el logo
+        // grande de fondo pero entero en pantalla, sin comerse el texto.
+        const box = new THREE.Box3().setFromObject(logoModel);
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        logoModel.scale.setScalar(cfg.escala / maxDim);
+
+        scene.add(logoModel);
     }
 
     // 3. ILUMINACIÓN TEATRAL
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.32);
     scene.add(ambientLight);
 
-    // Luz Frontal blanca (resalta bordes)
-    const frontLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    frontLight.position.set(0, 0, 10);
+    // Luz frontal contenida: lo justo para dibujar los biseles.
+    const frontLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    frontLight.position.set(2, 3, 10);
     scene.add(frontLight);
 
-    // Luz lateral azul suave (Rim light dramático)
-    const blueLight = new THREE.PointLight(0x4488ff, 3, 50);
-    blueLight.position.set(-8, 5, 2);
+    // Rim azul, ahora suave: marca el contorno sin robar protagonismo.
+    const blueLight = new THREE.PointLight(0x4488ff, 1.3, 60);
+    blueLight.position.set(-9, 5, 3);
     scene.add(blueLight);
+
+    // Contraluz cálido tenue por el otro lado, para que el logo no se funda
+    // del todo con el negro del fondo.
+    const rimLight = new THREE.PointLight(0xffd9a0, 0.7, 60);
+    rimLight.position.set(9, -4, 4);
+    scene.add(rimLight);
 
     // 4. INTERACTIVIDAD MOUSE INERCIAL
     let mouseX = 0;
@@ -267,11 +332,13 @@ function initDesktop3DScene() {
     let windowHalfX = window.innerWidth / 2;
     let windowHalfY = window.innerHeight / 2;
 
-    document.addEventListener('mousemove', (event) => {
-        // Obtenemos coordenadas para inercia (-1 a 1)
-        mouseX = (event.clientX - windowHalfX) / windowHalfX;
-        mouseY = (event.clientY - windowHalfY) / windowHalfY;
-    });
+    if (cfg.inercia) {
+        document.addEventListener('mousemove', (event) => {
+            // Obtenemos coordenadas para inercia (-1 a 1)
+            mouseX = (event.clientX - windowHalfX) / windowHalfX;
+            mouseY = (event.clientY - windowHalfY) / windowHalfY;
+        });
+    }
 
     // 5. RESPONSIVE RESIZE
     window.addEventListener('resize', () => {
@@ -288,6 +355,9 @@ function initDesktop3DScene() {
     // 6. LOOP ANIMACIÓN
     function animate() {
         requestAnimationFrame(animate);
+        // En un móvil esto va a batería: si la pestaña no está a la vista, no
+        // hay nada que pintar.
+        if (document.hidden) return;
 
         // Limitamos rotación inercial al 15 grados (~0.26 radianes)
         const rotLimit = 0.26;
@@ -298,8 +368,15 @@ function initDesktop3DScene() {
             // Rotación constante mínima para vida cuando el ratón para
             logoModel.rotation.z += 0.001;
 
+            // Aportación del scroll: js/home.js escribe aquí el progreso 0..1 del
+            // recorrido. Si ese script no está, vale 0 y el logo se comporta
+            // exactamente como antes.
+            const avance = window.pzAvanceScroll || 0;
+            logoModel.rotation.z += avance * 0.012;
+            camera.position.z = cfg.camaraZ + avance * 5;
+
             // Lerp Ultra Inercial (giro pesado y colosal)
-            logoModel.rotation.y += (targetX - logoModel.rotation.y) * 0.02;
+            logoModel.rotation.y += (targetX + avance * 2.4 - logoModel.rotation.y) * 0.02;
 
             // Aplicado al X con el desfase de baseRotX
             const targetRotationX = baseRotX + targetY;
@@ -311,6 +388,23 @@ function initDesktop3DScene() {
 
     // Iniciar
     animate();
+}
+
+/**
+ * Misma escena en móvil, más barata: menos segmentos de curva, sin bisel,
+ * pixelRatio limitado a 2 y sin inercia de ratón (no hay ratón). La cámara se
+ * aleja porque en vertical cabe menos de ancho.
+ */
+function initMobile3DScene() {
+    initDesktop3DScene({
+        contenedor: 'mobile-canvas',
+        escala: 6.5,
+        camaraZ: 15,
+        pixelRatioMax: 2,
+        inercia: false,
+        curveSegments: 12,
+        bevel: false
+    });
 }
 
 /* =========================================================================
