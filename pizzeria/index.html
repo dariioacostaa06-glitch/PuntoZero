@@ -152,7 +152,7 @@
             </button>
 
             <img id="header-brand" src="img/logo.webp" alt="Pizza José Villegas"
-                 class="h-20 sm:h-24 w-auto select-none">
+                 class="h-24 sm:h-28 w-auto select-none">
         </div>
     </header>
 
@@ -171,19 +171,18 @@
 
             <div id="grid-categories" class="grid grid-cols-2 gap-4 sm:gap-5"></div>
 
+            <button onclick="openLegend()"
+                class="mx-auto mt-7 flex items-center justify-center gap-2.5 w-full max-w-xs bg-lc-dark text-white py-4 px-6 rounded-full font-display tracking-[0.22em] uppercase text-xs shadow-lg hover:opacity-90 active:scale-95 transition">
+                <span class="text-base">ℹ️</span> Pedidos y horarios
+            </button>
+
             <div class="ornament my-10">
                 <span class="font-display text-xs tracking-[0.5em] uppercase">· pizza josé villegas ·</span>
             </div>
 
             <p class="text-[12px] text-center text-lc-muted italic px-4 leading-relaxed">
-                Pedidos al <span class="font-semibold not-italic">684 10 60 9</span> · Instagram <span class="font-semibold not-italic">@Pizzas_jose_villegas</span><br>
-                Pizzas en carta: encargos hasta el <span class="font-semibold not-italic">viernes 12:00h</span>. Bocadillos, roscas y fuera de carta: hasta el <span class="font-semibold not-italic">jueves 12:00h</span>.
+                Pedidos al <span class="font-semibold not-italic">684 10 60 9</span> · Instagram <span class="font-semibold not-italic">@Pizzas_jose_villegas</span>
             </p>
-
-            <button onclick="openLegend()"
-                class="mx-auto mt-4 block text-xs tracking-[0.2em] uppercase underline decoration-dotted text-lc-accent hover:text-lc-burg transition font-display">
-                Ver información y horarios
-            </button>
         </section>
 
         <!-- Vista platos -->
@@ -282,14 +281,16 @@
     <script>
         // ---------- DATA ------------------------------------------------
         const categorias = [
-            { id: 'Pizzas Normales',   tagline: 'Las de siempre' },
-            { id: 'Pizzas Especiales', tagline: 'Con más sabor' },
-            { id: 'Pizzas Gourmet',    tagline: 'Alta cocina en pizza' },
-            { id: 'Bocadillos XXL',    tagline: 'Para los más hambrientos' },
-            { id: 'Roscas',            tagline: 'Receta tradicional' },
-            { id: 'Paninis XXL',       tagline: 'Rápidos y sabrosos' },
-            { id: 'Calzones',          tagline: 'Rellenos a tu gusto' },
-            { id: 'Packs y Bases',     tagline: 'Para llevar a casa' }
+            { id: 'Pizzas Normales',         tagline: 'Las de siempre' },
+            { id: 'Pizzas Especiales',       tagline: 'Con más sabor' },
+            { id: 'Pizzas Gourmet',          tagline: 'Alta cocina en pizza' },
+            { id: 'Pizzas Fuera de Carta',   tagline: 'Ediciones especiales' },
+            { id: 'Bocadillos XXL',          tagline: 'Para los más hambrientos' },
+            { id: 'Bocadillos Fuera de Carta', tagline: 'Calentitos XXL' },
+            { id: 'Roscas',                  tagline: 'Receta tradicional' },
+            { id: 'Paninis XXL',             tagline: 'Rápidos y sabrosos' },
+            { id: 'Calzones',                tagline: 'Rellenos a tu gusto' },
+            { id: 'Packs y Bases',           tagline: 'Para llevar a casa' }
         ];
 
         const IMG = (slug) => `img/${slug}.webp`;
@@ -355,6 +356,60 @@
             { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Marinera', precio:'11,50 €',
               ingredientes:'Tomate, mozzarella, anchoas, atún, palitos de mar, mejillones y gambas.' },
 
+            // ---------------- PIZZAS FUERA DE CARTA ----------------
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'La Magma', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, champiñón, jamón serrano, queso curado y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cassona', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, atún, jamón York, jamón serrano y olivas negras.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cantábrica', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, queso azul, anchoas.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Melosa', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, pollo, bacon, salsa miel y mostaza y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Goat', precio:'10 €',
+              ingredientes:'Nata, mozzarella, salsa miel y mostaza, queso rulo de cabra y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Champiyork', precio:'8,50 €',
+              ingredientes:'Tomate, jamón York, mozzarella, champiñones y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Natyly', precio:'8,50 €',
+              ingredientes:'Nata, mozzarella, pollo, champiñones y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Theer', precio:'9 €',
+              ingredientes:'Nata, mozzarella, espinacas, queso de cabra y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'BBQ Cruss', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pollo, bacon y cebolla crujiente.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pulled', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pulled pork y cebolla morada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pepihia', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pepperoni y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Bacon BBQ', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pollo, maíz y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Caprichosa', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, jamón York, alcachofas, aceitunas y champiñones.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cateto', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, chorizo, morcilla, pepperoni, cebolla y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Miel y Noces', precio:'10 €',
+              ingredientes:'Base de queso de cabra, mozzarella, miel y nueces.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Dulce Brie', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, brie con manzana y cebolla caramelizada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Campagnarde', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, camembert con bacon y champiñones.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Brie Pollo', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, pollo, cebolla caramelizada y queso brie.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pulpo Gourmet', precio:'12 €',
+              ingredientes:'Base de tomate, mozzarella, pulpo cocido, patata cocida en rodajas, pimentón dulce y aceite de oliva.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Quesos Deluxe', precio:'12 €',
+              ingredientes:'Tomate, mozzarella, gorgonzola, brie, rulo de cabra, parmesano y emmental.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pollo Mostaza y Miel', precio:'10 €',
+              ingredientes:'Base de nata, mozzarella, pollo, bacon, salsa miel y mostaza y cebolla.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Exuberante', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, bacon, pepperoni y salsa BBQ.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Gamboa', precio:'10 €',
+              ingredientes:'Nata, mozzarella, atún y gambas.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Carrillada', precio:'15 €',
+              ingredientes:'Base de salsa casera, mozzarella, carrillada, queso de cabra y cebolla caramelizada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Milanésa', precio:'8,50 €',
+              ingredientes:'Tomate, mozzarella, jamón York, huevo duro y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Al Gusto', precio:'9 €',
+              ingredientes:'Tomate o nata, mozzarella, salsa y 3 ingredientes máximo.' },
+
             // ---------------- BOCADILLOS XXL ----------------
             { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Lomo Adobado o Magreta Completa', precio:'5,50 €',
               ingredientes:'Tomate natural, lechuga, lomo adobado o magreta y queso.' },
@@ -374,6 +429,28 @@
               ingredientes:'Tomate natural, pollo o lomo, pimiento verde, jamón serrano, queso.' },
             { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Gourmet', precio:'7,50 €',
               ingredientes:'Queso Philadelphia, pollo, bacon, cebolla caramelizada, queso.' },
+
+            // ---------------- BOCADILLOS FUERA DE CARTA (Calentitos XXL) ----------------
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Crujiente', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo crujiente, lechuga, queso y mayonesa.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Pollo BBQ', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo BBQ con cebolla frita y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Torreño', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo migado, patatas fritas, salsa brava y queso.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Presa', precio:'10 €',
+              ingredientes:'Tomate natural, jamón ibérico, pimiento verde, presa y queso curado.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Carbonara', precio:'7,50 €',
+              ingredientes:'Base de carbonara, pollo, bacon y queso de cabra.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Milanesa', precio:'7,50 €',
+              ingredientes:'Tomate natural, filete de pollo, huevo duro, jamón York y queso.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Rula', precio:'8 €',
+              ingredientes:'Tomate natural, Angus madurada, queso de cabra y cebolla caramelizada.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Cheddar', precio:'8,50 €',
+              ingredientes:'Tomate natural, Angus madurada, salsa cheddar, cebolla caramelizada y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Pulled Pork', precio:'10,50 €',
+              ingredientes:'Tomate natural, ternera o Angus madurada, pulled pork, salsa BBQ a la miel, cebolla caramelizada o crujiente y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Pig Melosa', precio:'8,50 €',
+              ingredientes:'Tomate natural, carne de cerdo, bacon, filete de pollo opcional, salsa miel y mostaza, cebolla a elegir (morada o caramelizada) y queso cheddar.' },
 
             // ---------------- ROSCAS ----------------
             { categoria:'Roscas', foto:IMG('rosca'), nombre:'Lomo al Curry', precio:'8 €',
@@ -429,6 +506,8 @@
             'Pizzas Normales':   'Precios por pizza <strong>individual</strong> y <strong>normal</strong>. 0,50 € por ingrediente extra.',
             'Pizzas Especiales': 'Precios por pizza <strong>individual</strong> y <strong>normal</strong>. 0,50 € por ingrediente extra.',
             'Pizzas Gourmet':    '0,50 € por ingrediente extra.',
+            'Pizzas Fuera de Carta': 'Ediciones especiales, sujetas a disponibilidad. 0,50 € por ingrediente extra.',
+            'Bocadillos Fuera de Carta': '<strong>Elige el pan</strong> que quieras: redondo o alargado.',
             'Calzones':          'Calzone XXL: +1,50 € por unidad.',
         };
 
