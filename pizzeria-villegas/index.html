@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza José Villegas | Carta</title>
+    <meta name="description" content="Carta digital de Pizza José Villegas. Pizzas, bocadillos XXL, roscas, paninis XXL y calzones artesanos hechos a mano.">
+    <link rel="icon" type="image/webp" href="img/logo-sm.webp">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --lc-bg: #f1e9d8;
+            --lc-card: #fbf6ec;
+            --lc-dark: #141210;
+            --lc-ink: #1d1815;
+            --lc-muted: #6e5d4a;
+            --lc-accent: #8a6b3a;
+            --lc-accent-soft: #c9b186;
+            --lc-rule: #2a221b;
+            --lc-burgundy: #6b2424;
+        }
+
+        body {
+            background:
+                radial-gradient(1200px 600px at 50% -100px, rgba(138,107,58,0.10), transparent 60%),
+                var(--lc-bg);
+            color: var(--lc-ink);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 17px;
+        }
+
+        .font-display { font-family: 'Cinzel', 'Cormorant SC', serif; letter-spacing: 0.04em; }
+        .font-script  { font-family: 'Cormorant SC', serif; letter-spacing: 0.06em; }
+        .font-body    { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+        .text-lc-dark   { color: var(--lc-ink); }
+        .text-lc-muted  { color: var(--lc-muted); }
+        .text-lc-accent { color: var(--lc-accent); }
+        .text-lc-burg   { color: var(--lc-burgundy); }
+        .bg-lc-card     { background-color: var(--lc-card); }
+        .bg-lc-dark     { background-color: var(--lc-dark); }
+        .bg-lc-bg       { background-color: var(--lc-bg); }
+        .border-lc-dark { border-color: var(--lc-dark); }
+        .border-lc-accent { border-color: var(--lc-accent); }
+
+        .paper {
+            background-color: var(--lc-card);
+            background-image:
+                radial-gradient(rgba(20,18,16,0.025) 1px, transparent 1px),
+                radial-gradient(rgba(20,18,16,0.03)  1px, transparent 1px);
+            background-size: 6px 6px, 11px 11px;
+            background-position: 0 0, 3px 3px;
+        }
+
+        .dot-leader {
+            flex: 1 1 auto;
+            margin: 0 0.5rem 0.32rem 0.5rem;
+            border-bottom: 1.5px dotted rgba(20,18,16,0.55);
+            min-width: 1.5rem;
+        }
+
+        .category-card {
+            position: relative;
+            background: var(--lc-card);
+            border: 1.5px solid var(--lc-rule);
+            box-shadow:
+                0 1px 0 rgba(20,18,16,0.04),
+                0 8px 18px -10px rgba(20,18,16,0.18);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .category-card:active { transform: scale(0.97); }
+        .category-card::before,
+        .category-card::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--lc-accent), transparent);
+        }
+        .category-card::before { top: 8px; }
+        .category-card::after  { bottom: 8px; }
+
+        .fade-in { animation: fadeIn .35s ease-out both; }
+        @keyframes fadeIn { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+        .hidden-scroll::-webkit-scrollbar { display: none; }
+
+        /* Ornament hr */
+        .ornament {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.75rem; color: var(--lc-accent); opacity: .85;
+        }
+        .ornament::before, .ornament::after {
+            content: ""; height: 1px; flex: 1; max-width: 80px;
+            background: linear-gradient(90deg, transparent, var(--lc-accent), transparent);
+        }
+
+        /* Drop cap on the section title */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        /* Sticky header backdrop */
+        header.lc-header {
+            background:
+                linear-gradient(180deg, rgba(255,253,247,0.96) 0%, rgba(241,233,216,0.85) 100%);
+            backdrop-filter: saturate(140%) blur(6px);
+            -webkit-backdrop-filter: saturate(140%) blur(6px);
+            border-bottom: 1px solid rgba(20,18,16,0.12);
+        }
+
+        /* Modal slide */
+        #detail, #legend {
+            transform: translateY(100%);
+            transition: transform .45s cubic-bezier(.2,.7,.2,1);
+        }
+        #detail.open, #legend.open { transform: translateY(0); }
+
+        .info-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid rgba(107,36,36,0.35);
+            background: rgba(107,36,36,0.06);
+            color: var(--lc-burgundy);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="text-lc-dark">
+
+    <!-- HEADER ----------------------------------------------------------- -->
+    <header class="lc-header sticky top-0 z-40">
+        <div class="max-w-2xl mx-auto relative min-h-[5.5rem] flex items-center justify-center py-3">
+            <button id="btn-back" onclick="goBack()"
+                class="hidden absolute left-3 top-1/2 -translate-y-1/2 text-xs px-3 py-1.5 rounded-full border border-lc-dark bg-white/70 hover:bg-lc-dark hover:text-white transition font-display tracking-widest uppercase z-10">
+                ← Volver
+            </button>
+
+            <img id="header-brand" src="img/logo.webp" alt="Pizza José Villegas"
+                 class="h-24 sm:h-28 w-auto select-none">
+        </div>
+    </header>
+
+    <!-- MAIN ------------------------------------------------------------- -->
+    <main class="max-w-2xl mx-auto px-4 sm:px-6 pb-24">
+
+        <!-- Vista categorías -->
+        <section id="view-categories" class="fade-in pt-6">
+            <div class="ornament my-6">
+                <span class="font-display text-lg tracking-[0.4em] uppercase">Carta</span>
+            </div>
+
+            <p class="text-center text-lc-muted italic text-base mb-8">
+                Productos 100% artesanos hechos a mano
+            </p>
+
+            <div id="grid-categories" class="grid grid-cols-2 gap-4 sm:gap-5"></div>
+
+            <button onclick="openLegend()"
+                class="mx-auto mt-7 flex items-center justify-center gap-2.5 w-full max-w-xs bg-lc-dark text-white py-4 px-6 rounded-full font-display tracking-[0.22em] uppercase text-xs shadow-lg hover:opacity-90 active:scale-95 transition">
+                <span class="text-base">ℹ️</span> Pedidos y horarios
+            </button>
+
+            <div class="ornament my-10">
+                <span class="font-display text-xs tracking-[0.5em] uppercase">· pizza josé villegas ·</span>
+            </div>
+
+            <p class="text-[12px] text-center text-lc-muted italic px-4 leading-relaxed">
+                Pedidos al <span class="font-semibold not-italic">684 10 60 9</span> · Instagram <span class="font-semibold not-italic">@Pizzas_jose_villegas</span>
+            </p>
+        </section>
+
+        <!-- Vista platos -->
+        <section id="view-items" class="hidden fade-in pt-4">
+            <header class="my-6">
+                <div class="ornament mb-3">
+                    <span id="section-title" class="section-title text-xl sm:text-2xl text-lc-dark">CATEGORÍA</span>
+                </div>
+                <p id="section-subtitle" class="text-center text-lc-muted italic text-sm hidden"></p>
+            </header>
+
+            <p id="price-header" class="hidden text-center text-xs tracking-[0.3em] uppercase text-lc-muted font-display mb-4"></p>
+
+            <ul id="list-items" class="grid grid-cols-2 gap-3 sm:gap-4 auto-rows-fr"></ul>
+        </section>
+
+    </main>
+
+    <!-- MODAL DETAIL ----------------------------------------------------- -->
+    <div id="detail" class="fixed inset-0 z-50 bg-lc-bg overflow-y-auto">
+        <button onclick="closeDetail()"
+            class="absolute top-5 right-5 w-11 h-11 rounded-full bg-lc-dark text-white text-xl font-bold shadow-lg hover:scale-105 transition flex items-center justify-center"
+            aria-label="Cerrar">✕</button>
+
+        <div class="max-w-md mx-auto px-6 pt-16 pb-12">
+
+            <div class="ornament mb-2">
+                <span class="font-display text-[11px] tracking-[0.5em] uppercase text-lc-accent" id="detail-cat">PLATO</span>
+            </div>
+
+            <h2 id="detail-name" class="font-display text-3xl sm:text-4xl text-lc-dark text-center leading-tight uppercase tracking-wide mb-6">
+            </h2>
+
+            <div id="detail-img-wrap" class="hidden mb-6 rounded-3xl overflow-hidden border-4 border-lc-card shadow-2xl ring-1 ring-lc-dark/10 aspect-[4/3]">
+                <img id="detail-img" src="" alt="" class="w-full h-full object-cover"
+                     onerror="this.parentElement.classList.add('hidden');">
+            </div>
+
+            <div class="paper rounded-2xl border border-lc-dark/15 shadow-md p-6 sm:p-8 mb-6">
+
+                <div id="detail-prices" class="flex items-end justify-center gap-8 sm:gap-12 mb-6">
+                    <!-- filled dynamically -->
+                </div>
+
+                <div id="detail-ingredients-block" class="hidden text-center">
+                    <h4 class="font-display text-[11px] tracking-[0.5em] uppercase text-lc-muted mb-2">Ingredientes</h4>
+                    <p id="detail-ingredients" class="italic text-lc-dark leading-relaxed text-lg"></p>
+                </div>
+
+                <div id="detail-note" class="hidden mt-6 text-center text-sm text-lc-muted italic"></div>
+            </div>
+
+            <button onclick="closeDetail()"
+                class="w-full bg-lc-dark text-white py-4 rounded-full font-display tracking-[0.3em] uppercase text-xs hover:opacity-90 active:scale-95 transition">
+                Regresar a la carta
+            </button>
+
+            <p class="mt-8 text-center font-display text-[11px] tracking-[0.5em] uppercase text-lc-accent/70">· Pizza José Villegas ·</p>
+        </div>
+    </div>
+
+    <!-- MODAL INFORMACIÓN / HORARIOS --------------------------------------- -->
+    <div id="legend" class="fixed inset-0 z-50 bg-lc-bg overflow-y-auto">
+        <button onclick="closeLegend()"
+            class="absolute top-5 right-5 w-11 h-11 rounded-full bg-lc-dark text-white text-xl font-bold shadow-lg hover:scale-105 transition flex items-center justify-center"
+            aria-label="Cerrar">✕</button>
+
+        <div class="max-w-md mx-auto px-6 pt-16 pb-12">
+
+            <div class="ornament mb-2">
+                <span class="font-display text-[11px] tracking-[0.5em] uppercase text-lc-accent">Información</span>
+            </div>
+
+            <h2 class="font-display text-3xl sm:text-4xl text-lc-dark text-center leading-tight uppercase tracking-wide mb-8">
+                Pedidos y horarios
+            </h2>
+
+            <div class="paper rounded-2xl border border-lc-dark/15 shadow-md p-6 sm:p-8 mb-6">
+                <ul id="legend-list" class="grid grid-cols-1 gap-4">
+                    <!-- filled dynamically -->
+                </ul>
+            </div>
+
+            <p class="text-[12px] text-center text-lc-muted italic px-2 leading-relaxed mb-8">
+                Si quisieras algún producto y no te ha dado tiempo a encargar, pregunta qué tenemos disponible.
+            </p>
+
+            <button onclick="closeLegend()"
+                class="w-full bg-lc-dark text-white py-4 rounded-full font-display tracking-[0.3em] uppercase text-xs hover:opacity-90 active:scale-95 transition">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- DATA + APP ------------------------------------------------------- -->
+    <script>
+        // ---------- DATA ------------------------------------------------
+        const categorias = [
+            { id: 'Pizzas Normales',         tagline: 'Las de siempre' },
+            { id: 'Pizzas Especiales',       tagline: 'Con más sabor' },
+            { id: 'Pizzas Gourmet',          tagline: 'Alta cocina en pizza' },
+            { id: 'Pizzas Fuera de Carta',   tagline: 'Ediciones especiales' },
+            { id: 'Bocadillos XXL',          tagline: 'Para los más hambrientos' },
+            { id: 'Bocadillos Fuera de Carta', tagline: 'Calentitos XXL' },
+            { id: 'Roscas',                  tagline: 'Receta tradicional' },
+            { id: 'Paninis XXL',             tagline: 'Rápidos y sabrosos' },
+            { id: 'Calzones',                tagline: 'Rellenos a tu gusto' },
+            { id: 'Packs y Bases',           tagline: 'Para llevar a casa' }
+        ];
+
+        const IMG = (slug) => `img/${slug}.webp`;
+
+        const platos = [
+            // ---------------- PIZZAS NORMALES (individual / normal) ----------------
+            { categoria:'Pizzas Normales', foto:IMG('pizza'), nombre:'Atún', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8 €'}],
+              ingredientes:'Tomate, mozzarella, atún.' },
+            { categoria:'Pizzas Normales', foto:IMG('pizza'), nombre:'York', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8 €'}],
+              ingredientes:'Tomate, mozzarella, jamón York.' },
+            { categoria:'Pizzas Normales', foto:IMG('pizza'), nombre:'Pepperoni', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8 €'}],
+              ingredientes:'Tomate, mozzarella, pepperoni.' },
+            { categoria:'Pizzas Normales', foto:IMG('pizza'), nombre:'Vegetal', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8 €'}],
+              ingredientes:'Tomate, mozzarella, cebolla, tomate natural y calabacín.' },
+            { categoria:'Pizzas Normales', foto:IMG('pizza'), nombre:'Bacon', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8 €'}],
+              ingredientes:'Tomate o nata, mozzarella, bacon.' },
+
+            // ---------------- PIZZAS ESPECIALES (individual / normal) ----------------
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Hawaiana', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, bacon, piña y orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'New York', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, jamón York, bacon.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Fusión', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, bacon, atún, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Mediterránea', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, atún, jamón York y orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Frankfurt', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, bacon, salchichas, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Philadelphia', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Queso Philadelphia, mozzarella, bacon, pollo, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Carbonara', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Nata, mozzarella, bacon, cebolla, pollo, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Bianca', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Nata, mozzarella, bacon, champiñón, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'Gaucha', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, pollo, bacon, salsa gaucha, orégano.' },
+            { categoria:'Pizzas Especiales', foto:IMG('pizza'), nombre:'BBQ', precios:[{label:'Individual',valor:'6 €'},{label:'Normal',valor:'8,50 €'}],
+              ingredientes:'Tomate, mozzarella, bacon, carne picada o pollo, salsa BBQ, orégano.' },
+
+            // ---------------- PIZZAS GOURMET (precio único) ----------------
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Deliciosa', precio:'9 €',
+              ingredientes:'Nata, mozzarella, bacon, pollo, queso azul y orégano.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Cremosita', precio:'9 €',
+              ingredientes:'Queso Philadelphia, mozzarella, bacon, pollo, cebolla caramelizada.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'5 Quesos', precio:'9 €',
+              ingredientes:'Tomate, mozzarella, queso rulo de cabra, queso azul y queso curado.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Kebab', precio:'9 €',
+              ingredientes:'Ketchup, mozzarella, carne kebab de pollo, salsa kebab.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Caramelizada', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, bacon, queso de cabra y cebolla caramelizada.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Nórdica', precio:'10 €',
+              ingredientes:'Queso Philadelphia, mozzarella, salmón, gambas y orégano.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Chaparra', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, atún, bacon, jamón serrano, jamón York.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Pulled Pork', precio:'11,50 €',
+              ingredientes:'Tomate, mozzarella, bacon, pulled pork, queso de cabra y salsa BBQ.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Suprema', precio:'11,50 €',
+              ingredientes:'Tomate, mozzarella, bacon, carne picada, pollo, queso curado, cebolla morada, salsa BBQ, orégano.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Bacon Burger', precio:'11,50 €',
+              ingredientes:'Tomate, mozzarella, bacon, tomate natural, mini burger, cebolla morada, queso cheddar, salsa burger, orégano.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Mexicana', precio:'11,50 €',
+              ingredientes:'Salsa mexicana, mozzarella, queso cheddar, salsa picante o pollo, pimientos.' },
+            { categoria:'Pizzas Gourmet', foto:IMG('pizza'), nombre:'Marinera', precio:'11,50 €',
+              ingredientes:'Tomate, mozzarella, anchoas, atún, palitos de mar, mejillones y gambas.' },
+
+            // ---------------- PIZZAS FUERA DE CARTA ----------------
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'La Magma', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, champiñón, jamón serrano, queso curado y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cassona', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, atún, jamón York, jamón serrano y olivas negras.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cantábrica', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, queso azul, anchoas.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Melosa', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, pollo, bacon, salsa miel y mostaza y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Goat', precio:'10 €',
+              ingredientes:'Nata, mozzarella, salsa miel y mostaza, queso rulo de cabra y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Champiyork', precio:'8,50 €',
+              ingredientes:'Tomate, jamón York, mozzarella, champiñones y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Natyly', precio:'8,50 €',
+              ingredientes:'Nata, mozzarella, pollo, champiñones y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Theer', precio:'9 €',
+              ingredientes:'Nata, mozzarella, espinacas, queso de cabra y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'BBQ Cruss', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pollo, bacon y cebolla crujiente.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pulled', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pulled pork y cebolla morada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pepihia', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pepperoni y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Bacon BBQ', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, BBQ, pollo, maíz y bacon.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Caprichosa', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, jamón York, alcachofas, aceitunas y champiñones.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Cateto', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, chorizo, morcilla, pepperoni, cebolla y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Miel y Noces', precio:'10 €',
+              ingredientes:'Base de queso de cabra, mozzarella, miel y nueces.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Dulce Brie', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, brie con manzana y cebolla caramelizada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Campagnarde', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, camembert con bacon y champiñones.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Brie Pollo', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, pollo, cebolla caramelizada y queso brie.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pulpo Gourmet', precio:'12 €',
+              ingredientes:'Base de tomate, mozzarella, pulpo cocido, patata cocida en rodajas, pimentón dulce y aceite de oliva.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Quesos Deluxe', precio:'12 €',
+              ingredientes:'Tomate, mozzarella, gorgonzola, brie, rulo de cabra, parmesano y emmental.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Pollo Mostaza y Miel', precio:'10 €',
+              ingredientes:'Base de nata, mozzarella, pollo, bacon, salsa miel y mostaza y cebolla.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Exuberante', precio:'10 €',
+              ingredientes:'Tomate, mozzarella, bacon, pepperoni y salsa BBQ.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Gamboa', precio:'10 €',
+              ingredientes:'Nata, mozzarella, atún y gambas.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Carrillada', precio:'15 €',
+              ingredientes:'Base de salsa casera, mozzarella, carrillada, queso de cabra y cebolla caramelizada.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Milanésa', precio:'8,50 €',
+              ingredientes:'Tomate, mozzarella, jamón York, huevo duro y orégano.' },
+            { categoria:'Pizzas Fuera de Carta', foto:IMG('pizza'), nombre:'Al Gusto', precio:'9 €',
+              ingredientes:'Tomate o nata, mozzarella, salsa y 3 ingredientes máximo.' },
+
+            // ---------------- BOCADILLOS XXL ----------------
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Lomo Adobado o Magreta Completa', precio:'5,50 €',
+              ingredientes:'Tomate natural, lechuga, lomo adobado o magreta y queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Lomo', precio:'6,50 €',
+              ingredientes:'Tomate natural, lechuga, bacon, lomo y queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Burger', precio:'7,50 €',
+              ingredientes:'Tomate natural, salsa burger, bacon, cebolla morada, mini burger y queso cheddar.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Big Burger', precio:'8 €',
+              ingredientes:'Tomate natural, lechuga, carne de pollo, jamón York, tortilla francesa y queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Pollo', precio:'6 €',
+              ingredientes:'Tomate natural, lechuga, pollo, queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Campero de Pollo', precio:'7 €',
+              ingredientes:'Tomate natural, pollo, tortilla francesa, queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Campero', precio:'5 €',
+              ingredientes:'Tomate natural, jamón York, queso, lechuga.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Serranito', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo o lomo, pimiento verde, jamón serrano, queso.' },
+            { categoria:'Bocadillos XXL', foto:IMG('bocadillo'), nombre:'Gourmet', precio:'7,50 €',
+              ingredientes:'Queso Philadelphia, pollo, bacon, cebolla caramelizada, queso.' },
+
+            // ---------------- BOCADILLOS FUERA DE CARTA (Calentitos XXL) ----------------
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Crujiente', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo crujiente, lechuga, queso y mayonesa.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Pollo BBQ', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo BBQ con cebolla frita y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Torreño', precio:'7,50 €',
+              ingredientes:'Tomate natural, pollo migado, patatas fritas, salsa brava y queso.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Presa', precio:'10 €',
+              ingredientes:'Tomate natural, jamón ibérico, pimiento verde, presa y queso curado.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Carbonara', precio:'7,50 €',
+              ingredientes:'Base de carbonara, pollo, bacon y queso de cabra.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Milanesa', precio:'7,50 €',
+              ingredientes:'Tomate natural, filete de pollo, huevo duro, jamón York y queso.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Rula', precio:'8 €',
+              ingredientes:'Tomate natural, Angus madurada, queso de cabra y cebolla caramelizada.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Cheddar', precio:'8,50 €',
+              ingredientes:'Tomate natural, Angus madurada, salsa cheddar, cebolla caramelizada y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Pulled Pork', precio:'10,50 €',
+              ingredientes:'Tomate natural, ternera o Angus madurada, pulled pork, salsa BBQ a la miel, cebolla caramelizada o crujiente y queso cheddar.' },
+            { categoria:'Bocadillos Fuera de Carta', foto:IMG('bocadillo'), nombre:'Burger Pig Melosa', precio:'8,50 €',
+              ingredientes:'Tomate natural, carne de cerdo, bacon, filete de pollo opcional, salsa miel y mostaza, cebolla a elegir (morada o caramelizada) y queso cheddar.' },
+
+            // ---------------- ROSCAS ----------------
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Lomo al Curry', precio:'8 €',
+              ingredientes:'Tomate natural, lomo, cebolla frita, salsa curry, queso.' },
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Gaucho', precio:'8 €',
+              ingredientes:'Tomate natural, salsa gaucha, pollo, queso.' },
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Serranito', precio:'10 €',
+              ingredientes:'Tomate natural, pollo o lomo, pimiento verde, jamón serrano, queso.' },
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Bruta', precio:'12 €',
+              ingredientes:'Tomate natural, pollo, tortilla francesa, jamón serrano, queso.' },
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Lomito', precio:'12 €',
+              ingredientes:'Tomate natural, lomo, tortilla de patatas, pimientos verdes, queso.' },
+            { categoria:'Roscas', foto:IMG('rosca'), nombre:'Burger', precio:'10 €',
+              ingredientes:'Tomate natural, salsa burger, bacon, mini burger, queso cheddar.' },
+
+            // ---------------- PANINIS XXL ----------------
+            { categoria:'Paninis XXL', foto:IMG('panini'), nombre:'Atún', precio:'5 €',
+              ingredientes:'Tomate, mozzarella, atún.' },
+            { categoria:'Paninis XXL', foto:IMG('panini'), nombre:'York', precio:'5 €',
+              ingredientes:'Tomate, mozzarella, jamón York.' },
+            { categoria:'Paninis XXL', foto:IMG('panini'), nombre:'Andaluza', precio:'5 €',
+              ingredientes:'Tomate, mozzarella, jamón York, atún, olivas.' },
+            { categoria:'Paninis XXL', foto:IMG('panini'), nombre:'Kebab', precio:'6 €',
+              ingredientes:'Ketchup, salsa kebab, carne kebab, mozzarella.' },
+            { categoria:'Paninis XXL', foto:IMG('panini'), nombre:'BBQ', precio:'6 €',
+              ingredientes:'Tomate, mozzarella, carne picada, salchichas, salsa BBQ.' },
+
+            // ---------------- CALZONES ----------------
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Carbonara', precio:'6,50 €',
+              ingredientes:'Nata, mozzarella, bacon, pollo y huevo.' },
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Pollo Cheddar', precio:'6,50 €',
+              ingredientes:'Tomate, mozzarella, bacon, pollo y cheddar.' },
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Mexicana', precio:'6,50 €',
+              ingredientes:'Tomate, mozzarella, carne picada, pimientos variados y salsa.' },
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Kebab', precio:'6,50 €',
+              ingredientes:'Ketchup, mozzarella, carne kebab, salsa kebab y orégano.' },
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Burger', precio:'7,50 €',
+              ingredientes:'Tomate, mozzarella, salsa, bacon, cebolla morada, mini burger, queso cheddar.' },
+            { categoria:'Calzones', foto:IMG('calzone'), nombre:'Al Gusto', precio:'—',
+              ingredientes:'Tomate, mozzarella + 3 ingredientes a elegir.', note:'Consultar precio según ingredientes elegidos.' },
+
+            // ---------------- PACKS Y BASES ----------------
+            { categoria:'Packs y Bases', foto:IMG('pizza'), nombre:'Base Pizza Individual', precio:'1,20 €',
+              note:'Precio por unidad.' },
+            { categoria:'Packs y Bases', foto:IMG('pizza'), nombre:'Pack Pizzas Familiares', precio:'7 €',
+              note:'Pack de 5 unidades.' },
+        ];
+
+        // Assign deterministic ids
+        platos.forEach((p, i) => p.id = i + 1);
+
+        const notes = {
+            'Pizzas Normales':   'Precios por pizza <strong>individual</strong> y <strong>normal</strong>. 0,50 € por ingrediente extra.',
+            'Pizzas Especiales': 'Precios por pizza <strong>individual</strong> y <strong>normal</strong>. 0,50 € por ingrediente extra.',
+            'Pizzas Gourmet':    '0,50 € por ingrediente extra.',
+            'Pizzas Fuera de Carta': 'Ediciones especiales, sujetas a disponibilidad. 0,50 € por ingrediente extra.',
+            'Bocadillos Fuera de Carta': '<strong>Elige el pan</strong> que quieras: redondo o alargado.',
+            'Calzones':          'Calzone XXL: +1,50 € por unidad.',
+        };
+
+        // ---------- RENDER ---------------------------------------------
+        const $ = (id) => document.getElementById(id);
+        const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+
+        function renderCategories() {
+            const grid = $('grid-categories');
+            grid.innerHTML = categorias.map((c, i) => `
+                <button onclick="openCategory('${c.id.replace(/'/g, "\\'")}')"
+                    class="category-card rounded-2xl px-3 py-7 flex flex-col items-center justify-center text-center min-h-[9rem] hover:shadow-lg">
+                    <div class="font-display text-[10px] tracking-[0.5em] uppercase text-lc-accent mb-1">${String(i+1).padStart(2,'0')}</div>
+                    <div class="font-display text-lg sm:text-xl text-lc-dark uppercase tracking-[0.16em] leading-tight">${escapeHtml(c.id)}</div>
+                    <div class="mt-2 font-body italic text-sm text-lc-muted">${escapeHtml(c.tagline)}</div>
+                </button>
+            `).join('');
+        }
+
+        function priceTag(p) {
+            // Compact price label for the dish card (single line)
+            if (p.precios && p.precios.length > 1) {
+                return `<div class="flex items-baseline justify-center gap-1 text-lc-burg font-display text-base sm:text-lg">
+                    ${p.precios.map((x, i) => `<span>${escapeHtml(x.valor)}</span>${i < p.precios.length - 1 ? '<span class="text-lc-muted/60 text-xs">/</span>' : ''}`).join('')}
+                </div>`;
+            }
+            return `<div class="font-display text-lg sm:text-xl text-lc-burg text-center">${escapeHtml(p.precio || '')}</div>`;
+        }
+
+        function openCategory(catId) {
+            const items = platos.filter(p => p.categoria === catId);
+            $('section-title').innerText = catId;
+            $('view-categories').classList.add('hidden');
+            $('view-items').classList.remove('hidden');
+            $('btn-back').classList.remove('hidden');
+            $('header-brand').classList.add('hidden');
+
+            const sub = $('section-subtitle');
+            if (notes[catId]) {
+                sub.innerHTML = notes[catId];
+                sub.classList.remove('hidden');
+            } else {
+                sub.classList.add('hidden');
+                sub.innerHTML = '';
+            }
+
+            // toggle price header (dual pricing categories)
+            const priceHeader = $('price-header');
+            const dualItem = items.find(p => p.precios && p.precios.length > 1);
+            if (dualItem) {
+                priceHeader.innerHTML = dualItem.precios.map(x => `<span>${escapeHtml(x.label)}</span>`).join(' · ');
+                priceHeader.classList.remove('hidden');
+            } else {
+                priceHeader.classList.add('hidden');
+                priceHeader.innerHTML = '';
+            }
+
+            const list = $('list-items');
+            list.innerHTML = items.map(p => `
+                <li class="h-full">
+                    <button onclick="openDetail(${p.id})"
+                        class="dish-card h-full w-full text-left bg-lc-card border border-lc-dark/15 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:border-lc-accent/60 active:scale-[0.98] transition flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-lc-bg shrink-0">
+                            <img src="${escapeHtml(p.foto || '')}" alt="${escapeHtml(p.nombre)}" loading="lazy"
+                                 class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                 onerror="this.style.opacity=0.15;this.alt='';this.src='img/logo-sm.webp';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');">
+                        </div>
+                        <div class="p-3 sm:p-4 flex-1 flex flex-col items-center text-center gap-2 justify-between">
+                            <h3 class="font-body font-semibold text-base sm:text-lg text-lc-dark leading-tight line-clamp-2 min-h-[2.6rem] flex items-center justify-center">${escapeHtml(p.nombre)}</h3>
+                            <div class="w-full min-h-[3rem] flex items-center justify-center">${priceTag(p)}</div>
+                        </div>
+                    </button>
+                </li>
+            `).join('') || '<li class="col-span-2 text-center italic text-lc-muted py-10">Próximamente.</li>';
+
+            history.pushState({ view: 'items', cat: catId }, '');
+            window.scrollTo({top: 0, behavior: 'instant'});
+        }
+
+        function showCategories() {
+            $('view-items').classList.add('hidden');
+            $('view-categories').classList.remove('hidden');
+            $('btn-back').classList.add('hidden');
+            $('header-brand').classList.remove('hidden');
+            window.scrollTo({top: 0, behavior: 'instant'});
+        }
+
+        function openDetail(id) {
+            const p = platos.find(x => x.id === id);
+            if (!p) return;
+            $('detail-cat').innerText = p.categoria;
+            $('detail-name').innerText = p.nombre;
+            const imgWrap = $('detail-img-wrap');
+            const imgEl = $('detail-img');
+            if (p.foto) {
+                imgEl.src = p.foto;
+                imgEl.alt = p.nombre;
+                imgWrap.classList.remove('hidden');
+            } else {
+                imgWrap.classList.add('hidden');
+                imgEl.removeAttribute('src');
+            }
+
+            let priceBlocks;
+            if (p.precios && p.precios.length) {
+                priceBlocks = p.precios.map(x => `<div class="text-center"><div class="font-display text-[10px] tracking-[0.45em] uppercase text-lc-muted mb-1">${escapeHtml(x.label)}</div><div class="font-display text-3xl text-lc-burg">${escapeHtml(x.valor)}</div></div>`);
+            } else {
+                priceBlocks = [`<div class="text-center"><div class="font-display text-[10px] tracking-[0.45em] uppercase text-lc-muted mb-1">Precio</div><div class="font-display text-4xl text-lc-burg">${escapeHtml(p.precio || '—')}</div></div>`];
+            }
+            $('detail-prices').innerHTML = priceBlocks.join('');
+
+            if (p.ingredientes) {
+                $('detail-ingredients').innerText = p.ingredientes;
+                $('detail-ingredients-block').classList.remove('hidden');
+            } else {
+                $('detail-ingredients-block').classList.add('hidden');
+            }
+
+            const note = $('detail-note');
+            if (p.note) {
+                note.innerText = p.note;
+                note.classList.remove('hidden');
+            } else {
+                note.classList.add('hidden');
+            }
+
+            const m = $('detail');
+            m.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            history.pushState({ view: 'detail' }, '');
+        }
+
+        function closeDetail() {
+            $('detail').classList.remove('open');
+            document.body.style.overflow = '';
+            if (history.state && history.state.view === 'detail') history.back();
+        }
+
+        const infoItems = [
+            { icon: '📞', texto: 'Pedidos al <strong>684 10 60 9</strong>' },
+            { icon: '📷', texto: 'Síguenos en Instagram <strong>@Pizzas_jose_villegas</strong>' },
+            { icon: '🍕', texto: 'Pizzas en carta: encargos hasta el <strong>viernes 12:00h</strong>' },
+            { icon: '🥪', texto: 'Bocadillos, roscas y fuera de carta: encargos hasta el <strong>jueves 12:00h</strong>' },
+            { icon: '📦', texto: 'Productos al vacío: <strong>dos días de antelación</strong>' },
+        ];
+
+        function renderLegend() {
+            const ul = $('legend-list');
+            ul.innerHTML = infoItems.map(info => `
+                <li class="flex items-center gap-3">
+                    <span class="text-2xl w-8 text-center shrink-0">${info.icon}</span>
+                    <span class="font-body text-lc-dark text-lg">${info.texto}</span>
+                </li>
+            `).join('');
+        }
+
+        function openLegend() {
+            renderLegend();
+            $('legend').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            history.pushState({ view: 'legend' }, '');
+        }
+
+        function closeLegend() {
+            $('legend').classList.remove('open');
+            document.body.style.overflow = '';
+            if (history.state && history.state.view === 'legend') history.back();
+        }
+
+        function goBack() {
+            history.back();
+        }
+
+        window.addEventListener('popstate', () => {
+            const detailOpen = $('detail').classList.contains('open');
+            const legendOpen = $('legend').classList.contains('open');
+            if (detailOpen) {
+                $('detail').classList.remove('open');
+                document.body.style.overflow = '';
+                return;
+            }
+            if (legendOpen) {
+                $('legend').classList.remove('open');
+                document.body.style.overflow = '';
+                return;
+            }
+            if (!$('view-items').classList.contains('hidden')) {
+                showCategories();
+            }
+        });
+
+        renderCategories();
+    </script>
+</body>
+</html>
